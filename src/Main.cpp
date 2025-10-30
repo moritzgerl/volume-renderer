@@ -241,14 +241,14 @@ int main()
     GuiParameters guiParameters = MakeGuiParameters();
     GuiUpdateFlags guiUpdateFlags;
         
-    Shader ssaoInputShader(FileSystem::getPath("powl/shaders/SsaoInput.vert").c_str(), FileSystem::getPath("powl/shaders/SsaoInput.frag").c_str());
-    Shader ssaoShader(FileSystem::getPath("powl/shaders/Ssao.vert").c_str(), FileSystem::getPath("powl/shaders/Ssao.frag").c_str());
-    Shader ssaoBlurShader(FileSystem::getPath("powl/shaders/Ssao.vert").c_str(), FileSystem::getPath("powl/shaders/SsaoBlur.frag").c_str());
-    Shader ssaoFinalShader(FileSystem::getPath("powl/shaders/SsaoFinal.vert").c_str(), FileSystem::getPath("powl/shaders/SsaoFinal.frag").c_str());
-    Shader lightSourceShader(FileSystem::getPath("powl/shaders/LightSource.vert").c_str(), FileSystem::getPath("powl/shaders/LightSource.frag").c_str());
-    Shader shadowMapShader(FileSystem::getPath("powl/shaders/ShadowMap.vert").c_str(), FileSystem::getPath("powl/shaders/ShadowMap.frag").c_str());
-    Shader shadowMapDebugQuadShader(FileSystem::getPath("powl/shaders/DebugQuad.vert").c_str(), FileSystem::getPath("powl/shaders/DebugQuadDepth.frag").c_str());
-    Shader ssaoDebugQuadShader(FileSystem::getPath("powl/shaders/DebugQuad.vert").c_str(), FileSystem::getPath("powl/shaders/DebugQuadColor.frag").c_str());
+    Shader ssaoInputShader(FileSystem::getPath("src/shaders/SsaoInput.vert").c_str(), FileSystem::getPath("src/shaders/SsaoInput.frag").c_str());
+    Shader ssaoShader(FileSystem::getPath("src/shaders/Ssao.vert").c_str(), FileSystem::getPath("src/shaders/Ssao.frag").c_str());
+    Shader ssaoBlurShader(FileSystem::getPath("src/shaders/Ssao.vert").c_str(), FileSystem::getPath("src/shaders/SsaoBlur.frag").c_str());
+    Shader ssaoFinalShader(FileSystem::getPath("src/shaders/SsaoFinal.vert").c_str(), FileSystem::getPath("src/shaders/SsaoFinal.frag").c_str());
+    Shader lightSourceShader(FileSystem::getPath("src/shaders/LightSource.vert").c_str(), FileSystem::getPath("src/shaders/LightSource.frag").c_str());
+    Shader shadowMapShader(FileSystem::getPath("src/shaders/ShadowMap.vert").c_str(), FileSystem::getPath("src/shaders/ShadowMap.frag").c_str());
+    Shader shadowMapDebugQuadShader(FileSystem::getPath("src/shaders/DebugQuad.vert").c_str(), FileSystem::getPath("src/shaders/DebugQuadDepth.frag").c_str());
+    Shader ssaoDebugQuadShader(FileSystem::getPath("src/shaders/DebugQuad.vert").c_str(), FileSystem::getPath("src/shaders/DebugQuadColor.frag").c_str());
 
     SsaoUtils ssaoUtils;
         
