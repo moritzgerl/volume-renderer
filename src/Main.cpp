@@ -1,13 +1,9 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
 #include <buffers/FrameBuffer.h>
 #include <buffers/VertexBuffer.h>
 #include <config/Config.h>
+#include <context/InitGlfw.h>
+#include <context/InitGlad.h>
+#include <context/InitGl.h>
 #include <camera/Camera.h>
 #include <input/MakeDisplayProperties.h>
 #include <input/DisplayProperties.h>
@@ -22,6 +18,13 @@
 #include <utils/SsaoUtils.h>
 #include <utils/UnitPlane.h>
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include <numbers>
 #include <iostream>
 
@@ -32,47 +35,6 @@ namespace Constants
 
 namespace
 {
-    // TODO move
-    GLFWwindow* InitGlfw()
-    {
-        glfwInit();
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-        GLFWwindow* window = glfwCreateWindow(Config::windowWidth, Config::windowHeight, "veda", NULL, NULL);
-        //GLFWwindow* window = glfwCreateWindow(Config::windowWidth, Config::windowHeight, "veda", glfwGetPrimaryMonitor(), NULL);
-        if (window == NULL)
-        {
-            std::cout << "Failed to create GLFW window" << std::endl;
-            glfwTerminate();
-        }
-        glfwMakeContextCurrent(window);
-
-        return window;
-    }
-
-    // TODO move
-    void InitGlad()
-    {
-        if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-        {
-            std::cout << "Failed to initialize GLAD" << std::endl;
-        }
-    }
-
-    // TODO move
-    void InitGl()
-    {
-        glEnable(GL_PROGRAM_POINT_SIZE);
-        glEnable(GL_DEPTH_TEST);
-        //glEnable(GL_BLEND);
-        //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        //glEnable(GL_CULL_FACE); // OPTIMIZE enable culling, but need to fix normals of unit cube first
-        //glCullFace(GL_BACK);
-    }
-
-
     // TODO - move
     // renderQuad() renders a 1x1 XY quad in NDC
     // -----------------------------------------
@@ -207,9 +169,10 @@ namespace
 
 int main()
 {
-    auto window = InitGlfw();
-    InitGlad();
-    InitGl();
+    // TODO use unique_ptr for window
+    auto window = Context::InitGlfw();
+    Context::InitGlad();
+    Context::InitGl();
     
     DisplayProperties displayProperties = Factory::MakeDisplayProperties();
     GuiParameters guiParameters = Factory::MakeGuiParameters();

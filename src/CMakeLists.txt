@@ -18,6 +18,14 @@ file(GLOB_RECURSE SRC_CONFIG_H
     "${CMAKE_CURRENT_SOURCE_DIR}/config/*.h" 
 )
 
+file(GLOB_RECURSE SRC_CONTEXT_H
+    "${CMAKE_CURRENT_SOURCE_DIR}/context/*.h" 
+)
+
+file(GLOB_RECURSE SRC_CONTEXT_CPP
+    "${CMAKE_CURRENT_SOURCE_DIR}/context/*.cpp"
+)
+
 file(GLOB_RECURSE SRC_GUI_H
     "${CMAKE_CURRENT_SOURCE_DIR}/gui/*.h" 
 )
@@ -83,6 +91,9 @@ source_group("camera" FILES ${SRC_CAMERA_H})
 
 source_group("config" FILES ${SRC_CONFIG_H})
 
+source_group("context\\Header Files" FILES ${SRC_CONTEXT_H})
+source_group("context\\Source Files" FILES ${SRC_CONTEXT_CPP})
+
 source_group("gui\\Header Files" FILES ${SRC_GUI_H})
 source_group("gui\\Source Files" FILES ${SRC_GUI_CPP})
 
@@ -109,6 +120,8 @@ add_executable(${PROJECT_NAME}
     ${SRC_BUFFERS_CPP}
     ${SRC_CAMERA_H}
     ${SRC_CONFIG_H}
+    ${SRC_CONTEXT_H}
+    ${SRC_CONTEXT_CPP}    
     ${SRC_GUI_H}
     ${SRC_GUI_CPP}
     ${SRC_IMGUI_H}
