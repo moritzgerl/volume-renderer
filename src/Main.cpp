@@ -16,6 +16,7 @@
 #include <shader/Shader.h>
 #include <shader/UpdateLightingParametersInShader.h>
 #include <shader/UpdateCameraMatricesInShader.h>
+#include <shader/UpdateLightSourceModelMatrixInShader.h>
 #include <shader/UpdateSsaoFinalShader.h>
 #include <shader/UpdateSsaoShader.h>
 #include <textures/Texture.h>
@@ -32,11 +33,6 @@
 
 #include <numbers>
 #include <iostream>
-
-namespace Constants
-{
-    const glm::mat4 lightSourceCubeScalingMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(0.2));
-}
 
 int main()
 {
@@ -141,7 +137,7 @@ int main()
         glDisable(GL_BLEND);
 
                 
-        // ------------------------------------------------  SSAO pass 1 (input)
+        // SSAO pass 1 (input)
         ssaoInputFrameBuffer.Bind(); 
         ssaoInputShader.use();
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -152,7 +148,7 @@ int main()
         ssaoInputFrameBuffer.Unbind();
 
 
-        // ------------------------------------------------  SSAO pass 2 (ssao)
+        // SSAO pass 2 (ssao)
         ssaoFrameBuffer.Bind();
         ssaoShader.use();
         ShaderUtils::UpdateCameraMatricesInShader(camera, ssaoShader);
@@ -164,7 +160,7 @@ int main()
         ssaoFrameBuffer.Unbind();
 
 
-        // ------------------------------------------------  SSAO pass 3 (blur)
+        // SSAO pass 3 (blur)
         ssaoBlurFrameBuffer.Bind();
         ssaoBlurShader.use();
         glClear(GL_COLOR_BUFFER_BIT);
@@ -173,7 +169,7 @@ int main()
         ssaoBlurFrameBuffer.Unbind();
 
           
-        // ------------------------------------------------  SSAO pass 4 (compositing)        
+        // SSAO pass 4 (compositing)        
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glDepthMask(GL_FALSE);
         ssaoFinalShader.use();
@@ -188,14 +184,14 @@ int main()
         glDepthMask(GL_TRUE);
 
 
-        // ------------------------------------------------  copy depth buffer
+        // Copy depth buffer
         ssaoInputFrameBuffer.Bind();
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
         glBlitFramebuffer(0, 0, Config::windowWidth, Config::windowHeight, 0, 0, Config::windowWidth, Config::windowHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
         ssaoInputFrameBuffer.Unbind();
 
 
-        // ------------------------------------------------  render calls without SSAO
+        // Render calls without SSAO
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -206,13 +202,12 @@ int main()
 
             for (unsigned int i = 0; i < Config::numPointLights; ++i)
             {
-                glm::mat4 model = glm::translate(glm::mat4(1.0f), guiParameters.pointLights[i].position) * Constants::lightSourceCubeScalingMatrix;
-                lightSourceShader.setMat4("model", model);
+                ShaderUtils::UpdateLightSourceModelMatrixInShader(guiParameters.pointLights[i].position, lightSourceShader);
                 glDrawArrays(GL_TRIANGLES, 0, 36);
             }
         }
 
-        // ------------------------------------------------  Debug rendering of SSAO buffers
+        // Debug rendering of SSAO buffers
         if (displayProperties.showSsaoMap)
         {
             glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
