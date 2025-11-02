@@ -3,6 +3,7 @@
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
+#include <shader/ShaderId.h>
 
 #include <string>
 
@@ -10,7 +11,7 @@ class Shader
 {
 public:
     // TODO use strings
-    Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
+    Shader(ShaderId shaderId, const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
 
     unsigned int GetProgramId() const;
 
@@ -33,6 +34,7 @@ private:
     void checkCompileErrors(GLuint shader, std::string type);
 
 private:
+    ShaderId m_shaderId;
     unsigned int m_programId;
 };
 

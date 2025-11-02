@@ -14,6 +14,7 @@
 #include <lights/GetLightSpaceMatrix.h>
 #include <primitives/ScreenQuad.h>
 #include <shader/Shader.h>
+#include <shader/ShaderId.h>
 #include <shader/UpdateLightingParametersInShader.h>
 #include <shader/UpdateCameraMatricesInShader.h>
 #include <shader/UpdateLightSourceModelMatrixInShader.h>
@@ -45,12 +46,12 @@ int main()
     GuiParameters guiParameters = Factory::MakeGuiParameters();
     GuiUpdateFlags guiUpdateFlags;
 
-    Shader ssaoInputShader(FileSystem::getPath("src/shaders/SsaoInput.vert").c_str(), FileSystem::getPath("src/shaders/SsaoInput.frag").c_str());
-    Shader ssaoShader(FileSystem::getPath("src/shaders/Ssao.vert").c_str(), FileSystem::getPath("src/shaders/Ssao.frag").c_str());
-    Shader ssaoBlurShader(FileSystem::getPath("src/shaders/Ssao.vert").c_str(), FileSystem::getPath("src/shaders/SsaoBlur.frag").c_str());
-    Shader ssaoFinalShader(FileSystem::getPath("src/shaders/SsaoFinal.vert").c_str(), FileSystem::getPath("src/shaders/SsaoFinal.frag").c_str());
-    Shader ssaoDebugQuadShader(FileSystem::getPath("src/shaders/DebugQuad.vert").c_str(), FileSystem::getPath("src/shaders/DebugQuadColor.frag").c_str());
-    Shader lightSourceShader(FileSystem::getPath("src/shaders/LightSource.vert").c_str(), FileSystem::getPath("src/shaders/LightSource.frag").c_str());
+    Shader ssaoInputShader(ShaderId::SsaoInput, FileSystem::getPath("src/shaders/SsaoInput.vert").c_str(), FileSystem::getPath("src/shaders/SsaoInput.frag").c_str());
+    Shader ssaoShader(ShaderId::Ssao, FileSystem::getPath("src/shaders/Ssao.vert").c_str(), FileSystem::getPath("src/shaders/Ssao.frag").c_str());
+    Shader ssaoBlurShader(ShaderId::SsaoBlur, FileSystem::getPath("src/shaders/Ssao.vert").c_str(), FileSystem::getPath("src/shaders/SsaoBlur.frag").c_str());
+    Shader ssaoFinalShader(ShaderId::SsaoFinal, FileSystem::getPath("src/shaders/SsaoFinal.vert").c_str(), FileSystem::getPath("src/shaders/SsaoFinal.frag").c_str());
+    Shader ssaoDebugQuadShader(ShaderId::DebugQuad, FileSystem::getPath("src/shaders/DebugQuad.vert").c_str(), FileSystem::getPath("src/shaders/DebugQuadColor.frag").c_str());
+    Shader lightSourceShader(ShaderId::LightSource, FileSystem::getPath("src/shaders/LightSource.vert").c_str(), FileSystem::getPath("src/shaders/LightSource.frag").c_str());
 
     SsaoUtils ssaoUtils;
         
