@@ -14,6 +14,10 @@
 #include <lights/GetLightSpaceMatrix.h>
 #include <primitives/ScreenQuad.h>
 #include <shader/Shader.h>
+#include <shader/UpdateLightingParametersInShader.h>
+#include <shader/UpdateMatricesInShader.h>
+#include <shader/UpdateSsaoFinalShader.h>
+#include <shader/UpdateSsaoShader.h>
 #include <textures/Texture.h>
 #include <utils/FileSystem.h>
 #include <utils/SsaoUtils.h>
@@ -35,63 +39,6 @@ namespace Constants
 
 namespace
 {
-    // TODO rename
-    void UpdateMatricesInShader(const Camera& camera, Shader& shader)
-    {
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(Config::windowWidth) / static_cast<float>(Config::windowHeight), 0.1f, 100.0f);
-        glm::mat4 view = camera.GetViewMatrix();
-        glm::mat4 model = glm::mat4(1.0f);
-
-        shader.setMat4("projection", projection);
-        shader.setMat4("view", view);
-        shader.setMat4("model", model);
-    }
-
-    // TODO move
-    void UpdateLightingParametersInShader(const GuiParameters& guiParameters, Shader& shader)
-    {
-        shader.setVec3("directionalLight.direction", guiParameters.directionalLight.direction);
-        shader.setVec3("directionalLight.ambient", guiParameters.directionalLight.ambient);
-        shader.setVec3("directionalLight.diffuse", guiParameters.directionalLight.diffuse);
-        shader.setVec3("directionalLight.specular", guiParameters.directionalLight.specular);
-        shader.setFloat("directionalLight.intensity", guiParameters.directionalLight.intensity);
-
-        for (unsigned int i = 0; i < Config::numPointLights; ++i)
-        {
-            const std::string name = "pointLights[" + std::to_string(i) + "]";
-
-            shader.setVec3(name + ".position", guiParameters.pointLights[i].position);
-            shader.setVec3(name + ".ambient", guiParameters.pointLights[i].ambient);
-            shader.setVec3(name + ".diffuse", guiParameters.pointLights[i].diffuse);
-            shader.setVec3(name + ".specular", guiParameters.pointLights[i].specular);
-            shader.setFloat(name + ".intensity", guiParameters.pointLights[i].intensity);
-        }
-
-        shader.setVec3("material.specular", 1.0f, 1.0f, 1.0f);
-        shader.setFloat("material.shininess", 1.0f);
-    }
-
-
-    // TODO move
-    void UpdateSsaoShader(const GuiParameters& guiParameters, const SsaoUtils& ssaoUtils, Shader& ssaoShader)
-    {
-        ssaoShader.setInt("kernelSize", guiParameters.ssaoKernelSize);
-        ssaoShader.setInt("noiseSize", guiParameters.ssaoNoiseSize);
-        ssaoShader.setFloat("radius", guiParameters.ssaoRadius);
-        ssaoShader.setFloat("bias", guiParameters.ssaoBias);
-
-        for (unsigned int i = 0; i < guiParameters.ssaoKernelSize; ++i)
-        {
-            ssaoShader.setVec3("samples[" + std::to_string(i) + "]", ssaoUtils.GetSamplePosition(i));
-        }
-    }
-
-    // TODO move
-    void UpdateSsaoFinalShader(const GuiParameters& guiParameters, Shader& ssaoFinalShader)
-    {
-        ssaoFinalShader.setInt("enableSsao", static_cast<int>(guiParameters.enableSsao));
-    }
-
     // TODO move
     void UpdateSsaoNoiseTexture(const GuiParameters& guiParameters, const SsaoUtils& ssaoUtils, Texture& ssaoNoiseTexture)
     {
@@ -109,11 +56,11 @@ int main()
     DisplayProperties displayProperties = Factory::MakeDisplayProperties();
     GuiParameters guiParameters = Factory::MakeGuiParameters();
     GuiUpdateFlags guiUpdateFlags;
-        
+
     Shader ssaoInputShader(FileSystem::getPath("src/shaders/SsaoInput.vert").c_str(), FileSystem::getPath("src/shaders/SsaoInput.frag").c_str());
     Shader ssaoShader(FileSystem::getPath("src/shaders/Ssao.vert").c_str(), FileSystem::getPath("src/shaders/Ssao.frag").c_str());
     Shader ssaoBlurShader(FileSystem::getPath("src/shaders/Ssao.vert").c_str(), FileSystem::getPath("src/shaders/SsaoBlur.frag").c_str());
-    Shader ssaoFinalShader(FileSystem::getPath("src/shaders/SsaoFinal.vert").c_str(), FileSystem::getPath("src/shaders/SsaoFinal.frag").c_str());    
+    Shader ssaoFinalShader(FileSystem::getPath("src/shaders/SsaoFinal.vert").c_str(), FileSystem::getPath("src/shaders/SsaoFinal.frag").c_str());
     Shader ssaoDebugQuadShader(FileSystem::getPath("src/shaders/DebugQuad.vert").c_str(), FileSystem::getPath("src/shaders/DebugQuadColor.frag").c_str());
     Shader lightSourceShader(FileSystem::getPath("src/shaders/LightSource.vert").c_str(), FileSystem::getPath("src/shaders/LightSource.frag").c_str());
 
@@ -160,7 +107,7 @@ int main()
     ssaoShader.setInt("gPosition", ssaoPositionTexture.GetTextureUnit());
     ssaoShader.setInt("gNormal", ssaoNormalTexture.GetTextureUnit());
     ssaoShader.setInt("texNoise", ssaoNoiseTexture.GetTextureUnit());
-    UpdateSsaoShader(guiParameters, ssaoUtils, ssaoShader);
+    ShaderUtils::UpdateSsaoShader(guiParameters, ssaoUtils, ssaoShader);
 
     ssaoBlurShader.use();
     ssaoBlurShader.setInt("ssaoInput", ssaoTexture.GetTextureUnit());
@@ -190,9 +137,9 @@ int main()
             ssaoUtils.UpdateNoise(guiParameters.ssaoNoiseSize);
             UpdateSsaoNoiseTexture(guiParameters, ssaoUtils, ssaoNoiseTexture);
             ssaoShader.use();
-            UpdateSsaoShader(guiParameters, ssaoUtils, ssaoShader);
+            ShaderUtils::UpdateSsaoShader(guiParameters, ssaoUtils, ssaoShader);
             ssaoFinalShader.use();
-            UpdateSsaoFinalShader(guiParameters, ssaoFinalShader);
+            ShaderUtils::UpdateSsaoFinalShader(guiParameters, ssaoFinalShader);
             guiUpdateFlags.ssaoParametersChanged = false;
         }
 
@@ -207,7 +154,7 @@ int main()
         ssaoInputShader.use();
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        UpdateMatricesInShader(camera, ssaoInputShader);
+        ShaderUtils::UpdateMatricesInShader(camera, ssaoInputShader);
         ssaoInputShader.setMat4("lightSpace", lightSpaceMatrix);
 
         ssaoInputFrameBuffer.Unbind();
@@ -216,7 +163,7 @@ int main()
         // ------------------------------------------------  SSAO pass 2 (ssao)
         ssaoFrameBuffer.Bind();
         ssaoShader.use();
-        UpdateMatricesInShader(camera, ssaoShader);
+        ShaderUtils::UpdateMatricesInShader(camera, ssaoShader);
         glClear(GL_COLOR_BUFFER_BIT);
         ssaoPositionTexture.Bind();
         ssaoNormalTexture.Bind();
@@ -238,7 +185,7 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glDepthMask(GL_FALSE);
         ssaoFinalShader.use();
-        UpdateLightingParametersInShader(guiParameters, ssaoFinalShader);
+        ShaderUtils::UpdateLightingParametersInShader(guiParameters, ssaoFinalShader);
         ssaoPositionTexture.Bind();
         ssaoLightSpacePositionTexture.Bind();
         ssaoNormalTexture.Bind();
@@ -263,7 +210,7 @@ int main()
         if (guiParameters.showLightSources)
         {
             lightSourceShader.use();
-            UpdateMatricesInShader(camera, lightSourceShader);
+            ShaderUtils::UpdateMatricesInShader(camera, lightSourceShader);
 
             for (unsigned int i = 0; i < Config::numPointLights; ++i)
             {
