@@ -1,8 +1,7 @@
-#include <utils/ScreenQuad.h>
+#include <primitives/ScreenQuad.h>
 
 ScreenQuad::ScreenQuad()
     : m_vertexCoordinates()
-    , m_indices()
 {
     // Normalized Device Coordinates
     m_vertexCoordinates =

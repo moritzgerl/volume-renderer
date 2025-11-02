@@ -58,8 +58,12 @@ file(GLOB_RECURSE SRC_LIGHTS_CPP
     "${CMAKE_CURRENT_SOURCE_DIR}/lights/*.cpp" 
 )
 
-file(GLOB_RECURSE SRC_LIGHTS_CPP
-    "${CMAKE_CURRENT_SOURCE_DIR}/lights/*.cpp"
+file(GLOB_RECURSE SRC_PRIMITIVES_H
+    "${CMAKE_CURRENT_SOURCE_DIR}/primitives/*.h" 
+)
+
+file(GLOB_RECURSE SRC_PRIMITIVES_CPP
+    "${CMAKE_CURRENT_SOURCE_DIR}/primitives/*.cpp" 
 )
 
 file(GLOB_RECURSE SRC_SHADERS
@@ -106,6 +110,9 @@ source_group("input\\Source Files" FILES ${SRC_INPUT_CPP})
 source_group("lights\\Header Files" FILES ${SRC_LIGHTS_H})
 source_group("lights\\Source Files" FILES ${SRC_LIGHTS_CPP})
 
+source_group("primitives\\Header Files" FILES ${SRC_PRIMITIVES_H})
+source_group("primitives\\Source Files" FILES ${SRC_PRIMITIVES_CPP})
+
 source_group("shaders" FILES ${SRC_SHADERS})
 
 source_group("textures\\Header Files" FILES ${SRC_TEXTURES_H})
@@ -130,6 +137,9 @@ add_executable(${PROJECT_NAME}
     ${SRC_INPUT_CPP}
     ${SRC_MAIN_CPP}
     ${SRC_LIGHTS_H}
+    ${SRC_LIGHTS_CPP}
+    ${SRC_PRIMITIVES_H}
+    ${SRC_PRIMITIVES_CPP}
     ${SRC_SHADERS}
     ${SRC_TEXTURES_H}
     ${SRC_TEXTURES_CPP}

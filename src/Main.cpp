@@ -12,11 +12,11 @@
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
 #include <gui/MakeGuiParameters.h>
+#include <primitives/ScreenQuad.h>
 #include <textures/Texture.h>
 #include <utils/FileSystem.h>
 #include <utils/Shader.h>
 #include <utils/SsaoUtils.h>
-#include <utils/ScreenQuad.h>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

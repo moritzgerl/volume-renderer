@@ -1,6 +1,6 @@
 #include <buffers/VertexBuffer.h>
 #include <config/Config.h>
-#include <utils/ScreenQuad.h>
+#include <primitives/ScreenQuad.h>
 
 #include <glad/glad.h>
 
@@ -21,11 +21,7 @@ VertexBuffer::VertexBuffer(const ScreenQuad& screenQuad)
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_elementBufferObject);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(GLuint), screenQuad.GetIndices(), GL_STATIC_DRAW);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));    
 }
 
 VertexBuffer::~VertexBuffer()
