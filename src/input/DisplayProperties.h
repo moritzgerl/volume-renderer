@@ -4,7 +4,6 @@
 struct DisplayProperties
 {
     bool showGui;
-    bool showShadowMap;
     bool showSsaoMap;
 };
 

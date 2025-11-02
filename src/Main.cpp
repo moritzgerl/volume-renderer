@@ -181,11 +181,9 @@ int main()
     Shader ssaoInputShader(FileSystem::getPath("src/shaders/SsaoInput.vert").c_str(), FileSystem::getPath("src/shaders/SsaoInput.frag").c_str());
     Shader ssaoShader(FileSystem::getPath("src/shaders/Ssao.vert").c_str(), FileSystem::getPath("src/shaders/Ssao.frag").c_str());
     Shader ssaoBlurShader(FileSystem::getPath("src/shaders/Ssao.vert").c_str(), FileSystem::getPath("src/shaders/SsaoBlur.frag").c_str());
-    Shader ssaoFinalShader(FileSystem::getPath("src/shaders/SsaoFinal.vert").c_str(), FileSystem::getPath("src/shaders/SsaoFinal.frag").c_str());
-    Shader lightSourceShader(FileSystem::getPath("src/shaders/LightSource.vert").c_str(), FileSystem::getPath("src/shaders/LightSource.frag").c_str());
-    Shader shadowMapShader(FileSystem::getPath("src/shaders/ShadowMap.vert").c_str(), FileSystem::getPath("src/shaders/ShadowMap.frag").c_str());
-    Shader shadowMapDebugQuadShader(FileSystem::getPath("src/shaders/DebugQuad.vert").c_str(), FileSystem::getPath("src/shaders/DebugQuadDepth.frag").c_str());
+    Shader ssaoFinalShader(FileSystem::getPath("src/shaders/SsaoFinal.vert").c_str(), FileSystem::getPath("src/shaders/SsaoFinal.frag").c_str());    
     Shader ssaoDebugQuadShader(FileSystem::getPath("src/shaders/DebugQuad.vert").c_str(), FileSystem::getPath("src/shaders/DebugQuadColor.frag").c_str());
+    Shader lightSourceShader(FileSystem::getPath("src/shaders/LightSource.vert").c_str(), FileSystem::getPath("src/shaders/LightSource.frag").c_str());
 
     SsaoUtils ssaoUtils;
         
@@ -198,9 +196,6 @@ int main()
     Texture ssaoNoiseTexture(GL_TEXTURE7, Config::defaultSsaoNoiseSize, Config::defaultSsaoNoiseSize, GL_RGBA32F, GL_RGB, GL_FLOAT, GL_NEAREST, GL_REPEAT, ssaoUtils.GetNoise());
     Texture ssaoStencilTexture(GL_TEXTURE8, Config::windowWidth, Config::windowHeight, GL_RED, GL_RED, GL_FLOAT, GL_NEAREST, GL_REPEAT);
     Texture ssaoPointLightsContributionTexture(GL_TEXTURE9, Config::windowWidth, Config::windowHeight, GL_RED, GL_RED, GL_FLOAT, GL_NEAREST, GL_REPEAT);
-    Texture shadowMapTexture(GL_TEXTURE10, Config::shadowMapWidth, Config::shadowMapHeight, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, GL_FLOAT, GL_NEAREST, GL_CLAMP_TO_BORDER);    
-    
-    shadowMapTexture.AddBorder();
 
     FrameBuffer ssaoInputFrameBuffer;
     ssaoInputFrameBuffer.Bind();
@@ -228,12 +223,6 @@ int main()
     ssaoBlurFrameBuffer.Check();
     ssaoBlurFrameBuffer.Unbind();
 
-    FrameBuffer shadowFrameBuffer;
-    shadowFrameBuffer.Bind();
-    shadowFrameBuffer.AttachTexture(GL_DEPTH_ATTACHMENT, shadowMapTexture);
-    shadowFrameBuffer.Check();
-    shadowFrameBuffer.Unbind();
-
     ssaoShader.use();
     ssaoShader.setVec2("windowSize", glm::vec2(Config::windowWidth, Config::windowHeight));
     ssaoShader.setInt("gPosition", ssaoPositionTexture.GetTextureUnit());
@@ -251,11 +240,7 @@ int main()
     ssaoFinalShader.setInt("ssaoAlbedo", ssaoAlbedoTexture.GetTextureUnit());
     ssaoFinalShader.setInt("ssaoPointLightsContribution", ssaoPointLightsContributionTexture.GetTextureUnit());
     ssaoFinalShader.setInt("ssaoMap", ssaoTexture.GetTextureUnit());
-    ssaoFinalShader.setInt("shadowMap", shadowMapTexture.GetTextureUnit());
     ssaoFinalShader.setInt("enableSsao", guiParameters.enableSsao);
-
-    shadowMapDebugQuadShader.use();
-    shadowMapDebugQuadShader.setInt("shadowMap", shadowMapTexture.GetTextureUnit());
 
     Camera camera(-2.25293994f, 9.60278416f, -4.95751047f, 0.00000000f, 1.00000000f, 0.00000000f, 389.10012817f, -30.39993668f);
     UnitPlane plane;
@@ -280,20 +265,6 @@ int main()
         }
 
         const glm::mat4 lightSpaceMatrix = GetLightSpaceMatrix(guiParameters);
-
-        // ------------------------------------------------  Create shadow map
-        shadowFrameBuffer.Bind();
-
-        glViewport(0, 0, Config::shadowMapWidth, Config::shadowMapHeight);
-        glClear(GL_DEPTH_BUFFER_BIT);
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_FRONT);
-
-        shadowMapShader.use();
-        shadowMapShader.setMat4("lightSpace", lightSpaceMatrix);
-        
-        shadowFrameBuffer.Unbind();
-        glDisable(GL_CULL_FACE);
 
         glViewport(0, 0, inputHandler.GetWindowWidth(), inputHandler.GetWindowHeight());
         glDisable(GL_BLEND);
@@ -342,7 +313,6 @@ int main()
         ssaoAlbedoTexture.Bind();
         ssaoPointLightsContributionTexture.Bind();
         ssaoBlurTexture.Bind();
-        shadowMapTexture.Bind();
         RenderQuad();
         glDepthMask(GL_TRUE);
 
@@ -369,17 +339,6 @@ int main()
                 lightSourceShader.setMat4("model", model);
                 glDrawArrays(GL_TRIANGLES, 0, 36);
             }
-        }
-
-        // ------------------------------------------------  Debug rendering of shadow map
-        if (displayProperties.showShadowMap)
-        {
-            glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-            shadowMapDebugQuadShader.use();
-            shadowMapTexture.Bind();
-            RenderQuad();
         }
 
         // ------------------------------------------------  Debug rendering of SSAO buffers

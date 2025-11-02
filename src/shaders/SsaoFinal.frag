@@ -35,39 +35,11 @@ uniform sampler2D ssaoNormal;
 uniform sampler2D ssaoAlbedo;
 uniform sampler2D ssaoPointLightsContribution;
 uniform sampler2D ssaoMap;
-uniform sampler2D shadowMap;
 
 in vec2 TexCoords;
 
 out vec4 FragColor;
 
-float CalculateShadow(vec3 projectedLightSpaceCoordinates)
-{
-    if (projectedLightSpaceCoordinates.z > 1.0)
-    {
-        return 0.0;
-    }
-    else
-    {
-        vec3 normal = vec3(0.0f, 1.0f, 0.0f);
-        vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
-        float shadow = 0.0;
-        float currentDepth = projectedLightSpaceCoordinates.z;
-        float bias = max(0.005f * (1.0f - dot(normal, directionalLight.direction)), 0.005f);
-
-        for(int x = -1; x <= 1; ++x)
-        {
-            for(int y = -1; y <= 1; ++y)
-            {
-                float pcfDepth = texture(shadowMap, projectedLightSpaceCoordinates.xy + vec2(x, y) * texelSize).r;
-                shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;
-            }
-        }
-        shadow /= 9.0;
-
-        return shadow;
-    }
-}
 
 vec3 CalculateDirectionalLight(vec3 materialColor, vec3 projectedLightSpaceCoordinates, vec3 normal, vec3 viewDirection, float ssao)
 {
@@ -84,9 +56,7 @@ vec3 CalculateDirectionalLight(vec3 materialColor, vec3 projectedLightSpaceCoord
     float specularFactor = pow(max(dot(viewDirection, reflectionDirection), 0.0), material.shininess);
     vec3 specular = directionalLight.specular * specularFactor * material.specular;
 
-    // shadow
-    float shadow = CalculateShadow(projectedLightSpaceCoordinates);
-    return (ambient + (1.0 - shadow) * (diffuse + specular)) * directionalLight.intensity;
+    return (ambient + diffuse + specular) * directionalLight.intensity;
 }
 
 vec3 CalculatePointLight(vec3 materialColor, float pointLightsContribution, PointLight pointLight, vec3 fragmentPosition, vec3 normal, vec3 viewDirection, float ssao)
@@ -151,5 +121,6 @@ void main()
         }
 
         FragColor = vec4(color, 1.0f);
+        FragColor = vec4(0, 1, 0, 1.0f);
     }
 }

@@ -24,8 +24,6 @@ namespace Config
     const unsigned int numPointLights = 2;
     const DirectionalLight defaultDirectionalLight = MakeDefaultDirectionalLight();
     const std::vector<PointLight> defaultPointLights = MakeDefaultPointLights(numPointLights);
-    const unsigned int shadowMapWidth = 4096;
-    const unsigned int shadowMapHeight = 4096;
     const unsigned int defaultSsaoKernelSize = 64;
     const unsigned int defaultSsaoNoiseSize = 4;
     const float defaultSsaoRadius = 0.538f;
