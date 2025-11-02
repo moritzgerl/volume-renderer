@@ -13,13 +13,13 @@ Shader const& ShaderStorage::GetShader(unsigned int id) const
         [id]
         (const Shader& shader)
         {
-            return shader.ID == id;
+            return shader.GetID() == id;
         }
     );
 
     if (shaderIter == m_shaders.end())
     {
-        throw std::out_of_range("ShaderStorage::GetShader - could not find shader with ID " + std::to_string(id));
+        throw std::out_of_range("ShaderStorage::GetShader - could not find shader with m_id " + std::to_string(id));
     }
 
     return *shaderIter;

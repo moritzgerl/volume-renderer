@@ -15,6 +15,7 @@ namespace Factory
         shaders.emplace_back(FileSystem::getPath("src/shaders/DebugQuad.vert").c_str(), FileSystem::getPath("src/shaders/DebugQuadColor.frag").c_str());
         shaders.emplace_back(FileSystem::getPath("src/shaders/LightSource.vert").c_str(), FileSystem::getPath("src/shaders/LightSource.frag").c_str());
 
+        // TODO check if this is right (warning) 
         return std::move(shaders);
     }
 }
