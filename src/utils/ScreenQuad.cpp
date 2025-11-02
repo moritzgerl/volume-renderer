@@ -1,6 +1,6 @@
-#include <utils/UnitPlane.h>
+#include <utils/ScreenQuad.h>
 
-UnitPlane::UnitPlane()
+ScreenQuad::ScreenQuad()
     : m_vertexCoordinates()
     , m_indices()
 {
@@ -18,12 +18,12 @@ UnitPlane::UnitPlane()
     };
 }
 
-const float* const UnitPlane::GetVertexCoordinates() const
+const float* const ScreenQuad::GetVertexCoordinates() const
 {
     return &m_vertexCoordinates[0];
 }
 
-const unsigned int* const UnitPlane::GetIndices() const
+const unsigned int* const ScreenQuad::GetIndices() const
 {
     return &m_indices[0];
 }

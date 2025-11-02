@@ -16,7 +16,7 @@
 #include <utils/FileSystem.h>
 #include <utils/Shader.h>
 #include <utils/SsaoUtils.h>
-#include <utils/UnitPlane.h>
+#include <utils/ScreenQuad.h>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -218,7 +218,7 @@ int main()
     ssaoFinalShader.setInt("enableSsao", guiParameters.enableSsao);
 
     Camera camera(-2.25293994f, 9.60278416f, -4.95751047f, 0.00000000f, 1.00000000f, 0.00000000f, 389.10012817f, -30.39993668f);
-    UnitPlane plane;
+    ScreenQuad screenQuad;
     InputHandler inputHandler(window, camera, displayProperties);
     Gui gui(window, guiParameters, guiUpdateFlags);
 

@@ -1,10 +1,10 @@
 #include <buffers/VertexBuffer.h>
 #include <config/Config.h>
-#include <utils/UnitPlane.h>
+#include <utils/ScreenQuad.h>
 
 #include <glad/glad.h>
 
-VertexBuffer::VertexBuffer(const UnitPlane& plane)
+VertexBuffer::VertexBuffer(const ScreenQuad& screenQuad)
     : m_vertexBufferObject()
     , m_vertexArrayObject()
     , m_elementBufferObject()
@@ -16,7 +16,7 @@ VertexBuffer::VertexBuffer(const UnitPlane& plane)
     glBindVertexArray(m_vertexArrayObject);
 
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
-    glBufferData(GL_ARRAY_BUFFER, 20 * sizeof(float), plane.GetVertexCoordinates(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 20 * sizeof(float), screenQuad.GetVertexCoordinates(), GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
@@ -25,7 +25,7 @@ VertexBuffer::VertexBuffer(const UnitPlane& plane)
     glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_elementBufferObject);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(GLuint), plane.GetIndices(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(GLuint), screenQuad.GetIndices(), GL_STATIC_DRAW);
 }
 
 VertexBuffer::~VertexBuffer()

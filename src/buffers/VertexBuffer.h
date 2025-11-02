@@ -1,12 +1,12 @@
 #ifndef VERTEX_BUFFER_H
 #define VERTEX_BUFFER_H
 
-class UnitPlane;
+class ScreenQuad;
 
 class VertexBuffer
 {
 public:
-    VertexBuffer(const UnitPlane& plane);
+    VertexBuffer(const ScreenQuad& screenQuad);
     ~VertexBuffer();
     void Bind();
 

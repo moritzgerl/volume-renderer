@@ -1,12 +1,12 @@
-#ifndef UNIT_PLANE_H
-#define UNIT_PLANE_H
+#ifndef SCREEN_QUAD_H
+#define SCREEN_QUAD_H
 
 #include <vector>
 
-class UnitPlane
+class ScreenQuad
 {
 public:
-    UnitPlane();
+    ScreenQuad();
     const float* const GetVertexCoordinates() const;
     const unsigned int* const GetIndices() const;
 
