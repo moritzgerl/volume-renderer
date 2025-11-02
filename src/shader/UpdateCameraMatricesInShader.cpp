@@ -12,7 +12,7 @@ void ShaderUtils::UpdateCameraMatricesInShader(const Camera& camera, const Shade
     glm::mat4 view = camera.GetViewMatrix();
     glm::mat4 model = glm::mat4(1.0f);
 
-    shader.setMat4("projection", projection);
-    shader.setMat4("view", view);
-    shader.setMat4("model", model);
+    shader.SetMat4("projection", projection);
+    shader.SetMat4("view", view);
+    shader.SetMat4("model", model);
 }

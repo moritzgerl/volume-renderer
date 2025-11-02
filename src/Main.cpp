@@ -95,24 +95,24 @@ int main()
     ssaoBlurFrameBuffer.Check();
     ssaoBlurFrameBuffer.Unbind();
 
-    ssaoShader.use();
-    ssaoShader.setVec2("windowSize", glm::vec2(Config::windowWidth, Config::windowHeight));
-    ssaoShader.setInt("gPosition", ssaoPositionTexture.GetTextureUnit());
-    ssaoShader.setInt("gNormal", ssaoNormalTexture.GetTextureUnit());
-    ssaoShader.setInt("texNoise", ssaoNoiseTexture.GetTextureUnit());
+    ssaoShader.Use();
+    ssaoShader.SetVec2("windowSize", glm::vec2(Config::windowWidth, Config::windowHeight));
+    ssaoShader.SetInt("gPosition", ssaoPositionTexture.GetTextureUnit());
+    ssaoShader.SetInt("gNormal", ssaoNormalTexture.GetTextureUnit());
+    ssaoShader.SetInt("texNoise", ssaoNoiseTexture.GetTextureUnit());
     ShaderUtils::UpdateSsaoShader(guiParameters, ssaoUtils, ssaoShader);
 
-    ssaoBlurShader.use();
-    ssaoBlurShader.setInt("ssaoInput", ssaoTexture.GetTextureUnit());
+    ssaoBlurShader.Use();
+    ssaoBlurShader.SetInt("ssaoInput", ssaoTexture.GetTextureUnit());
 
-    ssaoFinalShader.use();
-    ssaoFinalShader.setInt("ssaoPosition", ssaoPositionTexture.GetTextureUnit());
-    ssaoFinalShader.setInt("ssaoLightSpacePosition", ssaoLightSpacePositionTexture.GetTextureUnit());
-    ssaoFinalShader.setInt("ssaoNormal", ssaoNormalTexture.GetTextureUnit());
-    ssaoFinalShader.setInt("ssaoAlbedo", ssaoAlbedoTexture.GetTextureUnit());
-    ssaoFinalShader.setInt("ssaoPointLightsContribution", ssaoPointLightsContributionTexture.GetTextureUnit());
-    ssaoFinalShader.setInt("ssaoMap", ssaoTexture.GetTextureUnit());
-    ssaoFinalShader.setInt("enableSsao", guiParameters.enableSsao);
+    ssaoFinalShader.Use();
+    ssaoFinalShader.SetInt("ssaoPosition", ssaoPositionTexture.GetTextureUnit());
+    ssaoFinalShader.SetInt("ssaoLightSpacePosition", ssaoLightSpacePositionTexture.GetTextureUnit());
+    ssaoFinalShader.SetInt("ssaoNormal", ssaoNormalTexture.GetTextureUnit());
+    ssaoFinalShader.SetInt("ssaoAlbedo", ssaoAlbedoTexture.GetTextureUnit());
+    ssaoFinalShader.SetInt("ssaoPointLightsContribution", ssaoPointLightsContributionTexture.GetTextureUnit());
+    ssaoFinalShader.SetInt("ssaoMap", ssaoTexture.GetTextureUnit());
+    ssaoFinalShader.SetInt("enableSsao", guiParameters.enableSsao);
 
     Camera camera(-2.25293994f, 9.60278416f, -4.95751047f, 0.00000000f, 1.00000000f, 0.00000000f, 389.10012817f, -30.39993668f);
     ScreenQuad screenQuad;
@@ -129,9 +129,9 @@ int main()
             ssaoUtils.UpdateKernel(guiParameters.ssaoKernelSize);
             ssaoUtils.UpdateNoise(guiParameters.ssaoNoiseSize);
             TextureUtils::UpdateSsaoNoiseTexture(guiParameters, ssaoUtils, ssaoNoiseTexture);
-            ssaoShader.use();
+            ssaoShader.Use();
             ShaderUtils::UpdateSsaoShader(guiParameters, ssaoUtils, ssaoShader);
-            ssaoFinalShader.use();
+            ssaoFinalShader.Use();
             ShaderUtils::UpdateSsaoFinalShader(guiParameters, ssaoFinalShader);
             guiUpdateFlags.ssaoParametersChanged = false;
         }
@@ -144,18 +144,18 @@ int main()
                 
         // SSAO pass 1 (input)
         ssaoInputFrameBuffer.Bind();
-        ssaoInputShader.use();
+        ssaoInputShader.Use();
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         ShaderUtils::UpdateCameraMatricesInShader(camera, ssaoInputShader);
-        ssaoInputShader.setMat4("lightSpace", lightSpaceMatrix);
+        ssaoInputShader.SetMat4("lightSpace", lightSpaceMatrix);
 
         ssaoInputFrameBuffer.Unbind();
 
 
         // SSAO pass 2 (ssao)
         ssaoFrameBuffer.Bind();
-        ssaoShader.use();
+        ssaoShader.Use();
         ShaderUtils::UpdateCameraMatricesInShader(camera, ssaoShader);
         glClear(GL_COLOR_BUFFER_BIT);
         ssaoPositionTexture.Bind();
@@ -167,7 +167,7 @@ int main()
 
         // SSAO pass 3 (blur)
         ssaoBlurFrameBuffer.Bind();
-        ssaoBlurShader.use();
+        ssaoBlurShader.Use();
         glClear(GL_COLOR_BUFFER_BIT);
         ssaoTexture.Bind();
         screenQuad.Render();
@@ -177,7 +177,7 @@ int main()
         // SSAO pass 4 (compositing)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glDepthMask(GL_FALSE);
-        ssaoFinalShader.use();
+        ssaoFinalShader.Use();
         ShaderUtils::UpdateLightingParametersInShader(guiParameters, ssaoFinalShader);
         ssaoPositionTexture.Bind();
         ssaoLightSpacePositionTexture.Bind();
@@ -202,7 +202,7 @@ int main()
 
         if (guiParameters.showLightSources)
         {
-            lightSourceShader.use();
+            lightSourceShader.Use();
             ShaderUtils::UpdateCameraMatricesInShader(camera, lightSourceShader);
 
             for (unsigned int i = 0; i < Config::numPointLights; ++i)
@@ -217,10 +217,10 @@ int main()
         {
             glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            ssaoDebugQuadShader.use();
+            ssaoDebugQuadShader.Use();
             ssaoBlurTexture.Bind();
-            ssaoDebugQuadShader.setInt("colorTexture", ssaoBlurTexture.GetTextureUnit());
-            ssaoDebugQuadShader.setInt("isSingleChannel", 1);
+            ssaoDebugQuadShader.SetInt("colorTexture", ssaoBlurTexture.GetTextureUnit());
+            ssaoDebugQuadShader.SetInt("isSingleChannel", 1);
             screenQuad.Render();
         }
 

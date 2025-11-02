@@ -4,6 +4,6 @@
 
 void ShaderUtils::UpdateSsaoFinalShader(const GuiParameters& guiParameters, const Shader& ssaoFinalShader)
 {
-    ssaoFinalShader.setInt("enableSsao", static_cast<int>(guiParameters.enableSsao));
+    ssaoFinalShader.SetInt("enableSsao", static_cast<int>(guiParameters.enableSsao));
 }
 

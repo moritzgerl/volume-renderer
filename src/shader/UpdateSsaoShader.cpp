@@ -7,13 +7,13 @@
 
 void ShaderUtils::UpdateSsaoShader(const GuiParameters& guiParameters, const SsaoUtils& ssaoUtils, const Shader& ssaoShader)
 {
-    ssaoShader.setInt("kernelSize", guiParameters.ssaoKernelSize);
-    ssaoShader.setInt("noiseSize", guiParameters.ssaoNoiseSize);
-    ssaoShader.setFloat("radius", guiParameters.ssaoRadius);
-    ssaoShader.setFloat("bias", guiParameters.ssaoBias);
+    ssaoShader.SetInt("kernelSize", guiParameters.ssaoKernelSize);
+    ssaoShader.SetInt("noiseSize", guiParameters.ssaoNoiseSize);
+    ssaoShader.SetFloat("radius", guiParameters.ssaoRadius);
+    ssaoShader.SetFloat("bias", guiParameters.ssaoBias);
 
     for (unsigned int i = 0; i < guiParameters.ssaoKernelSize; ++i)
     {
-        ssaoShader.setVec3("samples[" + std::to_string(i) + "]", ssaoUtils.GetSamplePosition(i));
+        ssaoShader.SetVec3("samples[" + std::to_string(i) + "]", ssaoUtils.GetSamplePosition(i));
     }
 }
