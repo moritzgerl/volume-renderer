@@ -9,9 +9,10 @@
 class Shader
 {
 public:
+    // TODO use strings
     Shader(const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
 
-    unsigned int GetID() const;
+    unsigned int GetProgramId() const;
 
     // TODO rename
     void use();    
@@ -32,7 +33,7 @@ private:
     void checkCompileErrors(GLuint shader, std::string type);
 
 private:
-    unsigned int m_id;
+    unsigned int m_programId;
 };
 
 #endif

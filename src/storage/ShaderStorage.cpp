@@ -13,7 +13,7 @@ Shader const& ShaderStorage::GetShader(unsigned int id) const
         [id]
         (const Shader& shader)
         {
-            return shader.GetID() == id;
+            return shader.GetProgramId() == id;
         }
     );
 
