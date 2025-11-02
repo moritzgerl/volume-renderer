@@ -111,14 +111,6 @@ namespace
     }
 
     // TODO move
-    void UpdateLightingParametersInShader(const Camera& camera, const glm::mat4& lightSpaceMatrix, const GuiParameters& guiParameters, Shader& shader)
-    {
-        shader.setVec3("viewPosition", camera.Position);
-        shader.setMat4("lightSpace", lightSpaceMatrix);
-        UpdateLightingParametersInShader(guiParameters, shader);
-    }
-
-    // TODO move
     void UpdateSsaoShader(const GuiParameters& guiParameters, const SsaoUtils& ssaoUtils, Shader& ssaoShader)
     {
         ssaoShader.setInt("kernelSize", guiParameters.ssaoKernelSize);
