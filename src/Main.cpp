@@ -19,6 +19,7 @@
 #include <shader/UpdateSsaoFinalShader.h>
 #include <shader/UpdateSsaoShader.h>
 #include <textures/Texture.h>
+#include <textures/UpdateSsaoNoiseTexture.h>
 #include <utils/FileSystem.h>
 #include <utils/SsaoUtils.h>
 
@@ -35,15 +36,6 @@
 namespace Constants
 {
     const glm::mat4 lightSourceCubeScalingMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(0.2));
-}
-
-namespace
-{
-    // TODO move
-    void UpdateSsaoNoiseTexture(const GuiParameters& guiParameters, const SsaoUtils& ssaoUtils, Texture& ssaoNoiseTexture)
-    {
-        ssaoNoiseTexture = Texture(ssaoNoiseTexture.GetTextureUnitEnum(), guiParameters.ssaoNoiseSize, guiParameters.ssaoNoiseSize, GL_RGBA32F, GL_RGB, GL_FLOAT, GL_NEAREST, GL_REPEAT, ssaoUtils.GetNoise());
-    }
 }
 
 int main()
@@ -135,7 +127,7 @@ int main()
         {
             ssaoUtils.UpdateKernel(guiParameters.ssaoKernelSize);
             ssaoUtils.UpdateNoise(guiParameters.ssaoNoiseSize);
-            UpdateSsaoNoiseTexture(guiParameters, ssaoUtils, ssaoNoiseTexture);
+            TextureUtils::UpdateSsaoNoiseTexture(guiParameters, ssaoUtils, ssaoNoiseTexture);
             ssaoShader.use();
             ShaderUtils::UpdateSsaoShader(guiParameters, ssaoUtils, ssaoShader);
             ssaoFinalShader.use();
