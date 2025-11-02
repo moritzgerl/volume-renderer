@@ -154,17 +154,6 @@ namespace
         const glm::mat4 lightSpace = lightProjection * lightView;
         return lightSpace;
     }
-
-    // TODO move
-    void DrawTransparentCube()
-    {
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_FRONT);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glCullFace(GL_BACK);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
-        glDisable(GL_CULL_FACE);
-    }
 }
 
 int main()
