@@ -9,20 +9,20 @@ VertexBuffer::VertexBuffer(const ScreenQuad& screenQuad)
     , m_vertexArrayObject()
     , m_elementBufferObject()
 {
+    const float* const vertexCoordinates = screenQuad.GetVertexCoordinates();
+
     glGenVertexArrays(1, &m_vertexArrayObject);
     glGenBuffers(1, &m_vertexBufferObject);
-    glGenBuffers(1, &m_elementBufferObject);
-
     glBindVertexArray(m_vertexArrayObject);
-
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
-    glBufferData(GL_ARRAY_BUFFER, 20 * sizeof(float), screenQuad.GetVertexCoordinates(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(*vertexCoordinates), vertexCoordinates, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
 
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_elementBufferObject);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(GLuint), screenQuad.GetIndices(), GL_STATIC_DRAW);
