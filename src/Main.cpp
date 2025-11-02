@@ -35,38 +35,6 @@ namespace Constants
 
 namespace
 {
-    // TODO - move
-    // renderQuad() renders a 1x1 XY quad in NDC
-    // -----------------------------------------
-    unsigned int quadVAO = 0;
-    unsigned int quadVBO;
-    void RenderQuad()
-    {
-        if (quadVAO == 0)
-        {
-            float quadVertices[] = {
-                // positions        // texture Coords
-                -1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-                -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-                 1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
-                 1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-            };
-            // setup plane VAO
-            glGenVertexArrays(1, &quadVAO);
-            glGenBuffers(1, &quadVBO);
-            glBindVertexArray(quadVAO);
-            glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-            glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-            glEnableVertexAttribArray(0);
-            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-            glEnableVertexAttribArray(1);
-            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-        }
-        glBindVertexArray(quadVAO);
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-        glBindVertexArray(0);
-    }
-
     // TODO rename
     void UpdateMatricesInShader(const Camera& camera, Shader& shader)
     {
@@ -253,7 +221,7 @@ int main()
         ssaoPositionTexture.Bind();
         ssaoNormalTexture.Bind();
         ssaoNoiseTexture.Bind();
-        RenderQuad();
+        screenQuad.Render();
         ssaoFrameBuffer.Unbind();
 
 
@@ -262,7 +230,7 @@ int main()
         ssaoBlurShader.use();
         glClear(GL_COLOR_BUFFER_BIT);
         ssaoTexture.Bind();
-        RenderQuad();
+        screenQuad.Render();
         ssaoBlurFrameBuffer.Unbind();
 
           
@@ -277,7 +245,7 @@ int main()
         ssaoAlbedoTexture.Bind();
         ssaoPointLightsContributionTexture.Bind();
         ssaoBlurTexture.Bind();
-        RenderQuad();
+        screenQuad.Render();
         glDepthMask(GL_TRUE);
 
 
@@ -314,7 +282,7 @@ int main()
             ssaoBlurTexture.Bind();
             ssaoDebugQuadShader.setInt("colorTexture", ssaoBlurTexture.GetTextureUnit());
             ssaoDebugQuadShader.setInt("isSingleChannel", 1);
-            RenderQuad();
+            screenQuad.Render();
         }
 
         if (displayProperties.showGui)
