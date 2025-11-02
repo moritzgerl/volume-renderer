@@ -7,7 +7,7 @@ class Shader;
 
 namespace ShaderUtils
 {
-    void UpdateLightSourceModelMatrixInShader(const glm::vec3& lightPosition, Shader& shader);
+    void UpdateLightSourceModelMatrixInShader(const glm::vec3& lightPosition, const Shader& shader);
 }
 
 #endif

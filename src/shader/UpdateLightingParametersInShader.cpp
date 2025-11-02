@@ -5,7 +5,7 @@
 
 #include <string>
 
-void ShaderUtils::UpdateLightingParametersInShader(const GuiParameters& guiParameters, Shader& shader)
+void ShaderUtils::UpdateLightingParametersInShader(const GuiParameters& guiParameters, const Shader& shader)
 {
     shader.setVec3("directionalLight.direction", guiParameters.directionalLight.direction);
     shader.setVec3("directionalLight.ambient", guiParameters.directionalLight.ambient);

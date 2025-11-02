@@ -5,7 +5,7 @@
 
 #include <string>
 
-void ShaderUtils::UpdateSsaoShader(const GuiParameters& guiParameters, const SsaoUtils& ssaoUtils, Shader& ssaoShader)
+void ShaderUtils::UpdateSsaoShader(const GuiParameters& guiParameters, const SsaoUtils& ssaoUtils, const Shader& ssaoShader)
 {
     ssaoShader.setInt("kernelSize", guiParameters.ssaoKernelSize);
     ssaoShader.setInt("noiseSize", guiParameters.ssaoNoiseSize);

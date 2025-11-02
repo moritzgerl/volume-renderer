@@ -6,7 +6,7 @@ class Shader;
 
 namespace ShaderUtils
 {
-    void UpdateLightingParametersInShader(const GuiParameters& guiParameters, Shader& shader);
+    void UpdateLightingParametersInShader(const GuiParameters& guiParameters, const Shader& shader);
 }
 
 #endif

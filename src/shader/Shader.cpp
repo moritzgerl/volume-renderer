@@ -96,7 +96,7 @@ ShaderId Shader::GetShaderId() const
     return m_shaderId;
 }
 
-void Shader::use()
+void Shader::use() const
 {
     glUseProgram(m_programId);
 }

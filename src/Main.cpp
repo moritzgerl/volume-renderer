@@ -15,7 +15,9 @@
 #include <primitives/ScreenQuad.h>
 #include <shader/Shader.h>
 #include <shader/ShaderId.h>
+#include <shader/MakeShaders.h>
 #include <shader/UpdateLightingParametersInShader.h>
+#include <storage/ShaderStorage.h>
 #include <shader/UpdateCameraMatricesInShader.h>
 #include <shader/UpdateLightSourceModelMatrixInShader.h>
 #include <shader/UpdateSsaoFinalShader.h>
@@ -46,12 +48,14 @@ int main()
     GuiParameters guiParameters = Factory::MakeGuiParameters();
     GuiUpdateFlags guiUpdateFlags;
 
-    Shader ssaoInputShader(ShaderId::SsaoInput, FileSystem::getPath("src/shaders/SsaoInput.vert").c_str(), FileSystem::getPath("src/shaders/SsaoInput.frag").c_str());
-    Shader ssaoShader(ShaderId::Ssao, FileSystem::getPath("src/shaders/Ssao.vert").c_str(), FileSystem::getPath("src/shaders/Ssao.frag").c_str());
-    Shader ssaoBlurShader(ShaderId::SsaoBlur, FileSystem::getPath("src/shaders/Ssao.vert").c_str(), FileSystem::getPath("src/shaders/SsaoBlur.frag").c_str());
-    Shader ssaoFinalShader(ShaderId::SsaoFinal, FileSystem::getPath("src/shaders/SsaoFinal.vert").c_str(), FileSystem::getPath("src/shaders/SsaoFinal.frag").c_str());
-    Shader ssaoDebugQuadShader(ShaderId::DebugQuad, FileSystem::getPath("src/shaders/DebugQuad.vert").c_str(), FileSystem::getPath("src/shaders/DebugQuadColor.frag").c_str());
-    Shader lightSourceShader(ShaderId::LightSource, FileSystem::getPath("src/shaders/LightSource.vert").c_str(), FileSystem::getPath("src/shaders/LightSource.frag").c_str());
+    ShaderStorage shaderStorage(Factory::MakeShaders());
+
+    const Shader& ssaoInputShader = shaderStorage.GetShader(ShaderId::SsaoInput);
+    const Shader& ssaoShader = shaderStorage.GetShader(ShaderId::Ssao);
+    const Shader& ssaoBlurShader = shaderStorage.GetShader(ShaderId::SsaoBlur);
+    const Shader& ssaoFinalShader = shaderStorage.GetShader(ShaderId::SsaoFinal);
+    const Shader& ssaoDebugQuadShader = shaderStorage.GetShader(ShaderId::DebugQuad);
+    const Shader& lightSourceShader = shaderStorage.GetShader(ShaderId::LightSource);
 
     SsaoUtils ssaoUtils;
         
@@ -139,7 +143,7 @@ int main()
 
                 
         // SSAO pass 1 (input)
-        ssaoInputFrameBuffer.Bind(); 
+        ssaoInputFrameBuffer.Bind();
         ssaoInputShader.use();
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -170,7 +174,7 @@ int main()
         ssaoBlurFrameBuffer.Unbind();
 
           
-        // SSAO pass 4 (compositing)        
+        // SSAO pass 4 (compositing)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glDepthMask(GL_FALSE);
         ssaoFinalShader.use();

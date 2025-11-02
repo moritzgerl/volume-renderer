@@ -7,7 +7,7 @@ class SsaoUtils;
 
 namespace ShaderUtils
 {
-    void UpdateSsaoShader(const GuiParameters& guiParameters, const SsaoUtils& ssaoUtils, Shader& ssaoShader);
+    void UpdateSsaoShader(const GuiParameters& guiParameters, const SsaoUtils& ssaoUtils, const Shader& ssaoShader);
 }
 
 #endif
