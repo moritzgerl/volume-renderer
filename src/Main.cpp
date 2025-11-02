@@ -15,7 +15,7 @@
 #include <primitives/ScreenQuad.h>
 #include <shader/Shader.h>
 #include <shader/UpdateLightingParametersInShader.h>
-#include <shader/UpdateMatricesInShader.h>
+#include <shader/UpdateCameraMatricesInShader.h>
 #include <shader/UpdateSsaoFinalShader.h>
 #include <shader/UpdateSsaoShader.h>
 #include <textures/Texture.h>
@@ -146,7 +146,7 @@ int main()
         ssaoInputShader.use();
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        ShaderUtils::UpdateMatricesInShader(camera, ssaoInputShader);
+        ShaderUtils::UpdateCameraMatricesInShader(camera, ssaoInputShader);
         ssaoInputShader.setMat4("lightSpace", lightSpaceMatrix);
 
         ssaoInputFrameBuffer.Unbind();
@@ -155,7 +155,7 @@ int main()
         // ------------------------------------------------  SSAO pass 2 (ssao)
         ssaoFrameBuffer.Bind();
         ssaoShader.use();
-        ShaderUtils::UpdateMatricesInShader(camera, ssaoShader);
+        ShaderUtils::UpdateCameraMatricesInShader(camera, ssaoShader);
         glClear(GL_COLOR_BUFFER_BIT);
         ssaoPositionTexture.Bind();
         ssaoNormalTexture.Bind();
@@ -202,7 +202,7 @@ int main()
         if (guiParameters.showLightSources)
         {
             lightSourceShader.use();
-            ShaderUtils::UpdateMatricesInShader(camera, lightSourceShader);
+            ShaderUtils::UpdateCameraMatricesInShader(camera, lightSourceShader);
 
             for (unsigned int i = 0; i < Config::numPointLights; ++i)
             {
