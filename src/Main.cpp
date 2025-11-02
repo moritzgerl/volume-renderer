@@ -103,12 +103,6 @@ namespace
         shader.setFloat("material.shininess", 1.0f);
     }
 
-    // TODO move
-    void UpdateLightingParametersInShader(const Camera& camera, const GuiParameters& guiParameters, Shader& shader)
-    {
-        shader.setVec3("viewPosition", camera.Position);
-        UpdateLightingParametersInShader(guiParameters, shader);
-    }
 
     // TODO move
     void UpdateSsaoShader(const GuiParameters& guiParameters, const SsaoUtils& ssaoUtils, Shader& ssaoShader)
