@@ -9,11 +9,13 @@
 #include <buffers/VertexBuffer.h>
 #include <config/Config.h>
 #include <camera/Camera.h>
+#include <input/MakeDisplayProperties.h>
 #include <input/DisplayProperties.h>
 #include <input/InputHandler.h>
 #include <gui/Gui.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
+#include <gui/MakeGuiParameters.h>
 #include <textures/Texture.h>
 #include <utils/FileSystem.h>
 #include <utils/Shader.h>
@@ -30,34 +32,6 @@ namespace Constants
 
 namespace
 {
-    // TODO move
-    DisplayProperties MakeDisplayProperties()
-    {
-        DisplayProperties displayProperties;
-        displayProperties.showGui = Config::showGuiByDefault;
-        return displayProperties;
-    }
-
-    // TODO move
-    GuiParameters MakeGuiParameters()
-    {
-        GuiParameters guiParameters;
-        guiParameters.showLightSources = Config::showLightSourceByDefault;
-        guiParameters.directionalLight = Config::defaultDirectionalLight;
-        guiParameters.ssaoKernelSize = Config::defaultSsaoKernelSize;
-        guiParameters.ssaoNoiseSize = Config::defaultSsaoNoiseSize;
-        guiParameters.ssaoRadius = Config::defaultSsaoRadius;
-        guiParameters.ssaoBias = Config::defaultSsaoBias;
-        guiParameters.enableSsao = true;
-
-        for (unsigned int i = 0; i < Config::numPointLights; ++i)
-        {
-            guiParameters.pointLights.push_back(Config::defaultPointLights[i]);
-        }
-
-        return guiParameters;
-    }
-
     // TODO move
     GLFWwindow* InitGlfw()
     {
@@ -237,8 +211,8 @@ int main()
     InitGlad();
     InitGl();
     
-    DisplayProperties displayProperties = MakeDisplayProperties();
-    GuiParameters guiParameters = MakeGuiParameters();
+    DisplayProperties displayProperties = Factory::MakeDisplayProperties();
+    GuiParameters guiParameters = Factory::MakeGuiParameters();
     GuiUpdateFlags guiUpdateFlags;
         
     Shader ssaoInputShader(FileSystem::getPath("src/shaders/SsaoInput.vert").c_str(), FileSystem::getPath("src/shaders/SsaoInput.frag").c_str());
