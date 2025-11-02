@@ -1,19 +1,15 @@
 #include <primitives/ScreenQuad.h>
+#include <glad/glad.h>
 
 ScreenQuad::ScreenQuad()
     : m_vertexCoordinates()
-{
-    // Normalized Device Coordinates
-    m_vertexCoordinates =
-    {
-        -1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-        -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-         1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
-         1.0f, -1.0f, 0.0f, 1.0f, 0.0f
-    };
+    , m_vertexBuffer(std::make_unique<VertexBuffer>(m_vertexCoordinates))
+{   
 }
 
-const float* const ScreenQuad::GetVertexCoordinates() const
+void  ScreenQuad::Render() const
 {
-    return &m_vertexCoordinates[0];
+    m_vertexBuffer->Bind();
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    m_vertexBuffer->Unbind();
 }

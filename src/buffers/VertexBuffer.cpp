@@ -4,12 +4,12 @@
 
 #include <glad/glad.h>
 
-VertexBuffer::VertexBuffer(const ScreenQuad& screenQuad)
+VertexBuffer::VertexBuffer(const ScreenQuadVertexCoordinates& screenQuadVertexCoordinates)
     : m_vertexBufferObject()
     , m_vertexArrayObject()
     , m_elementBufferObject()
 {
-    const float* const vertexCoordinates = screenQuad.GetVertexCoordinates();
+    const float* const vertexCoordinates = screenQuadVertexCoordinates.Get();
 
     glGenVertexArrays(1, &m_vertexArrayObject);
     glGenBuffers(1, &m_vertexBufferObject);
@@ -30,7 +30,12 @@ VertexBuffer::~VertexBuffer()
     glDeleteBuffers(1, &m_vertexBufferObject);
 }
 
-void VertexBuffer::Bind()
+void VertexBuffer::Bind() const
 {
     glBindVertexArray(m_vertexArrayObject);
+}
+
+void VertexBuffer::Unbind() const
+{
+    glBindVertexArray(0);
 }

@@ -1,16 +1,20 @@
 #ifndef SCREEN_QUAD_H
 #define SCREEN_QUAD_H
 
-#include <vector>
+#include <primitives/ScreenQuadVertexCoordinates.h>
+#include <buffers/VertexBuffer.h>
+
+#include <memory>
 
 class ScreenQuad
 {
 public:
     ScreenQuad();
-    const float* const GetVertexCoordinates() const;
+    void Render() const;
 
 private:
-    std::vector<float> m_vertexCoordinates;
+    ScreenQuadVertexCoordinates m_vertexCoordinates;
+    std::unique_ptr<VertexBuffer> m_vertexBuffer;
 };
 
 #endif

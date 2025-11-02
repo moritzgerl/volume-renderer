@@ -1,5 +1,4 @@
 #include <buffers/FrameBuffer.h>
-#include <buffers/VertexBuffer.h>
 #include <config/Config.h>
 #include <context/InitGlfw.h>
 #include <context/InitGlad.h>

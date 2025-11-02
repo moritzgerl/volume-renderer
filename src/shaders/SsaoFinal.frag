@@ -110,6 +110,7 @@ void main()
     if (materialColor == vec3(0.0f))
     {
         FragColor = vec4(0.329, 0.349, 0.4, 1.0f);  // sky color
+        FragColor = vec4(0, 1, 0, 1.0f);
     }
     else
     {

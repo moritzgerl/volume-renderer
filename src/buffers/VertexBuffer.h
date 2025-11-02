@@ -1,14 +1,15 @@
 #ifndef VERTEX_BUFFER_H
 #define VERTEX_BUFFER_H
 
-class ScreenQuad;
+class ScreenQuadVertexCoordinates;
 
 class VertexBuffer
 {
 public:
-    VertexBuffer(const ScreenQuad& screenQuad);
+    VertexBuffer(const ScreenQuadVertexCoordinates& screenQuadVertexCoordinates);
     ~VertexBuffer();
-    void Bind();
+    void Bind() const;
+    void Unbind() const;
 
 private:
     unsigned int m_vertexBufferObject;
