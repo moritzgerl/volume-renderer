@@ -13,9 +13,9 @@
 #include <gui/MakeGuiParameters.h>
 #include <lights/GetLightSpaceMatrix.h>
 #include <primitives/ScreenQuad.h>
+#include <shader/Shader.h>
 #include <textures/Texture.h>
 #include <utils/FileSystem.h>
-#include <utils/Shader.h>
 #include <utils/SsaoUtils.h>
 
 #include <glad/glad.h>

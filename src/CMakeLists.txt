@@ -59,11 +59,19 @@ file(GLOB_RECURSE SRC_LIGHTS_CPP
 )
 
 file(GLOB_RECURSE SRC_PRIMITIVES_H
-    "${CMAKE_CURRENT_SOURCE_DIR}/primitives/*.h" 
+    "${CMAKE_CURRENT_SOURCE_DIR}/primitives/*.h"
 )
 
 file(GLOB_RECURSE SRC_PRIMITIVES_CPP
-    "${CMAKE_CURRENT_SOURCE_DIR}/primitives/*.cpp" 
+    "${CMAKE_CURRENT_SOURCE_DIR}/primitives/*.cpp"
+)
+
+file(GLOB_RECURSE SRC_SHADER_H
+    "${CMAKE_CURRENT_SOURCE_DIR}/shader/*.h"
+)
+
+file(GLOB_RECURSE SRC_SHADER_CPP
+    "${CMAKE_CURRENT_SOURCE_DIR}/shader/*.cpp"
 )
 
 file(GLOB_RECURSE SRC_SHADERS
@@ -113,6 +121,9 @@ source_group("lights\\Source Files" FILES ${SRC_LIGHTS_CPP})
 source_group("primitives\\Header Files" FILES ${SRC_PRIMITIVES_H})
 source_group("primitives\\Source Files" FILES ${SRC_PRIMITIVES_CPP})
 
+source_group("shader\\Header Files" FILES ${SRC_SHADER_H})
+source_group("shader\\Source Files" FILES ${SRC_SHADER_CPP})
+
 source_group("shaders" FILES ${SRC_SHADERS})
 
 source_group("textures\\Header Files" FILES ${SRC_TEXTURES_H})
@@ -128,7 +139,7 @@ add_executable(${PROJECT_NAME}
     ${SRC_CAMERA_H}
     ${SRC_CONFIG_H}
     ${SRC_CONTEXT_H}
-    ${SRC_CONTEXT_CPP}    
+    ${SRC_CONTEXT_CPP}
     ${SRC_GUI_H}
     ${SRC_GUI_CPP}
     ${SRC_IMGUI_H}
@@ -140,11 +151,13 @@ add_executable(${PROJECT_NAME}
     ${SRC_LIGHTS_CPP}
     ${SRC_PRIMITIVES_H}
     ${SRC_PRIMITIVES_CPP}
+    ${SRC_SHADER_H}
+    ${SRC_SHADER_CPP}
     ${SRC_SHADERS}
     ${SRC_TEXTURES_H}
     ${SRC_TEXTURES_CPP}
     ${SRC_UTILS_H}
-    ${SRC_UTILS_CPP}    
+    ${SRC_UTILS_CPP}
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
