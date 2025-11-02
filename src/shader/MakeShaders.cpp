@@ -1,10 +1,10 @@
-#include "MakeShaders.h"
+#include <shader/MakeShaders.h>
 #include <shader/ShaderId.h>
 #include <utils/FileSystem.h>
 
 namespace Factory
 {
-    std::vector<Shader>&& MakeShaders()
+    std::vector<Shader> MakeShaders()
     {
         std::vector<Shader> shaders;
         shaders.reserve(6);
@@ -16,8 +16,7 @@ namespace Factory
         shaders.emplace_back(ShaderId::DebugQuad, FileSystem::getPath("src/shaders/DebugQuad.vert").c_str(), FileSystem::getPath("src/shaders/DebugQuadColor.frag").c_str());
         shaders.emplace_back(ShaderId::LightSource, FileSystem::getPath("src/shaders/LightSource.vert").c_str(), FileSystem::getPath("src/shaders/LightSource.frag").c_str());
 
-        // TODO check if this is right (warning)
-        return std::move(shaders);
+        return shaders;
     }
 }
  

@@ -6,7 +6,7 @@
 
 namespace Factory
 {
-    std::vector<Shader>&& MakeShaders();
+    std::vector<Shader> MakeShaders();
 }
 
 #endif
