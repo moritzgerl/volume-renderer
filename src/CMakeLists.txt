@@ -80,8 +80,16 @@ file(GLOB_RECURSE SRC_SHADERS
     "${CMAKE_CURRENT_SOURCE_DIR}/shaders/*.frag"
 )
 
+file(GLOB_RECURSE SRC_STORAGE_H
+    "${CMAKE_CURRENT_SOURCE_DIR}/storage/*.h"
+)
+
+file(GLOB_RECURSE SRC_STORAGE_CPP
+    "${CMAKE_CURRENT_SOURCE_DIR}/storage/*.cpp"
+)
+
 file(GLOB_RECURSE SRC_TEXTURES_H
-    "${CMAKE_CURRENT_SOURCE_DIR}/textures/*.h" 
+    "${CMAKE_CURRENT_SOURCE_DIR}/textures/*.h"
 )
 
 file(GLOB_RECURSE SRC_TEXTURES_CPP
@@ -126,6 +134,9 @@ source_group("shader\\Source Files" FILES ${SRC_SHADER_CPP})
 
 source_group("shaders" FILES ${SRC_SHADERS})
 
+source_group("storage\\Header Files" FILES ${SRC_STORAGE_H})
+source_group("storage\\Source Files" FILES ${SRC_STORAGE_CPP})
+
 source_group("textures\\Header Files" FILES ${SRC_TEXTURES_H})
 source_group("textures\\Source Files" FILES ${SRC_TEXTURES_CPP})
 
@@ -154,6 +165,8 @@ add_executable(${PROJECT_NAME}
     ${SRC_SHADER_H}
     ${SRC_SHADER_CPP}
     ${SRC_SHADERS}
+    ${SRC_STORAGE_H}
+    ${SRC_STORAGE_CPP}
     ${SRC_TEXTURES_H}
     ${SRC_TEXTURES_CPP}
     ${SRC_UTILS_H}

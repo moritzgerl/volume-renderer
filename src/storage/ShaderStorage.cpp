@@ -1,4 +1,4 @@
-#include <shader/ShaderStorage.h>
+#include <storage/ShaderStorage.h>
 #include <algorithm>
 #include <stdexcept>
 
@@ -7,7 +7,7 @@ ShaderStorage::ShaderStorage(std::vector<Shader>&& shaders)
 {
 }
 
-Shader& ShaderStorage::GetShader(unsigned int id)
+Shader const& ShaderStorage::GetShader(unsigned int id) const
 {
     auto shaderIter = std::find_if(m_shaders.begin(), m_shaders.end(),
         [id]
