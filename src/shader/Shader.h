@@ -13,7 +13,7 @@ public:
     // TODO use strings
     Shader(ShaderId shaderId, const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
 
-    unsigned int GetProgramId() const;
+    ShaderId GetShaderId() const;
 
     // TODO rename
     void use();    

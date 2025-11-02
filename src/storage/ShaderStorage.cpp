@@ -7,19 +7,19 @@ ShaderStorage::ShaderStorage(std::vector<Shader>&& shaders)
 {
 }
 
-Shader const& ShaderStorage::GetShader(unsigned int id) const
+Shader const& ShaderStorage::GetShader(ShaderId shaderId) const
 {
     auto shaderIter = std::find_if(m_shaders.begin(), m_shaders.end(),
-        [id]
+        [shaderId]
         (const Shader& shader)
         {
-            return shader.GetProgramId() == id;
+            return shader.GetShaderId() == shaderId;
         }
     );
 
     if (shaderIter == m_shaders.end())
     {
-        throw std::out_of_range("ShaderStorage::GetShader - could not find shader with m_id " + std::to_string(id));
+        throw std::out_of_range("ShaderStorage::GetShader - could not find shader with the specified ShaderId");
     }
 
     return *shaderIter;

@@ -91,9 +91,9 @@ Shader::Shader(ShaderId shaderId, const char* vertexPath, const char* fragmentPa
         glDeleteShader(geometry);
 }
 
-unsigned int Shader::GetProgramId() const
+ShaderId Shader::GetShaderId() const
 {
-    return m_programId;
+    return m_shaderId;
 }
 
 void Shader::use()
