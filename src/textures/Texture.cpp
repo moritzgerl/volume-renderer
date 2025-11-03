@@ -10,16 +10,18 @@ namespace Constants
     const float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 }
 
-Texture::Texture(GLenum textureUnit, unsigned int width, unsigned int height, GLenum internalFormat, GLenum format, GLenum type, GLenum filterParameter, GLenum wrapParameter)
-    : m_textureId()
+Texture::Texture(TextureId textureId, GLenum textureUnit, unsigned int width, unsigned int height, GLenum internalFormat, GLenum format, GLenum type, GLenum filterParameter, GLenum wrapParameter)
+    : m_textureId(textureId)
+    , m_glTextureId()
     , m_textureUnitEnum(textureUnit)
     , m_textureUnitInt(TextureUnitMapping::GLenumToUnsignedInt(textureUnit))
 {
     Create(width, height, internalFormat, format, type, filterParameter, wrapParameter, NULL);
 }
 
-Texture::Texture(GLenum textureUnit, unsigned int width, unsigned int height, GLenum internalFormat, GLenum format, GLenum type, GLenum filterParameter, GLenum wrapParameter, const void* data)
-    : m_textureId()
+Texture::Texture(TextureId textureId, GLenum textureUnit, unsigned int width, unsigned int height, GLenum internalFormat, GLenum format, GLenum type, GLenum filterParameter, GLenum wrapParameter, const void* data)
+    : m_textureId(textureId)
+    , m_glTextureId()
     , m_textureUnitEnum(textureUnit)
     , m_textureUnitInt(TextureUnitMapping::GLenumToUnsignedInt(textureUnit))
 {
@@ -28,8 +30,8 @@ Texture::Texture(GLenum textureUnit, unsigned int width, unsigned int height, GL
 
 void Texture::Create(unsigned int width, unsigned int height, GLenum internalFormat, GLenum format, GLenum type, GLenum filterParameter, GLenum wrapParameter, const void* data)
 {
-    glGenTextures(1, &m_textureId);
-    glBindTexture(GL_TEXTURE_2D, m_textureId);
+    glGenTextures(1, &m_glTextureId);
+    glBindTexture(GL_TEXTURE_2D, m_glTextureId);
     glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, type, data);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filterParameter);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filterParameter);
@@ -39,13 +41,18 @@ void Texture::Create(unsigned int width, unsigned int height, GLenum internalFor
 
 void Texture::AddBorder()
 {
-    glBindTexture(GL_TEXTURE_2D, m_textureId);
+    glBindTexture(GL_TEXTURE_2D, m_glTextureId);
     glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, Constants::borderColor);
+}
+
+TextureId Texture::GetTextureId() const
+{
+    return m_textureId;
 }
 
 unsigned int Texture::GetId() const
 {
-    return m_textureId;
+    return m_glTextureId;
 }
 
 unsigned int Texture::GetTextureUnit() const
@@ -61,5 +68,5 @@ unsigned int Texture::GetTextureUnitEnum() const
 void Texture::Bind() const
 {
     glActiveTexture(m_textureUnitEnum);
-    glBindTexture(GL_TEXTURE_2D, m_textureId);
+    glBindTexture(GL_TEXTURE_2D, m_glTextureId);
 }

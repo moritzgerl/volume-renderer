@@ -1,6 +1,6 @@
 #include <storage/ShaderStorage.h>
 #include <algorithm>
-#include <stdexcept>
+#include <iostream>
 
 ShaderStorage::ShaderStorage(std::vector<Shader>&& shaders)
     : m_shaders(std::move(shaders))
@@ -19,7 +19,8 @@ Shader const& ShaderStorage::GetShader(ShaderId shaderId) const
 
     if (shaderIter == m_shaders.end())
     {
-        throw std::out_of_range("ShaderStorage::GetShader - could not find shader with the specified ShaderId");
+        std::cerr << "ShaderStorage::GetShader - could not find shader with the specified ShaderId" << std::endl;
+        return m_shaders[0];
     }
 
     return *shaderIter;

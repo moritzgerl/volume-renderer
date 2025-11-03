@@ -3,9 +3,11 @@
 
 #include <storage/Storage.h>
 
+class SsaoUtils;
+
 namespace Factory
 {
-    Storage MakeStorage();
+    Storage MakeStorage(const SsaoUtils& ssaoUtils);
 }
 
 #endif

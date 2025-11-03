@@ -23,6 +23,7 @@
 #include <shader/UpdateSsaoFinalShader.h>
 #include <shader/UpdateSsaoShader.h>
 #include <textures/Texture.h>
+#include <textures/TextureId.h>
 #include <textures/UpdateSsaoNoiseTexture.h>
 #include <utils/FileSystem.h>
 #include <utils/SsaoUtils.h>
@@ -48,7 +49,9 @@ int main()
     GuiParameters guiParameters = Factory::MakeGuiParameters();
     GuiUpdateFlags guiUpdateFlags;
 
-    Storage storage(Factory::MakeStorage());
+    SsaoUtils ssaoUtils;
+
+    Storage storage(Factory::MakeStorage(ssaoUtils));
 
     const Shader& ssaoInputShader = storage.GetShader(ShaderId::SsaoInput);
     const Shader& ssaoShader = storage.GetShader(ShaderId::Ssao);
@@ -57,17 +60,15 @@ int main()
     const Shader& ssaoDebugQuadShader = storage.GetShader(ShaderId::DebugQuad);
     const Shader& lightSourceShader = storage.GetShader(ShaderId::LightSource);
 
-    SsaoUtils ssaoUtils;
-        
-    Texture ssaoPositionTexture(GL_TEXTURE1, Config::windowWidth, Config::windowHeight, GL_RGBA16F, GL_RGBA, GL_FLOAT, GL_NEAREST, GL_CLAMP_TO_EDGE);
-    Texture ssaoLightSpacePositionTexture(GL_TEXTURE2, Config::windowWidth, Config::windowHeight, GL_RGBA16F, GL_RGBA, GL_FLOAT, GL_NEAREST, GL_CLAMP_TO_EDGE);    
-    Texture ssaoNormalTexture(GL_TEXTURE3, Config::windowWidth, Config::windowHeight, GL_RGBA16F, GL_RGBA, GL_FLOAT, GL_NEAREST, GL_REPEAT);
-    Texture ssaoAlbedoTexture(GL_TEXTURE4, Config::windowWidth, Config::windowHeight, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, GL_NEAREST, GL_REPEAT);
-    Texture ssaoTexture(GL_TEXTURE5, Config::windowWidth, Config::windowHeight, GL_RED, GL_RED, GL_FLOAT, GL_NEAREST, GL_REPEAT);
-    Texture ssaoBlurTexture(GL_TEXTURE6, Config::windowWidth, Config::windowHeight, GL_RED, GL_RED, GL_FLOAT, GL_NEAREST, GL_REPEAT);
-    Texture ssaoNoiseTexture(GL_TEXTURE7, Config::defaultSsaoNoiseSize, Config::defaultSsaoNoiseSize, GL_RGBA32F, GL_RGB, GL_FLOAT, GL_NEAREST, GL_REPEAT, ssaoUtils.GetNoise());
-    Texture ssaoStencilTexture(GL_TEXTURE8, Config::windowWidth, Config::windowHeight, GL_RED, GL_RED, GL_FLOAT, GL_NEAREST, GL_REPEAT);
-    Texture ssaoPointLightsContributionTexture(GL_TEXTURE9, Config::windowWidth, Config::windowHeight, GL_RED, GL_RED, GL_FLOAT, GL_NEAREST, GL_REPEAT);
+    const Texture& ssaoPositionTexture = storage.GetTexture(TextureId::SsaoPosition);
+    const Texture& ssaoLightSpacePositionTexture = storage.GetTexture(TextureId::SsaoLightSpacePosition);
+    const Texture& ssaoNormalTexture = storage.GetTexture(TextureId::SsaoNormal);
+    const Texture& ssaoAlbedoTexture = storage.GetTexture(TextureId::SsaoAlbedo);
+    const Texture& ssaoTexture = storage.GetTexture(TextureId::Ssao);
+    const Texture& ssaoBlurTexture = storage.GetTexture(TextureId::SsaoBlur);
+    const Texture& ssaoNoiseTexture = storage.GetTexture(TextureId::SsaoNoise);
+    const Texture& ssaoStencilTexture = storage.GetTexture(TextureId::SsaoStencil);
+    const Texture& ssaoPointLightsContributionTexture = storage.GetTexture(TextureId::SsaoPointLightsContribution);
 
     FrameBuffer ssaoInputFrameBuffer;
     ssaoInputFrameBuffer.Bind();
