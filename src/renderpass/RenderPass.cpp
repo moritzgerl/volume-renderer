@@ -21,6 +21,11 @@ RenderPass::RenderPass(
 {
 }
 
+RenderPassId RenderPass::GetRenderPassId() const
+{
+    return m_renderPassId;
+}
+
 void RenderPass::Render() const
 {
     m_frameBuffer.Bind();
