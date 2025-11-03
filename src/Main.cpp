@@ -15,9 +15,9 @@
 #include <primitives/ScreenQuad.h>
 #include <shader/Shader.h>
 #include <shader/ShaderId.h>
-#include <shader/MakeShaders.h>
 #include <shader/UpdateLightingParametersInShader.h>
-#include <storage/ShaderStorage.h>
+#include <storage/Storage.h>
+#include <storage/MakeStorage.h>
 #include <shader/UpdateCameraMatricesInShader.h>
 #include <shader/UpdateLightSourceModelMatrixInShader.h>
 #include <shader/UpdateSsaoFinalShader.h>
@@ -48,14 +48,14 @@ int main()
     GuiParameters guiParameters = Factory::MakeGuiParameters();
     GuiUpdateFlags guiUpdateFlags;
 
-    ShaderStorage shaderStorage(Factory::MakeShaders());
+    Storage storage(Factory::MakeStorage());
 
-    const Shader& ssaoInputShader = shaderStorage.GetShader(ShaderId::SsaoInput);
-    const Shader& ssaoShader = shaderStorage.GetShader(ShaderId::Ssao);
-    const Shader& ssaoBlurShader = shaderStorage.GetShader(ShaderId::SsaoBlur);
-    const Shader& ssaoFinalShader = shaderStorage.GetShader(ShaderId::SsaoFinal);
-    const Shader& ssaoDebugQuadShader = shaderStorage.GetShader(ShaderId::DebugQuad);
-    const Shader& lightSourceShader = shaderStorage.GetShader(ShaderId::LightSource);
+    const Shader& ssaoInputShader = storage.GetShader(ShaderId::SsaoInput);
+    const Shader& ssaoShader = storage.GetShader(ShaderId::Ssao);
+    const Shader& ssaoBlurShader = storage.GetShader(ShaderId::SsaoBlur);
+    const Shader& ssaoFinalShader = storage.GetShader(ShaderId::SsaoFinal);
+    const Shader& ssaoDebugQuadShader = storage.GetShader(ShaderId::DebugQuad);
+    const Shader& lightSourceShader = storage.GetShader(ShaderId::LightSource);
 
     SsaoUtils ssaoUtils;
         
