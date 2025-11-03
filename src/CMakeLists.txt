@@ -66,6 +66,14 @@ file(GLOB_RECURSE SRC_PRIMITIVES_CPP
     "${CMAKE_CURRENT_SOURCE_DIR}/primitives/*.cpp"
 )
 
+file(GLOB_RECURSE SRC_RENDERPASS_H
+    "${CMAKE_CURRENT_SOURCE_DIR}/renderpass/*.h"
+)
+
+file(GLOB_RECURSE SRC_RENDERPASS_CPP
+    "${CMAKE_CURRENT_SOURCE_DIR}/renderpass/*.cpp"
+)
+
 file(GLOB_RECURSE SRC_SHADER_H
     "${CMAKE_CURRENT_SOURCE_DIR}/shader/*.h"
 )
@@ -129,6 +137,9 @@ source_group("lights\\Source Files" FILES ${SRC_LIGHTS_CPP})
 source_group("primitives\\Header Files" FILES ${SRC_PRIMITIVES_H})
 source_group("primitives\\Source Files" FILES ${SRC_PRIMITIVES_CPP})
 
+source_group("renderpass\\Header Files" FILES ${SRC_RENDERPASS_H})
+source_group("renderpass\\Source Files" FILES ${SRC_RENDERPASS_CPP})
+
 source_group("shader\\Header Files" FILES ${SRC_SHADER_H})
 source_group("shader\\Source Files" FILES ${SRC_SHADER_CPP})
 
@@ -162,6 +173,8 @@ add_executable(${PROJECT_NAME}
     ${SRC_LIGHTS_CPP}
     ${SRC_PRIMITIVES_H}
     ${SRC_PRIMITIVES_CPP}
+    ${SRC_RENDERPASS_H}
+    ${SRC_RENDERPASS_CPP}
     ${SRC_SHADER_H}
     ${SRC_SHADER_CPP}
     ${SRC_SHADERS}

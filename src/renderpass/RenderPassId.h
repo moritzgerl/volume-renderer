@@ -1,0 +1,13 @@
+#ifndef RENDER_PASS_ID_H
+#define RENDER_PASS_ID_H
+
+enum class RenderPassId
+{
+    SsaoInput,
+    Ssao,
+    SsaoBlur,
+    SsaoFinal,
+    Unknown
+};
+
+#endif
