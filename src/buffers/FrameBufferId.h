@@ -6,6 +6,7 @@ enum class FrameBufferId
     SsaoInput,
     Ssao,
     SsaoBlur,
+    Default,
     Unknown
 };
 

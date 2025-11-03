@@ -10,7 +10,7 @@ namespace Factory
     std::vector<FrameBuffer> MakeFrameBuffers(const TextureStorage& textureStorage)
     {
         std::vector<FrameBuffer> frameBuffers;
-        frameBuffers.reserve(3);
+        frameBuffers.reserve(4);
 
         FrameBuffer ssaoInputFrameBuffer(FrameBufferId::SsaoInput);
         ssaoInputFrameBuffer.Bind();
@@ -40,6 +40,9 @@ namespace Factory
         ssaoBlurFrameBuffer.Check();
         ssaoBlurFrameBuffer.Unbind();
         frameBuffers.push_back(std::move(ssaoBlurFrameBuffer));
+
+        FrameBuffer defaultFrameBuffer(FrameBufferId::Default);
+        frameBuffers.push_back(std::move(defaultFrameBuffer));
 
         return frameBuffers;
     }

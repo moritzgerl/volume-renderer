@@ -7,6 +7,8 @@ enum class RenderPassId
     Ssao,
     SsaoBlur,
     SsaoFinal,
+    LightSource,
+    Debug,
     Unknown
 };
 

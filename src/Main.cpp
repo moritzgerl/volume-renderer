@@ -74,6 +74,7 @@ int main()
     const FrameBuffer& ssaoFrameBuffer = storage.GetFrameBuffer(FrameBufferId::Ssao);
     const FrameBuffer& ssaoBlurFrameBuffer = storage.GetFrameBuffer(FrameBufferId::SsaoBlur);
 
+    // TODO move to MakeShaders
     ssaoShader.Use();
     ssaoShader.SetVec2("windowSize", glm::vec2(Config::windowWidth, Config::windowHeight));
     ssaoShader.SetInt("gPosition", ssaoPositionTexture.GetTextureUnit());

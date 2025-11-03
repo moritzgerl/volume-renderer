@@ -8,10 +8,13 @@
 
 FrameBuffer::FrameBuffer(FrameBufferId frameBufferId)
     : m_frameBufferId(frameBufferId)
-    , m_frameBufferObject()
+    , m_frameBufferObject(0)
     , m_renderBufferObjects()
 {
-    glGenFramebuffers(1, &m_frameBufferObject);
+    if (frameBufferId != FrameBufferId::Default)
+    {
+        glGenFramebuffers(1, &m_frameBufferObject);
+    }
 }
 
 FrameBufferId FrameBuffer::GetFrameBufferId() const
