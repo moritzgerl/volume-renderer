@@ -1,13 +1,14 @@
 #ifndef STORAGE_H
 #define STORAGE_H
 
-#include <storage/ShaderStorage.h>
 #include <storage/TextureStorage.h>
+#include <storage/ShaderStorage.h>
+#include <storage/FrameBufferStorage.h>
 
 class Storage
 {
 public:
-    explicit Storage(ShaderStorage&& shaderStorage, TextureStorage&& textureStorage);
+    explicit Storage(TextureStorage&& textureStorage, ShaderStorage&& shaderStorage, FrameBufferStorage&& frameBufferStorage);
 
     // TODO use concepts
     // TODO rule of zero? Don't even do the = delete here?
@@ -17,13 +18,15 @@ public:
     Storage(Storage&&) = delete;
     Storage& operator=(Storage&&) = delete;
 
-    Shader const& GetShader(ShaderId shaderId) const;
     Texture const& GetTexture(TextureId textureId) const;
     Texture& GetTexture(TextureId textureId);
+    Shader const& GetShader(ShaderId shaderId) const;
+    const FrameBuffer& GetFrameBuffer(FrameBufferId frameBufferId) const;
 
 private:
-    ShaderStorage m_shaderStorage;
     TextureStorage m_textureStorage;
+    ShaderStorage m_shaderStorage;
+    FrameBufferStorage m_frameBufferStorage;
 };
 
 #endif

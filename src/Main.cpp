@@ -1,4 +1,5 @@
 #include <buffers/FrameBuffer.h>
+#include <buffers/FrameBufferId.h>
 #include <config/Config.h>
 #include <context/InitGlfw.h>
 #include <context/InitGlad.h>
@@ -25,7 +26,6 @@
 #include <textures/Texture.h>
 #include <textures/TextureId.h>
 #include <textures/UpdateSsaoNoiseTexture.h>
-#include <utils/FileSystem.h>
 #include <utils/SsaoUtils.h>
 
 #include <glad/glad.h>
@@ -53,13 +53,6 @@ int main()
 
     Storage storage(Factory::MakeStorage(ssaoUtils));
 
-    const Shader& ssaoInputShader = storage.GetShader(ShaderId::SsaoInput);
-    const Shader& ssaoShader = storage.GetShader(ShaderId::Ssao);
-    const Shader& ssaoBlurShader = storage.GetShader(ShaderId::SsaoBlur);
-    const Shader& ssaoFinalShader = storage.GetShader(ShaderId::SsaoFinal);
-    const Shader& ssaoDebugQuadShader = storage.GetShader(ShaderId::DebugQuad);
-    const Shader& lightSourceShader = storage.GetShader(ShaderId::LightSource);
-
     const Texture& ssaoPositionTexture = storage.GetTexture(TextureId::SsaoPosition);
     const Texture& ssaoLightSpacePositionTexture = storage.GetTexture(TextureId::SsaoLightSpacePosition);
     const Texture& ssaoNormalTexture = storage.GetTexture(TextureId::SsaoNormal);
@@ -70,31 +63,16 @@ int main()
     const Texture& ssaoStencilTexture = storage.GetTexture(TextureId::SsaoStencil);
     const Texture& ssaoPointLightsContributionTexture = storage.GetTexture(TextureId::SsaoPointLightsContribution);
 
-    FrameBuffer ssaoInputFrameBuffer;
-    ssaoInputFrameBuffer.Bind();
-    ssaoInputFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT0, ssaoPositionTexture);
-    ssaoInputFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT1, ssaoLightSpacePositionTexture);
-    ssaoInputFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT2, ssaoNormalTexture);
-    ssaoInputFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT3, ssaoAlbedoTexture);
-    ssaoInputFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT4, ssaoPointLightsContributionTexture);
-    ssaoInputFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT5, ssaoStencilTexture);
-    unsigned int attachments[6] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3, GL_COLOR_ATTACHMENT4, GL_COLOR_ATTACHMENT5 }; // TODO - move into FrameBuffer
-    glDrawBuffers(6, attachments);
-    ssaoInputFrameBuffer.AttachRenderBuffer(GL_DEPTH_ATTACHMENT, GL_DEPTH_COMPONENT, Config::windowWidth, Config::windowHeight);
-    ssaoInputFrameBuffer.Check();
-    ssaoInputFrameBuffer.Unbind();
+    const Shader& ssaoInputShader = storage.GetShader(ShaderId::SsaoInput);
+    const Shader& ssaoShader = storage.GetShader(ShaderId::Ssao);
+    const Shader& ssaoBlurShader = storage.GetShader(ShaderId::SsaoBlur);
+    const Shader& ssaoFinalShader = storage.GetShader(ShaderId::SsaoFinal);
+    const Shader& ssaoDebugQuadShader = storage.GetShader(ShaderId::DebugQuad);
+    const Shader& lightSourceShader = storage.GetShader(ShaderId::LightSource);
 
-    FrameBuffer ssaoFrameBuffer;
-    ssaoFrameBuffer.Bind();
-    ssaoFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT0, ssaoTexture);
-    ssaoFrameBuffer.Check();
-    ssaoFrameBuffer.Unbind();
-
-    FrameBuffer ssaoBlurFrameBuffer;
-    ssaoBlurFrameBuffer.Bind();
-    ssaoBlurFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT0, ssaoBlurTexture);
-    ssaoBlurFrameBuffer.Check();
-    ssaoBlurFrameBuffer.Unbind();
+    const FrameBuffer& ssaoInputFrameBuffer = storage.GetFrameBuffer(FrameBufferId::SsaoInput);
+    const FrameBuffer& ssaoFrameBuffer = storage.GetFrameBuffer(FrameBufferId::Ssao);
+    const FrameBuffer& ssaoBlurFrameBuffer = storage.GetFrameBuffer(FrameBufferId::SsaoBlur);
 
     ssaoShader.Use();
     ssaoShader.SetVec2("windowSize", glm::vec2(Config::windowWidth, Config::windowHeight));
@@ -150,7 +128,6 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         ShaderUtils::UpdateCameraMatricesInShader(camera, ssaoInputShader);
         ssaoInputShader.SetMat4("lightSpace", lightSpaceMatrix);
-
         ssaoInputFrameBuffer.Unbind();
 
 

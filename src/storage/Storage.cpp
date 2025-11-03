@@ -1,14 +1,10 @@
-#include "Storage.h"
+#include <storage/Storage.h>
 
-Storage::Storage(ShaderStorage&& shaderStorage, TextureStorage&& textureStorage)
-    : m_shaderStorage(std::move(shaderStorage))
-    , m_textureStorage(std::move(textureStorage))
+Storage::Storage(TextureStorage&& textureStorage, ShaderStorage&& shaderStorage, FrameBufferStorage&& frameBufferStorage)
+    : m_textureStorage(std::move(textureStorage))
+    , m_shaderStorage(std::move(shaderStorage))
+    , m_frameBufferStorage(std::move(frameBufferStorage))
 {
-}
-
-Shader const& Storage::GetShader(ShaderId shaderId) const
-{
-    return m_shaderStorage.GetShader(shaderId);
 }
 
 Texture const& Storage::GetTexture(TextureId textureId) const
@@ -19,4 +15,14 @@ Texture const& Storage::GetTexture(TextureId textureId) const
 Texture& Storage::GetTexture(TextureId textureId)
 {
     return m_textureStorage.GetTexture(textureId);
+}
+
+Shader const& Storage::GetShader(ShaderId shaderId) const
+{
+    return m_shaderStorage.GetShader(shaderId);
+}
+
+const FrameBuffer& Storage::GetFrameBuffer(FrameBufferId frameBufferId) const
+{
+    return m_frameBufferStorage.GetFrameBuffer(frameBufferId);
 }

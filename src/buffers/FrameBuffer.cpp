@@ -6,14 +6,20 @@
 
 #include <iostream>
 
-FrameBuffer::FrameBuffer()
-    : m_frameBufferObject()
+FrameBuffer::FrameBuffer(FrameBufferId frameBufferId)
+    : m_frameBufferId(frameBufferId)
+    , m_frameBufferObject()
     , m_renderBufferObjects()
 {
     glGenFramebuffers(1, &m_frameBufferObject);
 }
 
-void FrameBuffer::AttachTexture(GLenum attachment, const Texture& texture)
+FrameBufferId FrameBuffer::GetFrameBufferId() const
+{
+    return m_frameBufferId;
+}
+
+void FrameBuffer::AttachTexture(GLenum attachment, const Texture& texture) const
 {   
     glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, GL_TEXTURE_2D, texture.GetId(), 0);
 }
@@ -28,17 +34,17 @@ void FrameBuffer::AttachRenderBuffer(GLenum attachment, GLenum internalFormat, u
     m_renderBufferObjects.push_back(renderBufferObject);
 }
 
-void FrameBuffer::Bind()
+void FrameBuffer::Bind() const
 {
     glBindFramebuffer(GL_FRAMEBUFFER, m_frameBufferObject);
 }
 
-void FrameBuffer::Unbind()
+void FrameBuffer::Unbind() const
 {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void FrameBuffer::Check()
+void FrameBuffer::Check() const
 {
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
     {
