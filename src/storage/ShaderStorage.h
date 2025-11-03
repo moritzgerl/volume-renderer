@@ -8,7 +8,7 @@
 class ShaderStorage
 {
 public:
-    ShaderStorage(std::vector<Shader>&& shaders);
+    explicit ShaderStorage(std::vector<Shader>&& shaders);
     Shader const& GetShader(ShaderId shaderId) const;
 
 private:

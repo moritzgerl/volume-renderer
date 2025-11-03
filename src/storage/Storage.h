@@ -6,7 +6,7 @@
 class Storage
 {
 public:
-    Storage(ShaderStorage&& shaderStorage);
+    explicit Storage(ShaderStorage&& shaderStorage);
 
     // TODO use concepts
     Storage(const Storage&) = delete;
