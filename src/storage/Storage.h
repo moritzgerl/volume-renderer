@@ -23,11 +23,13 @@ public:
     Storage(Storage&&) = delete;
     Storage& operator=(Storage&&) = delete;
 
+    // TODO remove unused getters
     Texture const& GetTexture(TextureId textureId) const;
     Texture& GetTexture(TextureId textureId);
     Shader const& GetShader(ShaderId shaderId) const;
     const FrameBuffer& GetFrameBuffer(FrameBufferId frameBufferId) const;
     const RenderPass& GetRenderPass(RenderPassId renderPassId) const;
+    const std::vector<RenderPass>& GetRenderPasses() const;
 
 private:
     TextureStorage m_textureStorage;

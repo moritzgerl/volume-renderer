@@ -25,3 +25,8 @@ const RenderPass& RenderPassStorage::GetRenderPass(RenderPassId renderPassId) co
 
     return *renderPassIter;
 }
+
+const std::vector<RenderPass>& RenderPassStorage::GetRenderPasses() const
+{
+    return m_renderPasses;
+}

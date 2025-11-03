@@ -10,6 +10,7 @@ class RenderPassStorage
 public:
     RenderPassStorage(std::vector<RenderPass>&& renderPasses);
     const RenderPass& GetRenderPass(RenderPassId renderPassId) const;
+    const std::vector<RenderPass>& GetRenderPasses() const;
 
 private:
     std::vector<RenderPass> m_renderPasses;

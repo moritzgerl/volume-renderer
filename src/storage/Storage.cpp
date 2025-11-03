@@ -36,3 +36,8 @@ const RenderPass& Storage::GetRenderPass(RenderPassId renderPassId) const
 {
     return m_renderPassStorage.GetRenderPass(renderPassId);
 }
+
+const std::vector<RenderPass>& Storage::GetRenderPasses() const
+{
+    return m_renderPassStorage.GetRenderPasses();
+}
