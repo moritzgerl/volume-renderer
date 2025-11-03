@@ -19,6 +19,7 @@ public:
 
     Shader const& GetShader(ShaderId shaderId) const;
     Texture const& GetTexture(TextureId textureId) const;
+    Texture& GetTexture(TextureId textureId);
 
 private:
     ShaderStorage m_shaderStorage;

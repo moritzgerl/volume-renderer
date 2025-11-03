@@ -2,26 +2,40 @@
 #include <algorithm>
 #include <iostream>
 
+namespace
+{
+    template <typename T>
+    auto& GetTextureImpl(TextureId textureId, T& textures)
+    {
+        auto textureIter = std::find_if(textures.begin(), textures.end(),
+            [textureId]
+            (const Texture& texture)
+        {
+            return texture.GetTextureId() == textureId;
+        }
+        );
+
+        if (textureIter == textures.end())
+        {
+            std::cerr << "TextureStorage::GetTexture - could not find texture with the specified TextureId" << std::endl;
+            return textures[0];
+        }
+
+        return *textureIter;
+    }
+}
+
 TextureStorage::TextureStorage(std::vector<Texture>&& textures)
     : m_textures(std::move(textures))
 {
 }
 
-Texture const& TextureStorage::GetTexture(TextureId textureId) const
+const Texture& TextureStorage::GetTexture(TextureId textureId) const
 {
-    auto textureIter = std::find_if(m_textures.begin(), m_textures.end(),
-        [textureId]
-        (const Texture& texture)
-        {
-            return texture.GetTextureId() == textureId;
-        }
-    );
+    return GetTextureImpl(textureId, m_textures);
+}
 
-    if (textureIter == m_textures.end())
-    {
-        std::cerr << "TextureStorage::GetTexture - could not find texture with the specified TextureId" << std::endl;
-        return m_textures[0];
-    }
-
-    return *textureIter;
+Texture& TextureStorage::GetTexture(TextureId textureId)
+{
+    return GetTextureImpl(textureId, m_textures);
 }

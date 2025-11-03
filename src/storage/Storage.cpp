@@ -15,3 +15,8 @@ Texture const& Storage::GetTexture(TextureId textureId) const
 {
     return m_textureStorage.GetTexture(textureId);
 }
+
+Texture& Storage::GetTexture(TextureId textureId)
+{
+    return m_textureStorage.GetTexture(textureId);
+}

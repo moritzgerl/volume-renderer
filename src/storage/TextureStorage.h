@@ -9,7 +9,8 @@ class TextureStorage
 {
 public:
     TextureStorage(std::vector<Texture>&& textures);
-    Texture const& GetTexture(TextureId textureId) const;
+    const Texture& GetTexture(TextureId textureId) const;
+    Texture& GetTexture(TextureId textureId);
 
 private:
     std::vector<Texture> m_textures;

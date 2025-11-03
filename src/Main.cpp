@@ -66,7 +66,7 @@ int main()
     const Texture& ssaoAlbedoTexture = storage.GetTexture(TextureId::SsaoAlbedo);
     const Texture& ssaoTexture = storage.GetTexture(TextureId::Ssao);
     const Texture& ssaoBlurTexture = storage.GetTexture(TextureId::SsaoBlur);
-    const Texture& ssaoNoiseTexture = storage.GetTexture(TextureId::SsaoNoise);
+          Texture& ssaoNoiseTexture = storage.GetTexture(TextureId::SsaoNoise);
     const Texture& ssaoStencilTexture = storage.GetTexture(TextureId::SsaoStencil);
     const Texture& ssaoPointLightsContributionTexture = storage.GetTexture(TextureId::SsaoPointLightsContribution);
 
