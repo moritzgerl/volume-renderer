@@ -20,7 +20,7 @@ namespace Factory
     )
     {
         TextureStorage textureStorage(MakeTextures(ssaoUtils));
-        ShaderStorage shaderStorage(MakeShaders());
+        ShaderStorage shaderStorage(MakeShaders(guiParameters, ssaoUtils, textureStorage));
         FrameBufferStorage frameBufferStorage(MakeFrameBuffers(textureStorage));
         RenderPassStorage renderPassStorage(MakeRenderPasses(camera, displayProperties, guiParameters, ssaoUtils, lightSpaceMatrix, screenQuad, textureStorage, shaderStorage, frameBufferStorage));
 

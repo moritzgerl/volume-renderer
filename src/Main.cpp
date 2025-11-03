@@ -78,26 +78,6 @@ int main()
     const FrameBuffer& ssaoFrameBuffer = storage.GetFrameBuffer(FrameBufferId::Ssao);
     const FrameBuffer& ssaoBlurFrameBuffer = storage.GetFrameBuffer(FrameBufferId::SsaoBlur);
 
-    // TODO move to MakeShaders
-    ssaoShader.Use();
-    ssaoShader.SetVec2("windowSize", glm::vec2(Config::windowWidth, Config::windowHeight));
-    ssaoShader.SetInt("gPosition", ssaoPositionTexture.GetTextureUnit());
-    ssaoShader.SetInt("gNormal", ssaoNormalTexture.GetTextureUnit());
-    ssaoShader.SetInt("texNoise", ssaoNoiseTexture.GetTextureUnit());
-    ShaderUtils::UpdateSsaoShader(guiParameters, ssaoUtils, ssaoShader);
-
-    ssaoBlurShader.Use();
-    ssaoBlurShader.SetInt("ssaoInput", ssaoTexture.GetTextureUnit());
-
-    ssaoFinalShader.Use();
-    ssaoFinalShader.SetInt("ssaoPosition", ssaoPositionTexture.GetTextureUnit());
-    ssaoFinalShader.SetInt("ssaoLightSpacePosition", ssaoLightSpacePositionTexture.GetTextureUnit());
-    ssaoFinalShader.SetInt("ssaoNormal", ssaoNormalTexture.GetTextureUnit());
-    ssaoFinalShader.SetInt("ssaoAlbedo", ssaoAlbedoTexture.GetTextureUnit());
-    ssaoFinalShader.SetInt("ssaoPointLightsContribution", ssaoPointLightsContributionTexture.GetTextureUnit());
-    ssaoFinalShader.SetInt("ssaoMap", ssaoTexture.GetTextureUnit());
-    ssaoFinalShader.SetInt("enableSsao", guiParameters.enableSsao);
-
     while (!glfwWindowShouldClose(window))
     {
         inputHandler.Update();
