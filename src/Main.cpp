@@ -48,10 +48,14 @@ int main()
     DisplayProperties displayProperties = Factory::MakeDisplayProperties();
     GuiParameters guiParameters = Factory::MakeGuiParameters();
     GuiUpdateFlags guiUpdateFlags;
-
+    Gui gui(window, guiParameters, guiUpdateFlags);
     SsaoUtils ssaoUtils;
+    Camera camera(-2.25293994f, 9.60278416f, -4.95751047f, 0.00000000f, 1.00000000f, 0.00000000f, 389.10012817f, -30.39993668f);
+    InputHandler inputHandler(window, camera, displayProperties);
 
-    Storage storage(Factory::MakeStorage(ssaoUtils));
+    ScreenQuad screenQuad;
+    const glm::mat4 lightSpaceMatrix = GetLightSpaceMatrix(guiParameters);
+    Storage storage(Factory::MakeStorage(camera, displayProperties, guiParameters, lightSpaceMatrix, ssaoUtils, screenQuad));
 
     const Texture& ssaoPositionTexture = storage.GetTexture(TextureId::SsaoPosition);
     const Texture& ssaoLightSpacePositionTexture = storage.GetTexture(TextureId::SsaoLightSpacePosition);
@@ -93,12 +97,6 @@ int main()
     ssaoFinalShader.SetInt("ssaoPointLightsContribution", ssaoPointLightsContributionTexture.GetTextureUnit());
     ssaoFinalShader.SetInt("ssaoMap", ssaoTexture.GetTextureUnit());
     ssaoFinalShader.SetInt("enableSsao", guiParameters.enableSsao);
-
-    Camera camera(-2.25293994f, 9.60278416f, -4.95751047f, 0.00000000f, 1.00000000f, 0.00000000f, 389.10012817f, -30.39993668f);
-    ScreenQuad screenQuad;
-    InputHandler inputHandler(window, camera, displayProperties);
-    Gui gui(window, guiParameters, guiUpdateFlags);
-
 
     while (!glfwWindowShouldClose(window))
     {

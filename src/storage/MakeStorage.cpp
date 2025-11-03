@@ -6,19 +6,29 @@
 #include <buffers/MakeFrameBuffers.h>
 #include <shader/MakeShaders.h>
 #include <textures/MakeTextures.h>
+#include <renderpass/MakeRenderPasses.h>
 
 namespace Factory
 {
-    Storage MakeStorage(const SsaoUtils& ssaoUtils)
+    Storage MakeStorage(        
+        const Camera& camera,
+        const DisplayProperties& displayProperties,
+        const GuiParameters& guiParameters,
+        const glm::mat4& lightSpaceMatrix,
+        const SsaoUtils& ssaoUtils,
+        const ScreenQuad& screenQuad
+    )
     {
         TextureStorage textureStorage(MakeTextures(ssaoUtils));
+        ShaderStorage shaderStorage(MakeShaders());
+        FrameBufferStorage frameBufferStorage(MakeFrameBuffers(textureStorage));
+        RenderPassStorage renderPassStorage(MakeRenderPasses(camera, displayProperties, guiParameters, ssaoUtils, lightSpaceMatrix, screenQuad, textureStorage, shaderStorage, frameBufferStorage));
 
         return Storage(
-            std::forward<TextureStorage>(textureStorage),
-            ShaderStorage(MakeShaders()),
-            // TODO check if it is a problem to use the temporary textureStorage here
-            FrameBufferStorage(MakeFrameBuffers(textureStorage)),
-            RenderPassStorage(std::vector<RenderPass>()) // TODO: Create MakeRenderPasses factory
+            std::move(textureStorage),
+            std::move(shaderStorage),
+            std::move(frameBufferStorage),
+            std::move(renderPassStorage)
         );
     }
 }
