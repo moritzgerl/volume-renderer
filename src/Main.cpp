@@ -23,6 +23,7 @@
 #include <shader/UpdateLightSourceModelMatrixInShader.h>
 #include <shader/UpdateSsaoFinalShader.h>
 #include <shader/UpdateSsaoShader.h>
+#include <shader/UpdateSsaoShaders.h>
 #include <textures/Texture.h>
 #include <textures/TextureId.h>
 #include <textures/UpdateSsaoNoiseTexture.h>
@@ -37,7 +38,6 @@
 
 #include <numbers>
 #include <iostream>
-#include "Main.h"
 
 int main()
 {
@@ -65,19 +65,9 @@ int main()
     while (!glfwWindowShouldClose(window))
     {
         inputHandler.Update();
-        
-        if (guiUpdateFlags.ssaoParametersChanged)
-        {
-            ssaoUtils.UpdateKernel(guiParameters.ssaoKernelSize);
-            ssaoUtils.UpdateNoise(guiParameters.ssaoNoiseSize);
-            TextureUtils::UpdateSsaoNoiseTexture(guiParameters, ssaoUtils, ssaoNoiseTexture);
-            ssaoShader.Use();
-            ShaderUtils::UpdateSsaoShader(guiParameters, ssaoUtils, ssaoShader);
-            ssaoFinalShader.Use();
-            ShaderUtils::UpdateSsaoFinalShader(guiParameters, ssaoFinalShader);
-            guiUpdateFlags.ssaoParametersChanged = false;
-        }
+        ShaderUtils::UpdateSsaoShaders(guiUpdateFlags, guiParameters, ssaoUtils, ssaoNoiseTexture, ssaoShader, ssaoFinalShader);
 
+        // TODO update
         const glm::mat4 lightSpaceMatrix = GetLightSpaceMatrix(guiParameters);
 
         glViewport(0, 0, inputHandler.GetWindowWidth(), inputHandler.GetWindowHeight());
@@ -89,6 +79,7 @@ int main()
         }
 
         // Copy depth buffer
+        // TODO check if we need this
         ssaoInputFrameBuffer.Bind();
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
         glBlitFramebuffer(0, 0, Config::windowWidth, Config::windowHeight, 0, 0, Config::windowWidth, Config::windowHeight, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
