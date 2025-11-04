@@ -3,7 +3,7 @@
 
 #include <textures/Texture.h>
 #include <textures/TextureId.h>
-#include <vector>
+#include <storage/ElementStorage.h>
 
 class TextureStorage
 {
@@ -13,7 +13,7 @@ public:
     Texture& GetTexture(TextureId textureId);
 
 private:
-    std::vector<Texture> m_textures;
+    ElementStorage<Texture, TextureId> m_storage;
 };
 
 #endif

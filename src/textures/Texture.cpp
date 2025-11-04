@@ -45,12 +45,12 @@ void Texture::AddBorder()
     glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, Constants::borderColor);
 }
 
-TextureId Texture::GetTextureId() const
+TextureId Texture::GetId() const
 {
     return m_textureId;
 }
 
-unsigned int Texture::GetId() const
+unsigned int Texture::GetGlId() const
 {
     return m_glTextureId;
 }

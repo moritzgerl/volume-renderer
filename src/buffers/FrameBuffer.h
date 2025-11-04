@@ -10,7 +10,7 @@ class FrameBuffer
 {
 public:
     FrameBuffer(FrameBufferId frameBufferId);
-    FrameBufferId GetFrameBufferId() const;
+    FrameBufferId GetId() const;
     void AttachTexture(unsigned int attachment, const Texture& texture) const;
     void AttachRenderBuffer(unsigned int attachment, unsigned int internalFormat, unsigned int width, unsigned int height);
     void Bind() const;

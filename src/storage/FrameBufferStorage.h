@@ -3,7 +3,7 @@
 
 #include <buffers/FrameBuffer.h>
 #include <buffers/FrameBufferId.h>
-#include <vector>
+#include <storage/ElementStorage.h>
 
 class FrameBufferStorage
 {
@@ -12,7 +12,7 @@ public:
     const FrameBuffer& GetFrameBuffer(FrameBufferId frameBufferId) const;
 
 private:
-    std::vector<FrameBuffer> m_frameBuffers;
+    ElementStorage<FrameBuffer, FrameBufferId> m_storage;
 };
 
 #endif

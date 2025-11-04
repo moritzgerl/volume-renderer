@@ -17,14 +17,14 @@ FrameBuffer::FrameBuffer(FrameBufferId frameBufferId)
     }
 }
 
-FrameBufferId FrameBuffer::GetFrameBufferId() const
+FrameBufferId FrameBuffer::GetId() const
 {
     return m_frameBufferId;
 }
 
 void FrameBuffer::AttachTexture(GLenum attachment, const Texture& texture) const
-{   
-    glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, GL_TEXTURE_2D, texture.GetId(), 0);
+{
+    glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, GL_TEXTURE_2D, texture.GetGlId(), 0);
 }
 
 void FrameBuffer::AttachRenderBuffer(GLenum attachment, GLenum internalFormat, unsigned int width, unsigned int height)

@@ -23,7 +23,7 @@ public:
         std::function<void()>&& renderFunction
     );
 
-    RenderPassId GetRenderPassId() const;
+    RenderPassId GetId() const;
     void Render() const;
 
 private:

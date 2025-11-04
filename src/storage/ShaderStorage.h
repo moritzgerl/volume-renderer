@@ -3,7 +3,7 @@
 
 #include <shader/Shader.h>
 #include <shader/ShaderId.h>
-#include <vector>
+#include <storage/ElementStorage.h>
 
 class ShaderStorage
 {
@@ -12,7 +12,7 @@ public:
     Shader const& GetShader(ShaderId shaderId) const;
 
 private:
-    std::vector<Shader> m_shaders;
+    ElementStorage<Shader, ShaderId> m_storage;
 };
 
 #endif

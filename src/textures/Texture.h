@@ -10,10 +10,10 @@ public:
     Texture(TextureId textureId, unsigned int textureUnit, unsigned int width, unsigned int height, unsigned int internalFormat, unsigned int format, unsigned int type, unsigned int filterParameter, unsigned int wrapParameter);
     Texture(TextureId textureId, unsigned int textureUnit, unsigned int width, unsigned int height, unsigned int internalFormat, unsigned int format, unsigned int type, unsigned int filterParameter, unsigned int wrapParameter, const void* data);
     void AddBorder();
-    unsigned int GetId() const;
+    unsigned int GetGlId() const;
     unsigned int GetTextureUnit() const;
     unsigned int GetTextureUnitEnum() const;
-    TextureId GetTextureId() const;
+    TextureId GetId() const;
     void Bind() const;
 
 private:

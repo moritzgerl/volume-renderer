@@ -17,7 +17,7 @@ namespace
         auto shaderIter = std::find_if(shaders.cbegin(), shaders.cend(),
             [shaderId](const Shader& shader)
             {
-                return shader.GetShaderId() == shaderId;
+                return shader.GetId() == shaderId;
             }
         );
         return *shaderIter;

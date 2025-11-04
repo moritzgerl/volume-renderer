@@ -21,7 +21,7 @@ RenderPass::RenderPass(
 {
 }
 
-RenderPassId RenderPass::GetRenderPassId() const
+RenderPassId RenderPass::GetId() const
 {
     return m_renderPassId;
 }

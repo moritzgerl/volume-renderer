@@ -13,7 +13,7 @@ public:
     // TODO use strings
     Shader(ShaderId shaderId, const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
 
-    ShaderId GetShaderId() const;
+    ShaderId GetId() const;
 
     void Use() const;
     void SetBool(const std::string& name, bool value) const;

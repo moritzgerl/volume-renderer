@@ -3,7 +3,7 @@
 
 #include <renderpass/RenderPass.h>
 #include <renderpass/RenderPassId.h>
-#include <vector>
+#include <storage/ElementStorage.h>
 
 class RenderPassStorage
 {
@@ -13,7 +13,7 @@ public:
     const std::vector<RenderPass>& GetRenderPasses() const;
 
 private:
-    std::vector<RenderPass> m_renderPasses;
+    ElementStorage<RenderPass, RenderPassId> m_storage;
 };
 
 #endif
