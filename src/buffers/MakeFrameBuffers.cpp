@@ -25,24 +25,24 @@ namespace Factory
         ssaoInputFrameBuffer.AttachRenderBuffer(GL_DEPTH_ATTACHMENT, GL_DEPTH_COMPONENT, Config::windowWidth, Config::windowHeight);
         ssaoInputFrameBuffer.Check();
         ssaoInputFrameBuffer.Unbind();
-        frameBuffers.push_back(std::move(ssaoInputFrameBuffer));
+        frameBuffers.emplace_back(std::move(ssaoInputFrameBuffer));
 
         FrameBuffer ssaoFrameBuffer(FrameBufferId::Ssao);
         ssaoFrameBuffer.Bind();
         ssaoFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT0, textureStorage.GetElement(TextureId::Ssao));
         ssaoFrameBuffer.Check();
         ssaoFrameBuffer.Unbind();
-        frameBuffers.push_back(std::move(ssaoFrameBuffer));
+        frameBuffers.emplace_back(std::move(ssaoFrameBuffer));
 
         FrameBuffer ssaoBlurFrameBuffer(FrameBufferId::SsaoBlur);
         ssaoBlurFrameBuffer.Bind();
         ssaoBlurFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT0, textureStorage.GetElement(TextureId::SsaoBlur));
         ssaoBlurFrameBuffer.Check();
         ssaoBlurFrameBuffer.Unbind();
-        frameBuffers.push_back(std::move(ssaoBlurFrameBuffer));
+        frameBuffers.emplace_back(std::move(ssaoBlurFrameBuffer));
 
         FrameBuffer defaultFrameBuffer(FrameBufferId::Default);
-        frameBuffers.push_back(std::move(defaultFrameBuffer));
+        frameBuffers.emplace_back(std::move(defaultFrameBuffer));
 
         return frameBuffers;
     }
