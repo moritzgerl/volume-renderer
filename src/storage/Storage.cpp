@@ -1,14 +1,34 @@
 #include <storage/Storage.h>
 
 Storage::Storage(
+    Camera&& camera,
+    DisplayProperties&& displayProperties,
+    Gui&& gui,
+    GuiParameters&& guiParameters,
+    GuiUpdateFlags&& guiUpdateFlags,
+    InputHandler&& inputHandler,
+    ScreenQuad&& screenQuad,
+    SsaoUpdater&& ssaoUpdater,
+    SsaoUtils&& ssaoUtils,
     TextureStorage&& textureStorage,
     ShaderStorage&& shaderStorage,
     FrameBufferStorage&& frameBufferStorage,
-    RenderPassStorage&& renderPassStorage)
-    : m_textureStorage(std::move(textureStorage))
+    RenderPassStorage&& renderPassStorage,
+    Context::GlfwWindow&& window)
+    : m_camera(std::move(camera))
+    , m_displayProperties(std::move(displayProperties))
+    , m_gui(std::move(gui))
+    , m_guiParameters(std::move(guiParameters))
+    , m_guiUpdateFlags(std::move(guiUpdateFlags))
+    , m_inputHandler(std::move(inputHandler))
+    , m_screenQuad(std::move(screenQuad))
+    , m_ssaoUpdater(std::move(ssaoUpdater))
+    , m_ssaoUtils(std::move(ssaoUtils))
+    , m_textureStorage(std::move(textureStorage))
     , m_shaderStorage(std::move(shaderStorage))
     , m_frameBufferStorage(std::move(frameBufferStorage))
     , m_renderPassStorage(std::move(renderPassStorage))
+    , m_window(std::move(window))
 {
 }
 
@@ -40,4 +60,29 @@ const RenderPass& Storage::GetRenderPass(RenderPassId renderPassId) const
 const std::vector<RenderPass>& Storage::GetRenderPasses() const
 {
     return m_renderPassStorage.GetElements();
+}
+
+const DisplayProperties& Storage::GetDisplayProperties() const
+{
+    return m_displayProperties;
+}
+
+Gui& Storage::GetGui()
+{
+    return m_gui;
+}
+
+InputHandler& Storage::GetInputHandler()
+{
+    return m_inputHandler;
+}
+
+SsaoUpdater& Storage::GetSsaoUpdater()
+{
+    return m_ssaoUpdater;
+}
+
+Context::GlfwWindow& Storage::GetWindow()
+{
+    return m_window;
 }
