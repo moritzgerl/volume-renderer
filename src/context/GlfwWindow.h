@@ -23,9 +23,6 @@ namespace Context
         void Shutdown();
 
     private:
-        // TODO differently
-        static void WindowDeleterFunction(GLFWwindow* window);
-
         WindowPtr m_window;
     };
 }

@@ -7,16 +7,8 @@
 
 namespace Context
 {
-    void GlfwWindow::WindowDeleterFunction(GLFWwindow* window)
-    {
-        if (window)
-        {
-            glfwDestroyWindow(window);
-        }
-    }
-
     GlfwWindow::GlfwWindow()
-        : m_window(InitGlfw(), WindowDeleterFunction)
+        : m_window(InitGlfw())
     {
         InitGlad();
         InitGl();

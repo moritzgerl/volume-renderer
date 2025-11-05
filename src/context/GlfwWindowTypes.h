@@ -1,14 +1,13 @@
 #ifndef GLFW_WINDOW_TYPES_H
 #define GLFW_WINDOW_TYPES_H
 
-#include <memory>
+#include "GlfwWindowDeleter.h"
 
-struct GLFWwindow;
+#include <memory>
 
 namespace Context
 {
-    using WindowDeleter = void(*)(GLFWwindow*);
-    using WindowPtr = std::unique_ptr<GLFWwindow, WindowDeleter>;
+    using WindowPtr = std::unique_ptr<GLFWwindow, GlfwWindowDeleter>;
 }
 
 #endif
