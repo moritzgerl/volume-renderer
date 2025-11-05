@@ -30,7 +30,7 @@ namespace Factory
     std::vector<Shader> MakeShaders(
         const GuiParameters& guiParameters,
         const SsaoUtils& ssaoUtils,
-        const ElementStorage<Texture, TextureId>& textureStorage
+        const TextureStorage& textureStorage
     )
     {
         std::vector<Shader> shaders;

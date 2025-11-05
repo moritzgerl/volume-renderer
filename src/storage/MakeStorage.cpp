@@ -16,10 +16,10 @@ namespace Factory
         const ScreenQuad& screenQuad
     )
     {
-        ElementStorage<Texture, TextureId> textureStorage(MakeTextures(ssaoUtils));
-        ElementStorage<Shader, ShaderId> shaderStorage(MakeShaders(guiParameters, ssaoUtils, textureStorage));
-        ElementStorage<FrameBuffer, FrameBufferId> frameBufferStorage(MakeFrameBuffers(textureStorage));
-        ElementStorage<RenderPass, RenderPassId> renderPassStorage(MakeRenderPasses(camera, displayProperties, guiParameters, ssaoUtils, lightSpaceMatrix, screenQuad, textureStorage, shaderStorage, frameBufferStorage));
+        TextureStorage textureStorage(MakeTextures(ssaoUtils));
+        ShaderStorage shaderStorage(MakeShaders(guiParameters, ssaoUtils, textureStorage));
+        FrameBufferStorage frameBufferStorage(MakeFrameBuffers(textureStorage));
+        RenderPassStorage renderPassStorage(MakeRenderPasses(camera, displayProperties, guiParameters, ssaoUtils, lightSpaceMatrix, screenQuad, textureStorage, shaderStorage, frameBufferStorage));
 
         return Storage(
             std::move(textureStorage),

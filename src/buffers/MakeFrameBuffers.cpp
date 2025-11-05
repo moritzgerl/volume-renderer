@@ -8,7 +8,7 @@
 
 namespace Factory
 {
-    std::vector<FrameBuffer> MakeFrameBuffers(const ElementStorage<Texture, TextureId>& textureStorage)
+    std::vector<FrameBuffer> MakeFrameBuffers(const TextureStorage& textureStorage)
     {
         std::vector<FrameBuffer> frameBuffers;
         frameBuffers.reserve(4);

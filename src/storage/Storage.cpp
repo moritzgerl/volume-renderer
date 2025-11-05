@@ -1,10 +1,10 @@
 #include <storage/Storage.h>
 
 Storage::Storage(
-    ElementStorage<Texture, TextureId>&& textureStorage,
-    ElementStorage<Shader, ShaderId>&& shaderStorage,
-    ElementStorage<FrameBuffer, FrameBufferId>&& frameBufferStorage,
-    ElementStorage<RenderPass, RenderPassId>&& renderPassStorage)
+    TextureStorage&& textureStorage,
+    ShaderStorage&& shaderStorage,
+    FrameBufferStorage&& frameBufferStorage,
+    RenderPassStorage&& renderPassStorage)
     : m_textureStorage(std::move(textureStorage))
     , m_shaderStorage(std::move(shaderStorage))
     , m_frameBufferStorage(std::move(frameBufferStorage))

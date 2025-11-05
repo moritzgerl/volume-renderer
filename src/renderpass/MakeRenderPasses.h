@@ -2,6 +2,7 @@
 #define MAKE_RENDER_PASSES_H
 
 #include <renderpass/RenderPass.h>
+#include <storage/StorageTypes.h>
 
 #include <vector>
 #include <glm/glm.hpp>
@@ -11,13 +12,6 @@ struct DisplayProperties;
 struct GuiParameters;
 class SsaoUtils;
 class ScreenQuad;
-template <typename ElementType, typename ElementIdType> class ElementStorage;
-class Texture;
-enum class TextureId;
-class Shader;
-enum class ShaderId;
-class FrameBuffer;
-enum class FrameBufferId;
 
 namespace Factory
 {
@@ -28,9 +22,9 @@ namespace Factory
         const SsaoUtils& ssaoUtils,
         const glm::mat4& lightSpaceMatrix,
         const ScreenQuad& screenQuad,
-        const ElementStorage<Texture, TextureId>& textureStorage,
-        const ElementStorage<Shader, ShaderId>& shaderStorage,
-        const ElementStorage<FrameBuffer, FrameBufferId>& frameBufferStorage
+        const TextureStorage& textureStorage,
+        const ShaderStorage& shaderStorage,
+        const FrameBufferStorage& frameBufferStorage
     );
 }
 

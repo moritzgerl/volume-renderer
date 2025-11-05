@@ -2,15 +2,12 @@
 #define MAKE_FRAME_BUFFERS_H
 
 #include <buffers/FrameBuffer.h>
+#include <storage/StorageTypes.h>
 #include <vector>
-
-template <typename ElementType, typename ElementIdType> class ElementStorage;
-class Texture;
-enum class TextureId;
 
 namespace Factory
 {
-    std::vector<FrameBuffer> MakeFrameBuffers(const ElementStorage<Texture, TextureId>& textureStorage);
+    std::vector<FrameBuffer> MakeFrameBuffers(const TextureStorage& textureStorage);
 }
 
 #endif

@@ -1,24 +1,17 @@
 #ifndef STORAGE_H
 #define STORAGE_H
 
-#include <storage/ElementStorage.h>
-#include <textures/Texture.h>
-#include <textures/TextureId.h>
-#include <shader/Shader.h>
-#include <shader/ShaderId.h>
-#include <buffers/FrameBuffer.h>
-#include <buffers/FrameBufferId.h>
-#include <renderpass/RenderPass.h>
-#include <renderpass/RenderPassId.h>
+#include <storage/StorageTypes.h>
+#include <vector>
 
 class Storage
 {
 public:
     explicit Storage(
-        ElementStorage<Texture, TextureId>&& textureStorage,
-        ElementStorage<Shader, ShaderId>&& shaderStorage,
-        ElementStorage<FrameBuffer, FrameBufferId>&& frameBufferStorage,
-        ElementStorage<RenderPass, RenderPassId>&& renderPassStorage);
+        TextureStorage&& textureStorage,
+        ShaderStorage&& shaderStorage,
+        FrameBufferStorage&& frameBufferStorage,
+        RenderPassStorage&& renderPassStorage);
 
     // TODO use concepts
     // TODO rule of zero? Don't even do the = delete here?
@@ -37,10 +30,10 @@ public:
     const std::vector<RenderPass>& GetRenderPasses() const;
 
 private:
-    ElementStorage<Texture, TextureId> m_textureStorage;
-    ElementStorage<Shader, ShaderId> m_shaderStorage;
-    ElementStorage<FrameBuffer, FrameBufferId> m_frameBufferStorage;
-    ElementStorage<RenderPass, RenderPassId> m_renderPassStorage;
+    TextureStorage m_textureStorage;
+    ShaderStorage m_shaderStorage;
+    FrameBufferStorage m_frameBufferStorage;
+    RenderPassStorage m_renderPassStorage;
 };
 
 #endif

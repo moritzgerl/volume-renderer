@@ -26,9 +26,9 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
     const SsaoUtils& ssaoUtils,
     const glm::mat4& lightSpaceMatrix,
     const ScreenQuad& screenQuad,
-    const ElementStorage<Texture, TextureId>& textureStorage,
-    const ElementStorage<Shader, ShaderId>& shaderStorage,
-    const ElementStorage<FrameBuffer, FrameBufferId>& frameBufferStorage
+    const TextureStorage& textureStorage,
+    const ShaderStorage& shaderStorage,
+    const FrameBufferStorage& frameBufferStorage
 )
 {
     std::vector<RenderPass> renderPasses;
