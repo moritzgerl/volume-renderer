@@ -1,7 +1,7 @@
-#include "GlfwWindow.h"
-#include "InitGlfw.h"
-#include "InitGlad.h"
-#include "InitGl.h"
+#include <context/GlfwWindow.h>
+#include <context/InitGlfw.h>
+#include <context/InitGlad.h>
+#include <context/InitGl.h>
 
 #include <GLFW/glfw3.h>
 

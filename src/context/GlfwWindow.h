@@ -1,7 +1,7 @@
 #ifndef GLFW_WINDOW_H
 #define GLFW_WINDOW_H
 
-#include "GlfwWindowTypes.h"
+#include <context/GlfwWindowTypes.h>
 
 namespace Context
 {
