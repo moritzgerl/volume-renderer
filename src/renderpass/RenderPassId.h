@@ -3,6 +3,7 @@
 
 enum class RenderPassId
 {
+    Setup,
     SsaoInput,
     Ssao,
     SsaoBlur,

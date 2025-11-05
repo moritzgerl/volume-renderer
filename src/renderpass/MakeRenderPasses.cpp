@@ -4,8 +4,9 @@
 #include <buffers/FrameBufferId.h>
 #include <camera/Camera.h>
 #include <config/Config.h>
-#include <input/DisplayProperties.h>
 #include <gui/GuiParameters.h>
+#include <input/DisplayProperties.h>
+#include <input/InputHandler.h>
 #include <primitives/ScreenQuad.h>
 #include <shader/Shader.h>
 #include <shader/ShaderId.h>
@@ -23,6 +24,7 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
     const Camera& camera,
     const DisplayProperties& displayProperties,
     const GuiParameters& guiParameters,
+    const InputHandler& inputHandler,
     const SsaoUtils& ssaoUtils,
     const ScreenQuad& screenQuad,
     const TextureStorage& textureStorage,
@@ -31,7 +33,34 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
 )
 {
     std::vector<RenderPass> renderPasses;
-    renderPasses.reserve(6);
+    renderPasses.reserve(7);
+
+    // Setup
+    {
+        std::vector<std::reference_wrapper<const Texture>> textures;
+
+        const auto& shader = shaderStorage.GetElement(ShaderId::SsaoInput);     // Dummy shader
+
+        auto prepareFunction = [&inputHandler]()
+        {
+            glViewport(0, 0, inputHandler.GetWindowWidth(), inputHandler.GetWindowHeight());
+            glDisable(GL_BLEND);
+        };
+
+        auto renderFunction = []()
+        {
+        };
+
+        renderPasses.emplace_back(
+            RenderPassId::Setup,
+            screenQuad,
+            shader,
+            frameBufferStorage.GetElement(FrameBufferId::Default),
+            std::move(textures),
+            std::move(prepareFunction),
+            std::move(renderFunction)
+        );
+    }
 
     // SSAO Input
     {

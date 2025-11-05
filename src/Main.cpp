@@ -26,9 +26,6 @@ int main()
         inputHandler.Update();
         ssaoUpdater.Update();
 
-        glViewport(0, 0, inputHandler.GetWindowWidth(), inputHandler.GetWindowHeight());
-        glDisable(GL_BLEND);
-
         for (const RenderPass& renderPass : renderPasses)
         {
             renderPass.Render();

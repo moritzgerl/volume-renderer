@@ -10,6 +10,7 @@
 class Camera;
 struct DisplayProperties;
 struct GuiParameters;
+class InputHandler;
 class SsaoUtils;
 class ScreenQuad;
 
@@ -19,6 +20,7 @@ namespace Factory
         const Camera& camera,
         const DisplayProperties& displayProperties,
         const GuiParameters& guiParameters,
+        const InputHandler& inputHandler,
         const SsaoUtils& ssaoUtils,
         const ScreenQuad& screenQuad,
         const TextureStorage& textureStorage,
