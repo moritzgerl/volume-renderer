@@ -103,6 +103,37 @@ The application implements a multi-pass deferred rendering pipeline (see `Main.c
 - Shader uniforms updated per-frame or on GUI parameter changes
 - Anonymous namespaces in `Main.cpp` for helper functions that should be refactored into separate modules (marked with `// TODO move` comments)
 
+## Coding Guidelines
+
+### Include Directives
+- **Always use angle bracket includes** (`<>`) for all project headers, never quoted includes (`""`)
+  - Correct: `#include <context/GlfwWindow.h>`
+  - Incorrect: `#include "GlfwWindow.h"`
+- **Sort includes alphabetically** within each group, with one exception: headers from the current module's folder come first
+  - Example: In `context/GlfwWindow.cpp`, include `<context/...>` headers before other project headers
+- **Organize includes in two groups** separated by a blank line:
+  1. Project-local headers (from `src/`)
+  2. Standard library and third-party headers (STL, GLFW, GLM, etc.)
+- **Skip the blank line** between groups if the file has fewer than 5 includes total
+- **Third-party library code** (such as imgui) may use its own conventions and should not be modified
+
+Example with 5+ includes:
+```cpp
+#include <context/GlfwWindow.h>
+#include <context/InitGl.h>
+#include <camera/Camera.h>
+#include <config/Config.h>
+
+#include <GLFW/glfw3.h>
+#include <memory>
+```
+
+Example with fewer than 5 includes:
+```cpp
+#include <context/GlfwWindowDeleter.h>
+#include <GLFW/glfw3.h>
+```
+
 ## Development Workflow
 
 ### Modifying Shaders
