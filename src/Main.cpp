@@ -20,7 +20,7 @@
 #include <shader/UpdateLightSourceModelMatrixInShader.h>
 #include <shader/UpdateSsaoFinalShader.h>
 #include <shader/UpdateSsaoShader.h>
-#include <shader/UpdateSsaoShaders.h>
+#include <shader/SsaoUpdater.h>
 #include <textures/Texture.h>
 #include <textures/TextureId.h>
 #include <textures/UpdateSsaoNoiseTexture.h>
@@ -53,11 +53,12 @@ int main()
     const Shader& ssaoFinalShader = storage.GetShader(ShaderId::SsaoFinal);
     const FrameBuffer& ssaoInputFrameBuffer = storage.GetFrameBuffer(FrameBufferId::SsaoInput);
     const std::vector<RenderPass>& renderPasses = storage.GetRenderPasses();
+    SsaoUpdater ssaoUpdater(guiUpdateFlags, guiParameters, ssaoUtils, ssaoNoiseTexture, ssaoShader, ssaoFinalShader);
 
     while (!window.ShouldClose())
     {
         inputHandler.Update();
-        ShaderUtils::UpdateSsaoShaders(guiUpdateFlags, guiParameters, ssaoUtils, ssaoNoiseTexture, ssaoShader, ssaoFinalShader);
+        ssaoUpdater.Update();
 
         glViewport(0, 0, inputHandler.GetWindowWidth(), inputHandler.GetWindowHeight());
         glDisable(GL_BLEND);
