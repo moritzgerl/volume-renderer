@@ -30,7 +30,6 @@ uniform Material material;
 uniform DirectionalLight directionalLight;
 uniform PointLight pointLights[NUM_POINT_LIGHTS];
 uniform sampler2D ssaoPosition;
-uniform sampler2D ssaoLightSpacePosition;
 uniform sampler2D ssaoNormal;
 uniform sampler2D ssaoAlbedo;
 uniform sampler2D ssaoPointLightsContribution;
@@ -41,7 +40,7 @@ in vec2 TexCoords;
 out vec4 FragColor;
 
 
-vec3 CalculateDirectionalLight(vec3 materialColor, vec3 projectedLightSpaceCoordinates, vec3 normal, vec3 viewDirection, float ssao)
+vec3 CalculateDirectionalLight(vec3 materialColor, vec3 normal, vec3 viewDirection, float ssao)
 {
     // ambient
     vec3 ambient = directionalLight.ambient * materialColor * ssao;
@@ -88,17 +87,16 @@ vec3 CalculatePointLight(vec3 materialColor, float pointLightsContribution, Poin
 void main()
 {
     vec3 fragmentPosition = texture(ssaoPosition, TexCoords).rgb;
-    vec3 projectedLightSpaceCoordinates = texture(ssaoLightSpacePosition, TexCoords).rgb;
-    vec3 normal = texture(ssaoNormal, TexCoords).rgb; 
+    vec3 normal = texture(ssaoNormal, TexCoords).rgb;
     vec3 materialColor = texture(ssaoAlbedo, TexCoords).rgb;
     float pointLightsContribution = texture(ssaoPointLightsContribution, TexCoords).r;
 
     float ssao;
     if (enableSsao == 1)
     {
-        ssao = texture(ssaoMap, TexCoords).r;     
+        ssao = texture(ssaoMap, TexCoords).r;
     }
-    else 
+    else
     {
         ssao = 1.0f;
     }
@@ -114,7 +112,7 @@ void main()
     }
     else
     {
-        vec3 color = CalculateDirectionalLight(materialColor, projectedLightSpaceCoordinates, normal, viewDirection, ssao);
+        vec3 color = CalculateDirectionalLight(materialColor, normal, viewDirection, ssao);
 
         for(int i = 0; i < NUM_POINT_LIGHTS; i++)
         {

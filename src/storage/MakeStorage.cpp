@@ -11,7 +11,6 @@ namespace Factory
         const Camera& camera,
         const DisplayProperties& displayProperties,
         const GuiParameters& guiParameters,
-        const glm::mat4& lightSpaceMatrix,
         const SsaoUtils& ssaoUtils,
         const ScreenQuad& screenQuad
     )
@@ -19,7 +18,7 @@ namespace Factory
         TextureStorage textureStorage(MakeTextures(ssaoUtils));
         ShaderStorage shaderStorage(MakeShaders(guiParameters, ssaoUtils, textureStorage));
         FrameBufferStorage frameBufferStorage(MakeFrameBuffers(textureStorage));
-        RenderPassStorage renderPassStorage(MakeRenderPasses(camera, displayProperties, guiParameters, ssaoUtils, lightSpaceMatrix, screenQuad, textureStorage, shaderStorage, frameBufferStorage));
+        RenderPassStorage renderPassStorage(MakeRenderPasses(camera, displayProperties, guiParameters, ssaoUtils, screenQuad, textureStorage, shaderStorage, frameBufferStorage));
 
         return Storage(
             std::move(textureStorage),

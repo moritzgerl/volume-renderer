@@ -12,7 +12,6 @@
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
 #include <gui/MakeGuiParameters.h>
-#include <lights/GetLightSpaceMatrix.h>
 #include <primitives/ScreenQuad.h>
 #include <shader/Shader.h>
 #include <shader/ShaderId.h>
@@ -54,8 +53,7 @@ int main()
     Camera camera(-2.25293994f, 9.60278416f, -4.95751047f, 0.00000000f, 1.00000000f, 0.00000000f, 389.10012817f, -30.39993668f);
     InputHandler inputHandler(window, camera, displayProperties);
     ScreenQuad screenQuad;
-    const glm::mat4 lightSpaceMatrix = GetLightSpaceMatrix(guiParameters);
-    Storage storage(Factory::MakeStorage(camera, displayProperties, guiParameters, lightSpaceMatrix, ssaoUtils, screenQuad));
+    Storage storage(Factory::MakeStorage(camera, displayProperties, guiParameters, ssaoUtils, screenQuad));
     Texture& ssaoNoiseTexture = storage.GetTexture(TextureId::SsaoNoise);
     const Shader& ssaoShader = storage.GetShader(ShaderId::Ssao);
     const Shader& ssaoFinalShader = storage.GetShader(ShaderId::SsaoFinal);
@@ -66,9 +64,6 @@ int main()
     {
         inputHandler.Update();
         ShaderUtils::UpdateSsaoShaders(guiUpdateFlags, guiParameters, ssaoUtils, ssaoNoiseTexture, ssaoShader, ssaoFinalShader);
-
-        // TODO update
-        const glm::mat4 lightSpaceMatrix = GetLightSpaceMatrix(guiParameters);
 
         glViewport(0, 0, inputHandler.GetWindowWidth(), inputHandler.GetWindowHeight());
         glDisable(GL_BLEND);

@@ -4,7 +4,6 @@
 enum class TextureId
 {
     SsaoPosition,
-    SsaoLightSpacePosition,
     SsaoNormal,
     SsaoAlbedo,
     Ssao,

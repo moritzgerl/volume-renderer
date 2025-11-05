@@ -24,7 +24,6 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
     const DisplayProperties& displayProperties,
     const GuiParameters& guiParameters,
     const SsaoUtils& ssaoUtils,
-    const glm::mat4& lightSpaceMatrix,
     const ScreenQuad& screenQuad,
     const TextureStorage& textureStorage,
     const ShaderStorage& shaderStorage,
@@ -40,12 +39,11 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
 
         const auto& shader = shaderStorage.GetElement(ShaderId::SsaoInput);
 
-        auto prepareFunction = [&camera, &lightSpaceMatrix, &shader]()
+        auto prepareFunction = [&camera, &shader]()
         {
             glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             ShaderUtils::UpdateCameraMatricesInShader(camera, shader);
-            shader.SetMat4("lightSpace", lightSpaceMatrix);
         };
 
         auto renderFunction = []()
@@ -128,7 +126,6 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
         std::vector<std::reference_wrapper<const Texture>> textures;
         // TODO use { }
         textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoPosition)));
-        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoLightSpacePosition)));
         textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoNormal)));
         textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoAlbedo)));
         textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoPointLightsContribution)));

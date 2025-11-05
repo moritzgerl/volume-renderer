@@ -20,7 +20,6 @@ namespace Factory
         const DisplayProperties& displayProperties,
         const GuiParameters& guiParameters,
         const SsaoUtils& ssaoUtils,
-        const glm::mat4& lightSpaceMatrix,
         const ScreenQuad& screenQuad,
         const TextureStorage& textureStorage,
         const ShaderStorage& shaderStorage,

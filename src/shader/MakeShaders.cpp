@@ -45,7 +45,6 @@ namespace Factory
         shaders.emplace_back(ShaderId::LightSource, FileSystem::getPath("src/shaders/LightSource.vert").c_str(), FileSystem::getPath("src/shaders/LightSource.frag").c_str());
 
         const Texture& ssaoPositionTexture = textureStorage.GetElement(TextureId::SsaoPosition);
-        const Texture& ssaoLightSpacePositionTexture = textureStorage.GetElement(TextureId::SsaoLightSpacePosition);
         const Texture& ssaoNormalTexture = textureStorage.GetElement(TextureId::SsaoNormal);
         const Texture& ssaoAlbedoTexture = textureStorage.GetElement(TextureId::SsaoAlbedo);
         const Texture& ssaoTexture = textureStorage.GetElement(TextureId::Ssao);
@@ -67,7 +66,6 @@ namespace Factory
         const Shader& ssaoFinalShader = GetShader(shaders, ShaderId::SsaoFinal);
         ssaoFinalShader.Use();
         ssaoFinalShader.SetInt("ssaoPosition", ssaoPositionTexture.GetTextureUnit());
-        ssaoFinalShader.SetInt("ssaoLightSpacePosition", ssaoLightSpacePositionTexture.GetTextureUnit());
         ssaoFinalShader.SetInt("ssaoNormal", ssaoNormalTexture.GetTextureUnit());
         ssaoFinalShader.SetInt("ssaoAlbedo", ssaoAlbedoTexture.GetTextureUnit());
         ssaoFinalShader.SetInt("ssaoPointLightsContribution", ssaoPointLightsContributionTexture.GetTextureUnit());

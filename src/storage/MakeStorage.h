@@ -12,11 +12,10 @@ class ScreenQuad;
 
 namespace Factory
 {
-    Storage MakeStorage(        
+    Storage MakeStorage(
         const Camera& camera,
         const DisplayProperties& displayProperties,
         const GuiParameters& guiParameters,
-        const glm::mat4& lightSpaceMatrix,
         const SsaoUtils& ssaoUtils,
         const ScreenQuad& screenQuad
     );
