@@ -8,7 +8,7 @@ namespace Constants
     const ImGuiColorEditFlags colorPickerFlags = ImGuiColorEditFlags_NoAlpha | ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_Float;
 }
 
-Gui::Gui(GLFWwindow* window, GuiParameters& guiParameters, GuiUpdateFlags& guiUpdateFlags)
+Gui::Gui(const Context::WindowPtr& window, GuiParameters& guiParameters, GuiUpdateFlags& guiUpdateFlags)
     : m_window(window)
     , m_guiParameters(guiParameters)
     , m_guiUpdateFlags(guiUpdateFlags)
@@ -21,7 +21,7 @@ Gui::Gui(GLFWwindow* window, GuiParameters& guiParameters, GuiUpdateFlags& guiUp
     //ImGui::StyleColorsDark();
     ImGui::StyleColorsLight();
 
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplGlfw_InitForOpenGL(window.get(), true);
     ImGui_ImplOpenGL3_Init("#version 130");
 }
 

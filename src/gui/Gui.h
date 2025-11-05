@@ -5,18 +5,20 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
+#include <context/GlfwWindowTypes.h>
+
 struct GuiParameters;
 struct GuiUpdateFlags;
 
 class Gui
 {
 public:
-    Gui(GLFWwindow* window, GuiParameters& guiParameters, GuiUpdateFlags& guiUpdateFlags);
+    Gui(const Context::WindowPtr& window, GuiParameters& guiParameters, GuiUpdateFlags& guiUpdateFlags);
     void Shutdown();
     void Draw();
 
 private:
-    GLFWwindow* m_window;
+    const Context::WindowPtr& m_window;
     GuiParameters& m_guiParameters;
     GuiUpdateFlags& m_guiUpdateFlags;
 };

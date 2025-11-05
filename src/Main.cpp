@@ -1,9 +1,7 @@
 #include <buffers/FrameBuffer.h>
 #include <buffers/FrameBufferId.h>
 #include <config/Config.h>
-#include <context/InitGlfw.h>
-#include <context/InitGlad.h>
-#include <context/InitGl.h>
+#include <context/GlfwWindow.h>
 #include <camera/Camera.h>
 #include <input/MakeDisplayProperties.h>
 #include <input/DisplayProperties.h>
@@ -29,7 +27,6 @@
 #include <utils/SsaoUtils.h>
 
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -40,18 +37,15 @@
 
 int main()
 {
-    // TODO use unique_ptr for window
-    auto window = Context::InitGlfw();
-    Context::InitGlad();
-    Context::InitGl();
-    
+    Context::GlfwWindow window;
+
     DisplayProperties displayProperties = Factory::MakeDisplayProperties();
     GuiParameters guiParameters = Factory::MakeGuiParameters();
     GuiUpdateFlags guiUpdateFlags;
-    Gui gui(window, guiParameters, guiUpdateFlags);
+    Gui gui(window.GetWindow(), guiParameters, guiUpdateFlags);
     SsaoUtils ssaoUtils;
     Camera camera(-2.25293994f, 9.60278416f, -4.95751047f, 0.00000000f, 1.00000000f, 0.00000000f, 389.10012817f, -30.39993668f);
-    InputHandler inputHandler(window, camera, displayProperties);
+    InputHandler inputHandler(window.GetWindow(), camera, displayProperties);
     ScreenQuad screenQuad;
     Storage storage(Factory::MakeStorage(camera, displayProperties, guiParameters, ssaoUtils, screenQuad));
     Texture& ssaoNoiseTexture = storage.GetTexture(TextureId::SsaoNoise);
@@ -60,7 +54,7 @@ int main()
     const FrameBuffer& ssaoInputFrameBuffer = storage.GetFrameBuffer(FrameBufferId::SsaoInput);
     const std::vector<RenderPass>& renderPasses = storage.GetRenderPasses();
 
-    while (!glfwWindowShouldClose(window))
+    while (!window.ShouldClose())
     {
         inputHandler.Update();
         ShaderUtils::UpdateSsaoShaders(guiUpdateFlags, guiParameters, ssaoUtils, ssaoNoiseTexture, ssaoShader, ssaoFinalShader);
@@ -78,13 +72,11 @@ int main()
             gui.Draw();
         }
 
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+        window.PostRender();
     }
 
     gui.Shutdown();
-    glfwDestroyWindow(window);
-    glfwTerminate();
+    window.Shutdown();
 
     return 0;
 }

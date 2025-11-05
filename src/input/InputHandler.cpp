@@ -4,7 +4,7 @@
 #include <input/DisplayProperties.h>
 #include <GLFW/glfw3.h>
 
-InputHandler::InputHandler(GLFWwindow* window, Camera& camera, DisplayProperties& displayProperties)
+InputHandler::InputHandler(const Context::WindowPtr& window, Camera& camera, DisplayProperties& displayProperties)
     : m_windowWidth(Config::windowWidth)
     , m_windowHeight(Config::windowHeight)
     , m_lastFrameTime(0.0f)
@@ -21,27 +21,27 @@ InputHandler::InputHandler(GLFWwindow* window, Camera& camera, DisplayProperties
 
 void InputHandler::InitGlfwCallbacks()
 {
-    glfwSetWindowUserPointer(m_window, static_cast<void*>(this));
+    glfwSetWindowUserPointer(m_window.get(), static_cast<void*>(this));
 
-    glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+    glfwSetKeyCallback(m_window.get(), [](GLFWwindow* window, int key, int scancode, int action, int mods)
     {
         auto self = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
         self->ProcessKeyPresses(key, scancode, action, mods);
     });
 
-    glfwSetFramebufferSizeCallback(m_window, [](GLFWwindow* window, int width, int height)
+    glfwSetFramebufferSizeCallback(m_window.get(), [](GLFWwindow* window, int width, int height)
     {
         auto self = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
         self->ProcessWindowResize(width, height);
     });
 
-    glfwSetCursorPosCallback(m_window, [](GLFWwindow* window, double x, double y)
+    glfwSetCursorPosCallback(m_window.get(), [](GLFWwindow* window, double x, double y)
     {
         auto self = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
         self->ProcessMouseMove(x, y);
     });
 
-    glfwSetScrollCallback(m_window, [](GLFWwindow* window, double offsetX, double offsetY)
+    glfwSetScrollCallback(m_window.get(), [](GLFWwindow* window, double offsetX, double offsetY)
     {
         auto self = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
         self->ProcessMouseWheel(offsetX, offsetY);
@@ -69,17 +69,17 @@ unsigned int InputHandler::GetWindowHeight() const
 
 void InputHandler::ProcessKeyHolds()
 {
-    if (glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    if (glfwGetKey(m_window.get(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
-        glfwSetWindowShouldClose(m_window, true);
+        glfwSetWindowShouldClose(m_window.get(), true);
     }
 
-    if (glfwGetKey(m_window, GLFW_KEY_E) == GLFW_PRESS)
+    if (glfwGetKey(m_window.get(), GLFW_KEY_E) == GLFW_PRESS)
     {
         m_camera.ProcessKeyboard(UP, m_timeSinceLastFrame);
     }
 
-    if (glfwGetKey(m_window, GLFW_KEY_Q) == GLFW_PRESS)
+    if (glfwGetKey(m_window.get(), GLFW_KEY_Q) == GLFW_PRESS)
     {
         m_camera.ProcessKeyboard(DOWN, m_timeSinceLastFrame);
     }
@@ -88,17 +88,17 @@ void InputHandler::ProcessKeyHolds()
 void InputHandler::ProcessKeyPresses(int key, int scancode, int action, int mods)
 {
 
-    if (glfwGetKey(m_window, GLFW_KEY_V) == GLFW_PRESS)
-    {   
+    if (glfwGetKey(m_window.get(), GLFW_KEY_V) == GLFW_PRESS)
+    {
         m_camera.PrintProperties();
     }
 
-    if (glfwGetKey(m_window, GLFW_KEY_G) == GLFW_PRESS)
+    if (glfwGetKey(m_window.get(), GLFW_KEY_G) == GLFW_PRESS)
     {
         m_displayProperties.showGui= !m_displayProperties.showGui;
     }
 
-    if (glfwGetKey(m_window, GLFW_KEY_F6) == GLFW_PRESS)
+    if (glfwGetKey(m_window.get(), GLFW_KEY_F6) == GLFW_PRESS)
     {
         m_displayProperties.showSsaoMap = !m_displayProperties.showSsaoMap;
     }

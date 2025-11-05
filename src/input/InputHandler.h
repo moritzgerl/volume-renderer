@@ -1,7 +1,8 @@
 #ifndef INPUT_HANDLER_H
 #define INPUT_HANDLER_H
 
-struct GLFWwindow;
+#include <context/GlfwWindowTypes.h>
+
 class Camera;
 class VertexBuffer;
 struct DisplayProperties;
@@ -9,7 +10,7 @@ struct DisplayProperties;
 class InputHandler
 {
 public:
-    InputHandler(GLFWwindow* window, Camera& camera, DisplayProperties& displayProperties);
+    InputHandler(const Context::WindowPtr& window, Camera& camera, DisplayProperties& displayProperties);
     void Update();
     unsigned int GetWindowWidth() const;
     unsigned int GetWindowHeight() const;
@@ -30,7 +31,7 @@ private:
     bool m_isFirstMouseMove;
     float m_lastMousePositionX;
     float m_lastMousePositionY;
-    GLFWwindow* m_window;
+    const Context::WindowPtr& m_window;
     Camera& m_camera;
     DisplayProperties& m_displayProperties;
 };
