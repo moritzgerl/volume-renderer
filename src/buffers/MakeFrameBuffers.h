@@ -4,11 +4,13 @@
 #include <buffers/FrameBuffer.h>
 #include <vector>
 
-class TextureStorage;
+template <typename ElementType, typename ElementIdType> class ElementStorage;
+class Texture;
+enum class TextureId;
 
 namespace Factory
 {
-    std::vector<FrameBuffer> MakeFrameBuffers(const TextureStorage& textureStorage);
+    std::vector<FrameBuffer> MakeFrameBuffers(const ElementStorage<Texture, TextureId>& textureStorage);
 }
 
 #endif

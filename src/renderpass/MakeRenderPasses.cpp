@@ -1,18 +1,19 @@
 #include <renderpass/MakeRenderPasses.h>
 #include <renderpass/RenderPassId.h>
+#include <buffers/FrameBuffer.h>
 #include <buffers/FrameBufferId.h>
 #include <camera/Camera.h>
 #include <config/Config.h>
 #include <input/DisplayProperties.h>
 #include <gui/GuiParameters.h>
 #include <primitives/ScreenQuad.h>
+#include <shader/Shader.h>
 #include <shader/ShaderId.h>
 #include <shader/UpdateCameraMatricesInShader.h>
 #include <shader/UpdateLightingParametersInShader.h>
 #include <shader/UpdateLightSourceModelMatrixInShader.h>
-#include <storage/TextureStorage.h>
-#include <storage/ShaderStorage.h>
-#include <storage/FrameBufferStorage.h>
+#include <storage/ElementStorage.h>
+#include <textures/Texture.h>
 #include <textures/TextureId.h>
 #include <utils/SsaoUtils.h>
 
@@ -25,9 +26,9 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
     const SsaoUtils& ssaoUtils,
     const glm::mat4& lightSpaceMatrix,
     const ScreenQuad& screenQuad,
-    const TextureStorage& textureStorage,
-    const ShaderStorage& shaderStorage,
-    const FrameBufferStorage& frameBufferStorage
+    const ElementStorage<Texture, TextureId>& textureStorage,
+    const ElementStorage<Shader, ShaderId>& shaderStorage,
+    const ElementStorage<FrameBuffer, FrameBufferId>& frameBufferStorage
 )
 {
     std::vector<RenderPass> renderPasses;
@@ -37,7 +38,7 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
     {
         std::vector<std::reference_wrapper<const Texture>> textures;
 
-        const auto& shader = shaderStorage.GetShader(ShaderId::SsaoInput);
+        const auto& shader = shaderStorage.GetElement(ShaderId::SsaoInput);
 
         auto prepareFunction = [&camera, &lightSpaceMatrix, &shader]()
         {
@@ -56,7 +57,7 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
             RenderPassId::SsaoInput,
             screenQuad,
             shader,
-            frameBufferStorage.GetFrameBuffer(FrameBufferId::SsaoInput),
+            frameBufferStorage.GetElement(FrameBufferId::SsaoInput),
             std::move(textures),
             std::move(prepareFunction),
             std::move(renderFunction)
@@ -67,11 +68,11 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
     {
         std::vector<std::reference_wrapper<const Texture>> textures;
         // TODO use { }
-        textures.push_back(std::cref(textureStorage.GetTexture(TextureId::SsaoPosition)));
-        textures.push_back(std::cref(textureStorage.GetTexture(TextureId::SsaoNormal)));
-        textures.push_back(std::cref(textureStorage.GetTexture(TextureId::SsaoNoise)));
+        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoPosition)));
+        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoNormal)));
+        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoNoise)));
 
-        const auto& shader = shaderStorage.GetShader(ShaderId::Ssao);
+        const auto& shader = shaderStorage.GetElement(ShaderId::Ssao);
 
         auto prepareFunction = [&camera, &shader]()
         {
@@ -88,7 +89,7 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
             RenderPassId::Ssao,
             screenQuad,
             shader,
-            frameBufferStorage.GetFrameBuffer(FrameBufferId::Ssao),
+            frameBufferStorage.GetElement(FrameBufferId::Ssao),
             std::move(textures),
             std::move(prepareFunction),
             std::move(renderFunction)
@@ -99,7 +100,7 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
     {
         std::vector<std::reference_wrapper<const Texture>> textures;
         // TODO use { }
-        textures.push_back(std::cref(textureStorage.GetTexture(TextureId::Ssao)));
+        textures.push_back(std::cref(textureStorage.GetElement(TextureId::Ssao)));
 
         auto prepareFunction = []()
         {
@@ -114,8 +115,8 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
         renderPasses.emplace_back(
             RenderPassId::SsaoBlur,
             screenQuad,
-            shaderStorage.GetShader(ShaderId::SsaoBlur),
-            frameBufferStorage.GetFrameBuffer(FrameBufferId::SsaoBlur),
+            shaderStorage.GetElement(ShaderId::SsaoBlur),
+            frameBufferStorage.GetElement(FrameBufferId::SsaoBlur),
             std::move(textures),
             std::move(prepareFunction),
             std::move(renderFunction)
@@ -126,14 +127,14 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
     {
         std::vector<std::reference_wrapper<const Texture>> textures;
         // TODO use { }
-        textures.push_back(std::cref(textureStorage.GetTexture(TextureId::SsaoPosition)));
-        textures.push_back(std::cref(textureStorage.GetTexture(TextureId::SsaoLightSpacePosition)));
-        textures.push_back(std::cref(textureStorage.GetTexture(TextureId::SsaoNormal)));
-        textures.push_back(std::cref(textureStorage.GetTexture(TextureId::SsaoAlbedo)));
-        textures.push_back(std::cref(textureStorage.GetTexture(TextureId::SsaoPointLightsContribution)));
-        textures.push_back(std::cref(textureStorage.GetTexture(TextureId::SsaoBlur)));
+        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoPosition)));
+        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoLightSpacePosition)));
+        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoNormal)));
+        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoAlbedo)));
+        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoPointLightsContribution)));
+        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoBlur)));
 
-        const auto& shader = shaderStorage.GetShader(ShaderId::SsaoFinal);
+        const auto& shader = shaderStorage.GetElement(ShaderId::SsaoFinal);
 
         auto prepareFunction = [&guiParameters, &shader]()
         {
@@ -152,7 +153,7 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
             RenderPassId::SsaoFinal,
             screenQuad,
             shader,
-            frameBufferStorage.GetFrameBuffer(FrameBufferId::Default),
+            frameBufferStorage.GetElement(FrameBufferId::Default),
             std::move(textures),
             std::move(prepareFunction),
             std::move(renderFunction)
@@ -163,7 +164,7 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
     {
         std::vector<std::reference_wrapper<const Texture>> textures;
 
-        const auto& shader = shaderStorage.GetShader(ShaderId::LightSource);
+        const auto& shader = shaderStorage.GetElement(ShaderId::LightSource);
 
         auto prepareFunction = [&camera, &shader]()
         {
@@ -178,7 +179,7 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
             {
                 for (unsigned int i = 0; i < Config::numPointLights; ++i)
                 {
-                    ShaderUtils::UpdateLightSourceModelMatrixInShader(guiParameters.pointLights[i].position, shaderStorage.GetShader(ShaderId::LightSource));
+                    ShaderUtils::UpdateLightSourceModelMatrixInShader(guiParameters.pointLights[i].position, shaderStorage.GetElement(ShaderId::LightSource));
                     glDrawArrays(GL_TRIANGLES, 0, 36);
                 }
             }
@@ -188,7 +189,7 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
             RenderPassId::LightSource,
             screenQuad,
             shader,
-            frameBufferStorage.GetFrameBuffer(FrameBufferId::Default),
+            frameBufferStorage.GetElement(FrameBufferId::Default),
             std::move(textures),
             std::move(prepareFunction),
             std::move(renderFunction)
@@ -199,15 +200,15 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
     {
         std::vector<std::reference_wrapper<const Texture>> textures;
         // TODO use { }
-        textures.push_back(std::cref(textureStorage.GetTexture(TextureId::SsaoBlur)));
+        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoBlur)));
 
-        const auto& shader = shaderStorage.GetShader(ShaderId::DebugQuad);
+        const auto& shader = shaderStorage.GetElement(ShaderId::DebugQuad);
 
         auto prepareFunction = [&textureStorage, &shader]()
         {
             glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            shader.SetInt("colorTexture", textureStorage.GetTexture(TextureId::SsaoBlur).GetTextureUnit());
+            shader.SetInt("colorTexture", textureStorage.GetElement(TextureId::SsaoBlur).GetTextureUnit());
             shader.SetInt("isSingleChannel", 1);
         };
 
@@ -223,7 +224,7 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
             RenderPassId::Debug,
             screenQuad,
             shader,
-            frameBufferStorage.GetFrameBuffer(FrameBufferId::Default),
+            frameBufferStorage.GetElement(FrameBufferId::Default),
             std::move(textures),
             std::move(prepareFunction),
             std::move(renderFunction)

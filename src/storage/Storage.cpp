@@ -1,10 +1,10 @@
 #include <storage/Storage.h>
 
 Storage::Storage(
-    TextureStorage&& textureStorage,
-    ShaderStorage&& shaderStorage,
-    FrameBufferStorage&& frameBufferStorage,
-    RenderPassStorage&& renderPassStorage)
+    ElementStorage<Texture, TextureId>&& textureStorage,
+    ElementStorage<Shader, ShaderId>&& shaderStorage,
+    ElementStorage<FrameBuffer, FrameBufferId>&& frameBufferStorage,
+    ElementStorage<RenderPass, RenderPassId>&& renderPassStorage)
     : m_textureStorage(std::move(textureStorage))
     , m_shaderStorage(std::move(shaderStorage))
     , m_frameBufferStorage(std::move(frameBufferStorage))
@@ -14,30 +14,30 @@ Storage::Storage(
 
 Texture const& Storage::GetTexture(TextureId textureId) const
 {
-    return m_textureStorage.GetTexture(textureId);
+    return m_textureStorage.GetElement(textureId);
 }
 
 Texture& Storage::GetTexture(TextureId textureId)
 {
-    return m_textureStorage.GetTexture(textureId);
+    return m_textureStorage.GetElement(textureId);
 }
 
 Shader const& Storage::GetShader(ShaderId shaderId) const
 {
-    return m_shaderStorage.GetShader(shaderId);
+    return m_shaderStorage.GetElement(shaderId);
 }
 
 const FrameBuffer& Storage::GetFrameBuffer(FrameBufferId frameBufferId) const
 {
-    return m_frameBufferStorage.GetFrameBuffer(frameBufferId);
+    return m_frameBufferStorage.GetElement(frameBufferId);
 }
 
 const RenderPass& Storage::GetRenderPass(RenderPassId renderPassId) const
 {
-    return m_renderPassStorage.GetRenderPass(renderPassId);
+    return m_renderPassStorage.GetElement(renderPassId);
 }
 
 const std::vector<RenderPass>& Storage::GetRenderPasses() const
 {
-    return m_renderPassStorage.GetRenderPasses();
+    return m_renderPassStorage.GetElements();
 }

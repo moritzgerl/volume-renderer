@@ -1,8 +1,5 @@
 #include <storage/MakeStorage.h>
-#include <storage/FrameBufferStorage.h>
-#include <storage/ShaderStorage.h>
-#include <storage/TextureStorage.h>
-#include <storage/RenderPassStorage.h>
+#include <storage/ElementStorage.h>
 #include <buffers/MakeFrameBuffers.h>
 #include <shader/MakeShaders.h>
 #include <textures/MakeTextures.h>
@@ -10,7 +7,7 @@
 
 namespace Factory
 {
-    Storage MakeStorage(        
+    Storage MakeStorage(
         const Camera& camera,
         const DisplayProperties& displayProperties,
         const GuiParameters& guiParameters,
@@ -19,10 +16,10 @@ namespace Factory
         const ScreenQuad& screenQuad
     )
     {
-        TextureStorage textureStorage(MakeTextures(ssaoUtils));
-        ShaderStorage shaderStorage(MakeShaders(guiParameters, ssaoUtils, textureStorage));
-        FrameBufferStorage frameBufferStorage(MakeFrameBuffers(textureStorage));
-        RenderPassStorage renderPassStorage(MakeRenderPasses(camera, displayProperties, guiParameters, ssaoUtils, lightSpaceMatrix, screenQuad, textureStorage, shaderStorage, frameBufferStorage));
+        ElementStorage<Texture, TextureId> textureStorage(MakeTextures(ssaoUtils));
+        ElementStorage<Shader, ShaderId> shaderStorage(MakeShaders(guiParameters, ssaoUtils, textureStorage));
+        ElementStorage<FrameBuffer, FrameBufferId> frameBufferStorage(MakeFrameBuffers(textureStorage));
+        ElementStorage<RenderPass, RenderPassId> renderPassStorage(MakeRenderPasses(camera, displayProperties, guiParameters, ssaoUtils, lightSpaceMatrix, screenQuad, textureStorage, shaderStorage, frameBufferStorage));
 
         return Storage(
             std::move(textureStorage),

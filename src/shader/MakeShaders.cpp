@@ -1,7 +1,8 @@
 #include <shader/MakeShaders.h>
 #include <shader/ShaderId.h>
 #include <shader/UpdateSsaoShader.h>
-#include <storage/TextureStorage.h>
+#include <storage/ElementStorage.h>
+#include <textures/Texture.h>
 #include <textures/TextureId.h>
 #include <config/Config.h>
 #include <gui/GuiParameters.h>
@@ -29,7 +30,7 @@ namespace Factory
     std::vector<Shader> MakeShaders(
         const GuiParameters& guiParameters,
         const SsaoUtils& ssaoUtils,
-        const TextureStorage& textureStorage
+        const ElementStorage<Texture, TextureId>& textureStorage
     )
     {
         std::vector<Shader> shaders;
@@ -43,13 +44,13 @@ namespace Factory
         shaders.emplace_back(ShaderId::DebugQuad, FileSystem::getPath("src/shaders/DebugQuad.vert").c_str(), FileSystem::getPath("src/shaders/DebugQuadColor.frag").c_str());
         shaders.emplace_back(ShaderId::LightSource, FileSystem::getPath("src/shaders/LightSource.vert").c_str(), FileSystem::getPath("src/shaders/LightSource.frag").c_str());
 
-        const Texture& ssaoPositionTexture = textureStorage.GetTexture(TextureId::SsaoPosition);
-        const Texture& ssaoLightSpacePositionTexture = textureStorage.GetTexture(TextureId::SsaoLightSpacePosition);
-        const Texture& ssaoNormalTexture = textureStorage.GetTexture(TextureId::SsaoNormal);
-        const Texture& ssaoAlbedoTexture = textureStorage.GetTexture(TextureId::SsaoAlbedo);
-        const Texture& ssaoTexture = textureStorage.GetTexture(TextureId::Ssao);
-        const Texture& ssaoNoiseTexture = textureStorage.GetTexture(TextureId::SsaoNoise);
-        const Texture& ssaoPointLightsContributionTexture = textureStorage.GetTexture(TextureId::SsaoPointLightsContribution);
+        const Texture& ssaoPositionTexture = textureStorage.GetElement(TextureId::SsaoPosition);
+        const Texture& ssaoLightSpacePositionTexture = textureStorage.GetElement(TextureId::SsaoLightSpacePosition);
+        const Texture& ssaoNormalTexture = textureStorage.GetElement(TextureId::SsaoNormal);
+        const Texture& ssaoAlbedoTexture = textureStorage.GetElement(TextureId::SsaoAlbedo);
+        const Texture& ssaoTexture = textureStorage.GetElement(TextureId::Ssao);
+        const Texture& ssaoNoiseTexture = textureStorage.GetElement(TextureId::SsaoNoise);
+        const Texture& ssaoPointLightsContributionTexture = textureStorage.GetElement(TextureId::SsaoPointLightsContribution);
 
         const Shader& ssaoShader = GetShader(shaders, ShaderId::Ssao);
         ssaoShader.Use();

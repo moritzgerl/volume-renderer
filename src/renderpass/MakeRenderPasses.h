@@ -11,9 +11,13 @@ struct DisplayProperties;
 struct GuiParameters;
 class SsaoUtils;
 class ScreenQuad;
-class TextureStorage;
-class ShaderStorage;
-class FrameBufferStorage;
+template <typename ElementType, typename ElementIdType> class ElementStorage;
+class Texture;
+enum class TextureId;
+class Shader;
+enum class ShaderId;
+class FrameBuffer;
+enum class FrameBufferId;
 
 namespace Factory
 {
@@ -24,9 +28,9 @@ namespace Factory
         const SsaoUtils& ssaoUtils,
         const glm::mat4& lightSpaceMatrix,
         const ScreenQuad& screenQuad,
-        const TextureStorage& textureStorage,
-        const ShaderStorage& shaderStorage,
-        const FrameBufferStorage& frameBufferStorage
+        const ElementStorage<Texture, TextureId>& textureStorage,
+        const ElementStorage<Shader, ShaderId>& shaderStorage,
+        const ElementStorage<FrameBuffer, FrameBufferId>& frameBufferStorage
     );
 }
 

@@ -6,14 +6,16 @@
 
 struct GuiParameters;
 class SsaoUtils;
-class TextureStorage;
+template <typename ElementType, typename ElementIdType> class ElementStorage;
+class Texture;
+enum class TextureId;
 
 namespace Factory
 {
     std::vector<Shader> MakeShaders(
         const GuiParameters& guiParameters,
         const SsaoUtils& ssaoUtils,
-        const TextureStorage& textureStorage
+        const ElementStorage<Texture, TextureId>& textureStorage
     );
 }
 
