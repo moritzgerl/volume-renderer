@@ -35,7 +35,7 @@ public:
         FrameBufferStorage&& frameBufferStorage,
         RenderPassStorage&& renderPassStorage,
         Context::GlfwWindow&& window,
-        std::unique_ptr<Data::VolumeData>&& volumeData);
+        Data::VolumeData&& volumeData);
 
     // TODO use concepts
     // TODO rule of zero? Don't even do the = delete here?
@@ -74,7 +74,7 @@ private:
     FrameBufferStorage m_frameBufferStorage;
     RenderPassStorage m_renderPassStorage;
     Context::GlfwWindow m_window;
-    std::unique_ptr<Data::VolumeData> m_volumeData;
+    Data::VolumeData m_volumeData;
 };
 
 #endif

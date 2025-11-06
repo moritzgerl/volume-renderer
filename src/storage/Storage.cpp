@@ -15,7 +15,7 @@ Storage::Storage(
     FrameBufferStorage&& frameBufferStorage,
     RenderPassStorage&& renderPassStorage,
     Context::GlfwWindow&& window,
-    std::unique_ptr<Data::VolumeData>&& volumeData)
+    Data::VolumeData&& volumeData)
     : m_camera(std::move(camera))
     , m_displayProperties(std::move(displayProperties))
     , m_gui(std::move(gui))
@@ -91,5 +91,5 @@ Context::GlfwWindow& Storage::GetWindow()
 
 const Data::VolumeData& Storage::GetVolumeData() const
 {
-    return *m_volumeData;
+    return m_volumeData;
 }

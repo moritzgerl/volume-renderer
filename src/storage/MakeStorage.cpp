@@ -26,14 +26,14 @@
 
 namespace
 {
-    std::unique_ptr<Data::VolumeData> LoadVolume(const std::filesystem::path& datasetPath)
+    Data::VolumeData LoadVolume(const std::filesystem::path& datasetPath)
     {
         auto volumeLoadingResult = Data::LoadVolumeRaw(datasetPath);
         if (!volumeLoadingResult)
         {
             std::cerr << "Failed to load volume from " << datasetPath << std::endl;
         }
-        return std::move(volumeLoadingResult.value());
+        return std::move(volumeLoadingResult).value();
     }
 }
 
@@ -50,7 +50,7 @@ namespace Factory
         InputHandler inputHandler(window.GetWindow(), camera, displayProperties);
         ScreenQuad screenQuad;
         SsaoUtils ssaoUtils;
-        std::unique_ptr<Data::VolumeData> volumeData = LoadVolume(Config::datasetPath);
+        Data::VolumeData volumeData = LoadVolume(Config::datasetPath);
         TextureStorage textureStorage(MakeTextures(ssaoUtils));
         ShaderStorage shaderStorage(MakeShaders(guiParameters, ssaoUtils, textureStorage));
         FrameBufferStorage frameBufferStorage(MakeFrameBuffers(textureStorage));

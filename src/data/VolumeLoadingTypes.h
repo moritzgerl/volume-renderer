@@ -9,7 +9,7 @@
 
 namespace Data
 {
-    using VolumeLoadingResult = std::expected<std::unique_ptr<VolumeData>, VolumeLoadingError>;
+    using VolumeLoadingResult = std::expected<VolumeData, VolumeLoadingError>;
 }
 
 #endif

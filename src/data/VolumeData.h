@@ -14,6 +14,11 @@ namespace Data
         VolumeData();
         explicit VolumeData(const VolumeMetadata& metadata);
 
+        VolumeData(const VolumeData&) = default;
+        VolumeData& operator=(const VolumeData&) = default;
+        VolumeData(VolumeData&&) noexcept = default;
+        VolumeData& operator=(VolumeData&&) noexcept = default;
+
         const VolumeMetadata& GetMetadata() const { return m_metadata; }
         VolumeMetadata& GetMetadata() { return m_metadata; }
         void SetMetadata(const VolumeMetadata& metadata) { m_metadata = metadata; }

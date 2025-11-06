@@ -237,14 +237,14 @@ Data::VolumeLoadingResult Data::LoadVolumeRaw(const std::filesystem::path& rawFi
         return std::unexpected(VolumeLoadingError::InvalidMetadata);
     }
 
-    auto volumeData = std::make_unique<VolumeData>(metadata);
+    VolumeData volumeData(metadata);
 
-    if (auto result = LoadRawData(rawFilePath, *volumeData); !result)
+    if (auto result = LoadRawData(rawFilePath, volumeData); !result)
     {
         return std::unexpected(result.error());
     }
 
-    if (!volumeData->IsValid())
+    if (!volumeData.IsValid())
     {
         return std::unexpected(VolumeLoadingError::InvalidVolumeData);
     }
