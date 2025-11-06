@@ -8,9 +8,9 @@
 
 #include <glm/glm.hpp>
 
+#include <filesystem>
 #include <string>
 #include <vector>
-
 
 namespace Config
 {
@@ -18,7 +18,7 @@ namespace Config
     const unsigned int windowHeight = 1080;
     //const unsigned int windowWidth = 3840;
     //const unsigned int windowHeight = 2160;
-    const std::string datasetPath = "data/dataset.dcm";
+    const std::filesystem::path datasetPath = "./datasets/knee.raw";
     const bool showGuiByDefault = true;
     const bool showLightSourceByDefault = false;
     const unsigned int numPointLights = 2;

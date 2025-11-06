@@ -26,7 +26,7 @@
 
 namespace
 {
-    std::unique_ptr<Data::VolumeData> LoadVolume(const std::string& datasetPath)
+    std::unique_ptr<Data::VolumeData> LoadVolume(const std::filesystem::path& datasetPath)
     {
         auto volumeLoadingResult = Data::LoadVolumeRaw(datasetPath);
         if (!volumeLoadingResult)
