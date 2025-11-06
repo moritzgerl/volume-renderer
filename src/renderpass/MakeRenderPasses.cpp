@@ -80,7 +80,7 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
         };
 
         auto renderFunction = [&unitCube]()
-        {
+        {   
             unitCube.Render();
         };
 

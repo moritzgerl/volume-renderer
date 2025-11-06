@@ -50,6 +50,11 @@ void InputHandler::InitGlfwCallbacks()
 
 void InputHandler::Update()
 {
+    if (m_window.get() == nullptr)
+    {
+        return;
+    }
+
     float currentFrameTime = static_cast<float>(glfwGetTime());
     m_timeSinceLastFrame = currentFrameTime - m_lastFrameTime;
     m_lastFrameTime = currentFrameTime;

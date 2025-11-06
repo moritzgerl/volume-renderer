@@ -63,7 +63,6 @@ namespace Factory
         const Shader& ssaoFinalShader = shaderStorage.GetElement(ShaderId::SsaoFinal);
         SsaoUpdater ssaoUpdater(guiUpdateFlags, guiParameters, ssaoUtils, ssaoNoiseTexture, ssaoShader, ssaoFinalShader);
 
-
         return Storage(
             std::move(camera),
             std::move(displayProperties),
