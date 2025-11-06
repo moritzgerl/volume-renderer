@@ -148,6 +148,36 @@ Example with fewer than 5 includes:
       }
   }
   ```
+- **Prefer switch statements over if-else chains** - When comparing a single variable against multiple constant values, use `switch` statements instead of `if-else if` chains for better readability and maintainability
+  ```cpp
+  // Preferred
+  switch (value)
+  {
+      case 1:
+          // handle case 1
+          break;
+      case 2:
+          // handle case 2
+          break;
+      default:
+          // handle default
+          break;
+  }
+
+  // Avoid
+  if (value == 1)
+  {
+      // handle case 1
+  }
+  else if (value == 2)
+  {
+      // handle case 2
+  }
+  else
+  {
+      // handle default
+  }
+  ```
 - **Namespace scoping differs between headers and implementation files**:
   - In `.h` files: Use scoped curly brackets with proper indentation for namespace content
     ```cpp

@@ -51,7 +51,7 @@ namespace Factory
         ScreenQuad screenQuad;
         SsaoUtils ssaoUtils;
         Data::VolumeData volumeData = LoadVolume(Config::datasetPath);
-        TextureStorage textureStorage(MakeTextures(ssaoUtils));
+        TextureStorage textureStorage(MakeTextures(volumeData, ssaoUtils));
         ShaderStorage shaderStorage(MakeShaders(guiParameters, ssaoUtils, textureStorage));
         FrameBufferStorage frameBufferStorage(MakeFrameBuffers(textureStorage));
         RenderPassStorage renderPassStorage(MakeRenderPasses(camera, displayProperties, guiParameters, inputHandler, ssaoUtils, screenQuad, textureStorage, shaderStorage, frameBufferStorage));
