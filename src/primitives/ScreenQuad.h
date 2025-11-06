@@ -4,8 +4,6 @@
 #include <primitives/ScreenQuadVertexCoordinates.h>
 #include <buffers/VertexBuffer.h>
 
-#include <memory>
-
 class ScreenQuad
 {
 public:
@@ -14,7 +12,7 @@ public:
 
 private:
     ScreenQuadVertexCoordinates m_vertexCoordinates;
-    std::unique_ptr<VertexBuffer> m_vertexBuffer;
+    VertexBuffer m_vertexBuffer;
 };
 
 #endif

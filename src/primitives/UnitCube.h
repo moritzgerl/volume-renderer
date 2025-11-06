@@ -4,8 +4,6 @@
 #include <primitives/UnitCubeVertexCoordinates.h>
 #include <buffers/VertexBuffer.h>
 
-#include <memory>
-
 // TODO make template class?
 class UnitCube
 {
@@ -15,7 +13,7 @@ public:
 
 private:
     UnitCubeVertexCoordinates m_vertexCoordinates;
-    std::unique_ptr<VertexBuffer> m_vertexBuffer;
+    VertexBuffer m_vertexBuffer;
 };
 
 #endif

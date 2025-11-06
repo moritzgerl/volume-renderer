@@ -3,13 +3,13 @@
 
 UnitCube::UnitCube()
     : m_vertexCoordinates()
-    , m_vertexBuffer(std::make_unique<VertexBuffer>(m_vertexCoordinates))
+    , m_vertexBuffer(m_vertexCoordinates)
 {
 }
 
 void UnitCube::Render() const
 {
-    m_vertexBuffer->Bind();    
+    m_vertexBuffer.Bind();
     glDrawArrays(GL_TRIANGLES, 0, 36);
-    m_vertexBuffer->Unbind();
+    m_vertexBuffer.Unbind();
 }
