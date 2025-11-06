@@ -137,6 +137,55 @@ Example with fewer than 5 includes:
 #include <GLFW/glfw3.h>
 ```
 
+### Formatting and Style
+- **Curly brackets always on their own line** - Opening and closing braces for all blocks (functions, classes, namespaces, control structures) must be placed on separate lines
+  ```cpp
+  void Function()
+  {
+      if (condition)
+      {
+          // code
+      }
+  }
+  ```
+- **Namespace scoping differs between headers and implementation files**:
+  - In `.h` files: Use scoped curly brackets with proper indentation for namespace content
+    ```cpp
+    namespace Data
+    {
+        class VolumeData
+        {
+            // class members indented
+        };
+    }
+    ```
+  - In `.cpp` files: Use `::` prefix for namespace qualification (no curly brackets)
+    ```cpp
+    void Data::VolumeData::Method()
+    {
+        // implementation
+    }
+    ```
+- **Namespace closing comments** - Do not add comments after closing namespace braces, except for anonymous namespaces
+  ```cpp
+  namespace Data
+  {
+      // ...
+  }  // Correct: no comment
+
+  namespace
+  {
+      // ...
+  } // anonymous namespace  - Correct: comment allowed for anonymous namespaces
+  ```
+- **No comments after include guards** - Do not add comments after `#endif` directives
+  ```cpp
+  #ifndef VOLUME_DATA_H
+  #define VOLUME_DATA_H
+  // ...
+  #endif  // Correct: no comment
+  ```
+
 ## Development Workflow
 
 ### Modifying Shaders

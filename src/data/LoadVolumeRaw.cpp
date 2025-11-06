@@ -163,8 +163,7 @@ std::unique_ptr<Data::VolumeData> Data::LoadVolumeRaw(const std::filesystem::pat
     return LoadVolumeRaw(rawFilePath, metadata);
 }
 
-std::unique_ptr<Data::VolumeData> Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath,
-                                                       const VolumeMetadata& metadata)
+std::unique_ptr<Data::VolumeData> Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath, const VolumeMetadata& metadata)
 {
     if (!metadata.IsValid())
     {
