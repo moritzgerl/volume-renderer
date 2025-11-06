@@ -2,8 +2,10 @@
 #include <gui/Gui.h>
 #include <input/DisplayProperties.h>
 #include <input/InputHandler.h>
+#include <input/MakeInputHandler.h>
 #include <renderpass/MakeRenderPasses.h>
 #include <shader/SsaoUpdater.h>
+#include <shader/MakeSsaoUpdater.h>
 #include <storage/MakeStorage.h>
 #include <storage/Storage.h>
 
@@ -11,10 +13,9 @@
 
 int main()
 {
-    Storage storage(Factory::MakeStorage());    
-    // TODO act factory functions, change back constructors to get only what they need
-    InputHandler inputHandler(storage);
-    SsaoUpdater ssaoUpdater(storage);
+    Storage storage(Factory::MakeStorage());
+    InputHandler inputHandler = Factory::MakeInputHandler(storage);
+    SsaoUpdater ssaoUpdater = Factory::MakeSsaoUpdater(storage);
     const RenderPasses renderPasses = Factory::MakeRenderPasses(inputHandler, storage);
     const DisplayProperties& displayProperties = storage.GetDisplayProperties();
     Context::GlfwWindow& window = storage.GetWindow();

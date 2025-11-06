@@ -5,13 +5,19 @@ struct GuiParameters;
 struct GuiUpdateFlags;
 class SsaoUtils;
 class Shader;
-class Storage;
 class Texture;
 
 class SsaoUpdater
 {
 public:
-    SsaoUpdater(Storage& storage);
+    SsaoUpdater(
+        GuiUpdateFlags& guiUpdateFlags,
+        const GuiParameters& guiParameters,
+        SsaoUtils& ssaoUtils,
+        Texture& ssaoNoiseTexture,
+        const Shader& ssaoShader,
+        const Shader& ssaoFinalShader
+    );
 
     void Update();
 

@@ -5,7 +5,7 @@
 #include <storage/Storage.h>
 #include <GLFW/glfw3.h>
 
-InputHandler::InputHandler(Storage& storage)
+InputHandler::InputHandler(const Context::WindowPtr& window, Camera& camera, DisplayProperties& displayProperties)
     : m_windowWidth(Config::windowWidth)
     , m_windowHeight(Config::windowHeight)
     , m_lastFrameTime(0.0f)
@@ -13,9 +13,9 @@ InputHandler::InputHandler(Storage& storage)
     , m_isFirstMouseMove(true)
     , m_lastMousePositionX(Config::windowWidth / 2.0f)
     , m_lastMousePositionY(Config::windowHeight / 2.0f)
-    , m_window(storage.GetWindow().GetWindow())
-    , m_camera(storage.GetCamera())
-    , m_displayProperties(storage.GetDisplayProperties())
+    , m_window(window)
+    , m_camera(camera)
+    , m_displayProperties(displayProperties)
 {
     InitGlfwCallbacks();
 }
