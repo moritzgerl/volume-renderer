@@ -3,6 +3,7 @@
 
 #include <vector>
 
+// TODO make generic class
 class UnitCubeVertexCoordinates
 {
 public:

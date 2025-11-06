@@ -2,11 +2,13 @@
 #define VERTEX_BUFFER_H
 
 class ScreenQuadVertexCoordinates;
+class UnitCubeVertexCoordinates;
 
 class VertexBuffer
 {
 public:
     VertexBuffer(const ScreenQuadVertexCoordinates& screenQuadVertexCoordinates);
+    VertexBuffer(const UnitCubeVertexCoordinates& unitCubeVertexCoordinates);
     ~VertexBuffer();
     void Bind() const;
     void Unbind() const;

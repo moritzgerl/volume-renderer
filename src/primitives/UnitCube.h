@@ -6,6 +6,7 @@
 
 #include <memory>
 
+// TODO make template class?
 class UnitCube
 {
 public:
