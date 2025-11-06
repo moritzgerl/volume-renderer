@@ -17,17 +17,17 @@ namespace
     /// ScaleX=1.0
     /// ScaleY=1.0
     /// ScaleZ=1.0
-    std::expected<void, Data::VolumeLoadError> LoadMetadataFromIni(const std::filesystem::path& iniFilePath, Data::VolumeMetadata& metadata)
+    std::expected<void, Data::VolumeLoadingError> LoadMetadataFromIni(const std::filesystem::path& iniFilePath, Data::VolumeMetadata& metadata)
     {
         if (!std::filesystem::exists(iniFilePath))
         {
-            return std::unexpected(Data::VolumeLoadError::MetadataFileNotFound);
+            return std::unexpected(Data::VolumeLoadingError::MetadataFileNotFound);
         }
 
         std::ifstream file(iniFilePath);
         if (!file.is_open())
         {
-            return std::unexpected(Data::VolumeLoadError::CannotOpenMetadataFile);
+            return std::unexpected(Data::VolumeLoadingError::CannotOpenMetadataFile);
         }
 
         std::string line;
@@ -111,24 +111,24 @@ namespace
             }
             catch (const std::exception&)
             {
-                return std::unexpected(Data::VolumeLoadError::MetadataParseError);
+                return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
             }
         }
 
         if (!metadata.IsValid())
         {
-            return std::unexpected(Data::VolumeLoadError::InvalidMetadata);
+            return std::unexpected(Data::VolumeLoadingError::InvalidMetadata);
         }
 
         return {};
     }
 
     /// Load raw binary data from file
-    std::expected<void, Data::VolumeLoadError> LoadRawData(const std::filesystem::path& rawFilePath, Data::VolumeData& volumeData)
+    std::expected<void, Data::VolumeLoadingError> LoadRawData(const std::filesystem::path& rawFilePath, Data::VolumeData& volumeData)
     {
         if (!std::filesystem::exists(rawFilePath))
         {
-            return std::unexpected(Data::VolumeLoadError::RawFileNotFound);
+            return std::unexpected(Data::VolumeLoadingError::RawFileNotFound);
         }
 
         const size_t expectedSize = volumeData.GetMetadata().GetTotalSizeInBytes();
@@ -136,13 +136,13 @@ namespace
 
         if (fileSize != expectedSize)
         {
-            return std::unexpected(Data::VolumeLoadError::FileSizeMismatch);
+            return std::unexpected(Data::VolumeLoadingError::FileSizeMismatch);
         }
 
         std::ifstream file(rawFilePath, std::ios::binary);
         if (!file.is_open())
         {
-            return std::unexpected(Data::VolumeLoadError::CannotOpenRawFile);
+            return std::unexpected(Data::VolumeLoadingError::CannotOpenRawFile);
         }
 
         volumeData.AllocateData(expectedSize);
@@ -150,7 +150,7 @@ namespace
 
         if (!file.good())
         {
-            return std::unexpected(Data::VolumeLoadError::ReadError);
+            return std::unexpected(Data::VolumeLoadingError::ReadError);
         }
 
         return {};
@@ -158,7 +158,7 @@ namespace
 
 } // anonymous namespace
 
-std::expected<std::unique_ptr<Data::VolumeData>, Data::VolumeLoadError> Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath)
+std::expected<std::unique_ptr<Data::VolumeData>, Data::VolumeLoadingError> Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath)
 {
     // Load metadata from .ini file
     std::filesystem::path iniFilePath = rawFilePath;
@@ -173,11 +173,11 @@ std::expected<std::unique_ptr<Data::VolumeData>, Data::VolumeLoadError> Data::Lo
     return LoadVolumeRaw(rawFilePath, metadata);
 }
 
-std::expected<std::unique_ptr<Data::VolumeData>, Data::VolumeLoadError> Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath, const VolumeMetadata& metadata)
+std::expected<std::unique_ptr<Data::VolumeData>, Data::VolumeLoadingError> Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath, const VolumeMetadata& metadata)
 {
     if (!metadata.IsValid())
     {
-        return std::unexpected(VolumeLoadError::InvalidMetadata);
+        return std::unexpected(VolumeLoadingError::InvalidMetadata);
     }
 
     auto volumeData = std::make_unique<VolumeData>(metadata);
@@ -189,7 +189,7 @@ std::expected<std::unique_ptr<Data::VolumeData>, Data::VolumeLoadError> Data::Lo
 
     if (!volumeData->IsValid())
     {
-        return std::unexpected(VolumeLoadError::InvalidVolumeData);
+        return std::unexpected(VolumeLoadingError::InvalidVolumeData);
     }
 
     return volumeData;

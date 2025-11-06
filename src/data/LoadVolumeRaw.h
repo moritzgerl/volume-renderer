@@ -2,7 +2,7 @@
 #define LOAD_VOLUME_RAW_H
 
 #include <data/VolumeData.h>
-#include <data/VolumeLoadError.h>
+#include <data/VolumeLoadingError.h>
 #include <data/VolumeMetadata.h>
 
 #include <expected>
@@ -17,8 +17,8 @@ namespace Data
     /// Metadata is read from a companion .ini file with the same base name as the .raw file.
     ///
     /// @param rawFilePath Path to the .raw file
-    /// @return VolumeData on success, VolumeLoadError on failure
-    std::expected<std::unique_ptr<VolumeData>, VolumeLoadError> LoadVolumeRaw(const std::filesystem::path& rawFilePath);
+    /// @return VolumeData on success, VolumeLoadingError on failure
+    std::expected<std::unique_ptr<VolumeData>, VolumeLoadingError> LoadVolumeRaw(const std::filesystem::path& rawFilePath);
 
     /// Load a raw volume file using provided metadata
     ///
@@ -27,8 +27,8 @@ namespace Data
     ///
     /// @param rawFilePath Path to the .raw file
     /// @param metadata Volume metadata (dimensions, components, bit depth, scaling)
-    /// @return VolumeData on success, VolumeLoadError on failure
-    std::expected<std::unique_ptr<VolumeData>, VolumeLoadError> LoadVolumeRaw(const std::filesystem::path& rawFilePath, const VolumeMetadata& metadata);
+    /// @return VolumeData on success, VolumeLoadingError on failure
+    std::expected<std::unique_ptr<VolumeData>, VolumeLoadingError> LoadVolumeRaw(const std::filesystem::path& rawFilePath, const VolumeMetadata& metadata);
 
 }
 

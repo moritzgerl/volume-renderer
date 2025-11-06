@@ -1,10 +1,10 @@
-#ifndef VOLUME_LOAD_ERROR_H
-#define VOLUME_LOAD_ERROR_H
+#ifndef VOLUME_LOADING_ERROR_H
+#define VOLUME_LOADING_ERROR_H
 
 namespace Data
 {
     /// Error codes for volume loading operations
-    enum class VolumeLoadError
+    enum class VolumeLoadingError
     {
         /// The .raw file was not found at the specified path
         RawFileNotFound,
