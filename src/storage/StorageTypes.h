@@ -11,9 +11,9 @@
 #include <renderpass/RenderPass.h>
 #include <renderpass/RenderPassId.h>
 
-typedef ElementStorage<Texture, TextureId> TextureStorage;
-typedef ElementStorage<Shader, ShaderId> ShaderStorage;
-typedef ElementStorage<FrameBuffer, FrameBufferId> FrameBufferStorage;
-typedef ElementStorage<RenderPass, RenderPassId> RenderPassStorage;
+using TextureStorage = ElementStorage<Texture, TextureId>;
+using ShaderStorage = ElementStorage<Shader, ShaderId>;
+using FrameBufferStorage = ElementStorage<FrameBuffer, FrameBufferId>;
+using RenderPassStorage = ElementStorage<RenderPass, RenderPassId>;
 
 #endif
