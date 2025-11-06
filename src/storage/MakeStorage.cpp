@@ -14,6 +14,7 @@
 #include <input/InputHandler.h>
 #include <input/MakeDisplayProperties.h>
 #include <primitives/ScreenQuad.h>
+#include <primitives/UnitCube.h>
 #include <renderpass/MakeRenderPasses.h>
 #include <shader/MakeShaders.h>
 #include <shader/ShaderId.h>
@@ -49,6 +50,7 @@ namespace Factory
         Gui gui(window.GetWindow(), guiParameters, guiUpdateFlags);
         InputHandler inputHandler(window.GetWindow(), camera, displayProperties);
         ScreenQuad screenQuad;
+        UnitCube unitCube;
         SsaoUtils ssaoUtils;
         Data::VolumeData volumeData = LoadVolume(Config::datasetPath);
         TextureStorage textureStorage(MakeTextures(volumeData, ssaoUtils));
@@ -76,6 +78,7 @@ namespace Factory
             std::move(shaderStorage),
             std::move(frameBufferStorage),
             std::move(renderPassStorage),
+            std::move(unitCube),
             std::move(volumeData),
             std::move(window)
         );

@@ -14,6 +14,7 @@ Storage::Storage(
     ShaderStorage&& shaderStorage,
     FrameBufferStorage&& frameBufferStorage,
     RenderPassStorage&& renderPassStorage,
+    UnitCube&& unitCube,
     Data::VolumeData&& volumeData,
     Context::GlfwWindow&& window)
     : m_camera(std::move(camera))
@@ -29,6 +30,7 @@ Storage::Storage(
     , m_shaderStorage(std::move(shaderStorage))
     , m_frameBufferStorage(std::move(frameBufferStorage))
     , m_renderPassStorage(std::move(renderPassStorage))
+    , m_unitCube(std::move(unitCube))
     , m_volumeData(std::move(volumeData))
     , m_window(std::move(window))
 {

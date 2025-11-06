@@ -11,6 +11,7 @@
 #include <input/DisplayProperties.h>
 #include <input/InputHandler.h>
 #include <primitives/ScreenQuad.h>
+#include <primitives/UnitCube.h>
 #include <shader/SsaoUpdater.h>
 #include <utils/SsaoUtils.h>
 
@@ -34,6 +35,7 @@ public:
         ShaderStorage&& shaderStorage,
         FrameBufferStorage&& frameBufferStorage,
         RenderPassStorage&& renderPassStorage,
+        UnitCube&& unitCube,
         Data::VolumeData&& volumeData,
         Context::GlfwWindow&& window);
 
@@ -67,14 +69,15 @@ private:
     GuiUpdateFlags m_guiUpdateFlags;
     InputHandler m_inputHandler;
     ScreenQuad m_screenQuad;
+    UnitCube m_unitCube;
     SsaoUpdater m_ssaoUpdater;
     SsaoUtils m_ssaoUtils;
     TextureStorage m_textureStorage;
     ShaderStorage m_shaderStorage;
     FrameBufferStorage m_frameBufferStorage;
     RenderPassStorage m_renderPassStorage;
-    Context::GlfwWindow m_window;
     Data::VolumeData m_volumeData;
+    Context::GlfwWindow m_window;
 };
 
 #endif
