@@ -1,34 +1,13 @@
 #ifndef MAKE_RENDER_PASSES_H
 #define MAKE_RENDER_PASSES_H
 
-#include <renderpass/RenderPass.h>
-#include <storage/StorageTypes.h>
+#include <renderpass/RenderPassTypes.h>
 
-#include <vector>
-#include <glm/glm.hpp>
-
-class Camera;
-struct DisplayProperties;
-struct GuiParameters;
-class InputHandler;
-class SsaoUtils;
-class ScreenQuad;
-class UnitCube;
+class Storage;
 
 namespace Factory
 {
-    std::vector<RenderPass> MakeRenderPasses(
-        const Camera& camera,
-        const DisplayProperties& displayProperties,
-        const GuiParameters& guiParameters,
-        const InputHandler& inputHandler,
-        const SsaoUtils& ssaoUtils,
-        const ScreenQuad& screenQuad,
-        const UnitCube& unitCube,
-        const TextureStorage& textureStorage,
-        const ShaderStorage& shaderStorage,
-        const FrameBufferStorage& frameBufferStorage
-    );
+    RenderPasses MakeRenderPasses(const Storage& storage);
 }
 
 #endif

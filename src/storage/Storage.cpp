@@ -13,7 +13,6 @@ Storage::Storage(
     TextureStorage&& textureStorage,
     ShaderStorage&& shaderStorage,
     FrameBufferStorage&& frameBufferStorage,
-    RenderPassStorage&& renderPassStorage,
     UnitCube&& unitCube,
     Data::VolumeData&& volumeData,
     Context::GlfwWindow&& window)
@@ -30,7 +29,6 @@ Storage::Storage(
     , m_textureStorage(std::move(textureStorage))
     , m_shaderStorage(std::move(shaderStorage))
     , m_frameBufferStorage(std::move(frameBufferStorage))
-    , m_renderPassStorage(std::move(renderPassStorage))
     , m_volumeData(std::move(volumeData))
     , m_window(std::move(window))
 {
@@ -56,14 +54,9 @@ const FrameBuffer& Storage::GetFrameBuffer(FrameBufferId frameBufferId) const
     return m_frameBufferStorage.GetElement(frameBufferId);
 }
 
-const RenderPass& Storage::GetRenderPass(RenderPassId renderPassId) const
+const Camera& Storage::GetCamera() const
 {
-    return m_renderPassStorage.GetElement(renderPassId);
-}
-
-const std::vector<RenderPass>& Storage::GetRenderPasses() const
-{
-    return m_renderPassStorage.GetElements();
+    return m_camera;
 }
 
 const DisplayProperties& Storage::GetDisplayProperties() const
@@ -76,14 +69,64 @@ Gui& Storage::GetGui()
     return m_gui;
 }
 
+const Gui& Storage::GetGui() const
+{
+    return m_gui;
+}
+
+const GuiParameters& Storage::GetGuiParameters() const
+{
+    return m_guiParameters;
+}
+
 InputHandler& Storage::GetInputHandler()
 {
     return m_inputHandler;
 }
 
+const InputHandler& Storage::GetInputHandler() const
+{
+    return m_inputHandler;
+}
+
+const ScreenQuad& Storage::GetScreenQuad() const
+{
+    return m_screenQuad;
+}
+
+const UnitCube& Storage::GetUnitCube() const
+{
+    return m_unitCube;
+}
+
 SsaoUpdater& Storage::GetSsaoUpdater()
 {
     return m_ssaoUpdater;
+}
+
+const SsaoUpdater& Storage::GetSsaoUpdater() const
+{
+    return m_ssaoUpdater;
+}
+
+const SsaoUtils& Storage::GetSsaoUtils() const
+{
+    return m_ssaoUtils;
+}
+
+const TextureStorage& Storage::GetTextureStorage() const
+{
+    return m_textureStorage;
+}
+
+const ShaderStorage& Storage::GetShaderStorage() const
+{
+    return m_shaderStorage;
+}
+
+const FrameBufferStorage& Storage::GetFrameBufferStorage() const
+{
+    return m_frameBufferStorage;
 }
 
 Context::GlfwWindow& Storage::GetWindow()

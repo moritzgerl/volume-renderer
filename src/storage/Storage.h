@@ -34,7 +34,6 @@ public:
         TextureStorage&& textureStorage,
         ShaderStorage&& shaderStorage,
         FrameBufferStorage&& frameBufferStorage,
-        RenderPassStorage&& renderPassStorage,
         UnitCube&& unitCube,
         Data::VolumeData&& volumeData,
         Context::GlfwWindow&& window);
@@ -48,16 +47,25 @@ public:
     Storage& operator=(Storage&&) = delete;
 
     // TODO remove unused getters
+    const Camera& GetCamera() const;
     const DisplayProperties& GetDisplayProperties() const;
     Gui& GetGui();
+    const Gui& GetGui() const;
+    const GuiParameters& GetGuiParameters() const;
     InputHandler& GetInputHandler();
+    const InputHandler& GetInputHandler() const;
+    const ScreenQuad& GetScreenQuad() const;
+    const UnitCube& GetUnitCube() const;
     SsaoUpdater& GetSsaoUpdater();
+    const SsaoUpdater& GetSsaoUpdater() const;
+    const SsaoUtils& GetSsaoUtils() const;
     Texture const& GetTexture(TextureId textureId) const;
     Texture& GetTexture(TextureId textureId);
     Shader const& GetShader(ShaderId shaderId) const;
     const FrameBuffer& GetFrameBuffer(FrameBufferId frameBufferId) const;
-    const RenderPass& GetRenderPass(RenderPassId renderPassId) const;
-    const std::vector<RenderPass>& GetRenderPasses() const;
+    const TextureStorage& GetTextureStorage() const;
+    const ShaderStorage& GetShaderStorage() const;
+    const FrameBufferStorage& GetFrameBufferStorage() const;
     Context::GlfwWindow& GetWindow();
     const Data::VolumeData& GetVolumeData() const;
 
@@ -75,7 +83,6 @@ private:
     TextureStorage m_textureStorage;
     ShaderStorage m_shaderStorage;
     FrameBufferStorage m_frameBufferStorage;
-    RenderPassStorage m_renderPassStorage;
     Data::VolumeData m_volumeData;
     Context::GlfwWindow m_window;
 };

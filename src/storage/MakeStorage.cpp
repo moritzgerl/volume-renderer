@@ -56,8 +56,7 @@ namespace Factory
         TextureStorage textureStorage(MakeTextures(volumeData, ssaoUtils));
         ShaderStorage shaderStorage(MakeShaders(guiParameters, ssaoUtils, textureStorage));
         FrameBufferStorage frameBufferStorage(MakeFrameBuffers(textureStorage));
-        RenderPassStorage renderPassStorage(MakeRenderPasses(camera, displayProperties, guiParameters, inputHandler, ssaoUtils, screenQuad, unitCube, textureStorage, shaderStorage, frameBufferStorage));
-        
+
         Texture& ssaoNoiseTexture = textureStorage.GetElement(TextureId::SsaoNoise);
         const Shader& ssaoShader = shaderStorage.GetElement(ShaderId::Ssao);
         const Shader& ssaoFinalShader = shaderStorage.GetElement(ShaderId::SsaoFinal);
@@ -76,7 +75,6 @@ namespace Factory
             std::move(textureStorage),
             std::move(shaderStorage),
             std::move(frameBufferStorage),
-            std::move(renderPassStorage),
             std::move(unitCube),
             std::move(volumeData),
             std::move(window)

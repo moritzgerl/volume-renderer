@@ -15,26 +15,27 @@
 #include <shader/UpdateLightingParametersInShader.h>
 #include <shader/UpdateLightSourceModelMatrixInShader.h>
 #include <storage/ElementStorage.h>
+#include <storage/Storage.h>
 #include <textures/Texture.h>
 #include <textures/TextureId.h>
 #include <utils/SsaoUtils.h>
 
 #include <glad/glad.h>
 
-std::vector<RenderPass> Factory::MakeRenderPasses(
-    const Camera& camera,
-    const DisplayProperties& displayProperties,
-    const GuiParameters& guiParameters,
-    const InputHandler& inputHandler,
-    const SsaoUtils& ssaoUtils,
-    const ScreenQuad& screenQuad,
-    const UnitCube& unitCube,
-    const TextureStorage& textureStorage,
-    const ShaderStorage& shaderStorage,
-    const FrameBufferStorage& frameBufferStorage
-)
+RenderPasses Factory::MakeRenderPasses(const Storage& storage)
 {
-    std::vector<RenderPass> renderPasses;
+    const Camera& camera = storage.GetCamera();
+    const DisplayProperties& displayProperties = storage.GetDisplayProperties();
+    const GuiParameters& guiParameters = storage.GetGuiParameters();
+    const InputHandler& inputHandler = storage.GetInputHandler();
+    const SsaoUtils& ssaoUtils = storage.GetSsaoUtils();
+    const ScreenQuad& screenQuad = storage.GetScreenQuad();
+    const UnitCube& unitCube = storage.GetUnitCube();
+    const TextureStorage& textureStorage = storage.GetTextureStorage();
+    const ShaderStorage& shaderStorage = storage.GetShaderStorage();
+    const FrameBufferStorage& frameBufferStorage = storage.GetFrameBufferStorage();
+
+    RenderPasses renderPasses;
     renderPasses.reserve(8);
 
     // Setup
