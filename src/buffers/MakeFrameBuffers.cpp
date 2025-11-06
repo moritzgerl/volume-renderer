@@ -19,7 +19,6 @@ namespace Factory
         ssaoInputFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT1, textureStorage.GetElement(TextureId::SsaoNormal));
         ssaoInputFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT2, textureStorage.GetElement(TextureId::SsaoAlbedo));
         ssaoInputFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT3, textureStorage.GetElement(TextureId::SsaoPointLightsContribution));
-        ssaoInputFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT4, textureStorage.GetElement(TextureId::SsaoStencil));
         unsigned int attachments[5] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2, GL_COLOR_ATTACHMENT3, GL_COLOR_ATTACHMENT4 };
         glDrawBuffers(5, attachments);
         ssaoInputFrameBuffer.AttachRenderBuffer(GL_DEPTH_ATTACHMENT, GL_DEPTH_COMPONENT, Config::windowWidth, Config::windowHeight);

@@ -10,7 +10,6 @@ enum class TextureId
     Ssao,
     SsaoBlur,
     SsaoNoise,
-    SsaoStencil,
     SsaoPointLightsContribution,
     Unknown
 };
