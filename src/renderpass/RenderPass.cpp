@@ -5,14 +5,12 @@
 
 RenderPass::RenderPass(
     RenderPassId renderPassId,
-    const ScreenQuad& screenQuad,
     const Shader& shader,
     const FrameBuffer& frameBuffer,
     std::vector<std::reference_wrapper<const Texture>>&& textures,
     std::function<void()>&& prepareFunction,
     std::function<void()>&& renderFunction)
     : m_renderPassId(renderPassId)
-    , m_screenQuad(screenQuad)
     , m_shader(shader)
     , m_frameBuffer(frameBuffer)
     , m_textures(std::move(textures))
