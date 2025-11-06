@@ -48,7 +48,6 @@ namespace Factory
         GuiParameters guiParameters = MakeGuiParameters();
         GuiUpdateFlags guiUpdateFlags;
         Gui gui(window.GetWindow(), guiParameters, guiUpdateFlags);
-        InputHandler inputHandler(window.GetWindow(), camera, displayProperties);
         ScreenQuad screenQuad;
         UnitCube unitCube;
         SsaoUtils ssaoUtils;
@@ -63,7 +62,6 @@ namespace Factory
             std::move(gui),
             std::move(guiParameters),
             std::move(guiUpdateFlags),
-            std::move(inputHandler),
             std::move(screenQuad),
             std::move(ssaoUtils),
             std::move(textureStorage),

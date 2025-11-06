@@ -27,7 +27,6 @@ public:
         Gui&& gui,
         GuiParameters&& guiParameters,
         GuiUpdateFlags&& guiUpdateFlags,
-        InputHandler&& inputHandler,
         ScreenQuad&& screenQuad,
         SsaoUtils&& ssaoUtils,
         TextureStorage&& textureStorage,
@@ -46,15 +45,15 @@ public:
     Storage& operator=(Storage&&) = delete;
 
     // TODO remove unused getters
+    Camera& GetCamera();
     const Camera& GetCamera() const;
+    DisplayProperties& GetDisplayProperties();
     const DisplayProperties& GetDisplayProperties() const;
     Gui& GetGui();
     const Gui& GetGui() const;
     const GuiParameters& GetGuiParameters() const;
     GuiUpdateFlags& GetGuiUpdateFlags();
     const GuiUpdateFlags& GetGuiUpdateFlags() const;
-    InputHandler& GetInputHandler();
-    const InputHandler& GetInputHandler() const;
     const ScreenQuad& GetScreenQuad() const;
     const UnitCube& GetUnitCube() const;
     SsaoUtils& GetSsaoUtils();
@@ -67,6 +66,7 @@ public:
     const ShaderStorage& GetShaderStorage() const;
     const FrameBufferStorage& GetFrameBufferStorage() const;
     Context::GlfwWindow& GetWindow();
+    const Context::GlfwWindow& GetWindow() const;
     const Data::VolumeData& GetVolumeData() const;
 
 private:
@@ -75,7 +75,6 @@ private:
     Gui m_gui;
     GuiParameters m_guiParameters;
     GuiUpdateFlags m_guiUpdateFlags;
-    InputHandler m_inputHandler;
     ScreenQuad m_screenQuad;
     UnitCube m_unitCube;
     SsaoUtils m_ssaoUtils;

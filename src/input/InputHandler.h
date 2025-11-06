@@ -4,13 +4,14 @@
 #include <context/GlfwWindowTypes.h>
 
 class Camera;
+class Storage;
 class VertexBuffer;
 struct DisplayProperties;
 
 class InputHandler
 {
 public:
-    InputHandler(const Context::WindowPtr& window, Camera& camera, DisplayProperties& displayProperties);
+    InputHandler(Storage& storage);
     void Update();
     unsigned int GetWindowWidth() const;
     unsigned int GetWindowHeight() const;

@@ -22,12 +22,11 @@
 
 #include <glad/glad.h>
 
-RenderPasses Factory::MakeRenderPasses(const Storage& storage)
+RenderPasses Factory::MakeRenderPasses(const InputHandler& inputHandler, const Storage& storage)
 {
     const Camera& camera = storage.GetCamera();
     const DisplayProperties& displayProperties = storage.GetDisplayProperties();
     const GuiParameters& guiParameters = storage.GetGuiParameters();
-    const InputHandler& inputHandler = storage.GetInputHandler();
     const SsaoUtils& ssaoUtils = storage.GetSsaoUtils();
     const ScreenQuad& screenQuad = storage.GetScreenQuad();
     const UnitCube& unitCube = storage.GetUnitCube();

@@ -6,7 +6,6 @@ Storage::Storage(
     Gui&& gui,
     GuiParameters&& guiParameters,
     GuiUpdateFlags&& guiUpdateFlags,
-    InputHandler&& inputHandler,
     ScreenQuad&& screenQuad,
     SsaoUtils&& ssaoUtils,
     TextureStorage&& textureStorage,
@@ -20,7 +19,6 @@ Storage::Storage(
     , m_gui(std::move(gui))
     , m_guiParameters(std::move(guiParameters))
     , m_guiUpdateFlags(std::move(guiUpdateFlags))
-    , m_inputHandler(std::move(inputHandler))
     , m_screenQuad(std::move(screenQuad))
     , m_unitCube(std::move(unitCube))
     , m_ssaoUtils(std::move(ssaoUtils))
@@ -52,9 +50,19 @@ const FrameBuffer& Storage::GetFrameBuffer(FrameBufferId frameBufferId) const
     return m_frameBufferStorage.GetElement(frameBufferId);
 }
 
+Camera& Storage::GetCamera()
+{
+    return m_camera;
+}
+
 const Camera& Storage::GetCamera() const
 {
     return m_camera;
+}
+
+DisplayProperties& Storage::GetDisplayProperties()
+{
+    return m_displayProperties;
 }
 
 const DisplayProperties& Storage::GetDisplayProperties() const
@@ -85,16 +93,6 @@ GuiUpdateFlags& Storage::GetGuiUpdateFlags()
 const GuiUpdateFlags& Storage::GetGuiUpdateFlags() const
 {
     return m_guiUpdateFlags;
-}
-
-InputHandler& Storage::GetInputHandler()
-{
-    return m_inputHandler;
-}
-
-const InputHandler& Storage::GetInputHandler() const
-{
-    return m_inputHandler;
 }
 
 const ScreenQuad& Storage::GetScreenQuad() const
@@ -133,6 +131,11 @@ const FrameBufferStorage& Storage::GetFrameBufferStorage() const
 }
 
 Context::GlfwWindow& Storage::GetWindow()
+{
+    return m_window;
+}
+
+const Context::GlfwWindow& Storage::GetWindow() const
 {
     return m_window;
 }

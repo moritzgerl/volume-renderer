@@ -11,13 +11,14 @@
 
 int main()
 {
-    Storage storage(Factory::MakeStorage());
-    Gui& gui = storage.GetGui();
-    InputHandler& inputHandler = storage.GetInputHandler();
-    Context::GlfwWindow& window = storage.GetWindow();
-    const DisplayProperties& displayProperties = storage.GetDisplayProperties();
-    const RenderPasses renderPasses = Factory::MakeRenderPasses(storage);
+    Storage storage(Factory::MakeStorage());    
+    // TODO act factory functions, change back constructors to get only what they need
+    InputHandler inputHandler(storage);
     SsaoUpdater ssaoUpdater(storage);
+    const RenderPasses renderPasses = Factory::MakeRenderPasses(inputHandler, storage);
+    const DisplayProperties& displayProperties = storage.GetDisplayProperties();
+    Context::GlfwWindow& window = storage.GetWindow();
+    Gui& gui = storage.GetGui();
 
     while (!window.ShouldClose())
     {
