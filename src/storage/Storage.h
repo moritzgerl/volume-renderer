@@ -29,7 +29,6 @@ public:
         GuiUpdateFlags&& guiUpdateFlags,
         InputHandler&& inputHandler,
         ScreenQuad&& screenQuad,
-        SsaoUpdater&& ssaoUpdater,
         SsaoUtils&& ssaoUtils,
         TextureStorage&& textureStorage,
         ShaderStorage&& shaderStorage,
@@ -52,12 +51,13 @@ public:
     Gui& GetGui();
     const Gui& GetGui() const;
     const GuiParameters& GetGuiParameters() const;
+    GuiUpdateFlags& GetGuiUpdateFlags();
+    const GuiUpdateFlags& GetGuiUpdateFlags() const;
     InputHandler& GetInputHandler();
     const InputHandler& GetInputHandler() const;
     const ScreenQuad& GetScreenQuad() const;
     const UnitCube& GetUnitCube() const;
-    SsaoUpdater& GetSsaoUpdater();
-    const SsaoUpdater& GetSsaoUpdater() const;
+    SsaoUtils& GetSsaoUtils();
     const SsaoUtils& GetSsaoUtils() const;
     Texture const& GetTexture(TextureId textureId) const;
     Texture& GetTexture(TextureId textureId);
@@ -78,7 +78,6 @@ private:
     InputHandler m_inputHandler;
     ScreenQuad m_screenQuad;
     UnitCube m_unitCube;
-    SsaoUpdater m_ssaoUpdater;
     SsaoUtils m_ssaoUtils;
     TextureStorage m_textureStorage;
     ShaderStorage m_shaderStorage;

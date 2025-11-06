@@ -8,7 +8,6 @@ Storage::Storage(
     GuiUpdateFlags&& guiUpdateFlags,
     InputHandler&& inputHandler,
     ScreenQuad&& screenQuad,
-    SsaoUpdater&& ssaoUpdater,
     SsaoUtils&& ssaoUtils,
     TextureStorage&& textureStorage,
     ShaderStorage&& shaderStorage,
@@ -24,7 +23,6 @@ Storage::Storage(
     , m_inputHandler(std::move(inputHandler))
     , m_screenQuad(std::move(screenQuad))
     , m_unitCube(std::move(unitCube))
-    , m_ssaoUpdater(std::move(ssaoUpdater))
     , m_ssaoUtils(std::move(ssaoUtils))
     , m_textureStorage(std::move(textureStorage))
     , m_shaderStorage(std::move(shaderStorage))
@@ -79,6 +77,16 @@ const GuiParameters& Storage::GetGuiParameters() const
     return m_guiParameters;
 }
 
+GuiUpdateFlags& Storage::GetGuiUpdateFlags()
+{
+    return m_guiUpdateFlags;
+}
+
+const GuiUpdateFlags& Storage::GetGuiUpdateFlags() const
+{
+    return m_guiUpdateFlags;
+}
+
 InputHandler& Storage::GetInputHandler()
 {
     return m_inputHandler;
@@ -99,14 +107,9 @@ const UnitCube& Storage::GetUnitCube() const
     return m_unitCube;
 }
 
-SsaoUpdater& Storage::GetSsaoUpdater()
+SsaoUtils& Storage::GetSsaoUtils()
 {
-    return m_ssaoUpdater;
-}
-
-const SsaoUpdater& Storage::GetSsaoUpdater() const
-{
-    return m_ssaoUpdater;
+    return m_ssaoUtils;
 }
 
 const SsaoUtils& Storage::GetSsaoUtils() const

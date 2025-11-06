@@ -14,10 +14,10 @@ int main()
     Storage storage(Factory::MakeStorage());
     Gui& gui = storage.GetGui();
     InputHandler& inputHandler = storage.GetInputHandler();
-    SsaoUpdater& ssaoUpdater = storage.GetSsaoUpdater();
     Context::GlfwWindow& window = storage.GetWindow();
     const DisplayProperties& displayProperties = storage.GetDisplayProperties();
     const RenderPasses renderPasses = Factory::MakeRenderPasses(storage);
+    SsaoUpdater ssaoUpdater(storage);
 
     while (!window.ShouldClose())
     {
