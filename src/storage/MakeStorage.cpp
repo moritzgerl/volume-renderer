@@ -24,6 +24,19 @@
 
 #include <iostream>
 
+namespace
+{
+    std::unique_ptr<Data::VolumeData> LoadVolume(const std::string& datasetPath)
+    {
+        auto volumeLoadingResult = Data::LoadVolumeRaw(datasetPath);
+        if (!volumeLoadingResult)
+        {
+            std::cerr << "Failed to load volume from " << datasetPath << std::endl;
+        }
+        return std::move(volumeLoadingResult.value());
+    }
+}
+
 namespace Factory
 {
     Storage MakeStorage()
@@ -37,6 +50,7 @@ namespace Factory
         InputHandler inputHandler(window.GetWindow(), camera, displayProperties);
         ScreenQuad screenQuad;
         SsaoUtils ssaoUtils;
+        std::unique_ptr<Data::VolumeData> volumeData = LoadVolume(Config::datasetPath);
         TextureStorage textureStorage(MakeTextures(ssaoUtils));
         ShaderStorage shaderStorage(MakeShaders(guiParameters, ssaoUtils, textureStorage));
         FrameBufferStorage frameBufferStorage(MakeFrameBuffers(textureStorage));
@@ -47,13 +61,6 @@ namespace Factory
         const Shader& ssaoFinalShader = shaderStorage.GetElement(ShaderId::SsaoFinal);
         SsaoUpdater ssaoUpdater(guiUpdateFlags, guiParameters, ssaoUtils, ssaoNoiseTexture, ssaoShader, ssaoFinalShader);
 
-        // TODO move to function
-        auto volumeLoadingResult = Data::LoadVolumeRaw(Config::datasetPath);
-        if (!volumeLoadingResult)
-        {
-            std::cerr << "Failed to load volume from " << Config::datasetPath << std::endl;
-        }
-        std::unique_ptr<Data::VolumeData> volumeData = std::move(volumeLoadingResult.value());
 
         return Storage(
             std::move(camera),
