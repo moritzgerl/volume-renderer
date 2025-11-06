@@ -15,6 +15,7 @@ namespace Data
     ///
     /// @param rawFilePath Path to the .raw file
     /// @return VolumeData on success, VolumeLoadingError on failure
+    /// TODO rename to LoadVolume and deduce format from extension
     VolumeLoadingResult LoadVolumeRaw(const std::filesystem::path& rawFilePath);
 
     /// Load a raw volume file using provided metadata

@@ -14,7 +14,8 @@ Storage::Storage(
     ShaderStorage&& shaderStorage,
     FrameBufferStorage&& frameBufferStorage,
     RenderPassStorage&& renderPassStorage,
-    Context::GlfwWindow&& window)
+    Context::GlfwWindow&& window,
+    std::unique_ptr<Data::VolumeData>&& volumeData)
     : m_camera(std::move(camera))
     , m_displayProperties(std::move(displayProperties))
     , m_gui(std::move(gui))
@@ -29,6 +30,7 @@ Storage::Storage(
     , m_frameBufferStorage(std::move(frameBufferStorage))
     , m_renderPassStorage(std::move(renderPassStorage))
     , m_window(std::move(window))
+    , m_volumeData(std::move(volumeData))
 {
 }
 
@@ -85,4 +87,9 @@ SsaoUpdater& Storage::GetSsaoUpdater()
 Context::GlfwWindow& Storage::GetWindow()
 {
     return m_window;
+}
+
+const Data::VolumeData& Storage::GetVolumeData() const
+{
+    return *m_volumeData;
 }

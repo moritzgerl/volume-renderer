@@ -4,6 +4,8 @@
 #include <buffers/MakeFrameBuffers.h>
 #include <camera/Camera.h>
 #include <context/GlfwWindow.h>
+#include <config/Config.h>
+#include <data/LoadVolumeRaw.h>
 #include <gui/Gui.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
@@ -19,6 +21,8 @@
 #include <textures/MakeTextures.h>
 #include <textures/TextureId.h>
 #include <utils/SsaoUtils.h>
+
+#include <iostream>
 
 namespace Factory
 {
@@ -40,8 +44,16 @@ namespace Factory
         
         Texture& ssaoNoiseTexture = textureStorage.GetElement(TextureId::SsaoNoise);
         const Shader& ssaoShader = shaderStorage.GetElement(ShaderId::Ssao);
-        const Shader& ssaoFinalShader = shaderStorage.GetElement(ShaderId::SsaoFinal);        
+        const Shader& ssaoFinalShader = shaderStorage.GetElement(ShaderId::SsaoFinal);
         SsaoUpdater ssaoUpdater(guiUpdateFlags, guiParameters, ssaoUtils, ssaoNoiseTexture, ssaoShader, ssaoFinalShader);
+
+        // TODO move to function
+        auto volumeLoadingResult = Data::LoadVolumeRaw(Config::datasetPath);
+        if (!volumeLoadingResult)
+        {
+            std::cerr << "Failed to load volume from " << Config::datasetPath << std::endl;
+        }
+        std::unique_ptr<Data::VolumeData> volumeData = std::move(volumeLoadingResult.value());
 
         return Storage(
             std::move(camera),
@@ -57,7 +69,8 @@ namespace Factory
             std::move(shaderStorage),
             std::move(frameBufferStorage),
             std::move(renderPassStorage),
-            std::move(window)
+            std::move(window),
+            std::move(volumeData)
         );
     }
 }

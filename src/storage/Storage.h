@@ -4,6 +4,7 @@
 #include <storage/StorageTypes.h>
 #include <camera/Camera.h>
 #include <context/GlfwWindow.h>
+#include <data/VolumeData.h>
 #include <gui/Gui.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
@@ -13,6 +14,7 @@
 #include <shader/SsaoUpdater.h>
 #include <utils/SsaoUtils.h>
 
+#include <memory>
 #include <vector>
 
 class Storage
@@ -32,7 +34,8 @@ public:
         ShaderStorage&& shaderStorage,
         FrameBufferStorage&& frameBufferStorage,
         RenderPassStorage&& renderPassStorage,
-        Context::GlfwWindow&& window);
+        Context::GlfwWindow&& window,
+        std::unique_ptr<Data::VolumeData>&& volumeData);
 
     // TODO use concepts
     // TODO rule of zero? Don't even do the = delete here?
@@ -54,6 +57,7 @@ public:
     const RenderPass& GetRenderPass(RenderPassId renderPassId) const;
     const std::vector<RenderPass>& GetRenderPasses() const;
     Context::GlfwWindow& GetWindow();
+    const Data::VolumeData& GetVolumeData() const;
 
 private:
     Camera m_camera;
@@ -70,6 +74,7 @@ private:
     FrameBufferStorage m_frameBufferStorage;
     RenderPassStorage m_renderPassStorage;
     Context::GlfwWindow m_window;
+    std::unique_ptr<Data::VolumeData> m_volumeData;
 };
 
 #endif
