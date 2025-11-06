@@ -34,9 +34,10 @@ namespace Factory
     )
     {
         std::vector<Shader> shaders;
-        shaders.reserve(6);
+        shaders.reserve(7);
 
         // TODO use initializer list
+        shaders.emplace_back(ShaderId::Volume, FileSystem::getPath("src/shaders/Volume.vert").c_str(), FileSystem::getPath("src/shaders/Volume.frag").c_str());
         shaders.emplace_back(ShaderId::SsaoInput, FileSystem::getPath("src/shaders/SsaoInput.vert").c_str(), FileSystem::getPath("src/shaders/SsaoInput.frag").c_str());
         shaders.emplace_back(ShaderId::Ssao, FileSystem::getPath("src/shaders/Ssao.vert").c_str(), FileSystem::getPath("src/shaders/Ssao.frag").c_str());
         shaders.emplace_back(ShaderId::SsaoBlur, FileSystem::getPath("src/shaders/Ssao.vert").c_str(), FileSystem::getPath("src/shaders/SsaoBlur.frag").c_str());
@@ -44,12 +45,21 @@ namespace Factory
         shaders.emplace_back(ShaderId::DebugQuad, FileSystem::getPath("src/shaders/DebugQuad.vert").c_str(), FileSystem::getPath("src/shaders/DebugQuadColor.frag").c_str());
         shaders.emplace_back(ShaderId::LightSource, FileSystem::getPath("src/shaders/LightSource.vert").c_str(), FileSystem::getPath("src/shaders/LightSource.frag").c_str());
 
+        const Texture& volumeTexture = textureStorage.GetElement(TextureId::VolumeData);
         const Texture& ssaoPositionTexture = textureStorage.GetElement(TextureId::SsaoPosition);
         const Texture& ssaoNormalTexture = textureStorage.GetElement(TextureId::SsaoNormal);
         const Texture& ssaoAlbedoTexture = textureStorage.GetElement(TextureId::SsaoAlbedo);
         const Texture& ssaoTexture = textureStorage.GetElement(TextureId::Ssao);
         const Texture& ssaoNoiseTexture = textureStorage.GetElement(TextureId::SsaoNoise);
         const Texture& ssaoPointLightsContributionTexture = textureStorage.GetElement(TextureId::SsaoPointLightsContribution);
+
+        const Shader& volumeShader = GetShader(shaders, ShaderId::Volume);
+        volumeShader.Use();
+        volumeShader.SetInt("volumeTexture", volumeTexture.GetTextureUnit());
+        // TODO set view vector and camera pos every frame
+        volumeShader.SetFloat("stepSize", 0.1f); // TODO add to gui parameters
+        volumeShader.SetFloat("densityMultiplier", 0.1f); // TODO add to gui parameters
+        volumeShader.SetInt("maxSteps", 128); // TODO make configurable
 
         const Shader& ssaoShader = GetShader(shaders, ShaderId::Ssao);
         ssaoShader.Use();

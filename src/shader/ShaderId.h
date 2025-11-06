@@ -3,6 +3,7 @@
 
 enum class ShaderId
 {
+    Volume,
     SsaoInput,
     Ssao,
     SsaoBlur,
