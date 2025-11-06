@@ -93,7 +93,7 @@ namespace
                     {
                         return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
                     }
-                    metadata.SetWidth(width);
+                    metadata.SetWidth(static_cast<uint32_t>(width));
                     break;
                 }
                 case Data::VolumeMetadataKey::Height:
@@ -103,7 +103,7 @@ namespace
                     {
                         return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
                     }
-                    metadata.SetHeight(height);
+                    metadata.SetHeight(static_cast<uint32_t>(height));
                     break;
                 }
                 case Data::VolumeMetadataKey::Depth:
@@ -113,7 +113,7 @@ namespace
                     {
                         return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
                     }
-                    metadata.SetDepth(depth);
+                    metadata.SetDepth(static_cast<uint32_t>(depth));
                     break;
                 }
                 case Data::VolumeMetadataKey::Components:
@@ -123,7 +123,7 @@ namespace
                     {
                         return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
                     }
-                    metadata.SetComponents(components);
+                    metadata.SetComponents(static_cast<uint32_t>(components));
                     break;
                 }
                 case Data::VolumeMetadataKey::BitsPerComponent:
@@ -133,7 +133,7 @@ namespace
                     {
                         return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
                     }
-                    metadata.SetBitsPerComponent(bitsPerComponent);
+                    metadata.SetBitsPerComponent(static_cast<uint32_t>(bitsPerComponent));
                     break;
                 }
                 case Data::VolumeMetadataKey::ScaleX:
