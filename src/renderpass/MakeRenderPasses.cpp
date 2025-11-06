@@ -8,6 +8,7 @@
 #include <input/DisplayProperties.h>
 #include <input/InputHandler.h>
 #include <primitives/ScreenQuad.h>
+#include <primitives/UnitCube.h>
 #include <shader/Shader.h>
 #include <shader/ShaderId.h>
 #include <shader/UpdateCameraMatricesInShader.h>
@@ -27,15 +28,17 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
     const InputHandler& inputHandler,
     const SsaoUtils& ssaoUtils,
     const ScreenQuad& screenQuad,
+    const UnitCube& unitCube,
     const TextureStorage& textureStorage,
     const ShaderStorage& shaderStorage,
     const FrameBufferStorage& frameBufferStorage
 )
 {
     std::vector<RenderPass> renderPasses;
-    renderPasses.reserve(7);
+    renderPasses.reserve(8);
 
     // Setup
+    // TODO - remove? do setup in raycasting pass directly ?
     {
         std::vector<std::reference_wrapper<const Texture>> textures;
 
@@ -53,7 +56,34 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
 
         renderPasses.emplace_back(
             RenderPassId::Setup,
-            screenQuad,
+            shader,
+            frameBufferStorage.GetElement(FrameBufferId::Default),
+            std::move(textures),
+            std::move(prepareFunction),
+            std::move(renderFunction)
+        );
+    }
+
+    // Raycasting
+    {
+        std::vector<std::reference_wrapper<const Texture>> textures;
+
+        const auto& shader = shaderStorage.GetElement(ShaderId::Volume);
+
+        auto prepareFunction = [&camera, &shader]()
+        {
+            glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            ShaderUtils::UpdateCameraMatricesInShader(camera, shader);
+        };
+
+        auto renderFunction = [&unitCube]()
+        {
+            unitCube.Render();
+        };
+
+        renderPasses.emplace_back(
+            RenderPassId::Volume,
             shader,
             frameBufferStorage.GetElement(FrameBufferId::Default),
             std::move(textures),
@@ -63,6 +93,7 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
     }
 
     // SSAO Input
+    // TODO - remove?
     {
         std::vector<std::reference_wrapper<const Texture>> textures;
 
@@ -82,7 +113,6 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
 
         renderPasses.emplace_back(
             RenderPassId::SsaoInput,
-            screenQuad,
             shader,
             frameBufferStorage.GetElement(FrameBufferId::SsaoInput),
             std::move(textures),
@@ -114,7 +144,6 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
 
         renderPasses.emplace_back(
             RenderPassId::Ssao,
-            screenQuad,
             shader,
             frameBufferStorage.GetElement(FrameBufferId::Ssao),
             std::move(textures),
@@ -141,7 +170,6 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
 
         renderPasses.emplace_back(
             RenderPassId::SsaoBlur,
-            screenQuad,
             shaderStorage.GetElement(ShaderId::SsaoBlur),
             frameBufferStorage.GetElement(FrameBufferId::SsaoBlur),
             std::move(textures),
@@ -177,7 +205,6 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
 
         renderPasses.emplace_back(
             RenderPassId::SsaoFinal,
-            screenQuad,
             shader,
             frameBufferStorage.GetElement(FrameBufferId::Default),
             std::move(textures),
@@ -213,7 +240,6 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
 
         renderPasses.emplace_back(
             RenderPassId::LightSource,
-            screenQuad,
             shader,
             frameBufferStorage.GetElement(FrameBufferId::Default),
             std::move(textures),
@@ -248,7 +274,6 @@ std::vector<RenderPass> Factory::MakeRenderPasses(
 
         renderPasses.emplace_back(
             RenderPassId::Debug,
-            screenQuad,
             shader,
             frameBufferStorage.GetElement(FrameBufferId::Default),
             std::move(textures),

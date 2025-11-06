@@ -4,6 +4,7 @@
 enum class RenderPassId
 {
     Setup,
+    Volume,
     SsaoInput,
     Ssao,
     SsaoBlur,

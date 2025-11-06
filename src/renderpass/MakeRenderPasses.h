@@ -13,6 +13,7 @@ struct GuiParameters;
 class InputHandler;
 class SsaoUtils;
 class ScreenQuad;
+class UnitCube;
 
 namespace Factory
 {
@@ -23,6 +24,7 @@ namespace Factory
         const InputHandler& inputHandler,
         const SsaoUtils& ssaoUtils,
         const ScreenQuad& screenQuad,
+        const UnitCube& unitCube,
         const TextureStorage& textureStorage,
         const ShaderStorage& shaderStorage,
         const FrameBufferStorage& frameBufferStorage
