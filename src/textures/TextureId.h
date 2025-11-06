@@ -3,6 +3,7 @@
 
 enum class TextureId
 {
+    VolumeData,
     SsaoPosition,
     SsaoNormal,
     SsaoAlbedo,
