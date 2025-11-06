@@ -158,7 +158,7 @@ namespace
 
 } // anonymous namespace
 
-std::expected<std::unique_ptr<Data::VolumeData>, Data::VolumeLoadingError> Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath)
+Data::VolumeLoadingResult Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath)
 {
     // Load metadata from .ini file
     std::filesystem::path iniFilePath = rawFilePath;
@@ -173,7 +173,7 @@ std::expected<std::unique_ptr<Data::VolumeData>, Data::VolumeLoadingError> Data:
     return LoadVolumeRaw(rawFilePath, metadata);
 }
 
-std::expected<std::unique_ptr<Data::VolumeData>, Data::VolumeLoadingError> Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath, const VolumeMetadata& metadata)
+Data::VolumeLoadingResult Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath, const VolumeMetadata& metadata)
 {
     if (!metadata.IsValid())
     {
