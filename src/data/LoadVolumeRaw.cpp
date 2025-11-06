@@ -17,17 +17,17 @@ namespace
     /// ScaleX=1.0
     /// ScaleY=1.0
     /// ScaleZ=1.0
-    bool LoadMetadataFromIni(const std::filesystem::path& iniFilePath, Data::VolumeMetadata& metadata)
+    std::expected<void, Data::VolumeLoadError> LoadMetadataFromIni(const std::filesystem::path& iniFilePath, Data::VolumeMetadata& metadata)
     {
         if (!std::filesystem::exists(iniFilePath))
         {
-            return false;
+            return std::unexpected(Data::VolumeLoadError::MetadataFileNotFound);
         }
 
         std::ifstream file(iniFilePath);
         if (!file.is_open())
         {
-            return false;
+            return std::unexpected(Data::VolumeLoadError::CannotOpenMetadataFile);
         }
 
         std::string line;
@@ -111,19 +111,24 @@ namespace
             }
             catch (const std::exception&)
             {
-                return false;
+                return std::unexpected(Data::VolumeLoadError::MetadataParseError);
             }
         }
 
-        return metadata.IsValid();
+        if (!metadata.IsValid())
+        {
+            return std::unexpected(Data::VolumeLoadError::InvalidMetadata);
+        }
+
+        return {};
     }
 
     /// Load raw binary data from file
-    bool LoadRawData(const std::filesystem::path& rawFilePath, Data::VolumeData& volumeData)
+    std::expected<void, Data::VolumeLoadError> LoadRawData(const std::filesystem::path& rawFilePath, Data::VolumeData& volumeData)
     {
         if (!std::filesystem::exists(rawFilePath))
         {
-            return false;
+            return std::unexpected(Data::VolumeLoadError::RawFileNotFound);
         }
 
         const size_t expectedSize = volumeData.GetMetadata().GetTotalSizeInBytes();
@@ -131,55 +136,60 @@ namespace
 
         if (fileSize != expectedSize)
         {
-            return false;
+            return std::unexpected(Data::VolumeLoadError::FileSizeMismatch);
         }
 
         std::ifstream file(rawFilePath, std::ios::binary);
         if (!file.is_open())
         {
-            return false;
+            return std::unexpected(Data::VolumeLoadError::CannotOpenRawFile);
         }
 
         volumeData.AllocateData(expectedSize);
         file.read(reinterpret_cast<char*>(volumeData.GetDataPtr()), expectedSize);
 
-        return file.good();
+        if (!file.good())
+        {
+            return std::unexpected(Data::VolumeLoadError::ReadError);
+        }
+
+        return {};
     }
 
 } // anonymous namespace
 
-std::unique_ptr<Data::VolumeData> Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath)
+std::expected<std::unique_ptr<Data::VolumeData>, Data::VolumeLoadError> Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath)
 {
     // Load metadata from .ini file
     std::filesystem::path iniFilePath = rawFilePath;
     iniFilePath.replace_extension(".ini");
 
     VolumeMetadata metadata;
-    if (!LoadMetadataFromIni(iniFilePath, metadata))
+    if (auto result = LoadMetadataFromIni(iniFilePath, metadata); !result)
     {
-        return nullptr;
+        return std::unexpected(result.error());
     }
 
     return LoadVolumeRaw(rawFilePath, metadata);
 }
 
-std::unique_ptr<Data::VolumeData> Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath, const VolumeMetadata& metadata)
+std::expected<std::unique_ptr<Data::VolumeData>, Data::VolumeLoadError> Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath, const VolumeMetadata& metadata)
 {
     if (!metadata.IsValid())
     {
-        return nullptr;
+        return std::unexpected(VolumeLoadError::InvalidMetadata);
     }
 
     auto volumeData = std::make_unique<VolumeData>(metadata);
 
-    if (!LoadRawData(rawFilePath, *volumeData))
+    if (auto result = LoadRawData(rawFilePath, *volumeData); !result)
     {
-        return nullptr;
+        return std::unexpected(result.error());
     }
 
     if (!volumeData->IsValid())
     {
-        return nullptr;
+        return std::unexpected(VolumeLoadError::InvalidVolumeData);
     }
 
     return volumeData;
