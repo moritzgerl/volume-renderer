@@ -1,10 +1,21 @@
 #include <data/LoadVolumeRaw.h>
+#include <data/GetVolumeMetadataKey.h>
+
+#include <charconv>
 #include <fstream>
 #include <sstream>
 #include <string>
 
 namespace
 {
+    /// Parse a value from a string using std::from_chars
+    /// Returns true on success, false on parse error
+    template<typename T>
+    bool ParseValue(const std::string& str, T& out)
+    {
+        auto [ptr, ec] = std::from_chars(str.data(), str.data() + str.size(), out);
+        return ec == std::errc{};
+    }
 
     /// Load metadata from a companion .ini file
     /// Expected format:
@@ -64,54 +75,100 @@ namespace
                 continue;
             }
 
-            std::string key = line.substr(0, equalPos);
-            std::string value = line.substr(equalPos + 1);
+            std::string keyString = line.substr(0, equalPos);
+            std::string valueString = line.substr(equalPos + 1);
 
             // Trim key and value
-            key.erase(0, key.find_first_not_of(" \t"));
-            key.erase(key.find_last_not_of(" \t") + 1);
-            value.erase(0, value.find_first_not_of(" \t"));
-            value.erase(value.find_last_not_of(" \t") + 1);
+            keyString.erase(0, keyString.find_first_not_of(" \t"));
+            keyString.erase(keyString.find_last_not_of(" \t") + 1);
+            valueString.erase(0, valueString.find_first_not_of(" \t"));
+            valueString.erase(valueString.find_last_not_of(" \t") + 1);
 
-            // TODO remove exceptions
-            try
+            switch (Data::GetVolumeMetadataKey(keyString))
             {
-                if (key == "Width")
+                case Data::VolumeMetadataKey::Width:
                 {
-                    metadata.SetWidth(std::stoul(value));
+                    size_t width;
+                    if (!ParseValue(valueString, width))
+                    {
+                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                    }
+                    metadata.SetWidth(width);
+                    break;
                 }
-                else if (key == "Height")
+                case Data::VolumeMetadataKey::Height:
                 {
-                    metadata.SetHeight(std::stoul(value));
+                    size_t height;
+                    if (!ParseValue(valueString, height))
+                    {
+                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                    }
+                    metadata.SetHeight(height);
+                    break;
                 }
-                else if (key == "Depth")
+                case Data::VolumeMetadataKey::Depth:
                 {
-                    metadata.SetDepth(std::stoul(value));
+                    size_t depth;
+                    if (!ParseValue(valueString, depth))
+                    {
+                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                    }
+                    metadata.SetDepth(depth);
+                    break;
                 }
-                else if (key == "Components")
+                case Data::VolumeMetadataKey::Components:
                 {
-                    metadata.SetComponents(std::stoul(value));
+                    size_t components;
+                    if (!ParseValue(valueString, components))
+                    {
+                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                    }
+                    metadata.SetComponents(components);
+                    break;
                 }
-                else if (key == "BitsPerComponent")
+                case Data::VolumeMetadataKey::BitsPerComponent:
                 {
-                    metadata.SetBitsPerComponent(std::stoul(value));
+                    size_t bitsPerComponent;
+                    if (!ParseValue(valueString, bitsPerComponent))
+                    {
+                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                    }
+                    metadata.SetBitsPerComponent(bitsPerComponent);
+                    break;
                 }
-                else if (key == "ScaleX")
+                case Data::VolumeMetadataKey::ScaleX:
                 {
-                    metadata.SetScaleX(std::stof(value));
+                    float scaleX;
+                    if (!ParseValue(valueString, scaleX))
+                    {
+                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                    }
+                    metadata.SetScaleX(scaleX);
+                    break;
                 }
-                else if (key == "ScaleY")
+                case Data::VolumeMetadataKey::ScaleY:
                 {
-                    metadata.SetScaleY(std::stof(value));
+                    float scaleY;
+                    if (!ParseValue(valueString, scaleY))
+                    {
+                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                    }
+                    metadata.SetScaleY(scaleY);
+                    break;
                 }
-                else if (key == "ScaleZ")
+                case Data::VolumeMetadataKey::ScaleZ:
                 {
-                    metadata.SetScaleZ(std::stof(value));
+                    float scaleZ;
+                    if (!ParseValue(valueString, scaleZ))
+                    {
+                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                    }
+                    metadata.SetScaleZ(scaleZ);
+                    break;
                 }
-            }
-            catch (const std::exception&)
-            {
-                return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                case Data::VolumeMetadataKey::Unknown:
+                    // Ignore unknown keys
+                    break;
             }
         }
 
