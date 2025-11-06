@@ -76,8 +76,8 @@ namespace Factory
             std::move(shaderStorage),
             std::move(frameBufferStorage),
             std::move(renderPassStorage),
-            std::move(window),
-            std::move(volumeData)
+            std::move(volumeData),
+            std::move(window)
         );
     }
 }

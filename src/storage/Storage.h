@@ -34,8 +34,8 @@ public:
         ShaderStorage&& shaderStorage,
         FrameBufferStorage&& frameBufferStorage,
         RenderPassStorage&& renderPassStorage,
-        Context::GlfwWindow&& window,
-        Data::VolumeData&& volumeData);
+        Data::VolumeData&& volumeData,
+        Context::GlfwWindow&& window);
 
     // TODO use concepts
     // TODO rule of zero? Don't even do the = delete here?
