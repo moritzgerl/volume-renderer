@@ -47,10 +47,50 @@ VertexBuffer::VertexBuffer(const UnitCubeVertexCoordinates& unitCubeVertexCoordi
     glEnableVertexAttribArray(1);
 }
 
+VertexBuffer::VertexBuffer(VertexBuffer&& other) noexcept
+    : m_vertexBufferObject(other.m_vertexBufferObject)
+    , m_vertexArrayObject(other.m_vertexArrayObject)
+    , m_elementBufferObject(other.m_elementBufferObject)
+{
+    other.m_vertexBufferObject = 0;
+    other.m_vertexArrayObject = 0;
+    other.m_elementBufferObject = 0;
+}
+
+VertexBuffer& VertexBuffer::operator=(VertexBuffer&& other) noexcept
+{
+    if (this != &other)
+    {
+        if (m_vertexArrayObject != 0)
+        {
+            glDeleteVertexArrays(1, &m_vertexArrayObject);
+        }
+        if (m_vertexBufferObject != 0)
+        {
+            glDeleteBuffers(1, &m_vertexBufferObject);
+        }
+
+        m_vertexBufferObject = other.m_vertexBufferObject;
+        m_vertexArrayObject = other.m_vertexArrayObject;
+        m_elementBufferObject = other.m_elementBufferObject;
+
+        other.m_vertexBufferObject = 0;
+        other.m_vertexArrayObject = 0;
+        other.m_elementBufferObject = 0;
+    }
+    return *this;
+}
+
 VertexBuffer::~VertexBuffer()
 {
-    glDeleteVertexArrays(1, &m_vertexArrayObject);
-    glDeleteBuffers(1, &m_vertexBufferObject);
+    if (m_vertexArrayObject != 0)
+    {
+        glDeleteVertexArrays(1, &m_vertexArrayObject);
+    }
+    if (m_vertexBufferObject != 0)
+    {
+        glDeleteBuffers(1, &m_vertexBufferObject);
+    }
 }
 
 void VertexBuffer::Bind() const

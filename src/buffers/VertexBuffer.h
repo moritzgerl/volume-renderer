@@ -9,7 +9,16 @@ class VertexBuffer
 public:
     VertexBuffer(const ScreenQuadVertexCoordinates& screenQuadVertexCoordinates);
     VertexBuffer(const UnitCubeVertexCoordinates& unitCubeVertexCoordinates);
+
+    // TODO use C++26 concepts
+    VertexBuffer(const VertexBuffer&) = delete;
+    VertexBuffer(VertexBuffer&& other) noexcept;
+
+    VertexBuffer& operator=(const VertexBuffer&) = delete;    
+    VertexBuffer& operator=(VertexBuffer&& other) noexcept;
+
     ~VertexBuffer();
+
     void Bind() const;
     void Unbind() const;
 
