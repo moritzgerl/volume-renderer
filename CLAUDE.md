@@ -97,7 +97,10 @@ The application implements a multi-pass deferred rendering pipeline (see `Main.c
 7. Enter main render loop
 
 ### Conventions
-- Headers use include guards (`#ifndef HEADER_H`)
+- Headers use include guards with underscores separating words (e.g., `#ifndef VOLUME_DATA_H`)
+  - Insert underscores before each uppercase letter that follows a lowercase letter in CamelCase names
+  - Example: `VolumeData` → `VOLUME_DATA_H`, `VolumeLoaderRaw` → `VOLUME_LOADER_RAW_H`
+- Member variables use `m_` prefix followed by camelCase (e.g., `m_width`, `m_bitsPerComponent`)
 - Factory functions prefixed with `Make` (e.g., `MakeGuiParameters()`, `MakeDefaultPointLights()`)
 - OpenGL resources created in main loop (no RAII wrappers yet - see TODOs in `Main.cpp`)
 - Shader uniforms updated per-frame or on GUI parameter changes
