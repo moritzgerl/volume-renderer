@@ -357,32 +357,5 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
         }
     }
 
-    ImGui::Separator();
-
-    for (size_t i = 0; i < guiParameters.transferFunction.numActivePoints; ++i)
-    {
-        const std::string index = std::to_string(i);
-        auto& point = guiParameters.transferFunction.controlPoints[i];
-
-        if (ImGui::CollapsingHeader(("Control Point " + index).c_str()))
-        {
-            bool changed = false;
-
-            changed |= ImGui::SliderFloat(("Value##" + index).c_str(), &point.value, 0.0f, 1.0f);
-            changed |= ImGui::SliderFloat(("Opacity##" + index).c_str(), &point.opacity, 0.0f, 1.0f);
-
-            if (ImGui::TreeNode(("Color##" + index).c_str()))
-            {
-                changed |= ImGui::ColorPicker3(("Color Picker##" + index).c_str(), (float*)&point.color, colorPickerFlags);
-                ImGui::TreePop();
-            }
-
-            if (changed)
-            {
-                guiUpdateFlags.transferFunctionChanged = true;
-            }
-        }
-    }
-
     ImGui::End();
 }
