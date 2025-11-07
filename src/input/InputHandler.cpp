@@ -3,6 +3,8 @@
 #include <config/Config.h>
 #include <input/DisplayProperties.h>
 #include <storage/Storage.h>
+
+#include <imgui.h>
 #include <GLFW/glfw3.h>
 
 InputHandler::InputHandler(const Context::WindowPtr& window, Camera& camera, DisplayProperties& displayProperties)
@@ -83,6 +85,12 @@ void InputHandler::ProcessKeyHolds()
 
 void InputHandler::ProcessKeyPresses(int key, int scancode, int action, int mods)
 {
+    ImGuiIO& io = ImGui::GetIO();
+    if (io.WantCaptureKeyboard)
+    {
+        return;
+    }
+
     if (glfwGetKey(m_window.get(), GLFW_KEY_G) == GLFW_PRESS)
     {
         m_displayProperties.showGui= !m_displayProperties.showGui;
@@ -112,6 +120,12 @@ void InputHandler::ProcessMouseMove(double x, double y)
     m_lastMousePositionX = positionX;
     m_lastMousePositionY = positionY;
 
+    ImGuiIO& io = ImGui::GetIO();
+    if (io.WantCaptureMouse)
+    {
+        return;
+    }
+
     if (glfwGetMouseButton(m_window.get(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
     {
         m_camera.ProcessMouseMovement(offsetX, offsetY);
@@ -120,6 +134,12 @@ void InputHandler::ProcessMouseMove(double x, double y)
 
 void InputHandler::ProcessMouseWheel(double offsetX, double offsetY)
 {
+    ImGuiIO& io = ImGui::GetIO();
+    if (io.WantCaptureMouse)
+    {
+        return;
+    }
+
     m_camera.ProcessMouseScroll(static_cast<float>(offsetY));
 }
 
