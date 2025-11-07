@@ -8,7 +8,7 @@
 
 void ShaderUtils::UpdateCameraMatricesInShader(const Camera& camera, const Shader& shader)
 {
-    glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), static_cast<float>(Config::windowWidth) / static_cast<float>(Config::windowHeight), 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(camera.GetZoom()), static_cast<float>(Config::windowWidth) / static_cast<float>(Config::windowHeight), 0.1f, 100.0f);
     glm::mat4 view = camera.GetViewMatrix();
     glm::mat4 model = glm::mat4(1.0f);
 

@@ -9,27 +9,27 @@
 #include <iomanip>
 
 Camera::Camera(glm::vec3 position, glm::vec3 target, glm::vec3 up)
-    : Zoom(ZOOM)
+    : m_zoom(ZOOM)
 {
-    Position = position;
-    WorldUp = up;
-    Front = glm::normalize(target - position);
+    m_position = position;
+    m_worldUp = up;
+    m_front = glm::normalize(target - position);
     updateCameraVectors();
 }
 
 Camera::Camera(float posX, float posY, float posZ, float targetX, float targetY, float targetZ, float upX, float upY, float upZ)
-    : Zoom(ZOOM)
+    : m_zoom(ZOOM)
 {
-    Position = glm::vec3(posX, posY, posZ);
-    WorldUp = glm::vec3(upX, upY, upZ);
+    m_position = glm::vec3(posX, posY, posZ);
+    m_worldUp = glm::vec3(upX, upY, upZ);
     glm::vec3 target = glm::vec3(targetX, targetY, targetZ);
-    Front = glm::normalize(target - Position);
+    m_front = glm::normalize(target - m_position);
     updateCameraVectors();
 }
 
 glm::mat4 Camera::GetViewMatrix() const
 {
-    return glm::lookAt(Position, Position + Front, Up);
+    return glm::lookAt(m_position, m_position + m_front, m_up);
 }
 
 void Camera::ProcessMouseMovement(float xoffset, float yoffset)
@@ -39,25 +39,35 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset)
 
 void Camera::ProcessMouseScroll(float yoffset)
 {
-    Zoom -= static_cast<float>(yoffset);
-    if (Zoom < 1.0f)
+    m_zoom -= static_cast<float>(yoffset);
+    if (m_zoom < 1.0f)
     {
-        Zoom = 1.0f;
+        m_zoom = 1.0f;
     }
-    if (Zoom > 45.0f)
+    if (m_zoom > 45.0f)
     {
-        Zoom = 45.0f;
+        m_zoom = 45.0f;
     }
 }
 
 void Camera::PrintProperties()
 {
     std::cout << std::fixed << std::setw(10) << std::setprecision(8) <<
-        Position.x << "f, " << Position.y << "f, " << Position.z << "f" << std::endl;
+        m_position.x << "f, " << m_position.y << "f, " << m_position.z << "f" << std::endl;
+}
+
+glm::vec3 Camera::GetPosition() const
+{
+    return m_position;
+}
+
+float Camera::GetZoom() const
+{
+    return m_zoom;
 }
 
 void Camera::updateCameraVectors()
 {
-    Right = glm::normalize(glm::cross(Front, WorldUp));
-    Up = glm::normalize(glm::cross(Right, Front));
+    m_right = glm::normalize(glm::cross(m_front, m_worldUp));
+    m_up = glm::normalize(glm::cross(m_right, m_front));
 }

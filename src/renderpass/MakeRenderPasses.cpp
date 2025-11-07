@@ -76,7 +76,7 @@ RenderPasses Factory::MakeRenderPasses(const InputHandler& inputHandler, const S
             glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             ShaderUtils::UpdateCameraMatricesInShader(camera, shader);
-            shader.SetVec3("cameraPos", camera.Position);
+            shader.SetVec3("cameraPos", camera.GetPosition());
             shader.SetMat4("model", glm::mat4(1.0f));
         };
 
