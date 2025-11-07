@@ -58,7 +58,7 @@ namespace Factory
         volumeShader.SetInt("volumeTexture", volumeTexture.GetTextureUnit());
         // TODO set view vector and camera pos every frame
         volumeShader.SetFloat("stepSize", 0.1f); // TODO add to gui parameters
-        volumeShader.SetFloat("densityMultiplier", 0.1f); // TODO add to gui parameters
+        volumeShader.SetFloat("densityMultiplier", 10.0f); // TODO add to gui parameters
         volumeShader.SetInt("maxSteps", 128); // TODO make configurable
 
         const Shader& ssaoShader = GetShader(shaders, ShaderId::Ssao);
