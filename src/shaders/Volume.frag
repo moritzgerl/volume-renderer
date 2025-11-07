@@ -97,7 +97,4 @@ void main()
     }
 
     FragColor = accumulatedColor;
-
-    // TODO remove
-    FragColor = vec4(0.0, 1.0, 0.0, 1.0);
 }
