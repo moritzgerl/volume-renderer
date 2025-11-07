@@ -6,7 +6,6 @@
 #include <context/GlfwWindow.h>
 #include <config/Config.h>
 #include <data/LoadVolumeRaw.h>
-#include <gui/Gui.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
 #include <gui/MakeGuiParameters.h>
@@ -49,7 +48,6 @@ namespace Factory
         DisplayProperties displayProperties = MakeDisplayProperties();
         GuiParameters guiParameters = MakeGuiParameters();
         GuiUpdateFlags guiUpdateFlags;
-        Gui gui(window.GetWindow(), guiParameters, guiUpdateFlags);
         ScreenQuad screenQuad;
         UnitCube unitCube;
         SsaoUtils ssaoUtils;
@@ -61,7 +59,6 @@ namespace Factory
         return Storage(
             std::move(camera),
             std::move(displayProperties),
-            std::move(gui),
             std::move(guiParameters),
             std::move(guiUpdateFlags),
             std::move(screenQuad),

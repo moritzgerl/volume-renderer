@@ -1,5 +1,6 @@
 #include <context/GlfwWindow.h>
 #include <gui/Gui.h>
+#include <gui/MakeGui.h>
 #include <input/DisplayProperties.h>
 #include <input/InputHandler.h>
 #include <input/MakeInputHandler.h>
@@ -15,11 +16,11 @@ int main()
 {
     Storage storage(Factory::MakeStorage());
     InputHandler inputHandler = Factory::MakeInputHandler(storage);
+    Gui gui = Factory::MakeGui(storage);
     SsaoUpdater ssaoUpdater = Factory::MakeSsaoUpdater(storage);
     const RenderPasses renderPasses = Factory::MakeRenderPasses(inputHandler, storage);
     const DisplayProperties& displayProperties = storage.GetDisplayProperties();
     Context::GlfwWindow& window = storage.GetWindow();
-    Gui& gui = storage.GetGui();
 
     while (!window.ShouldClose())
     {

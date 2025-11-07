@@ -3,7 +3,6 @@
 Storage::Storage(
     Camera&& camera,
     DisplayProperties&& displayProperties,
-    Gui&& gui,
     GuiParameters&& guiParameters,
     GuiUpdateFlags&& guiUpdateFlags,
     ScreenQuad&& screenQuad,
@@ -16,7 +15,6 @@ Storage::Storage(
     Context::GlfwWindow&& window)
     : m_camera(std::move(camera))
     , m_displayProperties(std::move(displayProperties))
-    , m_gui(std::move(gui))
     , m_guiParameters(std::move(guiParameters))
     , m_guiUpdateFlags(std::move(guiUpdateFlags))
     , m_screenQuad(std::move(screenQuad))
@@ -70,14 +68,9 @@ const DisplayProperties& Storage::GetDisplayProperties() const
     return m_displayProperties;
 }
 
-Gui& Storage::GetGui()
+GuiParameters& Storage::GetGuiParameters()
 {
-    return m_gui;
-}
-
-const Gui& Storage::GetGui() const
-{
-    return m_gui;
+    return m_guiParameters;
 }
 
 const GuiParameters& Storage::GetGuiParameters() const

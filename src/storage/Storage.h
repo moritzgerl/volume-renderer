@@ -5,7 +5,6 @@
 #include <camera/Camera.h>
 #include <context/GlfwWindow.h>
 #include <data/VolumeData.h>
-#include <gui/Gui.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
 #include <input/DisplayProperties.h>
@@ -24,7 +23,6 @@ public:
     explicit Storage(
         Camera&& camera,
         DisplayProperties&& displayProperties,
-        Gui&& gui,
         GuiParameters&& guiParameters,
         GuiUpdateFlags&& guiUpdateFlags,
         ScreenQuad&& screenQuad,
@@ -49,8 +47,7 @@ public:
     const Camera& GetCamera() const;
     DisplayProperties& GetDisplayProperties();
     const DisplayProperties& GetDisplayProperties() const;
-    Gui& GetGui();
-    const Gui& GetGui() const;
+    GuiParameters& GetGuiParameters();
     const GuiParameters& GetGuiParameters() const;
     GuiUpdateFlags& GetGuiUpdateFlags();
     const GuiUpdateFlags& GetGuiUpdateFlags() const;
@@ -72,7 +69,6 @@ public:
 private:
     Camera m_camera;
     DisplayProperties m_displayProperties;
-    Gui m_gui;
     GuiParameters m_guiParameters;
     GuiUpdateFlags m_guiUpdateFlags;
     ScreenQuad m_screenQuad;
