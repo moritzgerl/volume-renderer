@@ -32,6 +32,7 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
 
     // Handle mouse interaction with control points
     static int draggedPointIndex = -1;
+    static int colorPickerPointIndex = -1;
     ImVec2 mousePos = ImGui::GetMousePos();
 
     // Check if hovering over a control point
@@ -58,6 +59,26 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
     if (hoveredPointIndex != -1 && !ImGui::GetIO().KeyShift)
     {
         ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+    }
+
+    // Handle double-click to open color picker
+    if (isActive && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+    {
+        float minDist = 15.0f;
+        for (size_t i = 0; i < guiParameters.transferFunction.numActivePoints; ++i)
+        {
+            auto& point = guiParameters.transferFunction.controlPoints[i];
+            float x = plotPos.x + point.value * plotSize.x;
+            float y = plotPos.y + plotSize.y - gradientHeight - (point.opacity * interactiveAreaHeight);
+
+            float dist = std::sqrt((mousePos.x - x) * (mousePos.x - x) + (mousePos.y - y) * (mousePos.y - y));
+            if (dist < minDist)
+            {
+                minDist = dist;
+                colorPickerPointIndex = static_cast<int>(i);
+                break;
+            }
+        }
     }
 
     // Handle single click to add new control point or Shift+Click to delete
@@ -290,11 +311,50 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
         }
         else
         {
-            fillColor = IM_COL32(255, 255, 255, 200); // White for normal
+            // Use the control point's actual color
+            fillColor = IM_COL32(
+                static_cast<int>(point.color.r * 255),
+                static_cast<int>(point.color.g * 255),
+                static_cast<int>(point.color.b * 255),
+                255
+            );
         }
 
         drawList->AddCircleFilled(ImVec2(x, y), radius, fillColor);
         drawList->AddCircle(ImVec2(x, y), radius, IM_COL32(0, 0, 0, 200), 12, 1.0f);
+    }
+
+    // Color picker popup
+    if (colorPickerPointIndex != -1 && colorPickerPointIndex < static_cast<int>(guiParameters.transferFunction.numActivePoints))
+    {
+        ImGui::OpenPopup("ColorPickerPopup");
+    }
+
+    if (ImGui::BeginPopup("ColorPickerPopup"))
+    {
+        if (colorPickerPointIndex != -1 && colorPickerPointIndex < static_cast<int>(guiParameters.transferFunction.numActivePoints))
+        {
+            auto& point = guiParameters.transferFunction.controlPoints[colorPickerPointIndex];
+            ImGui::Text("Control Point %d Color", colorPickerPointIndex);
+            if (ImGui::ColorPicker3("##picker", (float*)&point.color, colorPickerFlags))
+            {
+                guiUpdateFlags.transferFunctionChanged = true;
+            }
+            if (ImGui::Button("Close") || ImGui::IsKeyPressed(ImGuiKey_Escape))
+            {
+                colorPickerPointIndex = -1;
+                ImGui::CloseCurrentPopup();
+            }
+        }
+        ImGui::EndPopup();
+    }
+    else
+    {
+        // Reset if popup was closed by clicking outside
+        if (colorPickerPointIndex != -1 && !ImGui::IsPopupOpen("ColorPickerPopup"))
+        {
+            colorPickerPointIndex = -1;
+        }
     }
 
     ImGui::Separator();
