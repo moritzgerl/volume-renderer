@@ -3,6 +3,9 @@
 #include <gui/GuiUpdateFlags.h>
 #include <config/Config.h>
 
+#include <algorithm>
+#include <cmath>
+
 namespace Constants
 {
     const ImGuiColorEditFlags colorPickerFlags = ImGuiColorEditFlags_NoAlpha | ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_Float;
@@ -119,6 +122,61 @@ void Gui::Draw()
         ImDrawList* drawList = ImGui::GetWindowDrawList();
         ImVec2 plotPos = ImGui::GetCursorScreenPos();
 
+        const float gradientHeight = 20.0f;
+        const float interactiveAreaHeight = plotSize.y - gradientHeight;
+
+        // Make the plot area interactive
+        ImGui::InvisibleButton("TransferFunctionPlot", plotSize);
+        bool isHovered = ImGui::IsItemHovered();
+        bool isActive = ImGui::IsItemActive();
+
+        // Handle mouse interaction with control points
+        static int draggedPointIndex = -1;
+        ImVec2 mousePos = ImGui::GetMousePos();
+
+        if (isActive && ImGui::IsMouseDragging(ImGuiMouseButton_Left, 0.0f))
+        {
+            // If we're dragging, find the closest point on first click or continue dragging
+            if (draggedPointIndex == -1)
+            {
+                float minDist = 15.0f; // Click radius
+                for (size_t i = 0; i < m_guiParameters.transferFunction.numActivePoints; ++i)
+                {
+                    auto& point = m_guiParameters.transferFunction.controlPoints[i];
+                    float x = plotPos.x + point.value * plotSize.x;
+                    float y = plotPos.y + plotSize.y - gradientHeight - (point.opacity * interactiveAreaHeight);
+
+                    float dist = std::sqrt((mousePos.x - x) * (mousePos.x - x) + (mousePos.y - y) * (mousePos.y - y));
+                    if (dist < minDist)
+                    {
+                        minDist = dist;
+                        draggedPointIndex = static_cast<int>(i);
+                    }
+                }
+            }
+
+            // Update the dragged point
+            if (draggedPointIndex >= 0)
+            {
+                auto& point = m_guiParameters.transferFunction.controlPoints[draggedPointIndex];
+
+                // Update value (x-axis) - clamp to [0, 1]
+                float newValue = (mousePos.x - plotPos.x) / plotSize.x;
+                point.value = std::clamp(newValue, 0.0f, 1.0f);
+
+                // Update opacity (y-axis) - clamp to [0, 1]
+                float newOpacity = 1.0f - ((mousePos.y - plotPos.y) / interactiveAreaHeight);
+                point.opacity = std::clamp(newOpacity, 0.0f, 1.0f);
+
+                m_guiUpdateFlags.transferFunctionChanged = true;
+            }
+        }
+        else
+        {
+            // Reset dragged point when mouse is released
+            draggedPointIndex = -1;
+        }
+
         // Draw background
         drawList->AddRectFilled(plotPos, ImVec2(plotPos.x + plotSize.x, plotPos.y + plotSize.y), IM_COL32(40, 40, 40, 255));
 
@@ -133,7 +191,6 @@ void Gui::Draw()
         }
 
         // Draw color gradient at the bottom
-        const float gradientHeight = 20.0f;
         const int gradientSteps = 256;
         for (int i = 0; i < gradientSteps - 1; ++i)
         {
@@ -197,14 +254,16 @@ void Gui::Draw()
         {
             auto& point = m_guiParameters.transferFunction.controlPoints[i];
             float x = plotPos.x + point.value * plotSize.x;
-            float y = plotPos.y + plotSize.y - gradientHeight - (point.opacity * (plotSize.y - gradientHeight));
+            float y = plotPos.y + plotSize.y - gradientHeight - (point.opacity * interactiveAreaHeight);
 
-            drawList->AddCircleFilled(ImVec2(x, y), 5.0f, IM_COL32(255, 255, 0, 255));
-            drawList->AddCircle(ImVec2(x, y), 5.0f, IM_COL32(0, 0, 0, 255), 12, 2.0f);
+            // Highlight the dragged point
+            bool isDragged = (draggedPointIndex == static_cast<int>(i));
+            float radius = isDragged ? 7.0f : 5.0f;
+            ImU32 fillColor = isDragged ? IM_COL32(255, 128, 0, 255) : IM_COL32(255, 255, 0, 255);
+
+            drawList->AddCircleFilled(ImVec2(x, y), radius, fillColor);
+            drawList->AddCircle(ImVec2(x, y), radius, IM_COL32(0, 0, 0, 255), 12, 2.0f);
         }
-
-        // Reserve space for the plot
-        ImGui::Dummy(plotSize);
 
         ImGui::Separator();
     }
