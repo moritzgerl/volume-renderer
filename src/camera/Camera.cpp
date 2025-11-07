@@ -10,12 +10,11 @@
 #include <iomanip>
 
 Camera::Camera(float posX, float posY, float posZ, float targetX, float targetY, float targetZ, float upX, float upY, float upZ)
-    : m_zoom(Config::defaultZoom)
+    : m_position(posX, posY, posZ)
+    , m_front(glm::normalize(glm::vec3(targetX, targetY, targetZ) - m_position))
+    , m_worldUp(upX, upY, upZ)
+    , m_zoom(Config::defaultZoom)
 {
-    m_position = glm::vec3(posX, posY, posZ);
-    m_worldUp = glm::vec3(upX, upY, upZ);
-    glm::vec3 target = glm::vec3(targetX, targetY, targetZ);
-    m_front = glm::normalize(target - m_position);
     updateCameraVectors();
 }
 
