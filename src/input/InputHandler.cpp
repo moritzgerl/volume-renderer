@@ -83,12 +83,6 @@ void InputHandler::ProcessKeyHolds()
 
 void InputHandler::ProcessKeyPresses(int key, int scancode, int action, int mods)
 {
-
-    if (glfwGetKey(m_window.get(), GLFW_KEY_V) == GLFW_PRESS)
-    {
-        m_camera.PrintProperties();
-    }
-
     if (glfwGetKey(m_window.get(), GLFW_KEY_G) == GLFW_PRESS)
     {
         m_displayProperties.showGui= !m_displayProperties.showGui;
