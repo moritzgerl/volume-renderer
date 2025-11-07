@@ -299,12 +299,6 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
 
     ImGui::Separator();
 
-    if (ImGui::Button("Remove Last Point") && guiParameters.transferFunction.numActivePoints > 0)
-    {
-        guiParameters.transferFunction.numActivePoints--;
-        guiUpdateFlags.transferFunctionChanged = true;
-    }
-
     ImGui::Text("Active Points: %zu / %zu", guiParameters.transferFunction.numActivePoints, TransferFunction::maxControlPoints);
 
     ImGui::Separator();
