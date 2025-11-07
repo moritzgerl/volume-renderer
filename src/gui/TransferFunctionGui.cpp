@@ -269,21 +269,48 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
         drawList->AddRectFilled(ImVec2(x1, y1), ImVec2(x2, y2), col);
     }
 
-    // Draw opacity curve
+    // Draw opacity curve with Catmull-Rom spline interpolation
     if (guiParameters.transferFunction.numActivePoints >= 2)
     {
+        const int segmentsPerInterval = 20;
+
         for (size_t i = 0; i < guiParameters.transferFunction.numActivePoints - 1; ++i)
         {
-            auto& p0 = guiParameters.transferFunction.controlPoints[i];
-            auto& p1 = guiParameters.transferFunction.controlPoints[i + 1];
+            // Get control points for Catmull-Rom spline
+            // Use edge points for extrapolation at boundaries
+            auto& p0 = (i == 0) ? guiParameters.transferFunction.controlPoints[0] : guiParameters.transferFunction.controlPoints[i - 1];
+            auto& p1 = guiParameters.transferFunction.controlPoints[i];
+            auto& p2 = guiParameters.transferFunction.controlPoints[i + 1];
+            auto& p3 = (i + 2 >= guiParameters.transferFunction.numActivePoints) ? guiParameters.transferFunction.controlPoints[i + 1] : guiParameters.transferFunction.controlPoints[i + 2];
 
-            float x0 = plotPos.x + p0.value * plotSize.x;
-            float y0 = plotPos.y + plotSize.y - gradientHeight - (p0.opacity * (plotSize.y - gradientHeight));
+            // Draw segments between p1 and p2
+            for (int seg = 0; seg < segmentsPerInterval; ++seg)
+            {
+                float t0 = static_cast<float>(seg) / segmentsPerInterval;
+                float t1 = static_cast<float>(seg + 1) / segmentsPerInterval;
 
-            float x1 = plotPos.x + p1.value * plotSize.x;
-            float y1 = plotPos.y + plotSize.y - gradientHeight - (p1.opacity * (plotSize.y - gradientHeight));
+                // Catmull-Rom spline interpolation
+                auto catmullRom = [](float t, float p0, float p1, float p2, float p3) -> float {
+                    float t2 = t * t;
+                    float t3 = t2 * t;
+                    return 0.5f * ((2.0f * p1) +
+                                   (-p0 + p2) * t +
+                                   (2.0f * p0 - 5.0f * p1 + 4.0f * p2 - p3) * t2 +
+                                   (-p0 + 3.0f * p1 - 3.0f * p2 + p3) * t3);
+                };
 
-            drawList->AddLine(ImVec2(x0, y0), ImVec2(x1, y1), IM_COL32(255, 255, 255, 200), 1.8f);
+                float opacity0 = catmullRom(t0, p0.opacity, p1.opacity, p2.opacity, p3.opacity);
+                float opacity1 = catmullRom(t1, p0.opacity, p1.opacity, p2.opacity, p3.opacity);
+                float value0 = p1.value + t0 * (p2.value - p1.value);
+                float value1 = p1.value + t1 * (p2.value - p1.value);
+
+                float x0 = plotPos.x + value0 * plotSize.x;
+                float y0 = plotPos.y + plotSize.y - gradientHeight - (opacity0 * (plotSize.y - gradientHeight));
+                float x1 = plotPos.x + value1 * plotSize.x;
+                float y1 = plotPos.y + plotSize.y - gradientHeight - (opacity1 * (plotSize.y - gradientHeight));
+
+                drawList->AddLine(ImVec2(x0, y0), ImVec2(x1, y1), IM_COL32(255, 255, 255, 200), 1.8f);
+            }
         }
     }
 
