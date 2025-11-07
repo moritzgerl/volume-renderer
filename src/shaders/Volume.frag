@@ -96,5 +96,11 @@ void main()
         currentPos += rayStep;
     }
 
+    // Discard fragments with low accumulated density
+    if (accumulatedColor.a < 0.05)
+    {
+        discard;
+    }
+
     FragColor = accumulatedColor;
 }
