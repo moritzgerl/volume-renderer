@@ -34,6 +34,26 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
     static int draggedPointIndex = -1;
     ImVec2 mousePos = ImGui::GetMousePos();
 
+    // Check if hovering over a control point
+    int hoveredPointIndex = -1;
+    if (isHovered)
+    {
+        float minDist = 15.0f; // Hover radius
+        for (size_t i = 0; i < guiParameters.transferFunction.numActivePoints; ++i)
+        {
+            auto& point = guiParameters.transferFunction.controlPoints[i];
+            float x = plotPos.x + point.value * plotSize.x;
+            float y = plotPos.y + plotSize.y - gradientHeight - (point.opacity * interactiveAreaHeight);
+
+            float dist = std::sqrt((mousePos.x - x) * (mousePos.x - x) + (mousePos.y - y) * (mousePos.y - y));
+            if (dist < minDist)
+            {
+                minDist = dist;
+                hoveredPointIndex = static_cast<int>(i);
+            }
+        }
+    }
+
     // Handle single click to add new control point or Shift+Click to delete
     static bool wasClicked = false;
     if (isActive && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
@@ -247,10 +267,25 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
         float x = plotPos.x + point.value * plotSize.x;
         float y = plotPos.y + plotSize.y - gradientHeight - (point.opacity * interactiveAreaHeight);
 
-        // Highlight the dragged point
+        // Determine color and size based on state
         bool isDragged = (draggedPointIndex == static_cast<int>(i));
+        bool isHoveredForDelete = (hoveredPointIndex == static_cast<int>(i) && ImGui::GetIO().KeyShift);
+
         float radius = isDragged ? 9.0f : 8.0f;
-        ImU32 fillColor = isDragged ? IM_COL32(0, 253, 0, 200) : IM_COL32(255, 255, 255, 200);
+        ImU32 fillColor;
+
+        if (isHoveredForDelete)
+        {
+            fillColor = IM_COL32(255, 50, 50, 220);  // Red for delete
+        }
+        else if (isDragged)
+        {
+            fillColor = IM_COL32(0, 253, 0, 200);    // Green for dragging
+        }
+        else
+        {
+            fillColor = IM_COL32(255, 255, 255, 200); // White for normal
+        }
 
         drawList->AddCircleFilled(ImVec2(x, y), radius, fillColor);
         drawList->AddCircle(ImVec2(x, y), radius, IM_COL32(0, 0, 0, 200), 12, 1.0f);
