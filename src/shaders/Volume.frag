@@ -59,11 +59,11 @@ void main()
     vec3 rayDir = GetRayDirection();
 
     float tNear, tFar;
-    // TODO enable again
-    // if (!IntersectBox(rayOrigin, rayDir, tNear, tFar))
-    // {
-        // discard;
-    // }
+    
+    if (!IntersectBox(rayOrigin, rayDir, tNear, tFar))
+    {
+        discard;
+    }
 
     if (tNear < 0.0)
     {
