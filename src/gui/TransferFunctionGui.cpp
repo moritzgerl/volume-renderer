@@ -34,7 +34,85 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
     static int draggedPointIndex = -1;
     ImVec2 mousePos = ImGui::GetMousePos();
 
-    if (isActive && ImGui::IsMouseDragging(ImGuiMouseButton_Left, 0.0f))
+    // Handle single click to add new control point
+    static bool wasClicked = false;
+    if (isActive && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+    {
+        // Check if we clicked near an existing point
+        float minDist = 15.0f; // Click radius
+        int clickedPointIndex = -1;
+        for (size_t i = 0; i < guiParameters.transferFunction.numActivePoints; ++i)
+        {
+            auto& point = guiParameters.transferFunction.controlPoints[i];
+            float x = plotPos.x + point.value * plotSize.x;
+            float y = plotPos.y + plotSize.y - gradientHeight - (point.opacity * interactiveAreaHeight);
+
+            float dist = std::sqrt((mousePos.x - x) * (mousePos.x - x) + (mousePos.y - y) * (mousePos.y - y));
+            if (dist < minDist)
+            {
+                minDist = dist;
+                clickedPointIndex = static_cast<int>(i);
+            }
+        }
+
+        // If we didn't click near an existing point, add a new one
+        if (clickedPointIndex == -1 && guiParameters.transferFunction.numActivePoints < TransferFunction::maxControlPoints)
+        {
+            // Calculate new point position
+            float newValue = std::clamp((mousePos.x - plotPos.x) / plotSize.x, 0.0f, 1.0f);
+            float newOpacity = std::clamp(1.0f - ((mousePos.y - plotPos.y) / interactiveAreaHeight), 0.0f, 1.0f);
+
+            // Find the insertion position to keep points sorted by value
+            size_t insertIndex = guiParameters.transferFunction.numActivePoints;
+            for (size_t j = 0; j < guiParameters.transferFunction.numActivePoints; ++j)
+            {
+                if (guiParameters.transferFunction.controlPoints[j].value > newValue)
+                {
+                    insertIndex = j;
+                    break;
+                }
+            }
+
+            // Shift existing points to make room for the new point
+            for (size_t j = guiParameters.transferFunction.numActivePoints; j > insertIndex; --j)
+            {
+                guiParameters.transferFunction.controlPoints[j] = guiParameters.transferFunction.controlPoints[j - 1];
+            }
+
+            // Interpolate color from surrounding points
+            glm::vec3 newColor = glm::vec3(0.5f);
+            if (insertIndex > 0 && insertIndex < guiParameters.transferFunction.numActivePoints)
+            {
+                // Between two points
+                auto& p0 = guiParameters.transferFunction.controlPoints[insertIndex - 1];
+                auto& p1 = guiParameters.transferFunction.controlPoints[insertIndex + 1];
+                float t = (newValue - p0.value) / (p1.value - p0.value);
+                newColor = glm::mix(p0.color, p1.color, t);
+            }
+            else if (insertIndex == 0 && guiParameters.transferFunction.numActivePoints > 0)
+            {
+                // Before the first point
+                newColor = guiParameters.transferFunction.controlPoints[1].color;
+            }
+            else if (insertIndex == guiParameters.transferFunction.numActivePoints && guiParameters.transferFunction.numActivePoints > 0)
+            {
+                // After the last point
+                newColor = guiParameters.transferFunction.controlPoints[insertIndex - 1].color;
+            }
+
+            // Insert the new point at the correct position
+            guiParameters.transferFunction.controlPoints[insertIndex].value = newValue;
+            guiParameters.transferFunction.controlPoints[insertIndex].color = newColor;
+            guiParameters.transferFunction.controlPoints[insertIndex].opacity = newOpacity;
+
+            guiParameters.transferFunction.numActivePoints++;
+
+            guiUpdateFlags.transferFunctionChanged = true;
+            wasClicked = true;
+        }
+    }
+
+    if (isActive && ImGui::IsMouseDragging(ImGuiMouseButton_Left, 0.0f) && !wasClicked)
     {
         // If we're dragging, find the closest point on first click or continue dragging
         if (draggedPointIndex == -1)
@@ -75,6 +153,7 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
     {
         // Reset dragged point when mouse is released
         draggedPointIndex = -1;
+        wasClicked = false;
     }
 
     // Draw background
