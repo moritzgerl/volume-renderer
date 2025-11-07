@@ -101,6 +101,63 @@ void Gui::Draw()
     }
     ImGui::End();
 
+    ImGui::Begin("Transfer Function");
+
+    if (ImGui::Checkbox("Enable Transfer Function", &m_guiParameters.transferFunction.enabled))
+    {
+        m_guiUpdateFlags.transferFunctionChanged = true;
+    }
+
+    ImGui::Separator();
+
+    if (ImGui::Button("Add Control Point") && m_guiParameters.transferFunction.numActivePoints < TransferFunction::maxControlPoints)
+    {
+        size_t index = m_guiParameters.transferFunction.numActivePoints++;
+        m_guiParameters.transferFunction.controlPoints[index].value = 0.5f;
+        m_guiParameters.transferFunction.controlPoints[index].color = glm::vec3(1.0f, 1.0f, 1.0f);
+        m_guiParameters.transferFunction.controlPoints[index].opacity = 1.0f;
+        m_guiUpdateFlags.transferFunctionChanged = true;
+    }
+
+    ImGui::SameLine();
+
+    if (ImGui::Button("Remove Last Point") && m_guiParameters.transferFunction.numActivePoints > 0)
+    {
+        m_guiParameters.transferFunction.numActivePoints--;
+        m_guiUpdateFlags.transferFunctionChanged = true;
+    }
+
+    ImGui::Text("Active Points: %zu / %zu", m_guiParameters.transferFunction.numActivePoints, TransferFunction::maxControlPoints);
+
+    ImGui::Separator();
+
+    for (size_t i = 0; i < m_guiParameters.transferFunction.numActivePoints; ++i)
+    {
+        const std::string index = std::to_string(i);
+        auto& point = m_guiParameters.transferFunction.controlPoints[i];
+
+        if (ImGui::CollapsingHeader(("Control Point " + index).c_str()))
+        {
+            bool changed = false;
+
+            changed |= ImGui::SliderFloat(("Value##" + index).c_str(), &point.value, 0.0f, 1.0f);
+            changed |= ImGui::SliderFloat(("Opacity##" + index).c_str(), &point.opacity, 0.0f, 1.0f);
+
+            if (ImGui::TreeNode(("Color##" + index).c_str()))
+            {
+                changed |= ImGui::ColorPicker3(("Color Picker##" + index).c_str(), (float*)&point.color, Constants::colorPickerFlags);
+                ImGui::TreePop();
+            }
+
+            if (changed)
+            {
+                m_guiUpdateFlags.transferFunctionChanged = true;
+            }
+        }
+    }
+
+    ImGui::End();
+
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

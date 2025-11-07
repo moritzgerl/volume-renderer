@@ -1,16 +1,15 @@
 #ifndef GUI_PARAMETERS_H
 #define GUI_PARAMETERS_H
 
+#include <input/TransferFunction.h>
 #include <lights/DirectionalLight.h>
 #include <lights/PointLight.h>
-
-#include <glm/glm.hpp>
 
 #include <vector>
 
 struct GuiParameters
 {
-    bool showLightSources; 
+    bool showLightSources;
     DirectionalLight directionalLight;
     std::vector<PointLight> pointLights;
     unsigned int ssaoKernelSize;
@@ -18,6 +17,7 @@ struct GuiParameters
     float ssaoRadius;
     float ssaoBias;
     bool enableSsao;
+    TransferFunction transferFunction;
 };
 
 #endif

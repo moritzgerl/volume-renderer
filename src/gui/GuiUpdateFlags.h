@@ -6,9 +6,11 @@ struct GuiUpdateFlags
     GuiUpdateFlags()
     {
         ssaoParametersChanged = false;
+        transferFunctionChanged = false;
     };
 
-    bool ssaoParametersChanged;    
+    bool ssaoParametersChanged;
+    bool transferFunctionChanged;
 };
 
 #endif
