@@ -1,7 +1,7 @@
 #ifndef GUI_PARAMETERS_H
 #define GUI_PARAMETERS_H
 
-#include <input/TransferFunction.h>
+#include <gui/TransferFunction.h>
 #include <lights/DirectionalLight.h>
 #include <lights/PointLight.h>
 
