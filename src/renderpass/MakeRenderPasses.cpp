@@ -67,6 +67,7 @@ RenderPasses Factory::MakeRenderPasses(const InputHandler& inputHandler, const S
     // Raycasting
     {
         std::vector<std::reference_wrapper<const Texture>> textures;
+        textures.push_back(std::cref(textureStorage.GetElement(TextureId::VolumeData)));
 
         const auto& shader = shaderStorage.GetElement(ShaderId::Volume);
 
