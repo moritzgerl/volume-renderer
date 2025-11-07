@@ -34,7 +34,7 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
     static int draggedPointIndex = -1;
     ImVec2 mousePos = ImGui::GetMousePos();
 
-    // Handle single click to add new control point
+    // Handle single click to add new control point or Shift+Click to delete
     static bool wasClicked = false;
     if (isActive && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
     {
@@ -55,8 +55,20 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
             }
         }
 
+        // If Shift is held and we clicked on a point, delete it
+        if (ImGui::GetIO().KeyShift && clickedPointIndex != -1)
+        {
+            // Shift remaining points down
+            for (size_t j = clickedPointIndex; j < guiParameters.transferFunction.numActivePoints - 1; ++j)
+            {
+                guiParameters.transferFunction.controlPoints[j] = guiParameters.transferFunction.controlPoints[j + 1];
+            }
+            guiParameters.transferFunction.numActivePoints--;
+            guiUpdateFlags.transferFunctionChanged = true;
+            wasClicked = true;
+        }
         // If we didn't click near an existing point, add a new one
-        if (clickedPointIndex == -1 && guiParameters.transferFunction.numActivePoints < TransferFunction::maxControlPoints)
+        else if (clickedPointIndex == -1 && guiParameters.transferFunction.numActivePoints < TransferFunction::maxControlPoints)
         {
             // Calculate new point position
             float newValue = std::clamp((mousePos.x - plotPos.x) / plotSize.x, 0.0f, 1.0f);
