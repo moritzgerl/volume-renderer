@@ -20,7 +20,6 @@ GLFWwindow* Context::InitGlfw()
     }
 
     glfwMakeContextCurrent(window);
-    glfwSwapInterval(1);
 
     return window;
 }
