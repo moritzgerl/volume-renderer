@@ -23,6 +23,7 @@
 #include <textures/TextureId.h>
 #include <utils/SsaoUtils.h>
 
+#include <cstdlib>
 #include <iostream>
 
 namespace
@@ -33,6 +34,7 @@ namespace
         if (!volumeLoadingResult)
         {
             std::cerr << "Failed to load volume from " << datasetPath << std::endl;
+            std::exit(EXIT_FAILURE);
         }
         return std::move(volumeLoadingResult).value();
     }
