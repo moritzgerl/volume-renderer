@@ -29,6 +29,7 @@ namespace Config
     const float defaultSsaoRadius = 0.538f;
     const float defaultSsaoBias = 0.028f;
     const float defaultZoom = 45.0f;
+    const float trackballSensitivity = 0.005f;
 }
 
 #endif
