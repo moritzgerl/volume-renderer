@@ -28,6 +28,7 @@ namespace Config
     const unsigned int defaultSsaoNoiseSize = 4;
     const float defaultSsaoRadius = 0.538f;
     const float defaultSsaoBias = 0.028f;
+    const float defaultZoom = 45.0f;
 }
 
 #endif
