@@ -43,7 +43,7 @@ namespace Factory
     Storage MakeStorage()
     {
         Context::GlfwWindow window;
-        Camera camera(1.5f, 1.0f, 1.5f, 0.0f, 1.0f, 0.0f, -135.0f, -27.5f);
+        Camera camera(1.5f, 1.0f, 1.5f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
         DisplayProperties displayProperties = MakeDisplayProperties();
         GuiParameters guiParameters = MakeGuiParameters();
         GuiUpdateFlags guiUpdateFlags;

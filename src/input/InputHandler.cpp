@@ -79,16 +79,6 @@ void InputHandler::ProcessKeyHolds()
     {
         glfwSetWindowShouldClose(m_window.get(), true);
     }
-
-    if (glfwGetKey(m_window.get(), GLFW_KEY_E) == GLFW_PRESS)
-    {
-        m_camera.ProcessKeyboard(UP, m_timeSinceLastFrame);
-    }
-
-    if (glfwGetKey(m_window.get(), GLFW_KEY_Q) == GLFW_PRESS)
-    {
-        m_camera.ProcessKeyboard(DOWN, m_timeSinceLastFrame);
-    }
 }
 
 void InputHandler::ProcessKeyPresses(int key, int scancode, int action, int mods)

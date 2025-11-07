@@ -2,36 +2,28 @@
 
 #include <camera/Camera.h>
 
-#include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <iostream>
 #include <iomanip>
 
-Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
-    : Front(glm::vec3(0.0f, 0.0f, -1.0f))
-    , MovementSpeed(SPEED)
-    , MouseSensitivity(SENSITIVITY)
-    , Zoom(ZOOM)
+Camera::Camera(glm::vec3 position, glm::vec3 target, glm::vec3 up)
+    : Zoom(ZOOM)
 {
     Position = position;
     WorldUp = up;
-    Yaw = yaw;
-    Pitch = pitch;
+    Front = glm::normalize(target - position);
     updateCameraVectors();
 }
 
-Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch)
-    : Front(glm::vec3(0.0f, 0.0f, -1.0f))
-    , MovementSpeed(SPEED)
-    , MouseSensitivity(SENSITIVITY)
-    , Zoom(ZOOM)
+Camera::Camera(float posX, float posY, float posZ, float targetX, float targetY, float targetZ, float upX, float upY, float upZ)
+    : Zoom(ZOOM)
 {
     Position = glm::vec3(posX, posY, posZ);
     WorldUp = glm::vec3(upX, upY, upZ);
-    Yaw = yaw;
-    Pitch = pitch;
+    glm::vec3 target = glm::vec3(targetX, targetY, targetZ);
+    Front = glm::normalize(target - Position);
     updateCameraVectors();
 }
 
@@ -40,61 +32,9 @@ glm::mat4 Camera::GetViewMatrix() const
     return glm::lookAt(Position, Position + Front, Up);
 }
 
-void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
+void Camera::ProcessMouseMovement(float xoffset, float yoffset)
 {
-    float velocity = MovementSpeed * deltaTime;
-    if (direction == FORWARD)
-    {
-        Position += Front * velocity;
-    }
-    if (direction == BACKWARD)
-    {
-        Position -= Front * velocity;
-    }
-    if (direction == LEFT)
-    {
-        Position -= Right * velocity;
-    }
-    if (direction == RIGHT)
-    {
-        Position += Right * velocity;
-    }
-    if (direction == UP)
-    {
-        Position += WorldUp * velocity;
-    }
-    if (direction == DOWN)
-    {
-        Position -= WorldUp * velocity;
-    }
-}
-
-void Camera::Translate(const glm::vec3& translation)
-{
-    Position += translation;
-}
-
-void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch)
-{
-    xoffset *= MouseSensitivity;
-    yoffset *= MouseSensitivity;
-
-    Yaw += xoffset;
-    Pitch += yoffset;
-
-    if (constrainPitch)
-    {
-        if (Pitch > 89.0f)
-        {
-            Pitch = 89.0f;
-        }
-        if (Pitch < -89.0f)
-        {
-            Pitch = -89.0f;
-        }
-    }
-
-    updateCameraVectors();
+    // TODO: Implement trackball rotation
 }
 
 void Camera::ProcessMouseScroll(float yoffset)
@@ -113,19 +53,11 @@ void Camera::ProcessMouseScroll(float yoffset)
 void Camera::PrintProperties()
 {
     std::cout << std::fixed << std::setw(10) << std::setprecision(8) <<
-        Position.x << "f, " << Position.y << "f, " << Position.z << "f, " <<
-        WorldUp.x << "f, " << WorldUp.y << "f, " << WorldUp.z << "f, " <<
-        Yaw << "f, " << Pitch << "f" << std::endl;
+        Position.x << "f, " << Position.y << "f, " << Position.z << "f" << std::endl;
 }
 
 void Camera::updateCameraVectors()
 {
-    glm::vec3 front;
-    front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-    front.y = sin(glm::radians(Pitch));
-    front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
-    Front = glm::normalize(front);
-
     Right = glm::normalize(glm::cross(Front, WorldUp));
     Up = glm::normalize(glm::cross(Right, Front));
 }
