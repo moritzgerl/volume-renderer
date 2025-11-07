@@ -54,6 +54,12 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
         }
     }
 
+    // Set cursor when hovering over a control point
+    if (hoveredPointIndex != -1 && !ImGui::GetIO().KeyShift)
+    {
+        ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+    }
+
     // Handle single click to add new control point or Shift+Click to delete
     static bool wasClicked = false;
     if (isActive && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
