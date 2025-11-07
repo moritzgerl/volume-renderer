@@ -59,10 +59,11 @@ void main()
     vec3 rayDir = GetRayDirection();
 
     float tNear, tFar;
-    if (!IntersectBox(rayOrigin, rayDir, tNear, tFar))
-    {
-        discard;
-    }
+    // TODO enable again
+    // if (!IntersectBox(rayOrigin, rayDir, tNear, tFar))
+    // {
+        // discard;
+    // }
 
     if (tNear < 0.0)
     {
@@ -96,4 +97,7 @@ void main()
     }
 
     FragColor = accumulatedColor;
+
+    // TODO remove
+    FragColor = vec4(0.0, 1.0, 0.0, 1.0);
 }
