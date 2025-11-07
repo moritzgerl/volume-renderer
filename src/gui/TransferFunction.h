@@ -10,7 +10,6 @@ struct TransferFunction
     static constexpr size_t maxControlPoints = 8;
     std::array<TransferFunctionControlPoint, maxControlPoints> controlPoints;
     size_t numActivePoints;
-    bool enabled;
 };
 
 #endif

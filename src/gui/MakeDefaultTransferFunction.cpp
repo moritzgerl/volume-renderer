@@ -3,7 +3,6 @@
 TransferFunction MakeDefaultTransferFunction()
 {
     TransferFunction tf;
-    tf.enabled = true;
     tf.numActivePoints = 3;
 
     // First control point at 0.0

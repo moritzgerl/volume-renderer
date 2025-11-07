@@ -17,13 +17,6 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
 {
     ImGui::Begin("Transfer Function");
 
-    if (ImGui::Checkbox("Enable Transfer Function", &guiParameters.transferFunction.enabled))
-    {
-        guiUpdateFlags.transferFunctionChanged = true;
-    }
-
-    ImGui::Separator();
-
     // Transfer function plot
     ImVec2 plotSize(ImGui::GetContentRegionAvail().x, 200.0f);
     ImDrawList* drawList = ImGui::GetWindowDrawList();
