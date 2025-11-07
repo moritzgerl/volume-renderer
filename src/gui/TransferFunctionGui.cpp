@@ -299,10 +299,6 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
 
     ImGui::Separator();
 
-    ImGui::Text("Active Points: %zu / %zu", guiParameters.transferFunction.numActivePoints, TransferFunction::maxControlPoints);
-
-    ImGui::Separator();
-
     for (size_t i = 0; i < guiParameters.transferFunction.numActivePoints; ++i)
     {
         const std::string index = std::to_string(i);
