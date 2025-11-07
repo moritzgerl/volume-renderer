@@ -11,6 +11,7 @@ GuiParameters Factory::MakeGuiParameters()
     guiParameters.ssaoRadius = Config::defaultSsaoRadius;
     guiParameters.ssaoBias = Config::defaultSsaoBias;
     guiParameters.enableSsao = true;
+    guiParameters.transferFunction = Config::defaultTransferFunction;
 
     for (unsigned int i = 0; i < Config::numPointLights; ++i)
     {

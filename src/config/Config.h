@@ -1,6 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include <gui/MakeDefaultTransferFunction.h>
 #include <lights/DirectionalLight.h>
 #include <lights/PointLight.h>
 #include <lights/MakeDefaultDirectionalLight.h>
@@ -30,6 +31,7 @@ namespace Config
     const float defaultSsaoBias = 0.028f;
     const float defaultZoom = 45.0f;
     const float trackballSensitivity = 0.005f;
+    const TransferFunction defaultTransferFunction = MakeDefaultTransferFunction();
 }
 
 #endif
