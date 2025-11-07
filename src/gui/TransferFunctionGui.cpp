@@ -246,19 +246,6 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
 
     ImGui::Separator();
 
-    ImGui::Separator();
-
-    if (ImGui::Button("Add Control Point") && guiParameters.transferFunction.numActivePoints < TransferFunction::maxControlPoints)
-    {
-        size_t index = guiParameters.transferFunction.numActivePoints++;
-        guiParameters.transferFunction.controlPoints[index].value = 0.5f;
-        guiParameters.transferFunction.controlPoints[index].color = glm::vec3(1.0f, 1.0f, 1.0f);
-        guiParameters.transferFunction.controlPoints[index].opacity = 1.0f;
-        guiUpdateFlags.transferFunctionChanged = true;
-    }
-
-    ImGui::SameLine();
-
     if (ImGui::Button("Remove Last Point") && guiParameters.transferFunction.numActivePoints > 0)
     {
         guiParameters.transferFunction.numActivePoints--;
