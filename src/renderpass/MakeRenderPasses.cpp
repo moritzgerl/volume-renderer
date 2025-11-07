@@ -79,11 +79,9 @@ RenderPasses Factory::MakeRenderPasses(const InputHandler& inputHandler, const S
             shader.SetMat4("model", glm::mat4(1.0f));
         };
 
-        auto renderFunction = [&unitCube, &screenQuad]()
-        {
-            // TODO revert
-            //unitCube.Render();
-            screenQuad.Render();
+        auto renderFunction = [&unitCube]()
+        {   
+            unitCube.Render();
         };
 
         renderPasses.emplace_back(
