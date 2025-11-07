@@ -10,23 +10,20 @@ class Camera
 public:
     Camera(float posX, float posY, float posZ, float targetX, float targetY, float targetZ, float upX, float upY, float upZ);
 
-    glm::mat4 GetViewMatrix() const;
-    void ProcessMouseMovement(float xoffset, float yoffset);
-    void ProcessMouseScroll(float yoffset);
-
-    glm::vec3 GetPosition() const;
     float GetZoom() const;
+    glm::vec3 GetPosition() const;
+    glm::mat4 GetViewMatrix() const;
+
+    void ProcessMouseScroll(float yoffset);
+    void ProcessMouseMovement(float xoffset, float yoffset);
 
 private:
-    void updateCameraVectors();
-
-private:
+    float m_zoom;
     glm::vec3 m_position;
     glm::vec3 m_front;
-    glm::vec3 m_up;
     glm::vec3 m_right;
+    glm::vec3 m_up;
     glm::vec3 m_worldUp;
-    float m_zoom;
 };
 
 #endif
