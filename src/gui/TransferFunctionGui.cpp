@@ -230,8 +230,8 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
         wasClicked = false;
     }
 
-    // Draw background
-    drawList->AddRectFilled(plotPos, ImVec2(plotPos.x + plotSize.x, plotPos.y + plotSize.y), IM_COL32(40, 40, 40, 255));
+    // Draw background (transparent)
+    drawList->AddRectFilled(plotPos, ImVec2(plotPos.x + plotSize.x, plotPos.y + plotSize.y), IM_COL32(0, 0, 0, 255));
 
     // Draw grid lines
     for (int i = 0; i <= 10; ++i)
