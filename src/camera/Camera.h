@@ -13,7 +13,6 @@ public:
     glm::mat4 GetViewMatrix() const;
     void ProcessMouseMovement(float xoffset, float yoffset);
     void ProcessMouseScroll(float yoffset);
-    void PrintProperties();
 
     glm::vec3 GetPosition() const;
     float GetZoom() const;

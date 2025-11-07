@@ -41,12 +41,6 @@ void Camera::ProcessMouseScroll(float yoffset)
     }
 }
 
-void Camera::PrintProperties()
-{
-    std::cout << std::fixed << std::setw(10) << std::setprecision(8) <<
-        m_position.x << "f, " << m_position.y << "f, " << m_position.z << "f" << std::endl;
-}
-
 glm::vec3 Camera::GetPosition() const
 {
     return m_position;
