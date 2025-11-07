@@ -145,7 +145,7 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
             float x1 = plotPos.x + p1.value * plotSize.x;
             float y1 = plotPos.y + plotSize.y - gradientHeight - (p1.opacity * (plotSize.y - gradientHeight));
 
-            drawList->AddLine(ImVec2(x0, y0), ImVec2(x1, y1), IM_COL32(255, 255, 255, 255), 2.0f);
+            drawList->AddLine(ImVec2(x0, y0), ImVec2(x1, y1), IM_COL32(255, 255, 255, 200), 1.8f);
         }
     }
 
@@ -158,11 +158,11 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
 
         // Highlight the dragged point
         bool isDragged = (draggedPointIndex == static_cast<int>(i));
-        float radius = isDragged ? 7.0f : 5.0f;
-        ImU32 fillColor = isDragged ? IM_COL32(255, 128, 0, 255) : IM_COL32(255, 255, 0, 255);
+        float radius = isDragged ? 9.0f : 8.0f;
+        ImU32 fillColor = isDragged ? IM_COL32(0, 253, 0, 200) : IM_COL32(255, 255, 255, 200);
 
         drawList->AddCircleFilled(ImVec2(x, y), radius, fillColor);
-        drawList->AddCircle(ImVec2(x, y), radius, IM_COL32(0, 0, 0, 255), 12, 2.0f);
+        drawList->AddCircle(ImVec2(x, y), radius, IM_COL32(0, 0, 0, 200), 12, 1.0f);
     }
 
     ImGui::Separator();
