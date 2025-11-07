@@ -17,8 +17,8 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
 {
     ImGui::Begin("Transfer Function");
 
-    // Transfer function plot
-    ImVec2 plotSize(ImGui::GetContentRegionAvail().x, 180.0f);
+    // Transfer function plot - scale to available height
+    ImVec2 plotSize(ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y);
     ImDrawList* drawList = ImGui::GetWindowDrawList();
     ImVec2 plotPos = ImGui::GetCursorScreenPos();
 
