@@ -197,9 +197,24 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
         {
             auto& point = guiParameters.transferFunction.controlPoints[draggedPointIndex];
 
-            // Update value (x-axis) - clamp to [0, 1]
+            // Update value (x-axis) - clamp to prevent crossing adjacent points
             float newValue = (mousePos.x - plotPos.x) / plotSize.x;
-            point.value = std::clamp(newValue, 0.0f, 1.0f);
+
+            // Get boundaries from adjacent control points
+            float minValue = 0.0f;
+            float maxValue = 1.0f;
+
+            if (draggedPointIndex > 0)
+            {
+                minValue = guiParameters.transferFunction.controlPoints[draggedPointIndex - 1].value + 0.001f;
+            }
+
+            if (draggedPointIndex < static_cast<int>(guiParameters.transferFunction.numActivePoints) - 1)
+            {
+                maxValue = guiParameters.transferFunction.controlPoints[draggedPointIndex + 1].value - 0.001f;
+            }
+
+            point.value = std::clamp(newValue, minValue, maxValue);
 
             // Update opacity (y-axis) - clamp to [0, 1]
             float newOpacity = 1.0f - ((mousePos.y - plotPos.y) / interactiveAreaHeight);
