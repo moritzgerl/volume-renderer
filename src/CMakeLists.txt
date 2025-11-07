@@ -11,7 +11,11 @@ file(GLOB_RECURSE SRC_BUFFERS_CPP
 )
 
 file(GLOB_RECURSE SRC_CAMERA_H
-    "${CMAKE_CURRENT_SOURCE_DIR}/camera/*.h" 
+    "${CMAKE_CURRENT_SOURCE_DIR}/camera/*.h"
+)
+
+file(GLOB_RECURSE SRC_CAMERA_CPP
+    "${CMAKE_CURRENT_SOURCE_DIR}/camera/*.cpp"
 )
 
 file(GLOB_RECURSE SRC_CONFIG_H
@@ -123,7 +127,8 @@ file(GLOB_RECURSE SRC_UTILS_CPP
 source_group("buffers\\Header Files" FILES ${SRC_BUFFERS_H})
 source_group("buffers\\Source Files" FILES ${SRC_BUFFERS_CPP})
 
-source_group("camera" FILES ${SRC_CAMERA_H})
+source_group("camera\\Header Files" FILES ${SRC_CAMERA_H})
+source_group("camera\\Source Files" FILES ${SRC_CAMERA_CPP})
 
 source_group("config" FILES ${SRC_CONFIG_H})
 
@@ -170,6 +175,7 @@ add_executable(${PROJECT_NAME}
     ${SRC_BUFFERS_H}
     ${SRC_BUFFERS_CPP}
     ${SRC_CAMERA_H}
+    ${SRC_CAMERA_CPP}
     ${SRC_CONFIG_H}
     ${SRC_DATA_H}
     ${SRC_DATA_CPP}
