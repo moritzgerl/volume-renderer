@@ -112,7 +112,10 @@ void InputHandler::ProcessMouseMove(double x, double y)
     m_lastMousePositionX = positionX;
     m_lastMousePositionY = positionY;
 
-    m_camera.ProcessMouseMovement(offsetX, offsetY);    
+    if (glfwGetMouseButton(m_window.get(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+    {
+        m_camera.ProcessMouseMovement(offsetX, offsetY);
+    }
 }
 
 void InputHandler::ProcessMouseWheel(double offsetX, double offsetY)
