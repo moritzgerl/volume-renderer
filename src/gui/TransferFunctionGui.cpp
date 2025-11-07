@@ -22,7 +22,7 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
     ImDrawList* drawList = ImGui::GetWindowDrawList();
     ImVec2 plotPos = ImGui::GetCursorScreenPos();
 
-    const float gradientHeight = 20.0f;
+    const float gradientHeight = 15.0f;
     const float interactiveAreaHeight = plotSize.y - gradientHeight;
 
     // Make the plot area interactive
