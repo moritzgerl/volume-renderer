@@ -35,7 +35,7 @@ RenderPasses Factory::MakeRenderPasses(const InputHandler& inputHandler, const S
     const FrameBufferStorage& frameBufferStorage = storage.GetFrameBufferStorage();
 
     RenderPasses renderPasses;
-    renderPasses.reserve(8);
+    renderPasses.reserve(2);
 
     // Setup
     // TODO - remove? do setup in raycasting pass directly ?
@@ -93,7 +93,7 @@ RenderPasses Factory::MakeRenderPasses(const InputHandler& inputHandler, const S
             std::move(renderFunction)
         );
     }
-
+/*
     // SSAO Input
     // TODO - remove?
     {
@@ -108,9 +108,9 @@ RenderPasses Factory::MakeRenderPasses(const InputHandler& inputHandler, const S
             ShaderUtils::UpdateCameraMatricesInShader(camera, shader);
         };
 
-        auto renderFunction = []()
+        auto renderFunction = [&unitCube]()
         {
-            // TODO render something
+            unitCube.Render();
         };
 
         renderPasses.emplace_back(
@@ -283,7 +283,7 @@ RenderPasses Factory::MakeRenderPasses(const InputHandler& inputHandler, const S
             std::move(renderFunction)
         );
     }
-
+*/
     return renderPasses;
 }
 
