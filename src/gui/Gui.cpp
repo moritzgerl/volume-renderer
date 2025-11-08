@@ -4,6 +4,8 @@
 #include <gui/TransferFunctionGui.h>
 #include <config/Config.h>
 
+#include <GLFW/glfw3.h>
+
 namespace Constants
 {
     const ImGuiColorEditFlags colorPickerFlags = ImGuiColorEditFlags_NoAlpha | ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_Float;
@@ -13,6 +15,7 @@ Gui::Gui(const Context::WindowPtr& window, GuiParameters& guiParameters, GuiUpda
     : m_window(window)
     , m_guiParameters(guiParameters)
     , m_guiUpdateFlags(guiUpdateFlags)
+    , m_guiWidth(0.0f)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -27,10 +30,15 @@ Gui::Gui(const Context::WindowPtr& window, GuiParameters& guiParameters, GuiUpda
 }
 
 void Gui::Shutdown()
-{   
+{
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
+}
+
+float Gui::GetGuiWidth() const
+{
+    return m_guiWidth;
 }
 
 void Gui::Draw()
@@ -39,72 +47,109 @@ void Gui::Draw()
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    ImGui::ShowDemoWindow();
+    // Get window dimensions
+    int windowWidth, windowHeight;
+    glfwGetWindowSize(m_window.get(), &windowWidth, &windowHeight);
 
-    ImGui::Begin("SSAO");
-
-    if (ImGui::SliderInt("Kernel Size", reinterpret_cast<int*>(&m_guiParameters.ssaoKernelSize), 32, 128) ||    // careful, need to adjust max kernel size in Ssao.frag according to the max here
-       ImGui::SliderInt("Noise Size", reinterpret_cast<int*>(&m_guiParameters.ssaoNoiseSize), 4, 16) ||
-       ImGui::SliderFloat("Radius", &m_guiParameters.ssaoRadius, 0.0f, 1.0f) ||
-       ImGui::SliderFloat("Bias", &m_guiParameters.ssaoBias, 0.0f, 0.1f) ||
-       ImGui::Checkbox("Enable", &m_guiParameters.enableSsao))
+    // Calculate initial GUI width based on config
+    static bool firstFrame = true;
+    if (firstFrame)
     {
-       m_guiUpdateFlags.ssaoParametersChanged = true;
-    }    
-    ImGui::End();
-
-    ImGui::Begin("Lighting");
-
-    if (ImGui::CollapsingHeader("Directional Light"))
-    {
-       ImGui::SliderFloat("Direction X", &m_guiParameters.directionalLight.direction.x, -1.0f, 1.0f);
-       ImGui::SliderFloat("Direction Y", &m_guiParameters.directionalLight.direction.y, -1.0f, 1.0f);
-       ImGui::SliderFloat("Direction Z", &m_guiParameters.directionalLight.direction.z, -1.0f, 1.0f);
-       ImGui::SliderFloat("Intensity##0", &m_guiParameters.directionalLight.intensity, 0.0f, 1.0f);
-
-       if (ImGui::TreeNode("Ambient"))
-       {
-           ImGui::ColorPicker4("Ambient", (float*)&m_guiParameters.directionalLight.ambient, Constants::colorPickerFlags, NULL);
-       }
-       if (ImGui::TreeNode("Diffuse"))
-       {
-           ImGui::ColorPicker4("Diffuse", (float*)&m_guiParameters.directionalLight.diffuse, Constants::colorPickerFlags, NULL);
-       }
-       if (ImGui::TreeNode("Specular"))
-       {
-           ImGui::ColorPicker4("Specular", (float*)&m_guiParameters.directionalLight.specular, Constants::colorPickerFlags, NULL);
-       }
+        m_guiWidth = static_cast<float>(windowWidth) * Config::defaultGuiWidthRatio;
+        firstFrame = false;
     }
 
-    for (unsigned int i = 0; i < Config::numPointLights; ++i)
+    // Main GUI window - fixed to left side, full height, resizable horizontally
+    ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
+    ImGui::SetNextWindowSize(ImVec2(m_guiWidth, static_cast<float>(windowHeight)), ImGuiCond_Always);
+
+    ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar;
+
+    ImGui::Begin("Settings", nullptr, windowFlags);
+
+    // Update GUI width after potential resize
+    m_guiWidth = ImGui::GetWindowWidth();
+
+    // SSAO Panel
+    if (ImGui::CollapsingHeader("SSAO", ImGuiTreeNodeFlags_DefaultOpen))
     {
-       const std::string index = std::to_string(i);
-
-       if (ImGui::CollapsingHeader(("Point Light " + index).c_str()))
-       {
-           ImGui::Checkbox(("Show Light Source##" + index).c_str(), &m_guiParameters.showLightSources);
-           ImGui::SliderFloat("Position X", &m_guiParameters.pointLights[i].position.x, -32.0f, 32.0f);
-           ImGui::SliderFloat("Position Y", &m_guiParameters.pointLights[i].position.y, 0.0f, 5.0f);
-           ImGui::SliderFloat("Position Z", &m_guiParameters.pointLights[i].position.z, -32.0f, 32.0f);
-           ImGui::SliderFloat(("Intensity##" + index).c_str(), &m_guiParameters.pointLights[i].intensity, 0.0f, 1.0f);
-
-           if (ImGui::TreeNode("Ambient"))
-           {
-               ImGui::ColorPicker4("Ambient", (float*)&m_guiParameters.pointLights[i].ambient, Constants::colorPickerFlags, NULL);
-           }
-           if (ImGui::TreeNode("Diffuse"))
-           {
-               ImGui::ColorPicker4("Diffuse", (float*)&m_guiParameters.pointLights[i].diffuse, Constants::colorPickerFlags, NULL);
-           }
-           if (ImGui::TreeNode("Specular"))
-           {
-               ImGui::ColorPicker4("Specular", (float*)&m_guiParameters.pointLights[i].specular, Constants::colorPickerFlags, NULL);
-           }
-       }
+        if (ImGui::SliderInt("Kernel Size", reinterpret_cast<int*>(&m_guiParameters.ssaoKernelSize), 32, 128) ||
+            ImGui::SliderInt("Noise Size", reinterpret_cast<int*>(&m_guiParameters.ssaoNoiseSize), 4, 16) ||
+            ImGui::SliderFloat("Radius", &m_guiParameters.ssaoRadius, 0.0f, 1.0f) ||
+            ImGui::SliderFloat("Bias", &m_guiParameters.ssaoBias, 0.0f, 0.1f) ||
+            ImGui::Checkbox("Enable", &m_guiParameters.enableSsao))
+        {
+            m_guiUpdateFlags.ssaoParametersChanged = true;
+        }
     }
-    ImGui::End();
 
-    TransferFunctionGui::Draw(m_guiParameters, m_guiUpdateFlags);
+    // Lighting Panel
+    if (ImGui::CollapsingHeader("Lighting", ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        if (ImGui::TreeNode("Directional Light"))
+        {
+            ImGui::SliderFloat("Direction X", &m_guiParameters.directionalLight.direction.x, -1.0f, 1.0f);
+            ImGui::SliderFloat("Direction Y", &m_guiParameters.directionalLight.direction.y, -1.0f, 1.0f);
+            ImGui::SliderFloat("Direction Z", &m_guiParameters.directionalLight.direction.z, -1.0f, 1.0f);
+            ImGui::SliderFloat("Intensity##0", &m_guiParameters.directionalLight.intensity, 0.0f, 1.0f);
+
+            if (ImGui::TreeNode("Ambient"))
+            {
+                ImGui::ColorPicker4("Ambient", (float*)&m_guiParameters.directionalLight.ambient, Constants::colorPickerFlags, NULL);
+                ImGui::TreePop();
+            }
+            if (ImGui::TreeNode("Diffuse"))
+            {
+                ImGui::ColorPicker4("Diffuse", (float*)&m_guiParameters.directionalLight.diffuse, Constants::colorPickerFlags, NULL);
+                ImGui::TreePop();
+            }
+            if (ImGui::TreeNode("Specular"))
+            {
+                ImGui::ColorPicker4("Specular", (float*)&m_guiParameters.directionalLight.specular, Constants::colorPickerFlags, NULL);
+                ImGui::TreePop();
+            }
+            ImGui::TreePop();
+        }
+
+        for (unsigned int i = 0; i < Config::numPointLights; ++i)
+        {
+            const std::string index = std::to_string(i);
+
+            if (ImGui::TreeNode(("Point Light " + index).c_str()))
+            {
+                ImGui::Checkbox(("Show Light Source##" + index).c_str(), &m_guiParameters.showLightSources);
+                ImGui::SliderFloat("Position X", &m_guiParameters.pointLights[i].position.x, -32.0f, 32.0f);
+                ImGui::SliderFloat("Position Y", &m_guiParameters.pointLights[i].position.y, 0.0f, 5.0f);
+                ImGui::SliderFloat("Position Z", &m_guiParameters.pointLights[i].position.z, -32.0f, 32.0f);
+                ImGui::SliderFloat(("Intensity##" + index).c_str(), &m_guiParameters.pointLights[i].intensity, 0.0f, 1.0f);
+
+                if (ImGui::TreeNode("Ambient"))
+                {
+                    ImGui::ColorPicker4("Ambient", (float*)&m_guiParameters.pointLights[i].ambient, Constants::colorPickerFlags, NULL);
+                    ImGui::TreePop();
+                }
+                if (ImGui::TreeNode("Diffuse"))
+                {
+                    ImGui::ColorPicker4("Diffuse", (float*)&m_guiParameters.pointLights[i].diffuse, Constants::colorPickerFlags, NULL);
+                    ImGui::TreePop();
+                }
+                if (ImGui::TreeNode("Specular"))
+                {
+                    ImGui::ColorPicker4("Specular", (float*)&m_guiParameters.pointLights[i].specular, Constants::colorPickerFlags, NULL);
+                    ImGui::TreePop();
+                }
+                ImGui::TreePop();
+            }
+        }
+    }
+
+    // Transfer Function Panel
+    if (ImGui::CollapsingHeader("Transfer Function", ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        TransferFunctionGui::Draw(m_guiParameters, m_guiUpdateFlags);
+    }
+
+    ImGui::End();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

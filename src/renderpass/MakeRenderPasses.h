@@ -3,12 +3,13 @@
 
 #include <renderpass/RenderPassTypes.h>
 
+class Gui;
 class InputHandler;
 class Storage;
 
 namespace Factory
 {
-    RenderPasses MakeRenderPasses(const InputHandler& inputHandler, const Storage& storage);
+    RenderPasses MakeRenderPasses(const Gui& gui, const InputHandler& inputHandler, const Storage& storage);
 }
 
 #endif

@@ -11,12 +11,10 @@
 namespace
 {
     const ImGuiColorEditFlags colorPickerFlags = ImGuiColorEditFlags_NoAlpha | ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_Float;
-} // anonymous namespace
+}
 
 void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& guiUpdateFlags)
 {
-    ImGui::Begin("Transfer Function");
-
     // Transfer function plot - scale to available height
     ImVec2 plotSize(ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y);
     ImDrawList* drawList = ImGui::GetWindowDrawList();
@@ -309,9 +307,9 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
                     float t2 = t * t;
                     float t3 = t2 * t;
                     return 0.5f * ((2.0f * p1) +
-                                   (-p0 + p2) * t +
-                                   (2.0f * p0 - 5.0f * p1 + 4.0f * p2 - p3) * t2 +
-                                   (-p0 + 3.0f * p1 - 3.0f * p2 + p3) * t3);
+                        (-p0 + p2) * t +
+                        (2.0f * p0 - 5.0f * p1 + 4.0f * p2 - p3) * t2 +
+                        (-p0 + 3.0f * p1 - 3.0f * p2 + p3) * t3);
                 };
 
                 float opacity0 = catmullRom(t0, p0.opacity, p1.opacity, p2.opacity, p3.opacity);
@@ -398,6 +396,4 @@ void TransferFunctionGui::Draw(GuiParameters& guiParameters, GuiUpdateFlags& gui
             colorPickerPointIndex = -1;
         }
     }
-
-    ImGui::End();
 }

@@ -4,6 +4,7 @@
 #include <buffers/FrameBufferId.h>
 #include <camera/Camera.h>
 #include <config/Config.h>
+#include <gui/Gui.h>
 #include <gui/GuiParameters.h>
 #include <input/DisplayProperties.h>
 #include <input/InputHandler.h>
@@ -22,7 +23,7 @@
 
 #include <glad/glad.h>
 
-RenderPasses Factory::MakeRenderPasses(const InputHandler& inputHandler, const Storage& storage)
+RenderPasses Factory::MakeRenderPasses(const Gui& gui, const InputHandler& inputHandler, const Storage& storage)
 {
     const Camera& camera = storage.GetCamera();
     const DisplayProperties& displayProperties = storage.GetDisplayProperties();
@@ -44,9 +45,11 @@ RenderPasses Factory::MakeRenderPasses(const InputHandler& inputHandler, const S
 
         const auto& shader = shaderStorage.GetElement(ShaderId::SsaoInput);     // Dummy shader
 
-        auto prepareFunction = [&inputHandler]()
+        auto prepareFunction = [&gui, &inputHandler]()
         {
-            glViewport(0, 0, inputHandler.GetWindowWidth(), inputHandler.GetWindowHeight());
+            const int viewportX = static_cast<int>(gui.GetGuiWidth());
+            const int viewportWidth = inputHandler.GetWindowWidth() - viewportX;
+            glViewport(viewportX, 0, viewportWidth, inputHandler.GetWindowHeight());
             glDisable(GL_BLEND);
         };
 

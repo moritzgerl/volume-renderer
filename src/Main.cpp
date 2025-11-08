@@ -18,7 +18,7 @@ int main()
     InputHandler inputHandler = Factory::MakeInputHandler(storage);
     Gui gui = Factory::MakeGui(storage);
     SsaoUpdater ssaoUpdater = Factory::MakeSsaoUpdater(storage);
-    const RenderPasses renderPasses = Factory::MakeRenderPasses(inputHandler, storage);
+    const RenderPasses renderPasses = Factory::MakeRenderPasses(gui, inputHandler, storage);
     const DisplayProperties& displayProperties = storage.GetDisplayProperties();
     Context::GlfwWindow& window = storage.GetWindow();
 
