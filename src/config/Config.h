@@ -33,6 +33,7 @@ namespace Config
     const float defaultSsaoBias = 0.028f;
     const float defaultZoom = 45.0f;
     const float trackballSensitivity = 0.005f;
+    const bool defaultTrackballInvertYAxis = true;
     const TransferFunction defaultTransferFunction = MakeDefaultTransferFunction();
     const float defaultRaycastingDensityMultiplier = 20.0f;
 }

@@ -6,11 +6,12 @@
 class Camera;
 class VertexBuffer;
 struct DisplayProperties;
+struct GuiParameters;
 
 class InputHandler
 {
 public:
-    InputHandler(const Context::WindowPtr& window, Camera& camera, DisplayProperties& displayProperties);
+    InputHandler(const Context::WindowPtr& window, Camera& camera, DisplayProperties& displayProperties, GuiParameters& guiParameters);
     void Update();
     unsigned int GetWindowWidth() const;
     unsigned int GetWindowHeight() const;
@@ -34,6 +35,7 @@ private:
     const Context::WindowPtr& m_window;
     Camera& m_camera;
     DisplayProperties& m_displayProperties;
+    GuiParameters& m_guiParameters;
 };
 
 #endif

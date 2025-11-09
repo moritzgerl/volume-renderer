@@ -80,7 +80,13 @@ void Gui::Draw()
     // Update GUI width after potential resize
     m_guiWidth = ImGui::GetWindowWidth();
 
-    // SSAO Panel
+    // Trackball
+    if (ImGui::CollapsingHeader("Trackball", ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow))
+    {
+        ImGui::Checkbox("Invert Y Axis", &m_guiParameters.trackballInvertYAxis);
+    }
+
+    // SSAO
     if (ImGui::CollapsingHeader("SSAO", ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow))
     {
         if (ImGui::SliderInt("Kernel Size", reinterpret_cast<int*>(&m_guiParameters.ssaoKernelSize), 32, 128) ||
@@ -93,7 +99,7 @@ void Gui::Draw()
         }
     }
 
-    // Lighting Panel
+    // Lighting
     if (ImGui::CollapsingHeader("Lighting", ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow))
     {
         if (ImGui::TreeNode("Directional Light"))
@@ -153,7 +159,7 @@ void Gui::Draw()
         }
     }
 
-    // Transfer Function Panel
+    // Transfer Function
     if (ImGui::CollapsingHeader("Transfer Function", ImGuiTreeNodeFlags_DefaultOpen))
     {
         ImVec4 bgColor = ImGui::GetStyleColorVec4(ImGuiCol_WindowBg);
@@ -197,6 +203,7 @@ void Gui::Draw()
         }
     }
 
+    // Rendering
     if (ImGui::CollapsingHeader("Rendering", ImGuiTreeNodeFlags_DefaultOpen))
     {
         ImGui::SliderFloat("Opacity", &m_guiParameters.raycastingDensityMultiplier, 5.0f, 40.0f, "");

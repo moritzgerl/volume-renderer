@@ -1,13 +1,14 @@
 #include <input/InputHandler.h>
 #include <camera/Camera.h>
 #include <config/Config.h>
+#include <gui/GuiParameters.h>
 #include <input/DisplayProperties.h>
 #include <storage/Storage.h>
 
 #include <imgui.h>
 #include <GLFW/glfw3.h>
 
-InputHandler::InputHandler(const Context::WindowPtr& window, Camera& camera, DisplayProperties& displayProperties)
+InputHandler::InputHandler(const Context::WindowPtr& window, Camera& camera, DisplayProperties& displayProperties, GuiParameters& guiParameters)
     : m_windowWidth(Config::windowWidth)
     , m_windowHeight(Config::windowHeight)
     , m_lastFrameTime(0.0f)
@@ -18,6 +19,7 @@ InputHandler::InputHandler(const Context::WindowPtr& window, Camera& camera, Dis
     , m_window(window)
     , m_camera(camera)
     , m_displayProperties(displayProperties)
+    , m_guiParameters(guiParameters)
 {
     InitGlfwCallbacks();
 }
@@ -128,7 +130,7 @@ void InputHandler::ProcessMouseMove(double x, double y)
 
     if (glfwGetMouseButton(m_window.get(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
     {
-        m_camera.ProcessMouseMovement(offsetX, offsetY);
+        m_camera.ProcessMouseMovement(offsetX, offsetY, m_guiParameters.trackballInvertYAxis);
     }
 }
 

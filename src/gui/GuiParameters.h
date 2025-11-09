@@ -17,6 +17,7 @@ struct GuiParameters
     float ssaoRadius;
     float ssaoBias;
     bool enableSsao;
+    bool trackballInvertYAxis;
     TransferFunction transferFunction;
     float raycastingDensityMultiplier;
 };

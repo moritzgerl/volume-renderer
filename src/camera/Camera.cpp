@@ -46,10 +46,15 @@ void Camera::ProcessMouseScroll(float yoffset)
     }
 }
 
-void Camera::ProcessMouseMovement(float xoffset, float yoffset)
+void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool invertY)
 {
     xoffset *= Config::trackballSensitivity;
     yoffset *= Config::trackballSensitivity;
+
+    if (invertY)
+    {
+        yoffset = -yoffset;
+    }
 
     // Calculate the vector from target to camera
     glm::vec3 toCamera = m_position - m_target;

@@ -15,7 +15,7 @@ public:
     glm::mat4 GetViewMatrix() const;
 
     void ProcessMouseScroll(float yoffset);
-    void ProcessMouseMovement(float xoffset, float yoffset);
+    void ProcessMouseMovement(float xoffset, float yoffset, bool invertY);
 
 private:
     float m_zoom;
