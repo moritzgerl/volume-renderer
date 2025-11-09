@@ -3,7 +3,6 @@
 
 struct DisplayProperties
 {
-    bool showGui;
     bool showSsaoMap;
 };
 

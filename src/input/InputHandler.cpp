@@ -93,11 +93,6 @@ void InputHandler::ProcessKeyPresses(int key, int scancode, int action, int mods
         return;
     }
 
-    if (glfwGetKey(m_window.get(), GLFW_KEY_G) == GLFW_PRESS)
-    {
-        m_displayProperties.showGui= !m_displayProperties.showGui;
-    }
-
     if (glfwGetKey(m_window.get(), GLFW_KEY_F6) == GLFW_PRESS)
     {
         m_displayProperties.showSsaoMap = !m_displayProperties.showSsaoMap;

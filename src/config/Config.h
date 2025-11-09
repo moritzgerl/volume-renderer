@@ -20,7 +20,6 @@ namespace Config
     //const unsigned int windowWidth = 3840;
     //const unsigned int windowHeight = 2160;
     const std::filesystem::path datasetPath = "./datasets/knee.raw";
-    const bool showGuiByDefault = true;
     const bool showLightSourceByDefault = false;
     const float defaultGuiWidthRatio = 0.3f;
     const float defaultTransferFunctionGuiHeightRatio = 0.3f;

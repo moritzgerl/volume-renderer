@@ -4,6 +4,6 @@
 DisplayProperties Factory::MakeDisplayProperties()
 {
     DisplayProperties displayProperties;
-    displayProperties.showGui = Config::showGuiByDefault;
+    displayProperties.showSsaoMap = false;
     return displayProperties;
 }

@@ -32,11 +32,7 @@ int main()
             renderPass.Render();
         }
 
-        if (displayProperties.showGui)
-        {
-            gui.Draw();
-        }
-
+        gui.Draw();
         window.PostRender();
     }
 
