@@ -71,7 +71,7 @@ void Gui::Draw()
     m_guiWidth = ImGui::GetWindowWidth();
 
     // SSAO Panel
-    if (ImGui::CollapsingHeader("SSAO", ImGuiTreeNodeFlags_DefaultOpen))
+    if (ImGui::CollapsingHeader("SSAO", ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow))
     {
         if (ImGui::SliderInt("Kernel Size", reinterpret_cast<int*>(&m_guiParameters.ssaoKernelSize), 32, 128) ||
             ImGui::SliderInt("Noise Size", reinterpret_cast<int*>(&m_guiParameters.ssaoNoiseSize), 4, 16) ||
@@ -84,7 +84,7 @@ void Gui::Draw()
     }
 
     // Lighting Panel
-    if (ImGui::CollapsingHeader("Lighting", ImGuiTreeNodeFlags_DefaultOpen))
+    if (ImGui::CollapsingHeader("Lighting", ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow))
     {
         if (ImGui::TreeNode("Directional Light"))
         {
@@ -147,6 +147,11 @@ void Gui::Draw()
     if (ImGui::CollapsingHeader("Transfer Function", ImGuiTreeNodeFlags_DefaultOpen))
     {
         TransferFunctionGui::Draw(m_guiParameters, m_guiUpdateFlags);
+    }
+
+    if (ImGui::CollapsingHeader("Other", ImGuiTreeNodeFlags_DefaultOpen))
+    {
+        ImGui::Checkbox("Other", &m_guiParameters.showLightSources);
     }
 
     ImGui::End();
