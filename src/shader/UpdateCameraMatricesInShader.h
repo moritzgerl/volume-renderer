@@ -6,7 +6,7 @@ class Shader;
 
 namespace ShaderUtils
 {
-    void UpdateCameraMatricesInShader(const Camera& camera, const Shader& shader);
+    void UpdateCameraMatricesInShader(const Camera& camera, const Shader& shader, float viewportWidth, float viewportHeight);
 }
 
 #endif

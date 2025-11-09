@@ -74,11 +74,13 @@ RenderPasses Factory::MakeRenderPasses(const Gui& gui, const InputHandler& input
 
         const auto& shader = shaderStorage.GetElement(ShaderId::Volume);
 
-        auto prepareFunction = [&camera, &guiParameters, &shader]()
+        auto prepareFunction = [&camera, &gui, &guiParameters, &inputHandler, &shader]()
         {
             glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            ShaderUtils::UpdateCameraMatricesInShader(camera, shader);
+            const float viewportWidth = static_cast<float>(inputHandler.GetWindowWidth() - static_cast<int>(gui.GetGuiWidth()));
+            const float viewportHeight = static_cast<float>(inputHandler.GetWindowHeight());
+            ShaderUtils::UpdateCameraMatricesInShader(camera, shader, viewportWidth, viewportHeight);
             shader.SetVec3("cameraPos", camera.GetPosition());
             shader.SetMat4("model", glm::mat4(1.0f));
             shader.SetFloat("densityMultiplier", guiParameters.raycastingDensityMultiplier);
