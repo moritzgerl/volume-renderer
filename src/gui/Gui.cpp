@@ -1,6 +1,7 @@
 #include <gui/Gui.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
+#include <gui/MakeSlider.h>
 #include <gui/StyleGui.h>
 #include <gui/TransferFunctionGui.h>
 #include <config/Config.h>
@@ -89,10 +90,10 @@ void Gui::Draw()
     // SSAO
     if (ImGui::CollapsingHeader("SSAO", ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow))
     {
-        if (ImGui::SliderInt("Kernel Size", reinterpret_cast<int*>(&m_guiParameters.ssaoKernelSize), 32, 128) ||
-            ImGui::SliderInt("Noise Size", reinterpret_cast<int*>(&m_guiParameters.ssaoNoiseSize), 4, 16) ||
-            ImGui::SliderFloat("Radius", &m_guiParameters.ssaoRadius, 0.0f, 1.0f) ||
-            ImGui::SliderFloat("Bias", &m_guiParameters.ssaoBias, 0.0f, 0.1f) ||
+        if (MakeSliderInt("Kernel Size", reinterpret_cast<int*>(&m_guiParameters.ssaoKernelSize), 32, 128) ||
+            MakeSliderInt("Noise Size", reinterpret_cast<int*>(&m_guiParameters.ssaoNoiseSize), 4, 16) ||
+            MakeSliderFloat("Radius", &m_guiParameters.ssaoRadius, 0.0f, 1.0f) ||
+            MakeSliderFloat("Bias", &m_guiParameters.ssaoBias, 0.0f, 0.1f) ||
             ImGui::Checkbox("Enable", &m_guiParameters.enableSsao))
         {
             m_guiUpdateFlags.ssaoParametersChanged = true;
@@ -104,10 +105,10 @@ void Gui::Draw()
     {
         if (ImGui::TreeNode("Directional Light"))
         {
-            ImGui::SliderFloat("Direction X", &m_guiParameters.directionalLight.direction.x, -1.0f, 1.0f);
-            ImGui::SliderFloat("Direction Y", &m_guiParameters.directionalLight.direction.y, -1.0f, 1.0f);
-            ImGui::SliderFloat("Direction Z", &m_guiParameters.directionalLight.direction.z, -1.0f, 1.0f);
-            ImGui::SliderFloat("Intensity##0", &m_guiParameters.directionalLight.intensity, 0.0f, 1.0f);
+            MakeSliderFloat("Direction X", &m_guiParameters.directionalLight.direction.x, -1.0f, 1.0f);
+            MakeSliderFloat("Direction Y", &m_guiParameters.directionalLight.direction.y, -1.0f, 1.0f);
+            MakeSliderFloat("Direction Z", &m_guiParameters.directionalLight.direction.z, -1.0f, 1.0f);
+            MakeSliderFloat("Intensity", &m_guiParameters.directionalLight.intensity, 0.0f, 1.0f);
 
             if (ImGui::TreeNode("Ambient"))
             {
@@ -134,10 +135,10 @@ void Gui::Draw()
             if (ImGui::TreeNode(("Point Light " + index).c_str()))
             {
                 ImGui::Checkbox(("Show Light Source##" + index).c_str(), &m_guiParameters.showLightSources);
-                ImGui::SliderFloat("Position X", &m_guiParameters.pointLights[i].position.x, -32.0f, 32.0f);
-                ImGui::SliderFloat("Position Y", &m_guiParameters.pointLights[i].position.y, 0.0f, 5.0f);
-                ImGui::SliderFloat("Position Z", &m_guiParameters.pointLights[i].position.z, -32.0f, 32.0f);
-                ImGui::SliderFloat(("Intensity##" + index).c_str(), &m_guiParameters.pointLights[i].intensity, 0.0f, 1.0f);
+                MakeSliderFloat("Position X", &m_guiParameters.pointLights[i].position.x, -32.0f, 32.0f);
+                MakeSliderFloat("Position Y", &m_guiParameters.pointLights[i].position.y, 0.0f, 5.0f);
+                MakeSliderFloat("Position Z", &m_guiParameters.pointLights[i].position.z, -32.0f, 32.0f);
+                MakeSliderFloat("Intensity", &m_guiParameters.pointLights[i].intensity, 0.0f, 1.0f);
 
                 if (ImGui::TreeNode("Ambient"))
                 {
@@ -215,7 +216,7 @@ void Gui::Draw()
     // Rendering
     if (ImGui::CollapsingHeader("Rendering", ImGuiTreeNodeFlags_DefaultOpen))
     {
-        ImGui::SliderFloat("Opacity", &m_guiParameters.raycastingDensityMultiplier, 5.0f, 40.0f, "");
+        MakeSliderFloat("Opacity", &m_guiParameters.raycastingDensityMultiplier, 5.0f, 40.0f);
     }
 
     ImGui::End();
