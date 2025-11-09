@@ -1,6 +1,7 @@
 #include <gui/Gui.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
+#include <gui/MakeCheckbox.h>
 #include <gui/MakeSlider.h>
 #include <gui/StyleGui.h>
 #include <gui/TransferFunctionGui.h>
@@ -84,7 +85,7 @@ void Gui::Draw()
     // Trackball
     if (ImGui::CollapsingHeader("Trackball", ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow))
     {
-        ImGui::Checkbox("Invert Y Axis", &m_guiParameters.trackballInvertYAxis);
+        MakeCheckbox("Invert Y Axis", &m_guiParameters.trackballInvertYAxis);
 
         // TODO make nice
         float normalizedSensitivity = (m_guiParameters.trackballSensitivity - Config::trackballSensitivityMin) / (Config::trackballSensitivityMax - Config::trackballSensitivityMin);
@@ -101,7 +102,7 @@ void Gui::Draw()
             MakeSliderInt("Noise Size", reinterpret_cast<int*>(&m_guiParameters.ssaoNoiseSize), 4, 16) ||
             MakeSliderFloat("Radius", &m_guiParameters.ssaoRadius, 0.0f, 1.0f) ||
             MakeSliderFloat("Bias", &m_guiParameters.ssaoBias, 0.0f, 0.1f) ||
-            ImGui::Checkbox("Enable", &m_guiParameters.enableSsao))
+            MakeCheckbox("Enable", &m_guiParameters.enableSsao))
         {
             m_guiUpdateFlags.ssaoParametersChanged = true;
         }
@@ -141,7 +142,7 @@ void Gui::Draw()
 
             if (ImGui::TreeNode(("Point Light " + index).c_str()))
             {
-                ImGui::Checkbox(("Show Light Source##" + index).c_str(), &m_guiParameters.showLightSources);
+                MakeCheckbox("Show Light Source", &m_guiParameters.showLightSources);
                 MakeSliderFloat("Position X", &m_guiParameters.pointLights[i].position.x, -32.0f, 32.0f);
                 MakeSliderFloat("Position Y", &m_guiParameters.pointLights[i].position.y, 0.0f, 5.0f);
                 MakeSliderFloat("Position Z", &m_guiParameters.pointLights[i].position.z, -32.0f, 32.0f);

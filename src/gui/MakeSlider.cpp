@@ -14,7 +14,7 @@ namespace
 
         if (ImGui::BeginTable("##slider_table", 2, ImGuiTableFlags_None))
         {
-            ImGui::TableSetupColumn("Label", ImGuiTableColumnFlags_WidthFixed, 100.0f);
+            ImGui::TableSetupColumn("Label", ImGuiTableColumnFlags_WidthFixed, 120.0f);
             ImGui::TableSetupColumn("Slider", ImGuiTableColumnFlags_WidthStretch);
 
             ImGui::TableNextRow();
