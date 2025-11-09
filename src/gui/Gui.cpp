@@ -182,11 +182,12 @@ void Gui::Draw()
         // Resize handle at the bottom
         ImGui::PushStyleColor(ImGuiCol_Button, bgColor);
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.6f, 0.6f, 0.6f, 0.7f));
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.8f, 0.8f, 0.8f, 1.0f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, bgColor);
         ImGui::Button("##TransferFunctionResize", ImVec2(-1, 8.0f));
+        bool isResizing = ImGui::IsItemActive();
         ImGui::PopStyleColor(3);
 
-        if (ImGui::IsItemActive())
+        if (isResizing)
         {
             m_transferFunctionHeight += ImGui::GetIO().MouseDelta.y;
 
@@ -195,6 +196,14 @@ void Gui::Draw()
             float maxHeight = availableHeightBeforeTransferFunction - 8.0f;
 
             m_transferFunctionHeight = std::clamp(m_transferFunctionHeight, 128.0f, maxHeight);
+
+            // Draw 1px blue line when actively resizing (matching ImGui window resize visual)
+            ImVec2 buttonMin = ImGui::GetItemRectMin();
+            ImVec2 buttonMax = ImGui::GetItemRectMax();
+            ImVec2 lineStart = ImVec2(buttonMin.x, buttonMin.y + 4.0f);
+            ImVec2 lineEnd = ImVec2(buttonMax.x, buttonMin.y + 4.0f);
+            ImVec4 resizeGripColor = ImGui::GetStyleColorVec4(ImGuiCol_ResizeGripActive);
+            ImGui::GetWindowDrawList()->AddLine(lineStart, lineEnd, ImGui::ColorConvertFloat4ToU32(resizeGripColor), 1.0f);
         }
 
         if (ImGui::IsItemHovered())
