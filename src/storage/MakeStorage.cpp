@@ -97,12 +97,12 @@ namespace Factory
         Camera camera(1.1f, 0.73f, 1.1f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
         DisplayProperties displayProperties = MakeDisplayProperties();
         Data::SaveState saveState = LoadSaveState(Config::saveStatePath);
+        Data::VolumeData volumeData = LoadVolume(Config::datasetPath);
         GuiParameters guiParameters = MakeGuiParameters(saveState);
         GuiUpdateFlags guiUpdateFlags;
         ScreenQuad screenQuad;
         UnitCube unitCube;
         SsaoUtils ssaoUtils;
-        Data::VolumeData volumeData = LoadVolume(Config::datasetPath);
         TextureStorage textureStorage(MakeTextures(volumeData, ssaoUtils));
         ShaderStorage shaderStorage(MakeShaders(guiParameters, ssaoUtils, textureStorage));
         FrameBufferStorage frameBufferStorage(MakeFrameBuffers(textureStorage));
@@ -118,9 +118,9 @@ namespace Factory
             std::move(shaderStorage),
             std::move(frameBufferStorage),
             std::move(unitCube),
+            std::move(saveState),
             std::move(volumeData),
-            std::move(window),
-            std::move(saveState)
+            std::move(window)
         );
     }
 }

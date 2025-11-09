@@ -1,11 +1,12 @@
 #include <gui/Gui.h>
+#include <config/Config.h>
+#include <data/SaveState.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
 #include <gui/MakeCheckbox.h>
 #include <gui/MakeSlider.h>
 #include <gui/StyleGui.h>
 #include <gui/TransferFunctionGui.h>
-#include <config/Config.h>
 
 #include <GLFW/glfw3.h>
 
@@ -14,8 +15,9 @@ namespace Constants
     const ImGuiColorEditFlags colorPickerFlags = ImGuiColorEditFlags_NoAlpha | ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_Float;
 }
 
-Gui::Gui(const Context::WindowPtr& window, GuiParameters& guiParameters, GuiUpdateFlags& guiUpdateFlags)
+Gui::Gui(const Context::WindowPtr& window, Data::SaveState& saveState, GuiParameters& guiParameters, GuiUpdateFlags& guiUpdateFlags)
     : m_window(window)
+    , m_saveState(saveState)
     , m_guiParameters(guiParameters)
     , m_guiUpdateFlags(guiUpdateFlags)
     , m_guiWidth(0.0f)
@@ -185,7 +187,7 @@ void Gui::Draw()
 
         // Child window for the transfer function
         ImGui::BeginChild("TransferFunctionContent", ImVec2(0, m_transferFunctionHeight), true, ImGuiWindowFlags_None);
-        TransferFunctionGui::Draw(m_guiParameters, m_guiUpdateFlags);
+        TransferFunctionGui::Draw(m_saveState.transferFunction, m_guiUpdateFlags);
         ImGui::EndChild();
 
         // Resize handle at the bottom
