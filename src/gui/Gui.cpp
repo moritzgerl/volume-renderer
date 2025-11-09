@@ -197,9 +197,9 @@ void Gui::Draw()
         }
     }
 
-    if (ImGui::CollapsingHeader("Other", ImGuiTreeNodeFlags_DefaultOpen))
+    if (ImGui::CollapsingHeader("Rendering", ImGuiTreeNodeFlags_DefaultOpen))
     {
-        ImGui::Checkbox("Other", &m_guiParameters.showLightSources);
+        ImGui::SliderFloat("Opacity", &m_guiParameters.raycastingDensityMultiplier, 5.0f, 40.0f, "");
     }
 
     ImGui::End();

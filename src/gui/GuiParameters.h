@@ -18,6 +18,7 @@ struct GuiParameters
     float ssaoBias;
     bool enableSsao;
     TransferFunction transferFunction;
+    float raycastingDensityMultiplier;
 };
 
 #endif

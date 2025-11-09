@@ -12,6 +12,7 @@ GuiParameters Factory::MakeGuiParameters()
     guiParameters.ssaoBias = Config::defaultSsaoBias;
     guiParameters.enableSsao = true;
     guiParameters.transferFunction = Config::defaultTransferFunction;
+    guiParameters.raycastingDensityMultiplier = Config::defaultRaycastingDensityMultiplier;
 
     for (unsigned int i = 0; i < Config::numPointLights; ++i)
     {

@@ -34,6 +34,7 @@ namespace Config
     const float defaultZoom = 45.0f;
     const float trackballSensitivity = 0.005f;
     const TransferFunction defaultTransferFunction = MakeDefaultTransferFunction();
+    const float defaultRaycastingDensityMultiplier = 20.0f;
 }
 
 #endif
