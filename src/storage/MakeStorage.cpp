@@ -7,9 +7,11 @@
 #include <config/Config.h>
 #include <data/LoadSaveStateFromIni.h>
 #include <data/LoadVolumeRaw.h>
+#include <data/MakeDefaultSaveState.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
 #include <gui/MakeGuiParameters.h>
+#include <gui/TransferFunction.h>
 #include <input/DisplayProperties.h>
 #include <input/InputHandler.h>
 #include <input/MakeDisplayProperties.h>
@@ -25,7 +27,6 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <optional>
 
 namespace
 {
@@ -40,14 +41,51 @@ namespace
         return std::move(volumeLoadingResult).value();
     }
 
-    std::optional<Data::SaveState> LoadSaveState(const std::filesystem::path& saveStatePath)
+    bool IsTransferFunctionValid(const TransferFunction& transferFunction)
+    {
+        if (transferFunction.numActivePoints == 0)
+        {
+            return false;
+        }
+
+        if (transferFunction.numActivePoints > TransferFunction::maxControlPoints)
+        {
+            return false;
+        }
+
+        // TODO better
+        for (size_t i = 0; i < transferFunction.numActivePoints; ++i)
+        {
+            const auto& point = transferFunction.controlPoints[i];
+            if (point.value < 0.0f || point.value > 1.0f ||
+                point.opacity < 0.0f || point.opacity > 1.0f ||
+                point.color.r < 0.0f || point.color.r > 1.0f ||
+                point.color.g < 0.0f || point.color.g > 1.0f ||
+                point.color.b < 0.0f || point.color.b > 1.0f)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    Data::SaveState LoadSaveState(const std::filesystem::path& saveStatePath)
     {
         auto saveStateResult = Data::LoadSaveStateFromIni(saveStatePath);
         if (!saveStateResult)
         {
-            return std::nullopt;
+            return Data::MakeDefaultSaveState();
         }
-        return std::move(saveStateResult).value();
+
+        Data::SaveState saveState = std::move(saveStateResult).value();
+
+        if (!IsTransferFunctionValid(saveState.transferFunction))
+        {
+            saveState.transferFunction = Config::defaultTransferFunction;
+        }
+
+        return saveState;
     }
 } // anonymous namespace
 
@@ -58,7 +96,7 @@ namespace Factory
         Context::GlfwWindow window;
         Camera camera(1.1f, 0.73f, 1.1f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
         DisplayProperties displayProperties = MakeDisplayProperties();
-        std::optional<Data::SaveState> saveState = LoadSaveState(Config::saveStatePath);
+        Data::SaveState saveState = LoadSaveState(Config::saveStatePath);
         GuiParameters guiParameters = MakeGuiParameters(saveState);
         GuiUpdateFlags guiUpdateFlags;
         ScreenQuad screenQuad;
@@ -81,7 +119,8 @@ namespace Factory
             std::move(frameBufferStorage),
             std::move(unitCube),
             std::move(volumeData),
-            std::move(window)
+            std::move(window),
+            std::move(saveState)
         );
     }
 }

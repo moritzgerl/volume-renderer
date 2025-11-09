@@ -1,7 +1,6 @@
 #ifndef GUI_PARAMETERS_H
 #define GUI_PARAMETERS_H
 
-#include <gui/TransferFunction.h>
 #include <lights/DirectionalLight.h>
 #include <lights/PointLight.h>
 
@@ -19,7 +18,6 @@ struct GuiParameters
     bool enableSsao;
     bool trackballInvertYAxis;
     float trackballSensitivity;
-    TransferFunction transferFunction;
     float raycastingDensityMultiplier;
 };
 

@@ -4,6 +4,7 @@
 #include <storage/StorageTypes.h>
 #include <camera/Camera.h>
 #include <context/GlfwWindow.h>
+#include <data/SaveState.h>
 #include <data/VolumeData.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
@@ -31,6 +32,7 @@ public:
         ShaderStorage&& shaderStorage,
         FrameBufferStorage&& frameBufferStorage,
         UnitCube&& unitCube,
+        Data::SaveState&& saveState,
         Data::VolumeData&& volumeData,
         Context::GlfwWindow&& window);
 
@@ -64,6 +66,8 @@ public:
     const FrameBufferStorage& GetFrameBufferStorage() const;
     Context::GlfwWindow& GetWindow();
     const Context::GlfwWindow& GetWindow() const;
+    Data::SaveState& GetSaveState();
+    const Data::SaveState& GetSaveState() const;
     const Data::VolumeData& GetVolumeData() const;
 
 private:
@@ -77,6 +81,7 @@ private:
     TextureStorage m_textureStorage;
     ShaderStorage m_shaderStorage;
     FrameBufferStorage m_frameBufferStorage;
+    Data::SaveState m_saveState;
     Data::VolumeData m_volumeData;
     Context::GlfwWindow m_window;
 };

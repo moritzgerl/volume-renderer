@@ -11,6 +11,7 @@ Storage::Storage(
     ShaderStorage&& shaderStorage,
     FrameBufferStorage&& frameBufferStorage,
     UnitCube&& unitCube,
+    Data::SaveState&& saveState,
     Data::VolumeData&& volumeData,
     Context::GlfwWindow&& window)
     : m_camera(std::move(camera))
@@ -23,6 +24,7 @@ Storage::Storage(
     , m_textureStorage(std::move(textureStorage))
     , m_shaderStorage(std::move(shaderStorage))
     , m_frameBufferStorage(std::move(frameBufferStorage))
+    , m_saveState(std::move(saveState))
     , m_volumeData(std::move(volumeData))
     , m_window(std::move(window))
 {
@@ -131,6 +133,16 @@ Context::GlfwWindow& Storage::GetWindow()
 const Context::GlfwWindow& Storage::GetWindow() const
 {
     return m_window;
+}
+
+Data::SaveState& Storage::GetSaveState()
+{
+    return m_saveState;
+}
+
+const Data::SaveState& Storage::GetSaveState() const
+{
+    return m_saveState;
 }
 
 const Data::VolumeData& Storage::GetVolumeData() const
