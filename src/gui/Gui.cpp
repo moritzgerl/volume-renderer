@@ -85,6 +85,13 @@ void Gui::Draw()
     if (ImGui::CollapsingHeader("Trackball", ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow))
     {
         ImGui::Checkbox("Invert Y Axis", &m_guiParameters.trackballInvertYAxis);
+
+        // TODO make nice
+        float normalizedSensitivity = (m_guiParameters.trackballSensitivity - Config::trackballSensitivityMin) / (Config::trackballSensitivityMax - Config::trackballSensitivityMin);
+        if (MakeSliderFloat("Sensitivity", &normalizedSensitivity, 0.0f, 1.0f))
+        {
+            m_guiParameters.trackballSensitivity = Config::trackballSensitivityMin + normalizedSensitivity * (Config::trackballSensitivityMax - Config::trackballSensitivityMin);
+        }
     }
 
     // SSAO

@@ -12,6 +12,7 @@ GuiParameters Factory::MakeGuiParameters()
     guiParameters.ssaoBias = Config::defaultSsaoBias;
     guiParameters.enableSsao = true;
     guiParameters.trackballInvertYAxis = Config::defaultTrackballInvertYAxis;
+    guiParameters.trackballSensitivity = Config::defaultTrackballSensitivity;
     guiParameters.transferFunction = Config::defaultTransferFunction;
     guiParameters.raycastingDensityMultiplier = Config::defaultRaycastingDensityMultiplier;
 

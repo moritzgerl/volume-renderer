@@ -125,7 +125,7 @@ void InputHandler::ProcessMouseMove(double x, double y)
 
     if (glfwGetMouseButton(m_window.get(), GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
     {
-        m_camera.ProcessMouseMovement(offsetX, offsetY, m_guiParameters.trackballInvertYAxis);
+        m_camera.ProcessMouseMovement(offsetX, offsetY, m_guiParameters.trackballInvertYAxis, m_guiParameters.trackballSensitivity);
     }
 }
 

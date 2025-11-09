@@ -46,10 +46,10 @@ void Camera::ProcessMouseScroll(float yoffset)
     }
 }
 
-void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool invertY)
+void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool invertY, float sensitivity)
 {
-    xoffset *= Config::trackballSensitivity;
-    yoffset *= Config::trackballSensitivity;
+    xoffset *= sensitivity;
+    yoffset *= sensitivity;
 
     if (invertY)
     {

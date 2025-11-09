@@ -18,6 +18,7 @@ struct GuiParameters
     float ssaoBias;
     bool enableSsao;
     bool trackballInvertYAxis;
+    float trackballSensitivity;
     TransferFunction transferFunction;
     float raycastingDensityMultiplier;
 };
