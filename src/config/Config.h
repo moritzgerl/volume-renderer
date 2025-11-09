@@ -26,6 +26,7 @@ namespace Config
     const unsigned int numPointLights = 2;
     const DirectionalLight defaultDirectionalLight = MakeDefaultDirectionalLight();
     const std::vector<PointLight> defaultPointLights = MakeDefaultPointLights(numPointLights);
+    const TransferFunction defaultTransferFunction = MakeDefaultTransferFunction();
     const unsigned int defaultSsaoKernelSize = 64;
     const unsigned int defaultSsaoNoiseSize = 4;
     const float defaultSsaoRadius = 0.538f;
@@ -33,7 +34,6 @@ namespace Config
     const float defaultZoom = 45.0f;
     const float trackballSensitivity = 0.005f;
     const bool defaultTrackballInvertYAxis = true;
-    const TransferFunction defaultTransferFunction = MakeDefaultTransferFunction();
     const float defaultRaycastingDensityMultiplier = 20.0f;
 }
 
