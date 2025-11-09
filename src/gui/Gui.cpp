@@ -1,6 +1,7 @@
 #include <gui/Gui.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
+#include <gui/StyleGui.h>
 #include <gui/TransferFunctionGui.h>
 #include <config/Config.h>
 
@@ -31,14 +32,7 @@ Gui::Gui(const Context::WindowPtr& window, GuiParameters& guiParameters, GuiUpda
 
     ImGui::StyleColorsDark();
 
-    // Panel header colors
-    ImGuiStyle& style = ImGui::GetStyle();
-    style.Colors[ImGuiCol_Header] = ImVec4(0.20f, 0.20f, 0.20f, 1.0f);
-    style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.25f, 0.25f, 0.25f, 1.0f);
-    style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.30f, 0.30f, 0.30f, 1.0f);
-
-    // Panel header padding
-    style.FramePadding = ImVec2(6.0f, 4.0f);
+    StyleGui();
 
     ImGui_ImplGlfw_InitForOpenGL(window.get(), true);
     ImGui_ImplOpenGL3_Init("#version 130");
