@@ -7,6 +7,7 @@
 namespace
 {   
     template<typename T, typename SliderFunc>
+    // TODO use string
     bool MakeSlider(const char* label, T* value, T min, T max, SliderFunc sliderFunc)
     {
         bool changed = false;
@@ -22,8 +23,10 @@ namespace
             ImGui::Text("%s", label);
             ImGui::TableSetColumnIndex(1);
 
+            // TODO don't ;)
             char id[256];
             snprintf(id, sizeof(id), "##%s", label);
+            ImGui::SetNextItemWidth(-FLT_MIN);  // use up all available width
             changed = sliderFunc(id, value, min, max, "");
 
             ImGui::EndTable();
