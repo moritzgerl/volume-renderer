@@ -54,8 +54,10 @@ std::expected<Data::SaveState, Data::SaveStateLoadingError> Data::LoadSaveStateF
 
     std::string line;
     bool inSaveStateSection = false;
+    bool inTransferFunctionSection = false;
     int currentPointIndex = -1;
 
+	// TODO nice
     while (std::getline(file, line))
     {
         // Trim whitespace
@@ -74,6 +76,12 @@ std::expected<Data::SaveState, Data::SaveStateLoadingError> Data::LoadSaveStateF
             if (line == "[SaveState]")
             {
                 inSaveStateSection = true;
+                inTransferFunctionSection = false;
+                currentPointIndex = -1;
+            }
+            else if (line == "[TransferFunction]")
+            {
+                inTransferFunctionSection = true;
                 currentPointIndex = -1;
             }
             else
@@ -90,6 +98,7 @@ std::expected<Data::SaveState, Data::SaveStateLoadingError> Data::LoadSaveStateF
                 else
                 {
                     inSaveStateSection = false;
+                    inTransferFunctionSection = false;
                     currentPointIndex = -1;
                 }
             }

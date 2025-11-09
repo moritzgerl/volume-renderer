@@ -15,8 +15,9 @@ std::expected<void, Data::SaveStateSavingError> Data::PersistSaveStateToIni(cons
 
     file << "[SaveState]\n";
     file << "\n";
+    file << "[TransferFunction]\n";
+    file << "\n";
 
-    // TODO nice
     for (size_t i = 0; i < saveState.transferFunction.numActivePoints; ++i)
     {
         const auto& point = saveState.transferFunction.controlPoints[i];
