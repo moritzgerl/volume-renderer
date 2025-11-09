@@ -23,6 +23,7 @@ private:
     GuiParameters& m_guiParameters;
     GuiUpdateFlags& m_guiUpdateFlags;
     float m_guiWidth;
+    float m_transferFunctionHeight;
 };
 
 #endif

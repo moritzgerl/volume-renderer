@@ -22,7 +22,8 @@ namespace Config
     const std::filesystem::path datasetPath = "./datasets/knee.raw";
     const bool showGuiByDefault = true;
     const bool showLightSourceByDefault = false;
-    const float defaultGuiWidthRatio = 0.2f;
+    const float defaultGuiWidthRatio = 0.3f;
+    const float defaultTransferFunctionGuiHeightRatio = 0.3f;
     const unsigned int numPointLights = 2;
     const DirectionalLight defaultDirectionalLight = MakeDefaultDirectionalLight();
     const std::vector<PointLight> defaultPointLights = MakeDefaultPointLights(numPointLights);

@@ -16,6 +16,7 @@ Gui::Gui(const Context::WindowPtr& window, GuiParameters& guiParameters, GuiUpda
     , m_guiParameters(guiParameters)
     , m_guiUpdateFlags(guiUpdateFlags)
     , m_guiWidth(0.0f)
+    , m_transferFunctionHeight(0.0f)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -51,11 +52,12 @@ void Gui::Draw()
     int windowWidth, windowHeight;
     glfwGetWindowSize(m_window.get(), &windowWidth, &windowHeight);
 
-    // Calculate initial GUI width based on config
+    // Calculate initial GUI width and transfer function height based on config
     static bool firstFrame = true;
     if (firstFrame)
     {
         m_guiWidth = static_cast<float>(windowWidth) * Config::defaultGuiWidthRatio;
+        m_transferFunctionHeight = static_cast<float>(windowHeight) * Config::defaultTransferFunctionGuiHeightRatio;
         firstFrame = false;
     }
 
@@ -146,7 +148,45 @@ void Gui::Draw()
     // Transfer Function Panel
     if (ImGui::CollapsingHeader("Transfer Function", ImGuiTreeNodeFlags_DefaultOpen))
     {
+        ImVec4 bgColor = ImGui::GetStyleColorVec4(ImGuiCol_WindowBg);
+
+        // Measure the space available before resizing
+        float availableHeightBeforeTransferFunction = ImGui::GetContentRegionAvail().y;
+
+        // Spacer at the top for symmetry
+        ImGui::PushStyleColor(ImGuiCol_Button, bgColor);
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, bgColor);
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, bgColor);
+        ImGui::Button("##TransferFunctionTopSpacer", ImVec2(-1, 8.0f));
+        ImGui::PopStyleColor();
+
+        // Child window for the transfer function
+        ImGui::BeginChild("TransferFunctionContent", ImVec2(0, m_transferFunctionHeight), true, ImGuiWindowFlags_None);
         TransferFunctionGui::Draw(m_guiParameters, m_guiUpdateFlags);
+        ImGui::EndChild();
+
+        // Resize handle at the bottom
+        ImGui::PushStyleColor(ImGuiCol_Button, bgColor);
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.6f, 0.6f, 0.6f, 0.7f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.8f, 0.8f, 0.8f, 1.0f));
+        ImGui::Button("##TransferFunctionResize", ImVec2(-1, 8.0f));
+        ImGui::PopStyleColor(3);
+
+        if (ImGui::IsItemActive())
+        {
+            m_transferFunctionHeight += ImGui::GetIO().MouseDelta.y;
+
+            // Calculate maximum height to prevent pushing content out of window
+            // Subtract the space used by the top spacer (8px) from available space
+            float maxHeight = availableHeightBeforeTransferFunction - 8.0f;
+
+            m_transferFunctionHeight = std::clamp(m_transferFunctionHeight, 128.0f, maxHeight);
+        }
+
+        if (ImGui::IsItemHovered())
+        {
+            ImGui::SetMouseCursor(ImGuiMouseCursor_ResizeNS);
+        }
     }
 
     if (ImGui::CollapsingHeader("Other", ImGuiTreeNodeFlags_DefaultOpen))
