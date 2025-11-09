@@ -85,7 +85,7 @@ void Gui::Draw()
     m_guiWidth = ImGui::GetWindowWidth();
 
     // Trackball
-    if (ImGui::CollapsingHeader("Trackball", ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow))
+    if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow))
     {
         MakeCheckbox("Invert Y Axis", &m_guiParameters.trackballInvertYAxis);
 

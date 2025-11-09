@@ -1,4 +1,6 @@
 #include <storage/Storage.h>
+#include <config/Config.h>
+#include <data/PersistSaveStateToIni.h>
 
 Storage::Storage(
     Camera&& camera,
@@ -148,4 +150,9 @@ const Data::SaveState& Storage::GetSaveState() const
 const Data::VolumeData& Storage::GetVolumeData() const
 {
     return m_volumeData;
+}
+
+void Storage::PersistSaveState() const
+{
+    Data::PersistSaveStateToIni(m_saveState, Config::saveStatePath);
 }

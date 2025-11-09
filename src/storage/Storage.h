@@ -69,6 +69,7 @@ public:
     Data::SaveState& GetSaveState();
     const Data::SaveState& GetSaveState() const;
     const Data::VolumeData& GetVolumeData() const;
+    void PersistSaveState() const;
 
 private:
     Camera m_camera;

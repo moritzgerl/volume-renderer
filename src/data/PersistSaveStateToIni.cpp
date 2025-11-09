@@ -1,9 +1,9 @@
-#include <data/StoreSaveStateToIni.h>
+#include <data/PersistSaveStateToIni.h>
 
 #include <fstream>
 #include <iomanip>
 
-std::expected<void, Data::SaveStateSavingError> Data::StoreSaveStateToIni(const std::filesystem::path& iniFilePath, const SaveState& saveState)
+std::expected<void, Data::SaveStateSavingError> Data::PersistSaveStateToIni(const SaveState& saveState, const std::filesystem::path& iniFilePath)
 {
     std::ofstream file(iniFilePath);
     if (!file.is_open())
