@@ -5,6 +5,7 @@
 #include <camera/Camera.h>
 #include <context/GlfwWindow.h>
 #include <config/Config.h>
+#include <data/LoadSaveStateFromIni.h>
 #include <data/LoadVolumeRaw.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
@@ -24,6 +25,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <optional>
 
 namespace
 {
@@ -37,7 +39,17 @@ namespace
         }
         return std::move(volumeLoadingResult).value();
     }
-}
+
+    std::optional<Data::SaveState> LoadSaveState(const std::filesystem::path& saveStatePath)
+    {
+        auto saveStateResult = Data::LoadSaveStateFromIni(saveStatePath);
+        if (!saveStateResult)
+        {
+            return std::nullopt;
+        }
+        return std::move(saveStateResult).value();
+    }
+} // anonymous namespace
 
 namespace Factory
 {
@@ -46,7 +58,8 @@ namespace Factory
         Context::GlfwWindow window;
         Camera camera(1.1f, 0.73f, 1.1f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
         DisplayProperties displayProperties = MakeDisplayProperties();
-        GuiParameters guiParameters = MakeGuiParameters();
+        std::optional<Data::SaveState> saveState = LoadSaveState(Config::saveStatePath);
+        GuiParameters guiParameters = MakeGuiParameters(saveState);
         GuiUpdateFlags guiUpdateFlags;
         ScreenQuad screenQuad;
         UnitCube unitCube;
