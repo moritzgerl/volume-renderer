@@ -1,7 +1,7 @@
 #include <data/LoadApplicationStateFromIniFile.h>
 #include <data/GetApplicationStateIniFileKey.h>
 #include <data/ApplicationStateIniFileSection.h>
-#include <gui/MakeGuiParameters.h>
+#include <gui/MakeDefaultGuiParameters.h>
 
 #include <charconv>
 #include <fstream>
@@ -70,7 +70,7 @@ std::expected<Data::ApplicationState, Data::ApplicationStateIniFileLoadingError>
         return std::unexpected(ApplicationStateIniFileLoadingError::CannotOpenFile);
     }
 
-    GuiParameters guiParameters = Factory::MakeGuiParameters();
+    GuiParameters guiParameters = Factory::MakeDefaultGuiParameters();
     guiParameters.transferFunction.numActivePoints = 0;
 
     std::string line;

@@ -1,7 +1,7 @@
-#include <gui/MakeGuiParameters.h>
+#include <gui/MakeDefaultGuiParameters.h>
 #include <config/Config.h>
 
-GuiParameters Factory::MakeGuiParameters()
+GuiParameters Factory::MakeDefaultGuiParameters()
 {
     GuiParameters guiParameters;
     guiParameters.transferFunction = Config::defaultTransferFunction;

@@ -9,7 +9,7 @@
 #include <data/LoadVolumeRaw.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
-#include <gui/MakeGuiParameters.h>
+#include <gui/MakeDefaultGuiParameters.h>
 #include <gui/TransferFunction.h>
 #include <input/DisplayProperties.h>
 #include <input/InputHandler.h>
@@ -74,7 +74,7 @@ namespace
         auto applicationStateResult = Data::LoadApplicationStateFromIniFile(applicationStateIniFilePath);
         if (!applicationStateResult)
         {
-            return Data::ApplicationState{ .guiParameters = Factory::MakeGuiParameters() };
+            return Data::ApplicationState{ .guiParameters = Factory::MakeDefaultGuiParameters() };
         }
 
         Data::ApplicationState applicationState = std::move(applicationStateResult).value();

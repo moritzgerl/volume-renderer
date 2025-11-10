@@ -2,5 +2,5 @@
 
 namespace Factory
 {
-    GuiParameters MakeGuiParameters();
+    GuiParameters MakeDefaultGuiParameters();
 }
