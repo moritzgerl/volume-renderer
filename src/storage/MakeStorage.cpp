@@ -69,22 +69,22 @@ namespace
         return true;
     }
 
-    GuiParameters LoadGuiParameters(const std::filesystem::path& saveStatePath)
+    Data::ApplicationState LoadApplicationState(const std::filesystem::path& saveStatePath)
     {
         auto applicationStateResult = Data::LoadApplicationStateFromIniFile(saveStatePath);
         if (!applicationStateResult)
         {
-            return Factory::MakeGuiParameters();
+            return Data::ApplicationState{ .guiParameters = Factory::MakeGuiParameters() };
         }
 
-        GuiParameters guiParameters = std::move(applicationStateResult).value().guiParameters;
+        Data::ApplicationState applicationState = std::move(applicationStateResult).value();
 
-        if (!IsTransferFunctionValid(guiParameters.transferFunction))
+        if (!IsTransferFunctionValid(applicationState.guiParameters.transferFunction))
         {
-            guiParameters.transferFunction = Config::defaultTransferFunction;
+            applicationState.guiParameters.transferFunction = Config::defaultTransferFunction;
         }
 
-        return guiParameters;
+        return applicationState;
     }
 } // anonymous namespace
 
@@ -93,9 +93,10 @@ namespace Factory
     Storage MakeStorage()
     {
         Context::GlfwWindow window;
+        Data::ApplicationState applicationState = LoadApplicationState(Config::saveStatePath);
         Camera camera(1.1f, 0.73f, 1.1f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
         DisplayProperties displayProperties = MakeDisplayProperties();
-        GuiParameters guiParameters = LoadGuiParameters(Config::saveStatePath);
+        GuiParameters guiParameters = std::move(applicationState.guiParameters);
         Data::VolumeData volumeData = LoadVolume(Config::datasetPath);
         GuiUpdateFlags guiUpdateFlags;
         ScreenQuad screenQuad;
