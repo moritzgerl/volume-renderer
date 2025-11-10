@@ -7,9 +7,9 @@
 #include <config/Config.h>
 #include <data/LoadApplicationStateFromIniFile.h>
 #include <data/LoadVolumeRaw.h>
+#include <data/MakeDefaultApplicationState.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
-#include <gui/MakeDefaultGuiParameters.h>
 #include <gui/TransferFunction.h>
 #include <input/DisplayProperties.h>
 #include <input/InputHandler.h>
@@ -72,9 +72,10 @@ namespace
     Data::ApplicationState LoadApplicationState(const std::filesystem::path& applicationStateIniFilePath)
     {
         auto applicationStateResult = Data::LoadApplicationStateFromIniFile(applicationStateIniFilePath);
+        
         if (!applicationStateResult)
         {
-            return Data::ApplicationState{ .guiParameters = Factory::MakeDefaultGuiParameters() };
+            return Factory::MakeDefaultApplicationState();
         }
 
         Data::ApplicationState applicationState = std::move(applicationStateResult).value();

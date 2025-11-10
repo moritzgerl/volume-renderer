@@ -1,7 +1,7 @@
 #include <camera/MakeDefaultCameraParameters.h>
 #include <config/Config.h>
 
-CameraParameters MakeDefaultCameraParameters()
+CameraParameters Factory::MakeDefaultCameraParameters()
 {
     // TODO use ctor
     CameraParameters cameraParameters;

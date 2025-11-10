@@ -3,6 +3,9 @@
 
 #include <camera/CameraParameters.h>
 
-CameraParameters MakeDefaultCameraParameters();
+namespace Factory
+{
+    CameraParameters MakeDefaultCameraParameters();
+}
 
 #endif
