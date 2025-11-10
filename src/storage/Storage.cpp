@@ -142,7 +142,12 @@ const Data::VolumeData& Storage::GetVolumeData() const
 
 void Storage::SaveApplicationState() const
 {
-    Data::ApplicationState applicationState{ .guiParameters = m_guiParameters };
+    Data::ApplicationState applicationState
+    {
+        .cameraParameters = m_camera.GetCameraParameters(),
+        .guiParameters = m_guiParameters
+    };
+
     [[maybe_unused]] auto result = Data::SaveApplicationStateToIniFile(applicationState, Config::applicationStateIniFilePath);
 
     // TODO print error if saving failed

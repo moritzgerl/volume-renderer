@@ -1,5 +1,7 @@
 #include <data/SaveApplicationStateToIniFile.h>
 #include <config/Config.h>
+#include <camera/CameraParameters.h>
+#include <gui/GuiParameters.h>
 
 #include <fstream>
 #include <iomanip>
@@ -12,12 +14,28 @@ std::expected<void, Data::ApplicationStateIniFileSavingError> Data::SaveApplicat
         return std::unexpected(ApplicationStateIniFileSavingError::CannotOpenFile);
     }
 
+    // Camera parameters
+    const CameraParameters& cameraParameters = applicationState.cameraParameters;
+    
+    file << "[CameraParameters]\n";
+    file << "CameraPositionX=" << cameraParameters.position.x << "\n";
+    file << "CameraPositionY=" << cameraParameters.position.y << "\n";
+    file << "CameraPositionZ=" << cameraParameters.position.z << "\n";
+    file << "CameraLookAtX=" << cameraParameters.lookAt.x << "\n";
+    file << "CameraLookAtY=" << cameraParameters.lookAt.y << "\n";
+    file << "CameraLookAtZ=" << cameraParameters.lookAt.z << "\n";
+    file << "CameraUpX=" << cameraParameters.up.x << "\n";
+    file << "CameraUpY=" << cameraParameters.up.y << "\n";
+    file << "CameraUpZ=" << cameraParameters.up.z << "\n";
+    file << "CameraZoom=" << cameraParameters.zoom << "\n";
+    file << "\n";
+
+    // GUI parameters
     const GuiParameters& guiParameters = applicationState.guiParameters;
 
     file << std::fixed << std::setprecision(6);
 
     file << "[GuiParameters]\n";
-    file << "\n";
 
     // Transfer Function
     file << "[TransferFunction]\n";

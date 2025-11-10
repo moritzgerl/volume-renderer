@@ -15,6 +15,7 @@ public:
     float GetZoom() const;
     glm::vec3 GetPosition() const;
     glm::mat4 GetViewMatrix() const;
+    CameraParameters GetCameraParameters() const;
 
     void ProcessMouseScroll(float yoffset);
     void ProcessMouseMovement(float xoffset, float yoffset, bool invertY, float sensitivity);

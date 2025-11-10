@@ -34,6 +34,17 @@ glm::mat4 Camera::GetViewMatrix() const
     return glm::lookAt(m_position, m_position + m_front, m_up);
 }
 
+CameraParameters Camera::GetCameraParameters() const
+{   
+    return CameraParameters 
+    {
+        .position = m_position,
+        .lookAt = m_lookAt,
+        .up = m_worldUp,
+        .zoom = m_zoom
+    };
+}
+
 void Camera::ProcessMouseScroll(float yoffset)
 {
     m_zoom -= static_cast<float>(yoffset);
