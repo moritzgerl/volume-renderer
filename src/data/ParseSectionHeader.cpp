@@ -34,5 +34,7 @@ Data::ApplicationStateIniFileSection Parsing::ParseSectionHeader(std::string_vie
     else if (line.substr(0, 11) == "[PointLight")
     {
         return Data::ApplicationStateIniFileSection::PointLight;
-    }    
+    }
+
+    return Data::ApplicationStateIniFileSection::None;
 }
