@@ -5,15 +5,7 @@ namespace Data
 {
     /// Keys for application state INI file parsing
     enum class ApplicationStateIniFileKey
-    {
-        // Camera parameters
-        CameraPositionX,
-        CameraPositionY,
-        CameraPositionZ,
-        CameraZoom,
-
-        // Gui parameters
-         
+    {   
         // Transfer function points
         Value,
         ColorR,
@@ -21,7 +13,8 @@ namespace Data
         ColorB,
         Opacity,
 
-        // Camera GUI parameters
+        // Camera parameters
+        Zoom,
         InvertYAxis,
         Sensitivity,
 

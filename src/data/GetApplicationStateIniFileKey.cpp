@@ -10,17 +10,14 @@ namespace
         Data::ApplicationStateIniFileKey value;
     };
 
-    constexpr std::array<ApplicationStateIniFileKeyMapping, 34> applicationStateIniFileKeyLookup =
-    {{
-        {"CameraPositionX", Data::ApplicationStateIniFileKey::CameraPositionX},
-        {"CameraPositionY", Data::ApplicationStateIniFileKey::CameraPositionY},
-        {"CameraPositionZ", Data::ApplicationStateIniFileKey::CameraPositionZ},
-        {"CameraZoom", Data::ApplicationStateIniFileKey::CameraZoom},
+    constexpr std::array<ApplicationStateIniFileKeyMapping, 31> applicationStateIniFileKeyLookup =
+    {{  
         {"Value", Data::ApplicationStateIniFileKey::Value},
         {"ColorR", Data::ApplicationStateIniFileKey::ColorR},
         {"ColorG", Data::ApplicationStateIniFileKey::ColorG},
         {"ColorB", Data::ApplicationStateIniFileKey::ColorB},
         {"Opacity", Data::ApplicationStateIniFileKey::Opacity},
+        {"Zoom", Data::ApplicationStateIniFileKey::Zoom},
         {"InvertYAxis", Data::ApplicationStateIniFileKey::InvertYAxis},
         {"Sensitivity", Data::ApplicationStateIniFileKey::Sensitivity},
         {"KernelSize", Data::ApplicationStateIniFileKey::KernelSize},

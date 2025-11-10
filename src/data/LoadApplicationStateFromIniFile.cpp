@@ -182,25 +182,25 @@ std::expected<Data::ApplicationState, Data::ApplicationStateIniFileLoadingError>
             {
                 switch (key)
                 {
-                    case ApplicationStateIniFileKey::CameraPositionX:
+                    case ApplicationStateIniFileKey::PositionX:
                         if (!ParseValue(valueString, cameraParameters.position.x))
                         {
                             return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case ApplicationStateIniFileKey::CameraPositionY:
+                    case ApplicationStateIniFileKey::PositionY:
                         if (!ParseValue(valueString, cameraParameters.position.y))
                         {
                             return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case ApplicationStateIniFileKey::CameraPositionZ:
+                    case ApplicationStateIniFileKey::PositionZ:
                         if (!ParseValue(valueString, cameraParameters.position.z))
                         {
                             return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case ApplicationStateIniFileKey::CameraZoom:
+                    case ApplicationStateIniFileKey::Zoom:
                         if (!ParseValue(valueString, cameraParameters.zoom))
                         {
                             return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);

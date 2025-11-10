@@ -18,10 +18,10 @@ std::expected<void, Data::ApplicationStateIniFileSavingError> Data::SaveApplicat
     const CameraParameters& cameraParameters = applicationState.cameraParameters;
     
     file << "[CameraParameters]\n";
-    file << "CameraPositionX=" << cameraParameters.position.x << "\n";
-    file << "CameraPositionY=" << cameraParameters.position.y << "\n";
-    file << "CameraPositionZ=" << cameraParameters.position.z << "\n";
-    file << "CameraZoom=" << cameraParameters.zoom << "\n";
+    file << "PositionX=" << cameraParameters.position.x << "\n";
+    file << "PositionY=" << cameraParameters.position.y << "\n";
+    file << "PositionZ=" << cameraParameters.position.z << "\n";
+    file << "Zoom=" << cameraParameters.zoom << "\n";
     file << "\n";
 
     // GUI parameters
