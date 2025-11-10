@@ -1,9 +1,9 @@
-#ifndef SAVE_STATE_SAVING_ERROR_H
-#define SAVE_STATE_SAVING_ERROR_H
+#ifndef GUI_PARAMETERS_SAVING_ERROR_H
+#define GUI_PARAMETERS_SAVING_ERROR_H
 
 namespace Data
 {
-    enum class SaveStateSavingError
+    enum class GuiParametersSavingError
     {
         CannotOpenFile,
         WriteError

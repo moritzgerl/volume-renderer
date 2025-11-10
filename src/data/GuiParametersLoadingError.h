@@ -1,9 +1,9 @@
-#ifndef SAVE_STATE_LOADING_ERROR_H
-#define SAVE_STATE_LOADING_ERROR_H
+#ifndef GUI_PARAMETERS_LOADING_ERROR_H
+#define GUI_PARAMETERS_LOADING_ERROR_H
 
 namespace Data
 {
-    enum class SaveStateLoadingError
+    enum class GuiParametersLoadingError
     {
         FileNotFound,
         CannotOpenFile,

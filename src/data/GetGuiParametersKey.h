@@ -1,12 +1,12 @@
-#ifndef GET_SAVE_STATE_KEY_H
-#define GET_SAVE_STATE_KEY_H
+#ifndef GET_GUI_PARAMETERS_KEY_H
+#define GET_GUI_PARAMETERS_KEY_H
 
-#include <data/SaveStateKey.h>
+#include <data/GuiParametersKey.h>
 #include <string_view>
 
 namespace Data
 {
-    SaveStateKey GetSaveStateKey(std::string_view key);
+    GuiParametersKey GetGuiParametersKey(std::string_view key);
 }
 
 #endif
