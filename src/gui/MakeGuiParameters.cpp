@@ -1,10 +1,10 @@
 #include <gui/MakeGuiParameters.h>
 #include <config/Config.h>
-#include <data/SaveState.h>
 
-GuiParameters Factory::MakeGuiParameters(const Data::SaveState& saveState)
+GuiParameters Factory::MakeGuiParameters()
 {
     GuiParameters guiParameters;
+    guiParameters.transferFunction = Config::defaultTransferFunction;
     guiParameters.showLightSources = Config::showLightSourceByDefault;
     guiParameters.directionalLight = Config::defaultDirectionalLight;
     guiParameters.ssaoKernelSize = Config::defaultSsaoKernelSize;

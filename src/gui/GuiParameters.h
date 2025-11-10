@@ -1,6 +1,7 @@
 #ifndef GUI_PARAMETERS_H
 #define GUI_PARAMETERS_H
 
+#include <gui/TransferFunction.h>
 #include <lights/DirectionalLight.h>
 #include <lights/PointLight.h>
 
@@ -8,6 +9,7 @@
 
 struct GuiParameters
 {
+    TransferFunction transferFunction;
     bool showLightSources;
     DirectionalLight directionalLight;
     std::vector<PointLight> pointLights;

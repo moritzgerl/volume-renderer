@@ -5,9 +5,8 @@
 #include <camera/Camera.h>
 #include <context/GlfwWindow.h>
 #include <config/Config.h>
-#include <data/LoadSaveStateFromIni.h>
+#include <data/LoadGuiParametersFromIni.h>
 #include <data/LoadVolumeRaw.h>
-#include <data/MakeDefaultSaveState.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
 #include <gui/MakeGuiParameters.h>
@@ -70,22 +69,22 @@ namespace
         return true;
     }
 
-    Data::SaveState LoadSaveState(const std::filesystem::path& saveStatePath)
+    GuiParameters LoadGuiParameters(const std::filesystem::path& saveStatePath)
     {
-        auto saveStateResult = Data::LoadSaveStateFromIni(saveStatePath);
-        if (!saveStateResult)
+        auto guiParametersResult = Data::LoadGuiParametersFromIni(saveStatePath);
+        if (!guiParametersResult)
         {
-            return Data::MakeDefaultSaveState();
+            return Factory::MakeGuiParameters();
         }
 
-        Data::SaveState saveState = std::move(saveStateResult).value();
+        GuiParameters guiParameters = std::move(guiParametersResult).value();
 
-        if (!IsTransferFunctionValid(saveState.transferFunction))
+        if (!IsTransferFunctionValid(guiParameters.transferFunction))
         {
-            saveState.transferFunction = Config::defaultTransferFunction;
+            guiParameters.transferFunction = Config::defaultTransferFunction;
         }
 
-        return saveState;
+        return guiParameters;
     }
 } // anonymous namespace
 
@@ -96,9 +95,8 @@ namespace Factory
         Context::GlfwWindow window;
         Camera camera(1.1f, 0.73f, 1.1f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
         DisplayProperties displayProperties = MakeDisplayProperties();
-        Data::SaveState saveState = LoadSaveState(Config::saveStatePath);
+        GuiParameters guiParameters = LoadGuiParameters(Config::saveStatePath);
         Data::VolumeData volumeData = LoadVolume(Config::datasetPath);
-        GuiParameters guiParameters = MakeGuiParameters(saveState);
         GuiUpdateFlags guiUpdateFlags;
         ScreenQuad screenQuad;
         UnitCube unitCube;
@@ -118,7 +116,6 @@ namespace Factory
             std::move(shaderStorage),
             std::move(frameBufferStorage),
             std::move(unitCube),
-            std::move(saveState),
             std::move(volumeData),
             std::move(window)
         );

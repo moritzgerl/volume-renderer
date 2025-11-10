@@ -7,7 +7,6 @@ namespace Factory
     {
         return Gui(
             storage.GetWindow().GetWindow(),
-            storage.GetSaveState(),
             storage.GetGuiParameters(),
             storage.GetGuiUpdateFlags());
     }
