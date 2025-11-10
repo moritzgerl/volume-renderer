@@ -65,7 +65,7 @@ public:
     Context::GlfwWindow& GetWindow();
     const Context::GlfwWindow& GetWindow() const;
     const Data::VolumeData& GetVolumeData() const;
-    void PersistGuiParameters() const;
+    void SaveApplicationState() const;
 
 private:
     Camera m_camera;

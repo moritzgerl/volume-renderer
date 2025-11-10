@@ -1,6 +1,6 @@
-#include <data/LoadGuiParametersFromIni.h>
-#include <data/GetGuiParametersKey.h>
-#include <data/IniFileSection.h>
+#include <data/LoadApplicationStateFromIniFile.h>
+#include <data/GetApplicationStateIniFileKey.h>
+#include <data/ApplicationStateIniFileSection.h>
 #include <gui/MakeGuiParameters.h>
 
 #include <charconv>
@@ -57,24 +57,24 @@ namespace
     }
 }
 
-std::expected<GuiParameters, Data::GuiParametersLoadingError> Data::LoadGuiParametersFromIni(const std::filesystem::path& iniFilePath)
+std::expected<GuiParameters, Data::ApplicationStateIniFileLoadingError> Data::LoadApplicationStateFromIniFile(const std::filesystem::path& iniFilePath)
 {
     if (!std::filesystem::exists(iniFilePath))
     {
-        return std::unexpected(GuiParametersLoadingError::FileNotFound);
+        return std::unexpected(ApplicationStateIniFileLoadingError::FileNotFound);
     }
 
     std::ifstream file(iniFilePath);
     if (!file.is_open())
     {
-        return std::unexpected(GuiParametersLoadingError::CannotOpenFile);
+        return std::unexpected(ApplicationStateIniFileLoadingError::CannotOpenFile);
     }
 
     GuiParameters guiParameters = Factory::MakeGuiParameters();
     guiParameters.transferFunction.numActivePoints = 0;
 
     std::string line;
-    IniFileSection currentSection = IniFileSection::None;
+    ApplicationStateIniFileSection currentSection = ApplicationStateIniFileSection::None;
     int currentPointIndex = -1;
     int currentPointLightIndex = -1;
 
@@ -95,27 +95,27 @@ std::expected<GuiParameters, Data::GuiParametersLoadingError> Data::LoadGuiParam
         {
             if (line == "[GuiParameters]")
             {
-                currentSection = IniFileSection::GuiParameters;
+                currentSection = ApplicationStateIniFileSection::GuiParameters;
             }
             else if (line == "[TransferFunction]")
             {
-                currentSection = IniFileSection::TransferFunction;
+                currentSection = ApplicationStateIniFileSection::TransferFunction;
             }
             else if (line == "[Camera]")
             {
-                currentSection = IniFileSection::Camera;
+                currentSection = ApplicationStateIniFileSection::Camera;
             }
             else if (line == "[SSAO]")
             {
-                currentSection = IniFileSection::SSAO;
+                currentSection = ApplicationStateIniFileSection::SSAO;
             }
             else if (line == "[DirectionalLight]")
             {
-                currentSection = IniFileSection::DirectionalLight;
+                currentSection = ApplicationStateIniFileSection::DirectionalLight;
             }
             else if (line == "[Rendering]")
             {
-                currentSection = IniFileSection::Rendering;
+                currentSection = ApplicationStateIniFileSection::Rendering;
             }
             else
             {
@@ -123,7 +123,7 @@ std::expected<GuiParameters, Data::GuiParametersLoadingError> Data::LoadGuiParam
                 int pointIndex = ParsePointSection(line);
                 if (pointIndex >= 0 && pointIndex < static_cast<int>(TransferFunction::maxControlPoints))
                 {
-                    currentSection = IniFileSection::TransferFunctionPoint;
+                    currentSection = ApplicationStateIniFileSection::TransferFunctionPoint;
                     currentPointIndex = pointIndex;
                     if (static_cast<size_t>(pointIndex) >= guiParameters.transferFunction.numActivePoints)
                     {
@@ -136,12 +136,12 @@ std::expected<GuiParameters, Data::GuiParametersLoadingError> Data::LoadGuiParam
                     int pointLightIndex = ParsePointLightSection(line);
                     if (pointLightIndex >= 0 && pointLightIndex < static_cast<int>(guiParameters.pointLights.size()))
                     {
-                        currentSection = IniFileSection::PointLight;
+                        currentSection = ApplicationStateIniFileSection::PointLight;
                         currentPointLightIndex = pointLightIndex;
                     }
                     else
                     {
-                        currentSection = IniFileSection::None;
+                        currentSection = ApplicationStateIniFileSection::None;
                     }
                 }
             }
@@ -164,11 +164,11 @@ std::expected<GuiParameters, Data::GuiParametersLoadingError> Data::LoadGuiParam
         valueString.erase(0, valueString.find_first_not_of(" \t"));
         valueString.erase(valueString.find_last_not_of(" \t") + 1);
 
-        GuiParametersKey key = GetGuiParametersKey(keyString);
+        ApplicationStateIniFileKey key = GetApplicationStateIniFileKey(keyString);
 
         switch (currentSection)
         {
-            case IniFileSection::TransferFunctionPoint:
+            case ApplicationStateIniFileSection::TransferFunctionPoint:
             {
                 if (currentPointIndex < 0)
                 {
@@ -179,34 +179,34 @@ std::expected<GuiParameters, Data::GuiParametersLoadingError> Data::LoadGuiParam
 
                 switch (key)
                 {
-                    case GuiParametersKey::Value:
+                    case ApplicationStateIniFileKey::Value:
                         if (!ParseValue(valueString, point.value))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::ColorR:
+                    case ApplicationStateIniFileKey::ColorR:
                         if (!ParseValue(valueString, point.color.r))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::ColorG:
+                    case ApplicationStateIniFileKey::ColorG:
                         if (!ParseValue(valueString, point.color.g))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::ColorB:
+                    case ApplicationStateIniFileKey::ColorB:
                         if (!ParseValue(valueString, point.color.b))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::Opacity:
+                    case ApplicationStateIniFileKey::Opacity:
                         if (!ParseValue(valueString, point.opacity))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
                     default:
@@ -215,24 +215,24 @@ std::expected<GuiParameters, Data::GuiParametersLoadingError> Data::LoadGuiParam
                 break;
             }
 
-            case IniFileSection::Camera:
+            case ApplicationStateIniFileSection::Camera:
             {
                 switch (key)
                 {
-                    case GuiParametersKey::InvertYAxis:
+                    case ApplicationStateIniFileKey::InvertYAxis:
                     {
                         int value;
                         if (!ParseValue(valueString, value))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         guiParameters.trackballInvertYAxis = (value != 0);
                         break;
                     }
-                    case GuiParametersKey::Sensitivity:
+                    case ApplicationStateIniFileKey::Sensitivity:
                         if (!ParseValue(valueString, guiParameters.trackballSensitivity))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
                     default:
@@ -241,40 +241,40 @@ std::expected<GuiParameters, Data::GuiParametersLoadingError> Data::LoadGuiParam
                 break;
             }
 
-            case IniFileSection::SSAO:
+            case ApplicationStateIniFileSection::SSAO:
             {
                 switch (key)
                 {
-                    case GuiParametersKey::KernelSize:
+                    case ApplicationStateIniFileKey::KernelSize:
                         if (!ParseValue(valueString, guiParameters.ssaoKernelSize))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::NoiseSize:
+                    case ApplicationStateIniFileKey::NoiseSize:
                         if (!ParseValue(valueString, guiParameters.ssaoNoiseSize))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::Radius:
+                    case ApplicationStateIniFileKey::Radius:
                         if (!ParseValue(valueString, guiParameters.ssaoRadius))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::Bias:
+                    case ApplicationStateIniFileKey::Bias:
                         if (!ParseValue(valueString, guiParameters.ssaoBias))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::Enable:
+                    case ApplicationStateIniFileKey::Enable:
                     {
                         int value;
                         if (!ParseValue(valueString, value))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         guiParameters.enableSsao = (value != 0);
                         break;
@@ -285,88 +285,88 @@ std::expected<GuiParameters, Data::GuiParametersLoadingError> Data::LoadGuiParam
                 break;
             }
 
-            case IniFileSection::DirectionalLight:
+            case ApplicationStateIniFileSection::DirectionalLight:
             {
                 DirectionalLight& light = guiParameters.directionalLight;
 
                 switch (key)
                 {
-                    case GuiParametersKey::DirectionX:
+                    case ApplicationStateIniFileKey::DirectionX:
                         if (!ParseValue(valueString, light.direction.x))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::DirectionY:
+                    case ApplicationStateIniFileKey::DirectionY:
                         if (!ParseValue(valueString, light.direction.y))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::DirectionZ:
+                    case ApplicationStateIniFileKey::DirectionZ:
                         if (!ParseValue(valueString, light.direction.z))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::AmbientR:
+                    case ApplicationStateIniFileKey::AmbientR:
                         if (!ParseValue(valueString, light.ambient.r))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::AmbientG:
+                    case ApplicationStateIniFileKey::AmbientG:
                         if (!ParseValue(valueString, light.ambient.g))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::AmbientB:
+                    case ApplicationStateIniFileKey::AmbientB:
                         if (!ParseValue(valueString, light.ambient.b))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::DiffuseR:
+                    case ApplicationStateIniFileKey::DiffuseR:
                         if (!ParseValue(valueString, light.diffuse.r))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::DiffuseG:
+                    case ApplicationStateIniFileKey::DiffuseG:
                         if (!ParseValue(valueString, light.diffuse.g))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::DiffuseB:
+                    case ApplicationStateIniFileKey::DiffuseB:
                         if (!ParseValue(valueString, light.diffuse.b))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::SpecularR:
+                    case ApplicationStateIniFileKey::SpecularR:
                         if (!ParseValue(valueString, light.specular.r))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::SpecularG:
+                    case ApplicationStateIniFileKey::SpecularG:
                         if (!ParseValue(valueString, light.specular.g))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::SpecularB:
+                    case ApplicationStateIniFileKey::SpecularB:
                         if (!ParseValue(valueString, light.specular.b))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::Intensity:
+                    case ApplicationStateIniFileKey::Intensity:
                         if (!ParseValue(valueString, light.intensity))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
                     default:
@@ -375,7 +375,7 @@ std::expected<GuiParameters, Data::GuiParametersLoadingError> Data::LoadGuiParam
                 break;
             }
 
-            case IniFileSection::PointLight:
+            case ApplicationStateIniFileSection::PointLight:
             {
                 if (currentPointLightIndex < 0)
                 {
@@ -386,82 +386,82 @@ std::expected<GuiParameters, Data::GuiParametersLoadingError> Data::LoadGuiParam
 
                 switch (key)
                 {
-                    case GuiParametersKey::PositionX:
+                    case ApplicationStateIniFileKey::PositionX:
                         if (!ParseValue(valueString, light.position.x))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::PositionY:
+                    case ApplicationStateIniFileKey::PositionY:
                         if (!ParseValue(valueString, light.position.y))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::PositionZ:
+                    case ApplicationStateIniFileKey::PositionZ:
                         if (!ParseValue(valueString, light.position.z))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::AmbientR:
+                    case ApplicationStateIniFileKey::AmbientR:
                         if (!ParseValue(valueString, light.ambient.r))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::AmbientG:
+                    case ApplicationStateIniFileKey::AmbientG:
                         if (!ParseValue(valueString, light.ambient.g))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::AmbientB:
+                    case ApplicationStateIniFileKey::AmbientB:
                         if (!ParseValue(valueString, light.ambient.b))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::DiffuseR:
+                    case ApplicationStateIniFileKey::DiffuseR:
                         if (!ParseValue(valueString, light.diffuse.r))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::DiffuseG:
+                    case ApplicationStateIniFileKey::DiffuseG:
                         if (!ParseValue(valueString, light.diffuse.g))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::DiffuseB:
+                    case ApplicationStateIniFileKey::DiffuseB:
                         if (!ParseValue(valueString, light.diffuse.b))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::SpecularR:
+                    case ApplicationStateIniFileKey::SpecularR:
                         if (!ParseValue(valueString, light.specular.r))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::SpecularG:
+                    case ApplicationStateIniFileKey::SpecularG:
                         if (!ParseValue(valueString, light.specular.g))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::SpecularB:
+                    case ApplicationStateIniFileKey::SpecularB:
                         if (!ParseValue(valueString, light.specular.b))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
-                    case GuiParametersKey::Intensity:
+                    case ApplicationStateIniFileKey::Intensity:
                         if (!ParseValue(valueString, light.intensity))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
                     default:
@@ -470,24 +470,24 @@ std::expected<GuiParameters, Data::GuiParametersLoadingError> Data::LoadGuiParam
                 break;
             }
 
-            case IniFileSection::Rendering:
+            case ApplicationStateIniFileSection::Rendering:
             {
                 switch (key)
                 {
-                    case GuiParametersKey::ShowLightSources:
+                    case ApplicationStateIniFileKey::ShowLightSources:
                     {
                         int value;
                         if (!ParseValue(valueString, value))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         guiParameters.showLightSources = (value != 0);
                         break;
                     }
-                    case GuiParametersKey::DensityMultiplier:
+                    case ApplicationStateIniFileKey::DensityMultiplier:
                         if (!ParseValue(valueString, guiParameters.raycastingDensityMultiplier))
                         {
-                            return std::unexpected(GuiParametersLoadingError::ParseError);
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                         }
                         break;
                     default:

@@ -1,15 +1,15 @@
-#include <data/PersistGuiParametersToIni.h>
+#include <data/SaveApplicationStateToIniFile.h>
 #include <config/Config.h>
 
 #include <fstream>
 #include <iomanip>
 
-std::expected<void, Data::GuiParametersSavingError> Data::PersistGuiParametersToIni(const GuiParameters& guiParameters, const std::filesystem::path& iniFilePath)
+std::expected<void, Data::ApplicationStateIniFileSavingError> Data::SaveApplicationStateToIniFile(const GuiParameters& guiParameters, const std::filesystem::path& iniFilePath)
 {
     std::ofstream file(iniFilePath);
     if (!file.is_open())
     {
-        return std::unexpected(GuiParametersSavingError::CannotOpenFile);
+        return std::unexpected(ApplicationStateIniFileSavingError::CannotOpenFile);
     }
 
     file << std::fixed << std::setprecision(6);
@@ -96,7 +96,7 @@ std::expected<void, Data::GuiParametersSavingError> Data::PersistGuiParametersTo
 
     if (!file.good())
     {
-        return std::unexpected(GuiParametersSavingError::WriteError);
+        return std::unexpected(ApplicationStateIniFileSavingError::WriteError);
     }
 
     return {};

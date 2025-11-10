@@ -1,6 +1,6 @@
 #include <storage/Storage.h>
 #include <config/Config.h>
-#include <data/PersistGuiParametersToIni.h>
+#include <data/SaveApplicationStateToIniFile.h>
 
 Storage::Storage(
     Camera&& camera,
@@ -140,7 +140,7 @@ const Data::VolumeData& Storage::GetVolumeData() const
     return m_volumeData;
 }
 
-void Storage::PersistGuiParameters() const
+void Storage::SaveApplicationState() const
 {
-    Data::PersistGuiParametersToIni(m_guiParameters, Config::saveStatePath);
+    [[maybe_unused]] auto result = Data::SaveApplicationStateToIniFile(m_guiParameters, Config::saveStatePath);
 }

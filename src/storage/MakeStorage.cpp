@@ -5,7 +5,7 @@
 #include <camera/Camera.h>
 #include <context/GlfwWindow.h>
 #include <config/Config.h>
-#include <data/LoadGuiParametersFromIni.h>
+#include <data/LoadApplicationStateFromIniFile.h>
 #include <data/LoadVolumeRaw.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
@@ -71,7 +71,7 @@ namespace
 
     GuiParameters LoadGuiParameters(const std::filesystem::path& saveStatePath)
     {
-        auto guiParametersResult = Data::LoadGuiParametersFromIni(saveStatePath);
+        auto guiParametersResult = Data::LoadApplicationStateFromIniFile(saveStatePath);
         if (!guiParametersResult)
         {
             return Factory::MakeGuiParameters();

@@ -36,7 +36,7 @@ int main()
         window.PostRender();
     }
 
-    storage.PersistGuiParameters();
+    storage.SaveApplicationState();
     window.Shutdown();
 
     return 0;

@@ -1,10 +1,10 @@
-#ifndef GUI_PARAMETERS_KEY_H
-#define GUI_PARAMETERS_KEY_H
+#ifndef APPLICATION_STATE_INI_FILE_KEY_H
+#define APPLICATION_STATE_INI_FILE_KEY_H
 
 namespace Data
 {
-    /// Keys for GUI parameters file parsing
-    enum class GuiParametersKey
+    /// Keys for application state INI file parsing
+    enum class ApplicationStateIniFileKey
     {
         // Transfer function point keys
         Value,

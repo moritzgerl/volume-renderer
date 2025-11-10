@@ -1,9 +1,9 @@
-#ifndef INI_FILE_SECTION_H
-#define INI_FILE_SECTION_H
+#ifndef APPLICATION_STATE_INI_FILE_SECTION_H
+#define APPLICATION_STATE_INI_FILE_SECTION_H
 
 namespace Data
 {
-    enum class IniFileSection
+    enum class ApplicationStateIniFileSection
     {
         None,
         GuiParameters,
