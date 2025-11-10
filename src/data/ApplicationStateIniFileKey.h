@@ -10,12 +10,6 @@ namespace Data
         CameraPositionX,
         CameraPositionY,
         CameraPositionZ,
-        CameraLookAtX,
-        CameraLookAtY,
-        CameraLookAtZ,
-        CameraUpX,
-        CameraUpY,
-        CameraUpZ,
         CameraZoom,
 
         // Gui parameters

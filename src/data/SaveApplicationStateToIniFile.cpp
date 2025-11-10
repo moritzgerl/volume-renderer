@@ -21,12 +21,6 @@ std::expected<void, Data::ApplicationStateIniFileSavingError> Data::SaveApplicat
     file << "CameraPositionX=" << cameraParameters.position.x << "\n";
     file << "CameraPositionY=" << cameraParameters.position.y << "\n";
     file << "CameraPositionZ=" << cameraParameters.position.z << "\n";
-    file << "CameraLookAtX=" << cameraParameters.lookAt.x << "\n";
-    file << "CameraLookAtY=" << cameraParameters.lookAt.y << "\n";
-    file << "CameraLookAtZ=" << cameraParameters.lookAt.z << "\n";
-    file << "CameraUpX=" << cameraParameters.up.x << "\n";
-    file << "CameraUpY=" << cameraParameters.up.y << "\n";
-    file << "CameraUpZ=" << cameraParameters.up.z << "\n";
     file << "CameraZoom=" << cameraParameters.zoom << "\n";
     file << "\n";
 
