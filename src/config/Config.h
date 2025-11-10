@@ -19,7 +19,7 @@ namespace Config
     const unsigned int windowHeight = 1080;
     //const unsigned int windowWidth = 3840;
     //const unsigned int windowHeight = 2160;
-    const std::filesystem::path saveStatePath = "./veda.ini";
+    const std::filesystem::path applicationStateIniFilePath = "./veda.ini";
     const std::filesystem::path datasetPath = "./datasets/knee.raw";
     const bool showLightSourceByDefault = false;
     const float defaultGuiWidthRatio = 0.3f;

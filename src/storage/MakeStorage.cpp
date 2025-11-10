@@ -69,9 +69,9 @@ namespace
         return true;
     }
 
-    Data::ApplicationState LoadApplicationState(const std::filesystem::path& saveStatePath)
+    Data::ApplicationState LoadApplicationState(const std::filesystem::path& applicationStateIniFilePath)
     {
-        auto applicationStateResult = Data::LoadApplicationStateFromIniFile(saveStatePath);
+        auto applicationStateResult = Data::LoadApplicationStateFromIniFile(applicationStateIniFilePath);
         if (!applicationStateResult)
         {
             return Data::ApplicationState{ .guiParameters = Factory::MakeGuiParameters() };
@@ -93,7 +93,7 @@ namespace Factory
     Storage MakeStorage()
     {
         Context::GlfwWindow window;
-        Data::ApplicationState applicationState = LoadApplicationState(Config::saveStatePath);
+        Data::ApplicationState applicationState = LoadApplicationState(Config::applicationStateIniFilePath);
         Camera camera(1.1f, 0.73f, 1.1f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
         DisplayProperties displayProperties = MakeDisplayProperties();
         GuiParameters guiParameters = std::move(applicationState.guiParameters);
