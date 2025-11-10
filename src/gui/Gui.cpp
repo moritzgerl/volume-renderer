@@ -181,7 +181,7 @@ void Gui::Draw()
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, bgColor);
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, bgColor);
         ImGui::Button("##TransferFunctionTopSpacer", ImVec2(-1, 8.0f));
-        ImGui::PopStyleColor();
+        ImGui::PopStyleColor(3);
 
         // Child window for the transfer function
         ImGui::BeginChild("TransferFunctionContent", ImVec2(0, m_transferFunctionHeight), true, ImGuiWindowFlags_None);
