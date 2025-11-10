@@ -7,12 +7,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
-Camera::Camera(float posX, float posY, float posZ, float targetX, float targetY, float targetZ, float upX, float upY, float upZ)
-    : m_zoom(Config::defaultZoom)
-    , m_position(posX, posY, posZ)
-    , m_target(targetX, targetY, targetZ)
-    , m_front(glm::normalize(m_target - m_position))
-    , m_worldUp(upX, upY, upZ)
+Camera::Camera(const glm::vec3& position, const glm::vec3& lookAt, const glm::vec3& up)
+    : m_zoom(Config::defaultCameraZoom)
+    , m_position(position)
+    , m_lookAt(lookAt)
+    , m_front(glm::normalize(m_lookAt - m_position))
+    , m_worldUp(up)
     , m_right(glm::normalize(glm::cross(m_front, m_worldUp)))
     , m_up(glm::normalize(glm::cross(m_right, m_front)))
 {
@@ -40,9 +40,9 @@ void Camera::ProcessMouseScroll(float yoffset)
     {
         m_zoom = 1.0f;
     }
-    if (m_zoom > Config::defaultZoom)
+    if (m_zoom > Config::defaultCameraZoom)
     {
-        m_zoom = Config::defaultZoom;
+        m_zoom = Config::defaultCameraZoom;
     }
 }
 
@@ -57,7 +57,7 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool invertY, fl
     }
 
     // Calculate the vector from target to camera
-    glm::vec3 toCamera = m_position - m_target;
+    glm::vec3 toCamera = m_position - m_lookAt;
     float radius = glm::length(toCamera);
 
     // Horizontal rotation around world up axis
@@ -68,10 +68,10 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool invertY, fl
 
     // Apply rotations
     glm::vec4 rotatedPosition = horizontalRotation * verticalRotation * glm::vec4(toCamera, 1.0f);
-    m_position = m_target + glm::vec3(rotatedPosition);
+    m_position = m_lookAt + glm::vec3(rotatedPosition);
 
     // Update camera vectors
-    m_front = glm::normalize(m_target - m_position);
+    m_front = glm::normalize(m_lookAt - m_position);
     m_right = glm::normalize(glm::cross(m_front, m_worldUp));
     m_up = glm::normalize(glm::cross(m_right, m_front));
 }
