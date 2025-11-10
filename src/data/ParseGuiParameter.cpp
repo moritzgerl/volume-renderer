@@ -4,6 +4,13 @@
 
 namespace
 {
+    unsigned int SanitizePointLightIndex(unsigned int elementIndex, Data::ApplicationStateIniFileSection section, const GuiParameters& guiParameters)
+    {
+        return section == Data::ApplicationStateIniFileSection::PointLight
+            ? std::max(static_cast<size_t>(elementIndex), guiParameters.pointLights.size() - 1)
+            : 0;
+    }
+
     std::variant <Parsing::ParseValueResult<unsigned int>, Parsing::ParseValueResult<float> > ParseValueToVariant(
         Data::ApplicationStateIniFileKey key,
         std::string_view valueString)
@@ -32,8 +39,9 @@ bool Parsing::ParseGuiParameter(
     GuiParameters& guiParameters)
 {   
     auto parseValueResult = ParseValueToVariant(key, valueString);
+    const unsigned int pointLightIndex = SanitizePointLightIndex(elementIndex, section, guiParameters);
     DirectionalLight& directionalLight = guiParameters.directionalLight;
-    PointLight& pointLight = guiParameters.pointLights[elementIndex];
+    PointLight& pointLight = guiParameters.pointLights[pointLightIndex];
     
     return std::visit(
         [&]
