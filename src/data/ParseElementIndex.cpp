@@ -10,11 +10,13 @@ std::expected<unsigned int, Data::ApplicationStateIniFileLoadingError> Parsing::
     {
         case Data::ApplicationStateIniFileSection::TransferFunctionPoint:
         {
+            // TODO make robust
             elementIndexString = line.substr(22, line.size() - 23);
             break;
         }
         case Data::ApplicationStateIniFileSection::PointLight:
         {
+            // TODO make robust
             elementIndexString = line.substr(11, line.size() - 12);
             break;
         }

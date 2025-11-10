@@ -32,9 +32,15 @@ namespace
             && line[0] != ';';
     }
 
-    bool DoesLineContainSectionHeader(const std::string& line)
+    bool IsSectionHeader(const std::string& line)
     {
         return line[0] == '[';
+    }
+
+    bool IsArraySection(Data::ApplicationStateIniFileSection section)
+    {
+        return section == Data::ApplicationStateIniFileSection::TransferFunctionPoint
+            || section == Data::ApplicationStateIniFileSection::PointLight;
     }
 }
 
@@ -69,25 +75,24 @@ std::expected<Data::ApplicationState, Data::ApplicationStateIniFileLoadingError>
             continue;
         }
 
-        if (DoesLineContainSectionHeader(line))
+        if (IsSectionHeader(line))
         {
             currentSection = Parsing::ParseSectionHeader(line);
-            continue;
-        }
 
-        if (currentSection == ApplicationStateIniFileSection::TransferFunctionPoint
-         || currentSection == ApplicationStateIniFileSection::PointLight)
-        {
-            auto elementIndexParseResult = Parsing::ParseElementIndex(line, currentSection);
+            if (IsArraySection(currentSection))
+            {
+                auto elementIndexParseResult = Parsing::ParseElementIndex(line, currentSection);
 
-            if (elementIndexParseResult)
-            {
-                currentElementIndex = elementIndexParseResult.value();
+                if (elementIndexParseResult)
+                {
+                    currentElementIndex = elementIndexParseResult.value();
+                }
+                else
+                {
+                    return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
+                }
             }
-            else
-            {
-                return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
-            }
+
             continue;
         }
 
