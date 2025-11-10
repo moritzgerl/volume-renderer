@@ -1,7 +1,11 @@
 #include <data/LoadApplicationStateFromIniFile.h>
 #include <data/GetApplicationStateIniFileKey.h>
 #include <data/ApplicationStateIniFileSection.h>
+#include <camera/CameraParameters.h>
+#include <camera/MakeDefaultCameraParameters.h>
+#include <gui/GuiParameters.h>
 #include <gui/MakeDefaultGuiParameters.h>
+
 
 #include <charconv>
 #include <fstream>
@@ -70,7 +74,9 @@ std::expected<Data::ApplicationState, Data::ApplicationStateIniFileLoadingError>
         return std::unexpected(ApplicationStateIniFileLoadingError::CannotOpenFile);
     }
 
+    CameraParameters cameraParameters = Factory::MakeDefaultCameraParameters();
     GuiParameters guiParameters = Factory::MakeDefaultGuiParameters();
+    
     guiParameters.transferFunction.numActivePoints = 0;
 
     std::string line;
@@ -501,5 +507,9 @@ std::expected<Data::ApplicationState, Data::ApplicationStateIniFileLoadingError>
         }
     }
 
-    return ApplicationState{ .guiParameters = guiParameters };
+    return ApplicationState
+    {
+        .cameraParameters = cameraParameters,
+        .guiParameters = guiParameters
+    };
 }
