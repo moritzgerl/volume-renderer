@@ -10,8 +10,12 @@ namespace
         Data::ApplicationStateIniFileKey value;
     };
 
-    constexpr std::array<ApplicationStateIniFileKeyMapping, 30> applicationStateIniFileKeyLookup =
+    constexpr std::array<ApplicationStateIniFileKeyMapping, 34> applicationStateIniFileKeyLookup =
     {{
+        {"CameraPositionX", Data::ApplicationStateIniFileKey::CameraPositionX},
+        {"CameraPositionY", Data::ApplicationStateIniFileKey::CameraPositionY},
+        {"CameraPositionZ", Data::ApplicationStateIniFileKey::CameraPositionZ},
+        {"CameraZoom", Data::ApplicationStateIniFileKey::CameraZoom},
         {"Value", Data::ApplicationStateIniFileKey::Value},
         {"ColorR", Data::ApplicationStateIniFileKey::ColorR},
         {"ColorG", Data::ApplicationStateIniFileKey::ColorG},

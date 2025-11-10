@@ -99,7 +99,11 @@ std::expected<Data::ApplicationState, Data::ApplicationStateIniFileLoadingError>
         // Check for section header
         if (line[0] == '[')
         {
-            if (line == "[GuiParameters]")
+            if (line == "[CameraParameters]")
+            {
+                currentSection = ApplicationStateIniFileSection::CameraParameters;
+            }
+            else if (line == "[GuiParameters]")
             {
                 currentSection = ApplicationStateIniFileSection::GuiParameters;
             }
@@ -174,6 +178,39 @@ std::expected<Data::ApplicationState, Data::ApplicationStateIniFileLoadingError>
 
         switch (currentSection)
         {
+            case ApplicationStateIniFileSection::CameraParameters:
+            {
+                switch (key)
+                {
+                    case ApplicationStateIniFileKey::CameraPositionX:
+                        if (!ParseValue(valueString, cameraParameters.position.x))
+                        {
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
+                        }
+                        break;
+                    case ApplicationStateIniFileKey::CameraPositionY:
+                        if (!ParseValue(valueString, cameraParameters.position.y))
+                        {
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
+                        }
+                        break;
+                    case ApplicationStateIniFileKey::CameraPositionZ:
+                        if (!ParseValue(valueString, cameraParameters.position.z))
+                        {
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
+                        }
+                        break;
+                    case ApplicationStateIniFileKey::CameraZoom:
+                        if (!ParseValue(valueString, cameraParameters.zoom))
+                        {
+                            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            }
             case ApplicationStateIniFileSection::TransferFunctionPoint:
             {
                 if (currentPointIndex < 0)
