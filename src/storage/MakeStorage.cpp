@@ -95,9 +95,9 @@ namespace Factory
     {
         Context::GlfwWindow window;
         Data::ApplicationState applicationState = LoadApplicationState(Config::applicationStateIniFilePath);
-        Camera camera(Config::defaultCameraPosition, Config::defaultCameraLookAt, Config::defaultCameraUp);
-        DisplayProperties displayProperties = MakeDisplayProperties();
+        Camera camera(applicationState.cameraParameters);        
         GuiParameters guiParameters = std::move(applicationState.guiParameters);
+        DisplayProperties displayProperties = MakeDisplayProperties();
         Data::VolumeData volumeData = LoadVolume(Config::datasetPath);
         GuiUpdateFlags guiUpdateFlags;
         ScreenQuad screenQuad;

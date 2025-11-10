@@ -1,18 +1,19 @@
 // Copyright https://learnopengl.com/
 
 #include <camera/Camera.h>
+#include <camera/CameraParameters.h>
 #include <config/Config.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 
-Camera::Camera(const glm::vec3& position, const glm::vec3& lookAt, const glm::vec3& up)
-    : m_zoom(Config::defaultCameraZoom)
-    , m_position(position)
-    , m_lookAt(lookAt)
+Camera::Camera(const CameraParameters& cameraParameters)
+    : m_zoom(cameraParameters.zoom)
+    , m_position(cameraParameters.position)
+    , m_lookAt(cameraParameters.lookAt)
     , m_front(glm::normalize(m_lookAt - m_position))
-    , m_worldUp(up)
+    , m_worldUp(cameraParameters.up)
     , m_right(glm::normalize(glm::cross(m_front, m_worldUp)))
     , m_up(glm::normalize(glm::cross(m_right, m_front)))
 {

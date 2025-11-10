@@ -5,10 +5,12 @@
 
 #include <glm/glm.hpp>
 
+struct CameraParameters;
+
 class Camera
 {
 public:
-    Camera(const glm::vec3& position, const glm::vec3& lookAt, const glm::vec3& up);
+    Camera(const CameraParameters& cameraParameters);
 
     float GetZoom() const;
     glm::vec3 GetPosition() const;
