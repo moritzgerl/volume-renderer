@@ -6,6 +6,14 @@ namespace Data
     /// Keys for application state INI file parsing
     enum class ApplicationStateIniFileKey
     {   
+        // Common
+        PositionX,
+        PositionY,
+        PositionZ,
+
+        // Camera
+        Zoom,
+
         // Transfer function points
         Value,
         ColorR,
@@ -13,25 +21,21 @@ namespace Data
         ColorB,
         Opacity,
 
-        // Camera parameters
-        Zoom,
-        InvertYAxis,
-        Sensitivity,
+        // Trackball        
+        TrackballInvertYAxis,
+        TrackballSensitivity,
 
         // SSAO
-        KernelSize,
-        NoiseSize,
-        Radius,
-        Bias,
-        Enable,
+        SsaoKernelSize,
+        SsaoNoiseSize,
+        SsaoRadius,
+        SsaoBias,
+        SsaoEnable,
 
         // Lights (shared by directional and point lights)
         DirectionX,
         DirectionY,
         DirectionZ,
-        PositionX,
-        PositionY,
-        PositionZ,
         AmbientR,
         AmbientG,
         AmbientB,

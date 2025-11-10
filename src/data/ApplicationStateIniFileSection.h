@@ -6,11 +6,11 @@ namespace Data
     enum class ApplicationStateIniFileSection
     {
         None,
-        CameraParameters,
+        Camera,
         GuiParameters,
         TransferFunction,
         TransferFunctionPoint,
-        Camera,
+        Trackball,
         SSAO,
         DirectionalLight,
         PointLight,

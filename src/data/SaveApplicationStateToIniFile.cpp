@@ -14,20 +14,17 @@ std::expected<void, Data::ApplicationStateIniFileSavingError> Data::SaveApplicat
         return std::unexpected(ApplicationStateIniFileSavingError::CannotOpenFile);
     }
 
-    // Camera parameters
     const CameraParameters& cameraParameters = applicationState.cameraParameters;
+    const GuiParameters& guiParameters = applicationState.guiParameters;
+
+    file << std::fixed << std::setprecision(6);
     
-    file << "[CameraParameters]\n";
+    file << "[Camera]\n";
     file << "PositionX=" << cameraParameters.position.x << "\n";
     file << "PositionY=" << cameraParameters.position.y << "\n";
     file << "PositionZ=" << cameraParameters.position.z << "\n";
     file << "Zoom=" << cameraParameters.zoom << "\n";
     file << "\n";
-
-    // GUI parameters
-    const GuiParameters& guiParameters = applicationState.guiParameters;
-
-    file << std::fixed << std::setprecision(6);
 
     file << "[GuiParameters]\n";
 
@@ -39,7 +36,7 @@ std::expected<void, Data::ApplicationStateIniFileSavingError> Data::SaveApplicat
     {
         const auto& point = guiParameters.transferFunction.controlPoints[i];
 
-        file << "[Point" << i << "]\n";
+        file << "[TransferFunctionPoint" << i << "]\n";
         file << "Value=" << point.value << "\n";
         file << "ColorR=" << point.color.r << "\n";
         file << "ColorG=" << point.color.g << "\n";
@@ -48,19 +45,19 @@ std::expected<void, Data::ApplicationStateIniFileSavingError> Data::SaveApplicat
         file << "\n";
     }
 
-    // Camera
-    file << "[Camera]\n";
-    file << "InvertYAxis=" << (guiParameters.trackballInvertYAxis ? 1 : 0) << "\n";
-    file << "Sensitivity=" << guiParameters.trackballSensitivity << "\n";
+    // Trackball
+    file << "[Trackball]\n";
+    file << "TrackballInvertYAxis=" << (guiParameters.trackballInvertYAxis ? 1 : 0) << "\n";
+    file << "TrackballSensitivity=" << guiParameters.trackballSensitivity << "\n";
     file << "\n";
 
     // SSAO
     file << "[SSAO]\n";
-    file << "KernelSize=" << guiParameters.ssaoKernelSize << "\n";
-    file << "NoiseSize=" << guiParameters.ssaoNoiseSize << "\n";
-    file << "Radius=" << guiParameters.ssaoRadius << "\n";
-    file << "Bias=" << guiParameters.ssaoBias << "\n";
-    file << "Enable=" << (guiParameters.enableSsao ? 1 : 0) << "\n";
+    file << "SsaoKernelSize=" << guiParameters.ssaoKernelSize << "\n";
+    file << "SsaoNoiseSize=" << guiParameters.ssaoNoiseSize << "\n";
+    file << "SsaoRadius=" << guiParameters.ssaoRadius << "\n";
+    file << "SsaoBias=" << guiParameters.ssaoBias << "\n";
+    file << "SsaoEnable=" << (guiParameters.enableSsao ? 1 : 0) << "\n";
     file << "\n";
 
     // Directional Light

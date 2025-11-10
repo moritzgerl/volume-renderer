@@ -5,7 +5,7 @@ TransferFunction MakeDefaultTransferFunction()
     TransferFunction tf;
     tf.numActivePoints = 3;
 
-    // First control point at 0.0
+    // First control point at 0.0    
     tf.controlPoints[0].value = 0.0f;
     tf.controlPoints[0].color = glm::vec3(0.0f, 0.0f, 0.0f);
     tf.controlPoints[0].opacity = 0.0f;

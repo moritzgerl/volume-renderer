@@ -100,8 +100,8 @@ void Gui::Draw()
     {
         if (MakeSliderInt("Kernel Size", reinterpret_cast<int*>(&m_guiParameters.ssaoKernelSize), 32, 128) ||
             MakeSliderInt("Noise Size", reinterpret_cast<int*>(&m_guiParameters.ssaoNoiseSize), 4, 16) ||
-            MakeSliderFloat("Radius", &m_guiParameters.ssaoRadius, 0.0f, 1.0f) ||
-            MakeSliderFloat("Bias", &m_guiParameters.ssaoBias, 0.0f, 0.1f) ||
+            MakeSliderFloat("SsaoRadius", &m_guiParameters.ssaoRadius, 0.0f, 1.0f) ||
+            MakeSliderFloat("SsaoBias", &m_guiParameters.ssaoBias, 0.0f, 0.1f) ||
             MakeCheckbox("Enable", &m_guiParameters.enableSsao))
         {
             m_guiUpdateFlags.ssaoParametersChanged = true;
