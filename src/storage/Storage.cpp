@@ -142,5 +142,8 @@ const Data::VolumeData& Storage::GetVolumeData() const
 
 void Storage::SaveApplicationState() const
 {
-    [[maybe_unused]] auto result = Data::SaveApplicationStateToIniFile(m_guiParameters, Config::saveStatePath);
+    Data::ApplicationState applicationState{ .guiParameters = m_guiParameters };
+    [[maybe_unused]] auto result = Data::SaveApplicationStateToIniFile(applicationState, Config::saveStatePath);
+
+    // TODO print error if saving failed
 }

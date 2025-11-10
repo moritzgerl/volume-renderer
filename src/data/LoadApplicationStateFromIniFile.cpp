@@ -57,7 +57,7 @@ namespace
     }
 }
 
-std::expected<GuiParameters, Data::ApplicationStateIniFileLoadingError> Data::LoadApplicationStateFromIniFile(const std::filesystem::path& iniFilePath)
+std::expected<Data::ApplicationState, Data::ApplicationStateIniFileLoadingError> Data::LoadApplicationStateFromIniFile(const std::filesystem::path& iniFilePath)
 {
     if (!std::filesystem::exists(iniFilePath))
     {
@@ -501,5 +501,5 @@ std::expected<GuiParameters, Data::ApplicationStateIniFileLoadingError> Data::Lo
         }
     }
 
-    return guiParameters;
+    return ApplicationState{ .guiParameters = guiParameters };
 }

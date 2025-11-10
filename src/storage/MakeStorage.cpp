@@ -71,13 +71,13 @@ namespace
 
     GuiParameters LoadGuiParameters(const std::filesystem::path& saveStatePath)
     {
-        auto guiParametersResult = Data::LoadApplicationStateFromIniFile(saveStatePath);
-        if (!guiParametersResult)
+        auto applicationStateResult = Data::LoadApplicationStateFromIniFile(saveStatePath);
+        if (!applicationStateResult)
         {
             return Factory::MakeGuiParameters();
         }
 
-        GuiParameters guiParameters = std::move(guiParametersResult).value();
+        GuiParameters guiParameters = std::move(applicationStateResult).value().guiParameters;
 
         if (!IsTransferFunctionValid(guiParameters.transferFunction))
         {
