@@ -2,7 +2,7 @@
 #define TRANSFER_FUNCTION_GUI_H
 
 struct GuiUpdateFlags;
-struct TransferFunction;
+class TransferFunction;
 
 namespace TransferFunctionGui
 {

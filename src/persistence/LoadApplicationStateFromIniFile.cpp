@@ -59,7 +59,7 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
     CameraParameters cameraParameters = Factory::MakeDefaultCameraParameters();
     GuiParameters guiParameters = Factory::MakeDefaultGuiParameters();
 
-    guiParameters.transferFunction.numActivePoints = 0;
+    guiParameters.transferFunction.SetNumActivePoints(0);
 
     std::string line;
     ApplicationStateIniFileSection currentSection = ApplicationStateIniFileSection::None;
@@ -123,7 +123,7 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
 
             case ApplicationStateIniFileSection::TransferFunctionPoint:
             {
-                TransferFunctionControlPoint& point = guiParameters.transferFunction.controlPoints[currentElementIndex];
+                TransferFunctionControlPoint& point = guiParameters.transferFunction[currentElementIndex];
 
                 const auto transferFunctionPointParseResult = ParseTransferFunctionControlPoint(key, valueString, point);
 
@@ -166,7 +166,7 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
 
     if (foundTransferFunctionPoint)
     {
-        guiParameters.transferFunction.numActivePoints = maxTransferFunctionPointIndex + 1;
+        guiParameters.transferFunction.SetNumActivePoints(maxTransferFunctionPointIndex + 1);
     }
 
     return ApplicationState

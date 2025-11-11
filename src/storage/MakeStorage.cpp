@@ -42,20 +42,20 @@ namespace
 
     bool IsTransferFunctionValid(const TransferFunction& transferFunction)
     {
-        if (transferFunction.numActivePoints == 0)
+        if (transferFunction.GetNumActivePoints() == 0)
         {
             return false;
         }
 
-        if (transferFunction.numActivePoints > TransferFunction::maxControlPoints)
+        if (transferFunction.GetNumActivePoints() > TransferFunction::maxControlPoints)
         {
             return false;
         }
 
         // TODO better
-        for (size_t i = 0; i < transferFunction.numActivePoints; ++i)
+        for (size_t i = 0; i < transferFunction.GetNumActivePoints(); ++i)
         {
-            const auto& point = transferFunction.controlPoints[i];
+            const auto& point = transferFunction[i];
             if (point.value < 0.0f || point.value > 1.0f ||
                 point.opacity < 0.0f || point.opacity > 1.0f ||
                 point.color.r < 0.0f || point.color.r > 1.0f ||

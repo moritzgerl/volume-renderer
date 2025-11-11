@@ -34,9 +34,9 @@ std::expected<void, Persistence::ApplicationStateIniFileSavingError> Persistence
     file << SectionNames::transferFunction << "\n";
     file << "\n";
 
-    for (size_t i = 0; i < guiParameters.transferFunction.numActivePoints; ++i)
+    for (size_t i = 0; i < guiParameters.transferFunction.GetNumActivePoints(); ++i)
     {
-        const auto& point = guiParameters.transferFunction.controlPoints[i];
+        const auto& point = guiParameters.transferFunction[i];
 
         file << SectionNames::transferFunctionPointPrefix << i << "]\n";
         file << "Value=" << point.value << "\n";

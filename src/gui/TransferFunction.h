@@ -5,11 +5,26 @@
 
 #include <array>
 
-struct TransferFunction
+class TransferFunction
 {
+public:
     static constexpr size_t maxControlPoints = 8;
-    std::array<TransferFunctionControlPoint, maxControlPoints> controlPoints;
-    size_t numActivePoints;
+
+    TransferFunction();
+
+    size_t GetNumActivePoints() const;
+    void SetNumActivePoints(size_t count);
+    void IncrementNumActivePoints();
+
+    const std::array<TransferFunctionControlPoint, maxControlPoints>& GetControlPoints() const;
+    std::array<TransferFunctionControlPoint, maxControlPoints>& GetControlPoints();
+
+    const TransferFunctionControlPoint& operator[](size_t index) const;
+    TransferFunctionControlPoint& operator[](size_t index);
+
+private:
+    std::array<TransferFunctionControlPoint, maxControlPoints> m_controlPoints;
+    size_t m_numActivePoints;
 };
 
 #endif
