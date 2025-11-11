@@ -8,7 +8,7 @@
 
 namespace Factory
 {
-    std::vector<Texture> MakeTextures(const Data::VolumeData& volumeData, const SsaoUtils& ssaoUtils)
+    std::vector<Texture> MakeTextures(const VolumeData::VolumeData& volumeData, const SsaoUtils& ssaoUtils)
     {
         std::vector<Texture> textures;
         textures.reserve(8);

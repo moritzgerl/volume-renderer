@@ -1,7 +1,7 @@
 #ifndef APPLICATION_STATE_INI_FILE_SECTION_H
 #define APPLICATION_STATE_INI_FILE_SECTION_H
 
-namespace Data
+namespace Persistence
 {
     enum class ApplicationStateIniFileSection
     {

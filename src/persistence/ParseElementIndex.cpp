@@ -2,19 +2,19 @@
 #include <persistence/ParseValue.h>
 #include <persistence/ApplicationStateIniFileSection.h>
 
-std::expected<unsigned int, Data::ApplicationStateIniFileLoadingError> Parsing::ParseElementIndex(const std::string_view line, Data::ApplicationStateIniFileSection currentSection)
+std::expected<unsigned int, Persistence::ApplicationStateIniFileLoadingError> Persistence::ParseElementIndex(const std::string_view line, Persistence::ApplicationStateIniFileSection currentSection)
 {
     std::string_view elementIndexString;
     
     switch (currentSection)
     {
-        case Data::ApplicationStateIniFileSection::TransferFunctionPoint:
+        case ApplicationStateIniFileSection::TransferFunctionPoint:
         {
             // TODO make robust
             elementIndexString = line.substr(22, line.size() - 23);
             break;
         }
-        case Data::ApplicationStateIniFileSection::PointLight:
+        case ApplicationStateIniFileSection::PointLight:
         {
             // TODO make robust
             elementIndexString = line.substr(11, line.size() - 12);
@@ -22,11 +22,11 @@ std::expected<unsigned int, Data::ApplicationStateIniFileLoadingError> Parsing::
         }
         default:
         {
-            return std::unexpected(Data::ApplicationStateIniFileLoadingError::ParseError);
+            return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
         }
     }    
     
-    auto parseValueResult = Parsing::ParseValue<unsigned int>(elementIndexString);
+    auto parseValueResult = ParseValue<unsigned int>(elementIndexString);
 
     if (parseValueResult)
     {
@@ -34,6 +34,6 @@ std::expected<unsigned int, Data::ApplicationStateIniFileLoadingError> Parsing::
     }
     else
     {
-        return std::unexpected(Data::ApplicationStateIniFileLoadingError::ParseError);
+        return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
     }
 }

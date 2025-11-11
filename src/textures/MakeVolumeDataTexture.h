@@ -4,14 +4,14 @@
 #include <textures/Texture.h>
 #include <textures/TextureId.h>
 
-namespace Data
+namespace VolumeData
 {
     class VolumeData;
 }
 
 namespace Factory
 {
-    Texture MakeVolumeDataTexture(TextureId textureId, unsigned int textureUnit, const Data::VolumeData& volumeData);
+    Texture MakeVolumeDataTexture(TextureId textureId, unsigned int textureUnit, const VolumeData::VolumeData& volumeData);
 }
 
 #endif

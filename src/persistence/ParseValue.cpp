@@ -3,7 +3,7 @@
 #include <charconv>
 
 template<typename T>
-Parsing::ParseValueResult<T> Parsing::ParseValue(const std::string_view string)
+Persistence::ParseValueResult<T> Persistence::ParseValue(const std::string_view string)
 {
     // TODO check if this is the best way 
     T out;    
@@ -15,12 +15,12 @@ Parsing::ParseValueResult<T> Parsing::ParseValue(const std::string_view string)
     }
     else
     {
-        return std::unexpected(Data::ApplicationStateIniFileLoadingError::ParseError);
+        return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
     }
 }
 
 template
-Parsing::ParseValueResult<unsigned int> Parsing::ParseValue<unsigned int>(const std::string_view string);
+Persistence::ParseValueResult<unsigned int> Persistence::ParseValue<unsigned int>(const std::string_view string);
 
 template
-Parsing::ParseValueResult<float> Parsing::ParseValue<float>(const std::string_view string);
+Persistence::ParseValueResult<float> Persistence::ParseValue<float>(const std::string_view string);

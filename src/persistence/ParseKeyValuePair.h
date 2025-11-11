@@ -4,10 +4,10 @@
 #include <persistence/KeyValuePair.h>
 #include <string>
 
-namespace Parsing
+namespace Persistence
 {   
     // TODO use std::expected    
-    Data::KeyValuePair ParseKeyValuePair(const std::string& line);
+    KeyValuePair ParseKeyValuePair(const std::string& line);
 }
 
 #endif

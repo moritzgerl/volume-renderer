@@ -4,7 +4,7 @@
 #include <camera/CameraParameters.h>
 #include <gui/GuiParameters.h>
 
-namespace Data
+namespace Persistence
 {
     struct ApplicationState
     {

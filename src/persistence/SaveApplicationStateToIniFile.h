@@ -7,7 +7,7 @@
 #include <expected>
 #include <filesystem>
 
-namespace Data
+namespace Persistence
 {
     std::expected<void, ApplicationStateIniFileSavingError> SaveApplicationStateToIniFile(const ApplicationState& applicationState, const std::filesystem::path& iniFilePath);
 }

@@ -4,7 +4,7 @@
 #include <volumedata/VolumeMetadataKey.h>
 #include <string_view>
 
-namespace Data
+namespace VolumeData
 {   
     VolumeMetadataKey GetVolumeMetadataKey(std::string_view key);
 }

@@ -4,7 +4,7 @@
 #include <persistence/ApplicationStateIniFileKey.h>
 #include <string_view>
 
-namespace Data
+namespace Persistence
 {
     ApplicationStateIniFileKey GetApplicationStateIniFileKey(std::string_view key);
 }

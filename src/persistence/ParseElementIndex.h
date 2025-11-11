@@ -6,9 +6,9 @@
 #include <expected>
 #include <string_view>
 
-namespace Parsing
+namespace Persistence
 {   
-    std::expected<unsigned int, Data::ApplicationStateIniFileLoadingError> ParseElementIndex(const std::string_view line, Data::ApplicationStateIniFileSection currentSection);
+    std::expected<unsigned int, ApplicationStateIniFileLoadingError> ParseElementIndex(const std::string_view line, ApplicationStateIniFileSection currentSection);
 }
 
 #endif

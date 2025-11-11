@@ -6,11 +6,11 @@
 #include <camera/CameraParameters.h>
 #include <string_view>
 
-namespace Parsing
+namespace Persistence
 {   
     // TODO find a better return type
     bool ParseCameraParameter(
-       Data::ApplicationStateIniFileKey key,
+       ApplicationStateIniFileKey key,
        std::string_view valueString, 
        CameraParameters& cameraParameters);
 }

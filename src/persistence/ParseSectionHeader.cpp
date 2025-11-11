@@ -1,40 +1,40 @@
 #include <persistence/ParseSectionHeader.h>
 
-Data::ApplicationStateIniFileSection Parsing::ParseSectionHeader(std::string_view line)
+Persistence::ApplicationStateIniFileSection Persistence::ParseSectionHeader(std::string_view line)
 {
     // TODO use constexpr lookup
     if (line == "[Camera]")
     {
-        return Data::ApplicationStateIniFileSection::Camera;
+        return ApplicationStateIniFileSection::Camera;
     }
     else if (line == "[GuiParameters]")
     {
-        return Data::ApplicationStateIniFileSection::GuiParameters;
+        return ApplicationStateIniFileSection::GuiParameters;
     }
     else if (line == "[TransferFunction]")
     {
-        return Data::ApplicationStateIniFileSection::TransferFunction;
+        return ApplicationStateIniFileSection::TransferFunction;
     }
     else if (line == "[SSAO]")
     {
-        return Data::ApplicationStateIniFileSection::SSAO;
+        return ApplicationStateIniFileSection::SSAO;
     }
     else if (line == "[DirectionalLight]")
     {
-        return Data::ApplicationStateIniFileSection::DirectionalLight;
+        return ApplicationStateIniFileSection::DirectionalLight;
     }
     else if (line == "[Rendering]")
     {
-        return Data::ApplicationStateIniFileSection::Rendering;
+        return ApplicationStateIniFileSection::Rendering;
     }
     else if (line.substr(0, 22) == "[TransferFunctionPoint")
     {
-        return Data::ApplicationStateIniFileSection::TransferFunctionPoint;
+        return ApplicationStateIniFileSection::TransferFunctionPoint;
     }
     else if (line.substr(0, 11) == "[PointLight")
     {
-        return Data::ApplicationStateIniFileSection::PointLight;
+        return ApplicationStateIniFileSection::PointLight;
     }
 
-    return Data::ApplicationStateIniFileSection::None;
+    return ApplicationStateIniFileSection::None;
 }

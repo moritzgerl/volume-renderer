@@ -1,7 +1,7 @@
 #ifndef VOLUME_METADATA_KEY_H
 #define VOLUME_METADATA_KEY_H
 
-namespace Data
+namespace VolumeData
 {
     /// Metadata keys for volume file parsing
     enum class VolumeMetadataKey

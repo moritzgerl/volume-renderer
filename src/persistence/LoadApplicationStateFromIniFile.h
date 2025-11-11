@@ -7,7 +7,7 @@
 #include <expected>
 #include <filesystem>
 
-namespace Data
+namespace Persistence
 {
     std::expected<ApplicationState, ApplicationStateIniFileLoadingError> LoadApplicationStateFromIniFile(const std::filesystem::path& iniFilePath);
 }

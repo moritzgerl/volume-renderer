@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace Data
+namespace VolumeData
 {
 
     class VolumeMetadata {
@@ -48,6 +48,6 @@ namespace Data
         float m_scaleZ;               // Physical spacing in Z direction
     };
 
-} // namespace Data
+} // namespace VolumeData
 
 #endif

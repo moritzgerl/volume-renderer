@@ -7,11 +7,11 @@
 #include <expected>
 #include <string_view>
 
-namespace Parsing
+namespace Persistence
 {   
     // TODO find a better return type
     bool ParseTransferFunctionControlPoint(
-        Data::ApplicationStateIniFileKey key,
+        ApplicationStateIniFileKey key,
         std::string_view valueString,
         TransferFunctionControlPoint& point);
 }

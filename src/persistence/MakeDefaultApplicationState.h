@@ -2,5 +2,5 @@
 
 namespace Factory
 {
-    Data::ApplicationState MakeDefaultApplicationState();
+    Persistence::ApplicationState MakeDefaultApplicationState();
 }

@@ -6,7 +6,7 @@
 #include <fstream>
 #include <iomanip>
 
-std::expected<void, Data::ApplicationStateIniFileSavingError> Data::SaveApplicationStateToIniFile(const ApplicationState& applicationState, const std::filesystem::path& iniFilePath)
+std::expected<void, Persistence::ApplicationStateIniFileSavingError> Persistence::SaveApplicationStateToIniFile(const ApplicationState& applicationState, const std::filesystem::path& iniFilePath)
 {
     std::ofstream file(iniFilePath);
     if (!file.is_open())

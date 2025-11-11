@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <vector>
 
-namespace Data
+namespace VolumeData
 {
 
     class VolumeData

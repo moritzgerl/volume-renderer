@@ -1,17 +1,17 @@
 #include <persistence/ParseTransferFunctionControlPoint.h>
 #include <persistence/ParseValue.h>
 
-bool Parsing::ParseTransferFunctionControlPoint(
-    Data::ApplicationStateIniFileKey key,    
+bool Persistence::ParseTransferFunctionControlPoint(
+    ApplicationStateIniFileKey key,    
     std::string_view valueString,
     TransferFunctionControlPoint& point)
 {
-    auto parseValueResult = Parsing::ParseValue<float>(valueString);
+    auto parseValueResult = ParseValue<float>(valueString);
 
     if (parseValueResult)
     {
         const float& value = parseValueResult.value();
-        using Key = Data::ApplicationStateIniFileKey;
+        using Key = ApplicationStateIniFileKey;
 
         switch (key)
         {

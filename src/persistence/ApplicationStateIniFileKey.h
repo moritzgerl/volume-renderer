@@ -1,7 +1,7 @@
 #ifndef APPLICATION_STATE_INI_FILE_KEY_H
 #define APPLICATION_STATE_INI_FILE_KEY_H
 
-namespace Data
+namespace Persistence
 {
     /// Keys for application state INI file parsing
     enum class ApplicationStateIniFileKey

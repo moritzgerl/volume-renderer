@@ -4,7 +4,7 @@
 #include <textures/Texture.h>
 #include <vector>
 
-namespace Data
+namespace VolumeData
 {
     class VolumeData;
 }
@@ -13,7 +13,7 @@ class SsaoUtils;
 
 namespace Factory
 {
-    std::vector<Texture> MakeTextures(const Data::VolumeData& volumeData, const SsaoUtils& ssaoUtils);
+    std::vector<Texture> MakeTextures(const VolumeData::VolumeData& volumeData, const SsaoUtils& ssaoUtils);
 }
 
 #endif

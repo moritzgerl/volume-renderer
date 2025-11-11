@@ -1,17 +1,17 @@
 #include <persistence/ParseCameraParameter.h>
 #include <persistence/ParseValue.h>
 
-bool Parsing::ParseCameraParameter(
-    Data::ApplicationStateIniFileKey key,
+bool Persistence::ParseCameraParameter(
+    ApplicationStateIniFileKey key,
     std::string_view valueString,
     CameraParameters& cameraParameters)
 {
-    auto parseValueResult = Parsing::ParseValue<float>(valueString);
+    auto parseValueResult = ParseValue<float>(valueString);
 
     if (parseValueResult)
     {
         const float& value = parseValueResult.value();
-        using Key = Data::ApplicationStateIniFileKey;
+        using Key = ApplicationStateIniFileKey;
 
         switch (key)
         {

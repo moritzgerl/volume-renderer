@@ -7,23 +7,23 @@ namespace
     struct VolumeMetadataKeyMapping
     {
         std::string_view key;
-        Data::VolumeMetadataKey value;
+        VolumeData::VolumeMetadataKey value;
     };
 
     constexpr std::array<VolumeMetadataKeyMapping, 8> volumeMetadataKeyLookup =
     {{
-        {"Width", Data::VolumeMetadataKey::Width},
-        {"Height", Data::VolumeMetadataKey::Height},
-        {"Depth", Data::VolumeMetadataKey::Depth},
-        {"Components", Data::VolumeMetadataKey::Components},
-        {"BitsPerComponent", Data::VolumeMetadataKey::BitsPerComponent},
-        {"ScaleX", Data::VolumeMetadataKey::ScaleX},
-        {"ScaleY", Data::VolumeMetadataKey::ScaleY},
-        {"ScaleZ", Data::VolumeMetadataKey::ScaleZ}
+        {"Width", VolumeData::VolumeMetadataKey::Width},
+        {"Height", VolumeData::VolumeMetadataKey::Height},
+        {"Depth", VolumeData::VolumeMetadataKey::Depth},
+        {"Components", VolumeData::VolumeMetadataKey::Components},
+        {"BitsPerComponent", VolumeData::VolumeMetadataKey::BitsPerComponent},
+        {"ScaleX", VolumeData::VolumeMetadataKey::ScaleX},
+        {"ScaleY", VolumeData::VolumeMetadataKey::ScaleY},
+        {"ScaleZ", VolumeData::VolumeMetadataKey::ScaleZ}
     }};
 }
 
-Data::VolumeMetadataKey Data::GetVolumeMetadataKey(std::string_view key)
+VolumeData::VolumeMetadataKey VolumeData::GetVolumeMetadataKey(std::string_view key)
 {
     auto it = std::find_if(volumeMetadataKeyLookup.begin(), volumeMetadataKeyLookup.end(),
         [key](const VolumeMetadataKeyMapping& mapping)

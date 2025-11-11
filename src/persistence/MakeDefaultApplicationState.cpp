@@ -2,9 +2,9 @@
 #include <camera/MakeDefaultCameraParameters.h>
 #include <gui/MakeDefaultGuiParameters.h>
 
-Data::ApplicationState Factory::MakeDefaultApplicationState()
+Persistence::ApplicationState Factory::MakeDefaultApplicationState()
 {
-    Data::ApplicationState applicationState
+    Persistence::ApplicationState applicationState
     {
         .cameraParameters = MakeDefaultCameraParameters(),
         .guiParameters = MakeDefaultGuiParameters()

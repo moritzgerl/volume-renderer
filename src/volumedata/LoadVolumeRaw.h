@@ -6,7 +6,7 @@
 
 #include <filesystem>
 
-namespace Data
+namespace VolumeData
 {
     /// Load a raw volume file using metadata from a companion .ini file
     ///

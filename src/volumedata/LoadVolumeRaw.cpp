@@ -28,17 +28,17 @@ namespace
     /// ScaleX=1.0
     /// ScaleY=1.0
     /// ScaleZ=1.0
-    std::expected<void, Data::VolumeLoadingError> LoadMetadataFromIni(const std::filesystem::path& iniFilePath, Data::VolumeMetadata& metadata)
+    std::expected<void, VolumeData::VolumeLoadingError> LoadMetadataFromIni(const std::filesystem::path& iniFilePath, VolumeData::VolumeMetadata& metadata)
     {
         if (!std::filesystem::exists(iniFilePath))
         {
-            return std::unexpected(Data::VolumeLoadingError::MetadataFileNotFound);
+            return std::unexpected(VolumeData::VolumeLoadingError::MetadataFileNotFound);
         }
 
         std::ifstream file(iniFilePath);
         if (!file.is_open())
         {
-            return std::unexpected(Data::VolumeLoadingError::CannotOpenMetadataFile);
+            return std::unexpected(VolumeData::VolumeLoadingError::CannotOpenMetadataFile);
         }
 
         std::string line;
@@ -84,89 +84,89 @@ namespace
             valueString.erase(0, valueString.find_first_not_of(" \t"));
             valueString.erase(valueString.find_last_not_of(" \t") + 1);
 
-            switch (Data::GetVolumeMetadataKey(keyString))
+            switch (VolumeData::GetVolumeMetadataKey(keyString))
             {
-                case Data::VolumeMetadataKey::Width:
+                case VolumeData::VolumeMetadataKey::Width:
                 {
                     size_t width;
                     if (!ParseValue(valueString, width))
                     {
-                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                        return std::unexpected(VolumeData::VolumeLoadingError::MetadataParseError);
                     }
                     metadata.SetWidth(static_cast<uint32_t>(width));
                     break;
                 }
-                case Data::VolumeMetadataKey::Height:
+                case VolumeData::VolumeMetadataKey::Height:
                 {
                     size_t height;
                     if (!ParseValue(valueString, height))
                     {
-                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                        return std::unexpected(VolumeData::VolumeLoadingError::MetadataParseError);
                     }
                     metadata.SetHeight(static_cast<uint32_t>(height));
                     break;
                 }
-                case Data::VolumeMetadataKey::Depth:
+                case VolumeData::VolumeMetadataKey::Depth:
                 {
                     size_t depth;
                     if (!ParseValue(valueString, depth))
                     {
-                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                        return std::unexpected(VolumeData::VolumeLoadingError::MetadataParseError);
                     }
                     metadata.SetDepth(static_cast<uint32_t>(depth));
                     break;
                 }
-                case Data::VolumeMetadataKey::Components:
+                case VolumeData::VolumeMetadataKey::Components:
                 {
                     size_t components;
                     if (!ParseValue(valueString, components))
                     {
-                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                        return std::unexpected(VolumeData::VolumeLoadingError::MetadataParseError);
                     }
                     metadata.SetComponents(static_cast<uint32_t>(components));
                     break;
                 }
-                case Data::VolumeMetadataKey::BitsPerComponent:
+                case VolumeData::VolumeMetadataKey::BitsPerComponent:
                 {
                     size_t bitsPerComponent;
                     if (!ParseValue(valueString, bitsPerComponent))
                     {
-                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                        return std::unexpected(VolumeData::VolumeLoadingError::MetadataParseError);
                     }
                     metadata.SetBitsPerComponent(static_cast<uint32_t>(bitsPerComponent));
                     break;
                 }
-                case Data::VolumeMetadataKey::ScaleX:
+                case VolumeData::VolumeMetadataKey::ScaleX:
                 {
                     float scaleX;
                     if (!ParseValue(valueString, scaleX))
                     {
-                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                        return std::unexpected(VolumeData::VolumeLoadingError::MetadataParseError);
                     }
                     metadata.SetScaleX(scaleX);
                     break;
                 }
-                case Data::VolumeMetadataKey::ScaleY:
+                case VolumeData::VolumeMetadataKey::ScaleY:
                 {
                     float scaleY;
                     if (!ParseValue(valueString, scaleY))
                     {
-                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                        return std::unexpected(VolumeData::VolumeLoadingError::MetadataParseError);
                     }
                     metadata.SetScaleY(scaleY);
                     break;
                 }
-                case Data::VolumeMetadataKey::ScaleZ:
+                case VolumeData::VolumeMetadataKey::ScaleZ:
                 {
                     float scaleZ;
                     if (!ParseValue(valueString, scaleZ))
                     {
-                        return std::unexpected(Data::VolumeLoadingError::MetadataParseError);
+                        return std::unexpected(VolumeData::VolumeLoadingError::MetadataParseError);
                     }
                     metadata.SetScaleZ(scaleZ);
                     break;
                 }
-                case Data::VolumeMetadataKey::Unknown:
+                case VolumeData::VolumeMetadataKey::Unknown:
                     // Ignore unknown keys
                     break;
             }
@@ -174,18 +174,18 @@ namespace
 
         if (!metadata.IsValid())
         {
-            return std::unexpected(Data::VolumeLoadingError::InvalidMetadata);
+            return std::unexpected(VolumeData::VolumeLoadingError::InvalidMetadata);
         }
 
         return {};
     }
 
     /// Load raw binary data from file
-    std::expected<void, Data::VolumeLoadingError> LoadRawData(const std::filesystem::path& rawFilePath, Data::VolumeData& volumeData)
+    std::expected<void, VolumeData::VolumeLoadingError> LoadRawData(const std::filesystem::path& rawFilePath, VolumeData::VolumeData& volumeData)
     {
         if (!std::filesystem::exists(rawFilePath))
         {
-            return std::unexpected(Data::VolumeLoadingError::RawFileNotFound);
+            return std::unexpected(VolumeData::VolumeLoadingError::RawFileNotFound);
         }
 
         const size_t expectedSize = volumeData.GetMetadata().GetTotalSizeInBytes();
@@ -193,13 +193,13 @@ namespace
 
         if (fileSize != expectedSize)
         {
-            return std::unexpected(Data::VolumeLoadingError::FileSizeMismatch);
+            return std::unexpected(VolumeData::VolumeLoadingError::FileSizeMismatch);
         }
 
         std::ifstream file(rawFilePath, std::ios::binary);
         if (!file.is_open())
         {
-            return std::unexpected(Data::VolumeLoadingError::CannotOpenRawFile);
+            return std::unexpected(VolumeData::VolumeLoadingError::CannotOpenRawFile);
         }
 
         volumeData.AllocateData(expectedSize);
@@ -207,7 +207,7 @@ namespace
 
         if (!file.good())
         {
-            return std::unexpected(Data::VolumeLoadingError::ReadError);
+            return std::unexpected(VolumeData::VolumeLoadingError::ReadError);
         }
 
         return {};
@@ -215,7 +215,7 @@ namespace
 
 } // anonymous namespace
 
-Data::VolumeLoadingResult Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath)
+VolumeData::VolumeLoadingResult VolumeData::LoadVolumeRaw(const std::filesystem::path& rawFilePath)
 {
     // Load metadata from .ini file
     std::filesystem::path iniFilePath = rawFilePath;
@@ -230,7 +230,7 @@ Data::VolumeLoadingResult Data::LoadVolumeRaw(const std::filesystem::path& rawFi
     return LoadVolumeRaw(rawFilePath, metadata);
 }
 
-Data::VolumeLoadingResult Data::LoadVolumeRaw(const std::filesystem::path& rawFilePath, const VolumeMetadata& metadata)
+VolumeData::VolumeLoadingResult VolumeData::LoadVolumeRaw(const std::filesystem::path& rawFilePath, const VolumeMetadata& metadata)
 {
     if (!metadata.IsValid())
     {

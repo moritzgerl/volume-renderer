@@ -7,10 +7,10 @@
 #include <expected>
 #include <string_view>
 
-namespace Parsing
+namespace Persistence
 {   
-    std::expected<TransferFunctionControlPoint, Data::ApplicationStateIniFileLoadingError> ParseTransferFunctionControlPoint(
-        Data::ApplicationStateIniFileKey applicationStateIniFileKey,
+    std::expected<TransferFunctionControlPoint, ApplicationStateIniFileLoadingError> ParseTransferFunctionControlPoint(
+        ApplicationStateIniFileKey applicationStateIniFileKey,
         std::string_view valueString);
 }
 

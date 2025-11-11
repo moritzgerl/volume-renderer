@@ -3,7 +3,7 @@
 
 #include <string>
 
-namespace Data
+namespace Persistence
 {
     struct KeyValuePair
     {

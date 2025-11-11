@@ -1,7 +1,7 @@
 #ifndef VOLUME_LOADING_ERROR_H
 #define VOLUME_LOADING_ERROR_H
 
-namespace Data
+namespace VolumeData
 {
     /// Error codes for volume loading operations
     enum class VolumeLoadingError

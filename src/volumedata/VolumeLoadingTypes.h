@@ -7,7 +7,7 @@
 #include <expected>
 #include <memory>
 
-namespace Data
+namespace VolumeData
 {
     using VolumeLoadingResult = std::expected<VolumeData, VolumeLoadingError>;
 }

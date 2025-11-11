@@ -13,7 +13,7 @@ Storage::Storage(
     ShaderStorage&& shaderStorage,
     FrameBufferStorage&& frameBufferStorage,
     UnitCube&& unitCube,
-    Data::VolumeData&& volumeData,
+    VolumeData::VolumeData&& volumeData,
     Context::GlfwWindow&& window)
     : m_camera(std::move(camera))
     , m_displayProperties(std::move(displayProperties))
@@ -135,20 +135,20 @@ const Context::GlfwWindow& Storage::GetWindow() const
     return m_window;
 }
 
-const Data::VolumeData& Storage::GetVolumeData() const
+const VolumeData::VolumeData& Storage::GetVolumeData() const
 {
     return m_volumeData;
 }
 
 void Storage::SaveApplicationState() const
 {
-    Data::ApplicationState applicationState
+    Persistence::ApplicationState applicationState
     {
         .cameraParameters = m_camera.GetCameraParameters(),
         .guiParameters = m_guiParameters
     };
 
-    [[maybe_unused]] auto result = Data::SaveApplicationStateToIniFile(applicationState, Config::applicationStateIniFilePath);
+    [[maybe_unused]] auto result = Persistence::SaveApplicationStateToIniFile(applicationState, Config::applicationStateIniFilePath);
 
     // TODO print error if saving failed
 }

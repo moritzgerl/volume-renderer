@@ -37,14 +37,14 @@ namespace
         return line[0] == '[';
     }
 
-    bool IsArraySection(Data::ApplicationStateIniFileSection section)
+    bool IsArraySection(Persistence::ApplicationStateIniFileSection section)
     {
-        return section == Data::ApplicationStateIniFileSection::TransferFunctionPoint
-            || section == Data::ApplicationStateIniFileSection::PointLight;
+        return section == Persistence::ApplicationStateIniFileSection::TransferFunctionPoint
+            || section == Persistence::ApplicationStateIniFileSection::PointLight;
     }
 }
 
-std::expected<Data::ApplicationState, Data::ApplicationStateIniFileLoadingError> Data::LoadApplicationStateFromIniFile(const std::filesystem::path& iniFilePath)
+std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFileLoadingError> Persistence::LoadApplicationStateFromIniFile(const std::filesystem::path& iniFilePath)
 {
     if (!std::filesystem::exists(iniFilePath))
     {
@@ -77,11 +77,11 @@ std::expected<Data::ApplicationState, Data::ApplicationStateIniFileLoadingError>
 
         if (IsSectionHeader(line))
         {
-            currentSection = Parsing::ParseSectionHeader(line);
+            currentSection = ParseSectionHeader(line);
 
             if (IsArraySection(currentSection))
             {
-                auto elementIndexParseResult = Parsing::ParseElementIndex(line, currentSection);
+                auto elementIndexParseResult = ParseElementIndex(line, currentSection);
 
                 if (elementIndexParseResult)
                 {
@@ -96,7 +96,7 @@ std::expected<Data::ApplicationState, Data::ApplicationStateIniFileLoadingError>
             continue;
         }
 
-        KeyValuePair keyValuePair = Parsing::ParseKeyValuePair(line);
+        KeyValuePair keyValuePair = ParseKeyValuePair(line);
         const std::string& keyString = keyValuePair.key;
         const std::string& valueString = keyValuePair.value;
         ApplicationStateIniFileKey key = GetApplicationStateIniFileKey(keyString);
@@ -105,7 +105,7 @@ std::expected<Data::ApplicationState, Data::ApplicationStateIniFileLoadingError>
         {
             case ApplicationStateIniFileSection::Camera:
             {
-                const bool cameraParameterParseSuccess = Parsing::ParseCameraParameter(key, valueString, cameraParameters);
+                const bool cameraParameterParseSuccess = ParseCameraParameter(key, valueString, cameraParameters);
                 
                 if (!cameraParameterParseSuccess)
                 {
@@ -118,7 +118,7 @@ std::expected<Data::ApplicationState, Data::ApplicationStateIniFileLoadingError>
             {
                 TransferFunctionControlPoint& point = guiParameters.transferFunction.controlPoints[currentElementIndex];
 
-                const bool transferFunctionPointParseSuccess = Parsing::ParseTransferFunctionControlPoint(key, valueString, point);
+                const bool transferFunctionPointParseSuccess = ParseTransferFunctionControlPoint(key, valueString, point);
 
                 if (!transferFunctionPointParseSuccess)
                 {
@@ -132,7 +132,7 @@ std::expected<Data::ApplicationState, Data::ApplicationStateIniFileLoadingError>
             case ApplicationStateIniFileSection::PointLight:
             case ApplicationStateIniFileSection::Rendering:
             {
-                const bool guiParameterParseSuccess = Parsing::ParseGuiParameter(
+                const bool guiParameterParseSuccess = ParseGuiParameter(
                     currentSection,
                     key,
                     currentElementIndex,

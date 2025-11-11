@@ -29,9 +29,9 @@
 
 namespace
 {
-    Data::VolumeData LoadVolume(const std::filesystem::path& datasetPath)
+    VolumeData::VolumeData LoadVolume(const std::filesystem::path& datasetPath)
     {
-        auto volumeLoadingResult = Data::LoadVolumeRaw(datasetPath);
+        auto volumeLoadingResult = VolumeData::LoadVolumeRaw(datasetPath);
         if (!volumeLoadingResult)
         {
             std::cerr << "Failed to load volume from " << datasetPath << std::endl;
@@ -69,16 +69,16 @@ namespace
         return true;
     }
 
-    Data::ApplicationState LoadApplicationState(const std::filesystem::path& applicationStateIniFilePath)
+    Persistence::ApplicationState LoadApplicationState(const std::filesystem::path& applicationStateIniFilePath)
     {
-        auto applicationStateResult = Data::LoadApplicationStateFromIniFile(applicationStateIniFilePath);
-        
+        auto applicationStateResult = Persistence::LoadApplicationStateFromIniFile(applicationStateIniFilePath);
+
         if (!applicationStateResult)
         {
             return Factory::MakeDefaultApplicationState();
         }
 
-        Data::ApplicationState applicationState = std::move(applicationStateResult).value();
+        Persistence::ApplicationState applicationState = std::move(applicationStateResult).value();
 
         if (!IsTransferFunctionValid(applicationState.guiParameters.transferFunction))
         {
@@ -94,11 +94,11 @@ namespace Factory
     Storage MakeStorage()
     {
         Context::GlfwWindow window;
-        Data::ApplicationState applicationState = LoadApplicationState(Config::applicationStateIniFilePath);
-        Camera camera(applicationState.cameraParameters);        
+        Persistence::ApplicationState applicationState = LoadApplicationState(Config::applicationStateIniFilePath);
+        Camera camera(applicationState.cameraParameters);
         GuiParameters guiParameters = std::move(applicationState.guiParameters);
         DisplayProperties displayProperties = MakeDisplayProperties();
-        Data::VolumeData volumeData = LoadVolume(Config::datasetPath);
+        VolumeData::VolumeData volumeData = LoadVolume(Config::datasetPath);
         GuiUpdateFlags guiUpdateFlags;
         ScreenQuad screenQuad;
         UnitCube unitCube;

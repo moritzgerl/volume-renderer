@@ -4,9 +4,9 @@
 #include <persistence/ApplicationStateIniFileSection.h>
 #include <string_view>
 
-namespace Parsing
+namespace Persistence
 {   
-    Data::ApplicationStateIniFileSection ParseSectionHeader(std::string_view line);
+    ApplicationStateIniFileSection ParseSectionHeader(std::string_view line);
 }
 
 #endif

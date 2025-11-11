@@ -4,18 +4,18 @@
 
 namespace
 {
-    unsigned int SanitizePointLightIndex(unsigned int elementIndex, Data::ApplicationStateIniFileSection section, const GuiParameters& guiParameters)
+    unsigned int SanitizePointLightIndex(unsigned int elementIndex, Persistence::ApplicationStateIniFileSection section, const GuiParameters& guiParameters)
     {
-        return section == Data::ApplicationStateIniFileSection::PointLight
+        return section == Persistence::ApplicationStateIniFileSection::PointLight
             ? std::max(static_cast<size_t>(elementIndex), guiParameters.pointLights.size() - 1)
             : 0;
     }
 
-    std::variant <Parsing::ParseValueResult<unsigned int>, Parsing::ParseValueResult<float> > ParseValueToVariant(
-        Data::ApplicationStateIniFileKey key,
+    std::variant <Persistence::ParseValueResult<unsigned int>, Persistence::ParseValueResult<float> > ParseValueToVariant(
+        Persistence::ApplicationStateIniFileKey key,
         std::string_view valueString)
     {
-        using Key = Data::ApplicationStateIniFileKey;
+        using Key = Persistence::ApplicationStateIniFileKey;
 
         switch (key)
         {
@@ -24,16 +24,16 @@ namespace
         case Key::SsaoNoiseSize:
         case Key::SsaoEnable:
         case Key::ShowLightSources:
-            return Parsing::ParseValue<unsigned int>(valueString);
+            return Persistence::ParseValue<unsigned int>(valueString);
         default:
-            return Parsing::ParseValue<float>(valueString);
+            return Persistence::ParseValue<float>(valueString);
         }
     }
 }
 
-bool Parsing::ParseGuiParameter(
-    Data::ApplicationStateIniFileSection section,
-    Data::ApplicationStateIniFileKey key,
+bool Persistence::ParseGuiParameter(
+    ApplicationStateIniFileSection section,
+    ApplicationStateIniFileKey key,
     unsigned int elementIndex,
     std::string_view valueString,
     GuiParameters& guiParameters)
@@ -53,7 +53,7 @@ bool Parsing::ParseGuiParameter(
             }
 
             const auto value = result.value();
-            using Key = Data::ApplicationStateIniFileKey;
+            using Key = ApplicationStateIniFileKey;
 
             switch (key)
             {
@@ -100,10 +100,10 @@ bool Parsing::ParseGuiParameter(
             case Key::AmbientR:
                 switch (section)
                 {
-                case Data::ApplicationStateIniFileSection::DirectionalLight:
+                case ApplicationStateIniFileSection::DirectionalLight:
                     directionalLight.ambient.r = static_cast<float>(value);
                     break;
-                case Data::ApplicationStateIniFileSection::PointLight:
+                case ApplicationStateIniFileSection::PointLight:
                     pointLight.ambient.r = static_cast<float>(value);
                     break;
                 default:
@@ -113,10 +113,10 @@ bool Parsing::ParseGuiParameter(
             case Key::AmbientG:
                 switch (section)
                 {
-                case Data::ApplicationStateIniFileSection::DirectionalLight:
+                case ApplicationStateIniFileSection::DirectionalLight:
                     directionalLight.ambient.g = static_cast<float>(value);
                     break;
-                case Data::ApplicationStateIniFileSection::PointLight:
+                case ApplicationStateIniFileSection::PointLight:
                     pointLight.ambient.g = static_cast<float>(value);
                     break;
                 default:
@@ -126,10 +126,10 @@ bool Parsing::ParseGuiParameter(
             case Key::AmbientB:
                 switch (section)
                 {
-                case Data::ApplicationStateIniFileSection::DirectionalLight:
+                case ApplicationStateIniFileSection::DirectionalLight:
                     directionalLight.ambient.b = static_cast<float>(value);
                     break;
-                case Data::ApplicationStateIniFileSection::PointLight:
+                case ApplicationStateIniFileSection::PointLight:
                     pointLight.ambient.b = static_cast<float>(value);
                     break;
                 default:
@@ -139,10 +139,10 @@ bool Parsing::ParseGuiParameter(
             case Key::DiffuseR:
                 switch (section)
                 {
-                case Data::ApplicationStateIniFileSection::DirectionalLight:
+                case ApplicationStateIniFileSection::DirectionalLight:
                     directionalLight.diffuse.r = static_cast<float>(value);
                     break;
-                case Data::ApplicationStateIniFileSection::PointLight:
+                case ApplicationStateIniFileSection::PointLight:
                     pointLight.diffuse.r = static_cast<float>(value);
                     break;
                 default:
@@ -152,10 +152,10 @@ bool Parsing::ParseGuiParameter(
             case Key::DiffuseG:
                 switch (section)
                 {
-                case Data::ApplicationStateIniFileSection::DirectionalLight:
+                case ApplicationStateIniFileSection::DirectionalLight:
                     directionalLight.diffuse.g = static_cast<float>(value);
                     break;
-                case Data::ApplicationStateIniFileSection::PointLight:
+                case ApplicationStateIniFileSection::PointLight:
                     pointLight.diffuse.g = static_cast<float>(value);
                     break;
                 default:
@@ -165,10 +165,10 @@ bool Parsing::ParseGuiParameter(
             case Key::DiffuseB:
                 switch (section)
                 {
-                case Data::ApplicationStateIniFileSection::DirectionalLight:
+                case ApplicationStateIniFileSection::DirectionalLight:
                     directionalLight.diffuse.b = static_cast<float>(value);
                     break;
-                case Data::ApplicationStateIniFileSection::PointLight:
+                case ApplicationStateIniFileSection::PointLight:
                     pointLight.diffuse.b = static_cast<float>(value);
                     break;
                 default:
@@ -178,10 +178,10 @@ bool Parsing::ParseGuiParameter(
             case Key::SpecularR:
                 switch (section)
                 {
-                case Data::ApplicationStateIniFileSection::DirectionalLight:
+                case ApplicationStateIniFileSection::DirectionalLight:
                     directionalLight.specular.r = static_cast<float>(value);
                     break;
-                case Data::ApplicationStateIniFileSection::PointLight:
+                case ApplicationStateIniFileSection::PointLight:
                     pointLight.specular.r = static_cast<float>(value);
                     break;
                 default:
@@ -191,10 +191,10 @@ bool Parsing::ParseGuiParameter(
             case Key::SpecularG:
                 switch (section)
                 {
-                case Data::ApplicationStateIniFileSection::DirectionalLight:
+                case ApplicationStateIniFileSection::DirectionalLight:
                     directionalLight.specular.g = static_cast<float>(value);
                     break;
-                case Data::ApplicationStateIniFileSection::PointLight:
+                case ApplicationStateIniFileSection::PointLight:
                     pointLight.specular.g = static_cast<float>(value);
                     break;
                 default:
@@ -204,10 +204,10 @@ bool Parsing::ParseGuiParameter(
             case Key::SpecularB:
                 switch (section)
                 {
-                case Data::ApplicationStateIniFileSection::DirectionalLight:
+                case ApplicationStateIniFileSection::DirectionalLight:
                     directionalLight.specular.b = static_cast<float>(value);
                     break;
-                case Data::ApplicationStateIniFileSection::PointLight:
+                case ApplicationStateIniFileSection::PointLight:
                     pointLight.specular.b = static_cast<float>(value);
                     break;
                 default:
@@ -217,10 +217,10 @@ bool Parsing::ParseGuiParameter(
             case Key::Intensity:
                 switch (section)
                 {
-                case Data::ApplicationStateIniFileSection::DirectionalLight:
+                case ApplicationStateIniFileSection::DirectionalLight:
                     directionalLight.intensity = static_cast<float>(value);
                     break;
-                case Data::ApplicationStateIniFileSection::PointLight:
+                case ApplicationStateIniFileSection::PointLight:
                     pointLight.intensity = static_cast<float>(value);
                     break;
                 default:

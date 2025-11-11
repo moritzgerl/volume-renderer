@@ -5,7 +5,7 @@
 
 namespace Factory
 {
-    Texture MakeVolumeDataTexture(TextureId textureId, unsigned int textureUnit, const Data::VolumeData& volumeData)
+    Texture MakeVolumeDataTexture(TextureId textureId, unsigned int textureUnit, const VolumeData::VolumeData& volumeData)
     {
         const auto& metadata = volumeData.GetMetadata();
         GLenum internalFormat;

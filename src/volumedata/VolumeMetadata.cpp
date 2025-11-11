@@ -1,6 +1,6 @@
 #include <volumedata/VolumeMetadata.h>
 
-Data::VolumeMetadata::VolumeMetadata()
+VolumeData::VolumeMetadata::VolumeMetadata()
     : m_width(0)
     , m_height(0)
     , m_depth(0)
@@ -12,7 +12,7 @@ Data::VolumeMetadata::VolumeMetadata()
 {
 }
 
-Data::VolumeMetadata::VolumeMetadata(uint32_t width, uint32_t height, uint32_t depth,
+VolumeData::VolumeMetadata::VolumeMetadata(uint32_t width, uint32_t height, uint32_t depth,
                                uint32_t components, uint32_t bitsPerComponent)
     : m_width(width)
     , m_height(height)
@@ -25,29 +25,29 @@ Data::VolumeMetadata::VolumeMetadata(uint32_t width, uint32_t height, uint32_t d
 {
 }
 
-void Data::VolumeMetadata::SetScale(float scaleX, float scaleY, float scaleZ)
+void VolumeData::VolumeMetadata::SetScale(float scaleX, float scaleY, float scaleZ)
 {
     m_scaleX = scaleX;
     m_scaleY = scaleY;
     m_scaleZ = scaleZ;
 }
 
-size_t Data::VolumeMetadata::GetVoxelCount() const
+size_t VolumeData::VolumeMetadata::GetVoxelCount() const
 {
     return static_cast<size_t>(m_width) * m_height * m_depth;
 }
 
-size_t Data::VolumeMetadata::GetBytesPerVoxel() const
+size_t VolumeData::VolumeMetadata::GetBytesPerVoxel() const
 {
     return m_components * (m_bitsPerComponent / 8);
 }
 
-size_t Data::VolumeMetadata::GetTotalSizeInBytes() const
+size_t VolumeData::VolumeMetadata::GetTotalSizeInBytes() const
 {
     return GetVoxelCount() * GetBytesPerVoxel();
 }
 
-bool Data::VolumeMetadata::IsValid() const
+bool VolumeData::VolumeMetadata::IsValid() const
 {
     return m_width > 0 && m_height > 0 && m_depth > 0 &&
            m_components > 0 && m_bitsPerComponent > 0 &&
