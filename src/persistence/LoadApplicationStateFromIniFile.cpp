@@ -59,12 +59,14 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
 
     CameraParameters cameraParameters = Factory::MakeDefaultCameraParameters();
     GuiParameters guiParameters = Factory::MakeDefaultGuiParameters();
-    
+
     guiParameters.transferFunction.numActivePoints = 0;
 
     std::string line;
-    ApplicationStateIniFileSection currentSection = ApplicationStateIniFileSection::None;    
+    ApplicationStateIniFileSection currentSection = ApplicationStateIniFileSection::None;
     unsigned int currentElementIndex = 0;
+    unsigned int maxTransferFunctionPointIndex = 0;
+    bool foundTransferFunctionPoint = false;
 
     while (std::getline(file, line))
     {
@@ -124,6 +126,10 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
                 {
                     return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
                 }
+
+                foundTransferFunctionPoint = true;
+                maxTransferFunctionPointIndex = std::max(maxTransferFunctionPointIndex, currentElementIndex);
+
                 break;
             }
 
@@ -150,6 +156,11 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
             default:
                 break;
         }
+    }
+
+    if (foundTransferFunctionPoint)
+    {
+        guiParameters.transferFunction.numActivePoints = maxTransferFunctionPointIndex + 1;
     }
 
     return ApplicationState
