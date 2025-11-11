@@ -1,4 +1,5 @@
 #include <persistence/GetApplicationStateIniFileSection.h>
+#include <persistence/ApplicationStateIniFileSectionNames.h>
 
 #include <algorithm>
 #include <array>
@@ -6,6 +7,7 @@
 namespace
 {
     using Section = Persistence::ApplicationStateIniFileSection;
+    namespace SectionNames = Persistence::SectionNames;
 
     struct ApplicationStateIniFileSectionMapping
     {
@@ -15,13 +17,13 @@ namespace
 
     constexpr std::array<ApplicationStateIniFileSectionMapping, 7> applicationStateIniFileSectionLookup =
     {{
-        {"[Camera]", Section::Camera},
-        {"[GuiParameters]", Section::GuiParameters},
-        {"[TransferFunction]", Section::TransferFunction},
-        {"[Trackball]", Section::Trackball},
-        {"[SSAO]", Section::SSAO},
-        {"[DirectionalLight]", Section::DirectionalLight},
-        {"[Rendering]", Section::Rendering}
+        {SectionNames::camera, Section::Camera},
+        {SectionNames::guiParameters, Section::GuiParameters},
+        {SectionNames::transferFunction, Section::TransferFunction},
+        {SectionNames::trackball, Section::Trackball},
+        {SectionNames::ssao, Section::SSAO},
+        {SectionNames::directionalLight, Section::DirectionalLight},
+        {SectionNames::rendering, Section::Rendering}
     }};
 }
 

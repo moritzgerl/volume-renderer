@@ -1,12 +1,7 @@
 #include <persistence/ParseElementIndex.h>
-#include <persistence/ParseValue.h>
+#include <persistence/ApplicationStateIniFileSectionNames.h>
 #include <persistence/ApplicationStateIniFileSection.h>
-
-namespace
-{
-    constexpr std::string_view transferFunctionPointPrefix = "[TransferFunctionPoint";
-    constexpr std::string_view pointLightPrefix = "[PointLight";
-}
+#include <persistence/ParseValue.h>
 
 std::expected<unsigned int, Persistence::ApplicationStateIniFileLoadingError> Persistence::ParseElementIndex(const std::string_view line, Persistence::ApplicationStateIniFileSection currentSection)
 {
@@ -15,10 +10,10 @@ std::expected<unsigned int, Persistence::ApplicationStateIniFileLoadingError> Pe
     switch (currentSection)
     {
         case ApplicationStateIniFileSection::TransferFunctionPoint:
-            prefix = transferFunctionPointPrefix;
+            prefix = SectionNames::transferFunctionPointPrefix;
             break;
         case ApplicationStateIniFileSection::PointLight:
-            prefix = pointLightPrefix;
+            prefix = SectionNames::pointLightPrefix;
             break;
         default:
             return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);

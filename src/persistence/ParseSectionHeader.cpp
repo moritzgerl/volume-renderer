@@ -1,20 +1,15 @@
 #include <persistence/ParseSectionHeader.h>
+#include <persistence/ApplicationStateIniFileSectionNames.h>
 #include <persistence/GetApplicationStateIniFileSection.h>
-
-namespace
-{
-    constexpr std::string_view transferFunctionPointPrefix = "[TransferFunctionPoint";
-    constexpr std::string_view pointLightPrefix = "[PointLight";
-}
 
 Persistence::ApplicationStateIniFileSection Persistence::ParseSectionHeader(std::string_view line)
 {
-    if (line.starts_with(transferFunctionPointPrefix))
+    if (line.starts_with(SectionNames::transferFunctionPointPrefix))
     {
         return ApplicationStateIniFileSection::TransferFunctionPoint;
     }
 
-    else if (line.starts_with(pointLightPrefix))
+    else if (line.starts_with(SectionNames::pointLightPrefix))
     {
         return ApplicationStateIniFileSection::PointLight;
     }

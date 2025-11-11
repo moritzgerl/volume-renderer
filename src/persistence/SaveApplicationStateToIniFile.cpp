@@ -1,6 +1,7 @@
 #include <persistence/SaveApplicationStateToIniFile.h>
-#include <config/Config.h>
+#include <persistence/ApplicationStateIniFileSectionNames.h>
 #include <camera/CameraParameters.h>
+#include <config/Config.h>
 #include <gui/GuiParameters.h>
 
 #include <fstream>
@@ -18,8 +19,8 @@ std::expected<void, Persistence::ApplicationStateIniFileSavingError> Persistence
     const GuiParameters& guiParameters = applicationState.guiParameters;
 
     file << std::fixed << std::setprecision(6);
-    
-    file << "[Camera]\n";
+
+    file << SectionNames::camera << "\n";
     file << "PositionX=" << cameraParameters.position.x << "\n";
     file << "PositionY=" << cameraParameters.position.y << "\n";
     file << "PositionZ=" << cameraParameters.position.z << "\n";
@@ -27,17 +28,17 @@ std::expected<void, Persistence::ApplicationStateIniFileSavingError> Persistence
     file << "Zoom=" << cameraParameters.zoom << "\n";
     file << "\n";
 
-    file << "[GuiParameters]\n";
+    file << SectionNames::guiParameters << "\n";
 
     // Transfer Function
-    file << "[TransferFunction]\n";
+    file << SectionNames::transferFunction << "\n";
     file << "\n";
 
     for (size_t i = 0; i < guiParameters.transferFunction.numActivePoints; ++i)
     {
         const auto& point = guiParameters.transferFunction.controlPoints[i];
 
-        file << "[TransferFunctionPoint" << i << "]\n";
+        file << SectionNames::transferFunctionPointPrefix << i << "]\n";
         file << "Value=" << point.value << "\n";
         file << "ColorR=" << point.color.r << "\n";
         file << "ColorG=" << point.color.g << "\n";
@@ -47,13 +48,13 @@ std::expected<void, Persistence::ApplicationStateIniFileSavingError> Persistence
     }
 
     // Trackball
-    file << "[Trackball]\n";
+    file << SectionNames::trackball << "\n";
     file << "TrackballInvertYAxis=" << (guiParameters.trackballInvertYAxis ? 1 : 0) << "\n";
     file << "TrackballSensitivity=" << guiParameters.trackballSensitivity << "\n";
     file << "\n";
 
     // SSAO
-    file << "[SSAO]\n";
+    file << SectionNames::ssao << "\n";
     file << "SsaoKernelSize=" << guiParameters.ssaoKernelSize << "\n";
     file << "SsaoNoiseSize=" << guiParameters.ssaoNoiseSize << "\n";
     file << "SsaoRadius=" << guiParameters.ssaoRadius << "\n";
@@ -62,7 +63,7 @@ std::expected<void, Persistence::ApplicationStateIniFileSavingError> Persistence
     file << "\n";
 
     // Directional Light
-    file << "[DirectionalLight]\n";
+    file << SectionNames::directionalLight << "\n";
     file << "DirectionX=" << guiParameters.directionalLight.direction.x << "\n";
     file << "DirectionY=" << guiParameters.directionalLight.direction.y << "\n";
     file << "DirectionZ=" << guiParameters.directionalLight.direction.z << "\n";
@@ -83,7 +84,7 @@ std::expected<void, Persistence::ApplicationStateIniFileSavingError> Persistence
     {
         const auto& pointLight = guiParameters.pointLights[i];
 
-        file << "[PointLight" << i << "]\n";
+        file << SectionNames::pointLightPrefix << i << "]\n";
         file << "PositionX=" << pointLight.position.x << "\n";
         file << "PositionY=" << pointLight.position.y << "\n";
         file << "PositionZ=" << pointLight.position.z << "\n";
@@ -101,7 +102,7 @@ std::expected<void, Persistence::ApplicationStateIniFileSavingError> Persistence
     }
 
     // Rendering
-    file << "[Rendering]\n";
+    file << SectionNames::rendering << "\n";
     file << "ShowLightSources=" << (guiParameters.showLightSources ? 1 : 0) << "\n";
     file << "DensityMultiplier=" << guiParameters.raycastingDensityMultiplier << "\n";
     file << "\n";

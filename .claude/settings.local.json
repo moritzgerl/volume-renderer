@@ -12,7 +12,8 @@
       "Bash(./build/src/Debug/veda.exe:*)",
       "Bash(timeout 3:*)",
       "Bash(cat:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(timeout:*)"
     ],
     "deny": [],
     "ask": []
