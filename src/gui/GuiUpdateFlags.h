@@ -3,14 +3,8 @@
 
 struct GuiUpdateFlags
 {
-    GuiUpdateFlags()
-    {
-        ssaoParametersChanged = false;
-        transferFunctionChanged = false;
-    };
-
-    bool ssaoParametersChanged;
-    bool transferFunctionChanged;
+    bool ssaoParametersChanged = false;
+    bool transferFunctionChanged = false;
 };
 
 #endif
