@@ -5,15 +5,14 @@
 #include <camera/Camera.h>
 #include <context/GlfwWindow.h>
 #include <config/Config.h>
-#include <data/LoadApplicationStateFromIniFile.h>
-#include <data/LoadVolumeRaw.h>
-#include <data/MakeDefaultApplicationState.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
 #include <gui/TransferFunction.h>
 #include <input/DisplayProperties.h>
 #include <input/InputHandler.h>
 #include <input/MakeDisplayProperties.h>
+#include <persistence/LoadApplicationStateFromIniFile.h>
+#include <persistence/MakeDefaultApplicationState.h>
 #include <primitives/ScreenQuad.h>
 #include <primitives/UnitCube.h>
 #include <renderpass/MakeRenderPasses.h>
@@ -23,6 +22,7 @@
 #include <textures/MakeTextures.h>
 #include <textures/TextureId.h>
 #include <utils/SsaoUtils.h>
+#include <volumedata/LoadVolumeRaw.h>
 
 #include <cstdlib>
 #include <iostream>

@@ -22,12 +22,20 @@ file(GLOB_RECURSE SRC_CONFIG_H
     "${CMAKE_CURRENT_SOURCE_DIR}/config/*.h"
 )
 
-file(GLOB_RECURSE SRC_DATA_H
-    "${CMAKE_CURRENT_SOURCE_DIR}/data/*.h"
+file(GLOB_RECURSE SRC_PERSISTENCE_H
+    "${CMAKE_CURRENT_SOURCE_DIR}/persistence/*.h"
 )
 
-file(GLOB_RECURSE SRC_DATA_CPP
-    "${CMAKE_CURRENT_SOURCE_DIR}/data/*.cpp"
+file(GLOB_RECURSE SRC_PERSISTENCE_CPP
+    "${CMAKE_CURRENT_SOURCE_DIR}/persistence/*.cpp"
+)
+
+file(GLOB_RECURSE SRC_VOLUMEDATA_H
+    "${CMAKE_CURRENT_SOURCE_DIR}/volumedata/*.h"
+)
+
+file(GLOB_RECURSE SRC_VOLUMEDATA_CPP
+    "${CMAKE_CURRENT_SOURCE_DIR}/volumedata/*.cpp"
 )
 
 file(GLOB_RECURSE SRC_CONTEXT_H
@@ -132,8 +140,11 @@ source_group("camera\\Source Files" FILES ${SRC_CAMERA_CPP})
 
 source_group("config" FILES ${SRC_CONFIG_H})
 
-source_group("data\\Header Files" FILES ${SRC_DATA_H})
-source_group("data\\Source Files" FILES ${SRC_DATA_CPP})
+source_group("persistence\\Header Files" FILES ${SRC_PERSISTENCE_H})
+source_group("persistence\\Source Files" FILES ${SRC_PERSISTENCE_CPP})
+
+source_group("volumedata\\Header Files" FILES ${SRC_VOLUMEDATA_H})
+source_group("volumedata\\Source Files" FILES ${SRC_VOLUMEDATA_CPP})
 
 source_group("context\\Header Files" FILES ${SRC_CONTEXT_H})
 source_group("context\\Source Files" FILES ${SRC_CONTEXT_CPP})
@@ -177,8 +188,10 @@ add_executable(${PROJECT_NAME}
     ${SRC_CAMERA_H}
     ${SRC_CAMERA_CPP}
     ${SRC_CONFIG_H}
-    ${SRC_DATA_H}
-    ${SRC_DATA_CPP}
+    ${SRC_PERSISTENCE_H}
+    ${SRC_PERSISTENCE_CPP}
+    ${SRC_VOLUMEDATA_H}
+    ${SRC_VOLUMEDATA_CPP}
     ${SRC_CONTEXT_H}
     ${SRC_CONTEXT_CPP}
     ${SRC_GUI_H}

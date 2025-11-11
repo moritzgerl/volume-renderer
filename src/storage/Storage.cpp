@@ -1,6 +1,6 @@
 #include <storage/Storage.h>
 #include <config/Config.h>
-#include <data/SaveApplicationStateToIniFile.h>
+#include <persistence/SaveApplicationStateToIniFile.h>
 
 Storage::Storage(
     Camera&& camera,

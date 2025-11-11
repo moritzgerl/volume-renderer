@@ -4,7 +4,6 @@
 #include <storage/StorageTypes.h>
 #include <camera/Camera.h>
 #include <context/GlfwWindow.h>
-#include <data/VolumeData.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
 #include <input/DisplayProperties.h>
@@ -13,6 +12,7 @@
 #include <primitives/UnitCube.h>
 #include <shader/SsaoUpdater.h>
 #include <utils/SsaoUtils.h>
+#include <volumedata/VolumeData.h>
 
 #include <memory>
 #include <vector>

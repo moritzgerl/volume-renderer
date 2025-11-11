@@ -11,7 +11,8 @@
       "Bash(dd:*)",
       "Bash(./build/src/Debug/veda.exe:*)",
       "Bash(timeout 3:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []
