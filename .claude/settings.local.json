@@ -13,7 +13,8 @@
       "Bash(timeout 3:*)",
       "Bash(cat:*)",
       "Bash(find:*)",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "Bash(exit 0)"
     ],
     "deny": [],
     "ask": []

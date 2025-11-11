@@ -15,12 +15,12 @@ namespace
     }
 }
 
-Persistence::KeyValuePair Persistence::ParseKeyValuePair(std::string_view line)
+std::expected<Persistence::KeyValuePair, Persistence::ApplicationStateIniFileLoadingError> Persistence::ParseKeyValuePair(std::string_view line)
 {
     const size_t equalPos = line.find('=');
     if (equalPos == std::string_view::npos)
     {
-        return KeyValuePair{ std::string_view(), std::string_view() };
+        return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
     }
 
     std::string_view key = line.substr(0, equalPos);
@@ -28,6 +28,11 @@ Persistence::KeyValuePair Persistence::ParseKeyValuePair(std::string_view line)
 
     key = TrimWhitespace(key);
     value = TrimWhitespace(value);
+
+    if (key.empty())
+    {
+        return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
+    }
 
     return KeyValuePair{ key, value };
 }

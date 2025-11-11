@@ -97,7 +97,13 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
             continue;
         }
 
-        KeyValuePair keyValuePair = ParseKeyValuePair(line);
+        const auto keyValuePairParseResult = ParseKeyValuePair(line);
+        if (!keyValuePairParseResult)
+        {
+            return std::unexpected(keyValuePairParseResult.error());
+        }
+
+        const KeyValuePair keyValuePair = keyValuePairParseResult.value();
         const std::string_view keyString = keyValuePair.key;
         const std::string_view valueString = keyValuePair.value;
         ApplicationStateIniFileKey key = GetApplicationStateIniFileKey(keyString);
