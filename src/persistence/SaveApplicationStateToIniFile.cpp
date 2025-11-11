@@ -23,6 +23,7 @@ std::expected<void, Persistence::ApplicationStateIniFileSavingError> Persistence
     file << "PositionX=" << cameraParameters.position.x << "\n";
     file << "PositionY=" << cameraParameters.position.y << "\n";
     file << "PositionZ=" << cameraParameters.position.z << "\n";
+    // lookAt and world up of our orbit camera are constant in world space and thus not saved
     file << "Zoom=" << cameraParameters.zoom << "\n";
     file << "\n";
 
