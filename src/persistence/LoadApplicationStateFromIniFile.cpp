@@ -133,6 +133,7 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
             }
 
             case ApplicationStateIniFileSection::SSAO:
+            case ApplicationStateIniFileSection::Trackball:
             case ApplicationStateIniFileSection::DirectionalLight:
             case ApplicationStateIniFileSection::PointLight:
             case ApplicationStateIniFileSection::Rendering:
