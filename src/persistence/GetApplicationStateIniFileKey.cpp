@@ -4,55 +4,57 @@
 
 namespace
 {
+    using Key = Persistence::ApplicationStateIniFileKey;
+
     struct ApplicationStateIniFileKeyMapping
     {
-        std::string_view key;
-        Persistence::ApplicationStateIniFileKey value;
+        std::string_view stringKey;
+        Key enumKey;
     };
 
     constexpr std::array<ApplicationStateIniFileKeyMapping, 31> applicationStateIniFileKeyLookup =
     {{  
-        {"PositionX", Persistence::ApplicationStateIniFileKey::PositionX},
-        {"PositionY", Persistence::ApplicationStateIniFileKey::PositionY},
-        {"PositionZ", Persistence::ApplicationStateIniFileKey::PositionZ},
-        {"Zoom", Persistence::ApplicationStateIniFileKey::Zoom},
-        {"Value", Persistence::ApplicationStateIniFileKey::Value},
-        {"ColorR", Persistence::ApplicationStateIniFileKey::ColorR},
-        {"ColorG", Persistence::ApplicationStateIniFileKey::ColorG},
-        {"ColorB", Persistence::ApplicationStateIniFileKey::ColorB},
-        {"Opacity", Persistence::ApplicationStateIniFileKey::Opacity},
-        {"TrackballInvertYAxis", Persistence::ApplicationStateIniFileKey::TrackballInvertYAxis},
-        {"TrackballSensitivity", Persistence::ApplicationStateIniFileKey::TrackballSensitivity},
-        {"SsaoKernelSize", Persistence::ApplicationStateIniFileKey::SsaoKernelSize},
-        {"SsaoNoiseSize", Persistence::ApplicationStateIniFileKey::SsaoNoiseSize},
-        {"SsaoRadius", Persistence::ApplicationStateIniFileKey::SsaoRadius},
-        {"SsaoBias", Persistence::ApplicationStateIniFileKey::SsaoBias},
-        {"SsaoEnable", Persistence::ApplicationStateIniFileKey::SsaoEnable},
-        {"DirectionX", Persistence::ApplicationStateIniFileKey::DirectionX},
-        {"DirectionY", Persistence::ApplicationStateIniFileKey::DirectionY},
-        {"DirectionZ", Persistence::ApplicationStateIniFileKey::DirectionZ},
-        {"AmbientR", Persistence::ApplicationStateIniFileKey::AmbientR},
-        {"AmbientG", Persistence::ApplicationStateIniFileKey::AmbientG},
-        {"AmbientB", Persistence::ApplicationStateIniFileKey::AmbientB},
-        {"DiffuseR", Persistence::ApplicationStateIniFileKey::DiffuseR},
-        {"DiffuseG", Persistence::ApplicationStateIniFileKey::DiffuseG},
-        {"DiffuseB", Persistence::ApplicationStateIniFileKey::DiffuseB},
-        {"SpecularR", Persistence::ApplicationStateIniFileKey::SpecularR},
-        {"SpecularG", Persistence::ApplicationStateIniFileKey::SpecularG},
-        {"SpecularB", Persistence::ApplicationStateIniFileKey::SpecularB},
-        {"Intensity", Persistence::ApplicationStateIniFileKey::Intensity},
-        {"ShowLightSources", Persistence::ApplicationStateIniFileKey::ShowLightSources},
-        {"DensityMultiplier", Persistence::ApplicationStateIniFileKey::DensityMultiplier}
+        {"PositionX", Key::PositionX},
+        {"PositionY", Key::PositionY},
+        {"PositionZ", Key::PositionZ},
+        {"Zoom", Key::Zoom},
+        {"Value", Key::Value},
+        {"ColorR", Key::ColorR},
+        {"ColorG", Key::ColorG},
+        {"ColorB", Key::ColorB},
+        {"Opacity", Key::Opacity},
+        {"TrackballInvertYAxis", Key::TrackballInvertYAxis},
+        {"TrackballSensitivity", Key::TrackballSensitivity},
+        {"SsaoKernelSize", Key::SsaoKernelSize},
+        {"SsaoNoiseSize", Key::SsaoNoiseSize},
+        {"SsaoRadius", Key::SsaoRadius},
+        {"SsaoBias", Key::SsaoBias},
+        {"SsaoEnable", Key::SsaoEnable},
+        {"DirectionX", Key::DirectionX},
+        {"DirectionY", Key::DirectionY},
+        {"DirectionZ", Key::DirectionZ},
+        {"AmbientR", Key::AmbientR},
+        {"AmbientG", Key::AmbientG},
+        {"AmbientB", Key::AmbientB},
+        {"DiffuseR", Key::DiffuseR},
+        {"DiffuseG", Key::DiffuseG},
+        {"DiffuseB", Key::DiffuseB},
+        {"SpecularR", Key::SpecularR},
+        {"SpecularG", Key::SpecularG},
+        {"SpecularB", Key::SpecularB},
+        {"Intensity", Key::Intensity},
+        {"ShowLightSources", Key::ShowLightSources},
+        {"DensityMultiplier", Key::DensityMultiplier}
     }};
 }
 
-Persistence::ApplicationStateIniFileKey Persistence::GetApplicationStateIniFileKey(std::string_view key)
+Persistence::ApplicationStateIniFileKey Persistence::GetApplicationStateIniFileKey(std::string_view stringKey)
 {
     auto it = std::find_if(applicationStateIniFileKeyLookup.begin(), applicationStateIniFileKeyLookup.end(),
-        [key](const ApplicationStateIniFileKeyMapping& mapping)
+        [stringKey](const ApplicationStateIniFileKeyMapping& mapping)
         {
-            return mapping.key == key;
+            return mapping.stringKey == stringKey;
         });
 
-    return (it != applicationStateIniFileKeyLookup.end()) ? it->value : ApplicationStateIniFileKey::Unknown;
+    return (it != applicationStateIniFileKeyLookup.end()) ? it->enumKey : ApplicationStateIniFileKey::Unknown;
 }
