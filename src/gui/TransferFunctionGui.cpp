@@ -12,6 +12,7 @@ namespace
     const ImGuiColorEditFlags colorPickerFlags = ImGuiColorEditFlags_NoAlpha | ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_Float;
 }
 
+// TODO refactor
 void TransferFunctionGui::Draw(TransferFunction& transferFunction, GuiUpdateFlags& guiUpdateFlags)
 {
     const size_t numActivePoints = transferFunction.GetNumActivePoints();

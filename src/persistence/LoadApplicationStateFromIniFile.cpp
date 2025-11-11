@@ -18,6 +18,7 @@
 
 namespace
 {
+    // TODO move to utility file, reuse elsewhere
     void TrimWhitespaceInLine(std::string& line)
     {
         line.erase(0, line.find_first_not_of(" \t\r\n"));
@@ -61,11 +62,11 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
 
     guiParameters.transferFunction.SetNumActivePoints(0);
 
-    std::string line;
     ApplicationStateIniFileSection currentSection = ApplicationStateIniFileSection::None;
     unsigned int currentElementIndex = 0;
     unsigned int maxTransferFunctionPointIndex = 0;
     bool foundTransferFunctionPoint = false;
+    std::string line;
 
     while (std::getline(file, line))
     {
