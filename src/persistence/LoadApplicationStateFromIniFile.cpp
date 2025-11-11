@@ -1,14 +1,13 @@
-// TODO clean up includes
 #include <persistence/LoadApplicationStateFromIniFile.h>
 #include <persistence/ApplicationStateIniFileSection.h>
 #include <persistence/GetApplicationStateIniFileKey.h>
+#include <persistence/KeyValuePair.h>
 #include <persistence/ParseCameraParameter.h>
-#include <persistence/ParseGuiParameter.h>
 #include <persistence/ParseElementIndex.h>
+#include <persistence/ParseGuiParameter.h>
 #include <persistence/ParseKeyValuePair.h>
 #include <persistence/ParseSectionHeader.h>
 #include <persistence/ParseTransferFunctionControlPoint.h>
-#include <persistence/KeyValuePair.h>
 #include <camera/CameraParameters.h>
 #include <camera/MakeDefaultCameraParameters.h>
 #include <gui/GuiParameters.h>
