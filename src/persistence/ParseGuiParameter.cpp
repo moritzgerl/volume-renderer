@@ -7,7 +7,7 @@ namespace
     unsigned int SanitizePointLightIndex(unsigned int elementIndex, Persistence::ApplicationStateIniFileSection section, const GuiParameters& guiParameters)
     {
         return section == Persistence::ApplicationStateIniFileSection::PointLight
-            ? std::max(static_cast<size_t>(elementIndex), guiParameters.pointLights.size() - 1)
+            ? static_cast<unsigned int>(std::min(static_cast<size_t>(elementIndex), guiParameters.pointLights.size() - 1))
             : 0;
     }
 
