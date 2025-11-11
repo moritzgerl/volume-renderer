@@ -2,12 +2,12 @@
 #define PARSE_KEY_VALUE_PAIR_H
 
 #include <persistence/KeyValuePair.h>
-#include <string>
+
+#include <string_view>
 
 namespace Persistence
-{   
-    // TODO use std::expected    
-    KeyValuePair ParseKeyValuePair(const std::string& line);
+{
+    KeyValuePair ParseKeyValuePair(std::string_view line);
 }
 
 #endif

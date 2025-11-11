@@ -1,19 +1,33 @@
 #include <persistence/ParseKeyValuePair.h>
 
-Persistence::KeyValuePair Persistence::ParseKeyValuePair(const std::string& line)
+namespace
 {
-    size_t equalPos = line.find('=');
-    if (equalPos == std::string::npos)
+    std::string_view TrimWhitespace(std::string_view str)
     {
-        return KeyValuePair{ "", "" };
-    }
-    std::string key = line.substr(0, equalPos);
-    std::string value = line.substr(equalPos + 1);
+        const size_t start = str.find_first_not_of(" \t");
+        if (start == std::string_view::npos)
+        {
+            return std::string_view();
+        }
 
-    key.erase(0, key.find_first_not_of(" \t"));
-    key.erase(key.find_last_not_of(" \t") + 1);
-    value.erase(0, value.find_first_not_of(" \t"));
-    value.erase(value.find_last_not_of(" \t") + 1);
+        const size_t end = str.find_last_not_of(" \t");
+        return str.substr(start, end - start + 1);
+    }
+}
+
+Persistence::KeyValuePair Persistence::ParseKeyValuePair(std::string_view line)
+{
+    const size_t equalPos = line.find('=');
+    if (equalPos == std::string_view::npos)
+    {
+        return KeyValuePair{ std::string_view(), std::string_view() };
+    }
+
+    std::string_view key = line.substr(0, equalPos);
+    std::string_view value = line.substr(equalPos + 1);
+
+    key = TrimWhitespace(key);
+    value = TrimWhitespace(value);
 
     return KeyValuePair{ key, value };
 }

@@ -98,8 +98,8 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
         }
 
         KeyValuePair keyValuePair = ParseKeyValuePair(line);
-        const std::string& keyString = keyValuePair.key;
-        const std::string& valueString = keyValuePair.value;
+        const std::string_view keyString = keyValuePair.key;
+        const std::string_view valueString = keyValuePair.value;
         ApplicationStateIniFileKey key = GetApplicationStateIniFileKey(keyString);
 
         switch (currentSection)
