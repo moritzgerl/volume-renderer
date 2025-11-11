@@ -4,14 +4,15 @@
 #include <persistence/ApplicationStateIniFileLoadingError.h>
 #include <persistence/ApplicationStateIniFileKey.h>
 #include <camera/CameraParameters.h>
+
+#include <expected>
 #include <string_view>
 
 namespace Persistence
-{   
-    // TODO find a better return type
-    bool ParseCameraParameter(
+{
+    std::expected<void, ApplicationStateIniFileLoadingError> ParseCameraParameter(
        ApplicationStateIniFileKey key,
-       std::string_view valueString, 
+       std::string_view valueString,
        CameraParameters& cameraParameters);
 }
 

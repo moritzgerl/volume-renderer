@@ -4,13 +4,13 @@
 #include <persistence/ApplicationStateIniFileLoadingError.h>
 #include <persistence/ApplicationStateIniFileKey.h>
 #include <gui/TransferFunctionControlPoint.h>
+
 #include <expected>
 #include <string_view>
 
 namespace Persistence
-{   
-    // TODO find a better return type
-    bool ParseTransferFunctionControlPoint(
+{
+    std::expected<void, ApplicationStateIniFileLoadingError> ParseTransferFunctionControlPoint(
         ApplicationStateIniFileKey key,
         std::string_view valueString,
         TransferFunctionControlPoint& point);

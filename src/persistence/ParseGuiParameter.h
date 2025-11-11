@@ -5,12 +5,13 @@
 #include <persistence/ApplicationStateIniFileSection.h>
 #include <persistence/ApplicationStateIniFileKey.h>
 #include <gui/GuiParameters.h>
+
+#include <expected>
 #include <string_view>
 
 namespace Persistence
-{   
-    // TODO find a better return type
-    bool ParseGuiParameter(
+{
+    std::expected<void, ApplicationStateIniFileLoadingError> ParseGuiParameter(
         ApplicationStateIniFileSection section,
         ApplicationStateIniFileKey key,
         unsigned int elementIndex,

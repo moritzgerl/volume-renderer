@@ -31,25 +31,25 @@ namespace
     }
 }
 
-bool Persistence::ParseGuiParameter(
+std::expected<void, Persistence::ApplicationStateIniFileLoadingError> Persistence::ParseGuiParameter(
     ApplicationStateIniFileSection section,
     ApplicationStateIniFileKey key,
     unsigned int elementIndex,
     std::string_view valueString,
     GuiParameters& guiParameters)
-{   
+{
     auto parseValueResult = ParseValueToVariant(key, valueString);
     const unsigned int pointLightIndex = SanitizePointLightIndex(elementIndex, section, guiParameters);
     DirectionalLight& directionalLight = guiParameters.directionalLight;
     PointLight& pointLight = guiParameters.pointLights[pointLightIndex];
-    
+
     return std::visit(
         [&]
-        (const auto& result) -> bool
+        (const auto& result) -> std::expected<void, ApplicationStateIniFileLoadingError>
         {
             if (!result)
             {
-                return false;
+                return std::unexpected(result.error());
             }
 
             const auto value = result.value();
@@ -237,7 +237,7 @@ bool Persistence::ParseGuiParameter(
                 break;
             }
 
-            return true;
+            return {};
         },
         parseValueResult);
 }

@@ -82,7 +82,7 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
 
             if (IsArraySection(currentSection))
             {
-                auto elementIndexParseResult = ParseElementIndex(line, currentSection);
+                const auto elementIndexParseResult = ParseElementIndex(line, currentSection);
 
                 if (elementIndexParseResult)
                 {
@@ -90,7 +90,7 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
                 }
                 else
                 {
-                    return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
+                    return std::unexpected(elementIndexParseResult.error());
                 }
             }
 
@@ -106,11 +106,11 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
         {
             case ApplicationStateIniFileSection::Camera:
             {
-                const bool cameraParameterParseSuccess = ParseCameraParameter(key, valueString, cameraParameters);
-                
-                if (!cameraParameterParseSuccess)
+                const auto cameraParameterParseResult = ParseCameraParameter(key, valueString, cameraParameters);
+
+                if (!cameraParameterParseResult)
                 {
-                    return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
+                    return std::unexpected(cameraParameterParseResult.error());
                 }
                 break;
             }
@@ -119,11 +119,11 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
             {
                 TransferFunctionControlPoint& point = guiParameters.transferFunction.controlPoints[currentElementIndex];
 
-                const bool transferFunctionPointParseSuccess = ParseTransferFunctionControlPoint(key, valueString, point);
+                const auto transferFunctionPointParseResult = ParseTransferFunctionControlPoint(key, valueString, point);
 
-                if (!transferFunctionPointParseSuccess)
+                if (!transferFunctionPointParseResult)
                 {
-                    return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
+                    return std::unexpected(transferFunctionPointParseResult.error());
                 }
 
                 foundTransferFunctionPoint = true;
@@ -138,18 +138,18 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
             case ApplicationStateIniFileSection::PointLight:
             case ApplicationStateIniFileSection::Rendering:
             {
-                const bool guiParameterParseSuccess = ParseGuiParameter(
+                const auto guiParameterParseResult = ParseGuiParameter(
                     currentSection,
                     key,
                     currentElementIndex,
                     valueString,
                     guiParameters);
 
-                if (!guiParameterParseSuccess)
+                if (!guiParameterParseResult)
                 {
-                    return std::unexpected(ApplicationStateIniFileLoadingError::ParseError);
+                    return std::unexpected(guiParameterParseResult.error());
                 }
-                
+
                 break;
             }
 
