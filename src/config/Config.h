@@ -41,6 +41,7 @@ namespace Config
     const float defaultTrackballSensitivity = 0.003f;
     const bool defaultTrackballInvertYAxis = true;
     const float defaultRaycastingDensityMultiplier = 20.0f;
+    const unsigned int transferFunctionTextureSize = 512;
 }
 
 #endif
