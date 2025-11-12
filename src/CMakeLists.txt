@@ -222,16 +222,14 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui
-    ${GLM_INCLUDE_DIR}
-    ${GLFW3_INCLUDE_DIR}
-    ${GLAD_INCLUDE_DIR}
 )
 
-target_link_directories(${PROJECT_NAME} PRIVATE
-    ${LIB_DIR}/GLFW/lib
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    glad::glad
+    glfw
+    glm::glm
+    opengl32
 )
-
-target_link_libraries(${PROJECT_NAME} ${LIBS})
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
 

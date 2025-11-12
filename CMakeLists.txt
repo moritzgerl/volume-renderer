@@ -23,9 +23,7 @@ message(STATUS "Found glad in ${glad_DIR}")
 find_package(GLM REQUIRED)
 message(STATUS "Found GLM at ${GLM_DIR}")
 
-find_package(GLFW3 REQUIRED)
-message(STATUS "Found GLFW3 in ${GLFW3_DIR}")
-
-set(LIBS opengl32 glfw3 GLAD CACHE INTERNAL LIBS)
+find_package(glfw3 CONFIG REQUIRED)
+message(STATUS "Found glfw3 in ${glfw3_DIR}")
 
 add_subdirectory(src)
