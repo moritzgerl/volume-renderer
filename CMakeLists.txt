@@ -11,7 +11,7 @@ if(MSVC)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 endif()
 
-project(veda)
+project(volume-renderer)
 
 add_subdirectory(lib)
 add_subdirectory(src)

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Veda is an OpenGL-based volume rendering demo that implements Screen Space Ambient Occlusion (SSAO) with shadow mapping. It uses modern C++ (C++26), CMake for build management, and leverages GLFW for windowing, GLAD for OpenGL loading, GLM for mathematics, and ImGui for the GUI.
+volume-renderer is an OpenGL-based volume rendering demo that implements Screen Space Ambient Occlusion (SSAO) with shadow mapping. It uses modern C++ (C++26), CMake for build management, and leverages GLFW for windowing, GLAD for OpenGL loading, GLM for mathematics, and ImGui for the GUI.
 
 ## Build System
 
@@ -20,7 +20,7 @@ Veda is an OpenGL-based volume rendering demo that implements Screen Space Ambie
 cmake -B build
 cmake --build build
 
-# The executable will be in build/src/Debug/veda.exe (Debug) or build/src/Release/veda.exe (Release)
+# The executable will be in build/src/Debug/volume-renderer.exe (Debug) or build/src/Release/volume-renderer.exe (Release)
 ```
 
 ### Important CMake Details
