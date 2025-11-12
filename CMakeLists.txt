@@ -21,7 +21,7 @@ find_package(glad CONFIG REQUIRED)
 message(STATUS "Found glad in ${glad_DIR}")
 
 find_package(GLM REQUIRED)
-message(STATUS "GLM included at ${GLM_DIR}")
+message(STATUS "Found GLM at ${GLM_DIR}")
 
 find_package(GLFW3 REQUIRED)
 message(STATUS "Found GLFW3 in ${GLFW3_DIR}")
