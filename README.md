@@ -89,6 +89,8 @@ OpenGL — API specification by the [Khronos Group](https://www.khronos.org/open
 [GLM](https://github.com/g-truc/glm) — Licensed under the MIT License\
 [Dear ImGui](https://github.com/ocornut/imgui) — Licensed under the MIT License  
 
+&nbsp;
+
 ## Acknowledgments
 
 Parts of this project are based on code and tutorials from [LearnOpenGL](https://learnopengl.com/),  
