@@ -20,16 +20,6 @@ Texture::Texture(TextureId textureId, GLenum textureUnit, unsigned int width, GL
     Create1D(width, internalFormat, format, type, filterParameter, wrapParameter, NULL);
 }
 
-Texture::Texture(TextureId textureId, GLenum textureUnit, unsigned int width, GLenum internalFormat, GLenum format, GLenum type, GLenum filterParameter, GLenum wrapParameter, const void* data)
-    : m_textureId(textureId)
-    , m_textureType(TextureType::Texture1D)
-    , m_glTextureId()
-    , m_textureUnitEnum(textureUnit)
-    , m_textureUnitInt(TextureUnitMapping::GLenumToUnsignedInt(textureUnit))
-{
-    Create1D(width, internalFormat, format, type, filterParameter, wrapParameter, data);
-}
-
 Texture::Texture(TextureId textureId, GLenum textureUnit, unsigned int width, unsigned int height, GLenum internalFormat, GLenum format, GLenum type, GLenum filterParameter, GLenum wrapParameter)
     : m_textureId(textureId)
     , m_textureType(TextureType::Texture2D)
