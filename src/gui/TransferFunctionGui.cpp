@@ -112,6 +112,7 @@ void TransferFunctionGui::Draw(TransferFunction& transferFunction, GuiUpdateFlag
             }
             transferFunction.SetNumActivePoints(numActivePoints - 1);
             guiUpdateFlags.transferFunctionChanged = true;
+            transferFunction.UpdateTextureData();
             wasClicked = true;
         }
         // If we didn't click near an existing point, add a new one
@@ -167,6 +168,7 @@ void TransferFunctionGui::Draw(TransferFunction& transferFunction, GuiUpdateFlag
             transferFunction.IncrementNumActivePoints();
 
             guiUpdateFlags.transferFunctionChanged = true;
+            transferFunction.UpdateTextureData();
             wasClicked = true;
         }
     }
@@ -221,6 +223,7 @@ void TransferFunctionGui::Draw(TransferFunction& transferFunction, GuiUpdateFlag
             point.opacity = std::clamp(newOpacity, 0.0f, 1.0f);
 
             guiUpdateFlags.transferFunctionChanged = true;
+            transferFunction.UpdateTextureData();
         }
     }
     else
@@ -381,6 +384,7 @@ void TransferFunctionGui::Draw(TransferFunction& transferFunction, GuiUpdateFlag
             if (ImGui::ColorPicker3("##picker", (float*)&point.color, colorPickerFlags))
             {
                 guiUpdateFlags.transferFunctionChanged = true;
+                transferFunction.UpdateTextureData();
             }
             if (ImGui::Button("Close") || ImGui::IsKeyPressed(ImGuiKey_Escape))
             {
