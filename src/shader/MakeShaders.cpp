@@ -46,6 +46,7 @@ namespace Factory
         shaders.emplace_back(ShaderId::LightSource, FileSystem::getPath("src/shaders/LightSource.vert").c_str(), FileSystem::getPath("src/shaders/LightSource.frag").c_str());
 
         const Texture& volumeTexture = textureStorage.GetElement(TextureId::VolumeData);
+        const Texture& transferFunctionTexture = textureStorage.GetElement(TextureId::TransferFunction);
         const Texture& ssaoPositionTexture = textureStorage.GetElement(TextureId::SsaoPosition);
         const Texture& ssaoNormalTexture = textureStorage.GetElement(TextureId::SsaoNormal);
         const Texture& ssaoAlbedoTexture = textureStorage.GetElement(TextureId::SsaoAlbedo);
@@ -56,6 +57,7 @@ namespace Factory
         const Shader& volumeShader = GetShader(shaders, ShaderId::Volume);
         volumeShader.Use();
         volumeShader.SetInt("volumeTexture", volumeTexture.GetTextureUnit());
+        volumeShader.SetInt("transferFunctionTexture", transferFunctionTexture.GetTextureUnit());
         // TODO set view vector and camera pos every frame
         volumeShader.SetFloat("stepSize", 0.1f); // TODO add to gui parameters
         volumeShader.SetInt("maxSteps", 128); // TODO make configurable

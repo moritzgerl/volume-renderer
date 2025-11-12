@@ -6,6 +6,7 @@ in vec3 WorldPos;
 in vec3 ViewPos;
 
 uniform sampler3D volumeTexture;
+uniform sampler1D transferFunctionTexture;
 uniform mat4 view;
 uniform vec3 cameraPos;
 uniform float stepSize;

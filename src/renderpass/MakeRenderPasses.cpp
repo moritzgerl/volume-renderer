@@ -71,6 +71,7 @@ RenderPasses Factory::MakeRenderPasses(const Gui& gui, const InputHandler& input
     {
         std::vector<std::reference_wrapper<const Texture>> textures;
         textures.push_back(std::cref(textureStorage.GetElement(TextureId::VolumeData)));
+        textures.push_back(std::cref(textureStorage.GetElement(TextureId::TransferFunction)));
 
         const auto& shader = shaderStorage.GetElement(ShaderId::Volume);
 
