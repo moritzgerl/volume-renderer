@@ -60,7 +60,7 @@ void main()
     vec3 rayDir = GetRayDirection();
 
     float tNear, tFar;
-    
+
     if (!IntersectBox(rayOrigin, rayDir, tNear, tFar))
     {
         discard;

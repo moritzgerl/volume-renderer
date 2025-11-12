@@ -168,6 +168,7 @@ std::expected<Persistence::ApplicationState, Persistence::ApplicationStateIniFil
     if (foundTransferFunctionPoint)
     {
         guiParameters.transferFunction.SetNumActivePoints(maxTransferFunctionPointIndex + 1);
+        guiParameters.transferFunction.UpdateTextureData();
     }
 
     return ApplicationState
