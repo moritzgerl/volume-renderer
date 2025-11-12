@@ -1,2 +1,2 @@
 # volume-renderer
-Volume rendering demo
+Volume rendering demo.
