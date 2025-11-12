@@ -2,12 +2,14 @@
 
 This project incorporates the following open-source components.
 
+&nbsp;
+
 ## OpenGL
 OpenGL® and the oval logo are trademarks or registered trademarks of
 Silicon Graphics International Corp. (SGI) in the United States and/or other countries.
 Specification maintained by the [Khronos Group](https://www.khronos.org/opengl/).
 
----
+&nbsp;
 
 ## GLAD
 MIT License  
@@ -19,7 +21,7 @@ in the Software without restriction...
 
 [Full license available at https://github.com/Dav1dde/glad/blob/master/LICENSE]
 
----
+&nbsp;
 
 ## GLFW
 zlib/libpng License  
@@ -29,7 +31,7 @@ This software is provided 'as-is', without any express or implied warranty...
 
 [Full license available at https://github.com/glfw/glfw/blob/master/LICENSE.md]
 
----
+&nbsp;
 
 ## GLM
 MIT License  
@@ -39,7 +41,7 @@ Permission is hereby granted, free of charge, to any person obtaining a copy...
 
 [Full license available at https://github.com/g-truc/glm/blob/master/copying.txt]
 
----
+&nbsp;
 
 ## Dear ImGui
 MIT License  
@@ -49,3 +51,12 @@ Permission is hereby granted, free of charge, to any person obtaining a copy...
 
 [Full license available at https://github.com/ocornut/imgui/blob/master/LICENSE.txt]
 
+&nbsp;
+
+## LearnOpenGL
+
+Author: Joey de Vries  
+Source: [https://learnopengl.com/](https://learnopengl.com/)  
+License: [Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)\
+Description:
+Code and concepts for OpenGL rendering, lighting, and camera control were adapted from the LearnOpenGL tutorials.
