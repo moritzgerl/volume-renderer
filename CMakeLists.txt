@@ -13,5 +13,19 @@ endif()
 
 project(volume-renderer)
 
-add_subdirectory(lib)
+if(NOT DEFINED CMAKE_PREFIX_PATH)
+    set(CMAKE_PREFIX_PATH "C:/Libraries/vcpkg/installed/x64-windows" CACHE PATH "Path to vcpkg installed packages")
+endif()
+
+find_package(glad CONFIG REQUIRED)
+message(STATUS "Found glad in ${glad_DIR}")
+
+find_package(GLM REQUIRED)
+message(STATUS "GLM included at ${GLM_DIR}")
+
+find_package(GLFW3 REQUIRED)
+message(STATUS "Found GLFW3 in ${GLFW3_DIR}")
+
+set(LIBS opengl32 glfw3 GLAD CACHE INTERNAL LIBS)
+
 add_subdirectory(src)
