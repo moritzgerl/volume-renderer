@@ -9,11 +9,12 @@ namespace VolumeData
     class VolumeData;
 }
 
+struct GuiParameters;
 class SsaoUtils;
 
 namespace Factory
 {
-    std::vector<Texture> MakeTextures(const VolumeData::VolumeData& volumeData, const SsaoUtils& ssaoUtils);
+    std::vector<Texture> MakeTextures(const GuiParameters& guiParameters, const VolumeData::VolumeData& volumeData, const SsaoUtils& ssaoUtils);
 }
 
 #endif

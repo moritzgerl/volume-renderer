@@ -10,14 +10,14 @@ namespace Constants
     const float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 }
 
-Texture::Texture(TextureId textureId, GLenum textureUnit, unsigned int width, GLenum internalFormat, GLenum format, GLenum type, GLenum filterParameter, GLenum wrapParameter)
+Texture::Texture(TextureId textureId, GLenum textureUnit, unsigned int width, GLenum internalFormat, GLenum format, GLenum type, GLenum filterParameter, GLenum wrapParameter, const void* data)
     : m_textureId(textureId)
     , m_textureType(TextureType::Texture1D)
     , m_glTextureId()
     , m_textureUnitEnum(textureUnit)
     , m_textureUnitInt(TextureUnitMapping::GLenumToUnsignedInt(textureUnit))
 {
-    Create1D(width, internalFormat, format, type, filterParameter, wrapParameter, NULL);
+    Create1D(width, internalFormat, format, type, filterParameter, wrapParameter, data);
 }
 
 Texture::Texture(TextureId textureId, GLenum textureUnit, unsigned int width, unsigned int height, GLenum internalFormat, GLenum format, GLenum type, GLenum filterParameter, GLenum wrapParameter)
