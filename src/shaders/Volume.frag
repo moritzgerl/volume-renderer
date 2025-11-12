@@ -48,10 +48,10 @@ vec4 SampleVolume(vec3 pos)
     float density = texture(volumeTexture, pos).r;
     density *= densityMultiplier;
 
-    vec3 color = vec3(density);
-    float alpha = density;
+    // Look up color and alpha from transfer function
+    vec4 transferFunctionColor = texture(transferFunctionTexture, density);
 
-    return vec4(color, alpha);
+    return transferFunctionColor;
 }
 
 void main()
