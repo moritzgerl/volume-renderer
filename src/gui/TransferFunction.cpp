@@ -41,3 +41,13 @@ TransferFunctionControlPoint& TransferFunction::operator[](size_t index)
 {
     return m_controlPoints[index];
 }
+
+const std::array<unsigned char, TransferFunction::textureDataSize>& TransferFunction::GetTextureData() const
+{
+    return m_textureData;
+}
+
+std::array<unsigned char, TransferFunction::textureDataSize>& TransferFunction::GetTextureData()
+{
+    return m_textureData;
+}
