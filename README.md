@@ -5,6 +5,13 @@ Volume rendering demo. Basic GPU volume raycasting with a simple GUI and persist
 
 &nbsp;
 
+## Screenshot
+<p align="left">
+  <img src="https://github.com/user-attachments/assets/bb48413f-3e6d-4e02-afeb-7a288995274b" width="700" alt="Volume Renderer Screenshot">
+</p>
+
+&nbsp;
+
 ## Building
 
 ### Dependencies
