@@ -1,2 +1,2 @@
-# veda
+# volume-renderer
 Volume rendering demo
