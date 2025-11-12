@@ -2,6 +2,7 @@
 #include <textures/MakeVolumeDataTexture.h>
 #include <textures/TextureId.h>
 #include <config/Config.h>
+#include <config/TransferFunctionConstants.h>
 #include <utils/SsaoUtils.h>
 
 #include <glad/glad.h>
@@ -14,7 +15,7 @@ namespace Factory
         textures.reserve(9);
 
         textures.emplace_back(MakeVolumeDataTexture(TextureId::VolumeData, GL_TEXTURE1, volumeData));
-        textures.emplace_back(TextureId::TransferFunction, GL_TEXTURE2, Config::transferFunctionTextureSize, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, GL_LINEAR, GL_CLAMP_TO_EDGE);
+        textures.emplace_back(TextureId::TransferFunction, GL_TEXTURE2, TransferFunctionConstants::textureSize, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, GL_LINEAR, GL_CLAMP_TO_EDGE);
         textures.emplace_back(TextureId::SsaoPosition, GL_TEXTURE3, Config::windowWidth, Config::windowHeight, GL_RGBA16F, GL_RGBA, GL_FLOAT, GL_NEAREST, GL_CLAMP_TO_EDGE);
         textures.emplace_back(TextureId::SsaoNormal, GL_TEXTURE4, Config::windowWidth, Config::windowHeight, GL_RGBA16F, GL_RGBA, GL_FLOAT, GL_NEAREST, GL_REPEAT);
         textures.emplace_back(TextureId::SsaoAlbedo, GL_TEXTURE5, Config::windowWidth, Config::windowHeight, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, GL_NEAREST, GL_REPEAT);

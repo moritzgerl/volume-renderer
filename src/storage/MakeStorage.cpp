@@ -47,7 +47,7 @@ namespace
             return false;
         }
 
-        if (transferFunction.GetNumActivePoints() > TransferFunction::maxControlPoints)
+        if (transferFunction.GetNumActivePoints() > TransferFunctionConstants::maxNumControlPoints)
         {
             return false;
         }

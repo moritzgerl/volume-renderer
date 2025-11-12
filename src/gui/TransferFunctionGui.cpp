@@ -115,7 +115,7 @@ void TransferFunctionGui::Draw(TransferFunction& transferFunction, GuiUpdateFlag
             wasClicked = true;
         }
         // If we didn't click near an existing point, add a new one
-        else if (clickedPointIndex == -1 && numActivePoints < TransferFunction::maxControlPoints)
+        else if (clickedPointIndex == -1 && numActivePoints < TransferFunctionConstants::maxNumControlPoints)
         {
             // Calculate new point position
             float newValue = std::clamp((mousePos.x - plotPos.x) / plotSize.x, 0.0f, 1.0f);

@@ -31,7 +31,7 @@ namespace Config
     const unsigned int defaultSsaoKernelSize = 64;
     const unsigned int defaultSsaoNoiseSize = 4;
     const float defaultSsaoRadius = 0.538f;
-    const float defaultSsaoBias = 0.028f;    
+    const float defaultSsaoBias = 0.028f;
     const glm::vec3 defaultCameraPosition = glm::vec3(1.1f, 0.73f, 1.1f);
     const glm::vec3 defaultCameraLookAt = glm::vec3(0.0f, 0.0f, 0.0f);
     const glm::vec3 defaultCameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
@@ -41,7 +41,6 @@ namespace Config
     const float defaultTrackballSensitivity = 0.003f;
     const bool defaultTrackballInvertYAxis = true;
     const float defaultRaycastingDensityMultiplier = 20.0f;
-    const unsigned int transferFunctionTextureSize = 512;
 }
 
 #endif
