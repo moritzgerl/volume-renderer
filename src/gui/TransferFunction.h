@@ -9,9 +9,6 @@
 class TransferFunction
 {
 public:
-    
-    TransferFunction();
-
     size_t GetNumActivePoints() const;
     void SetNumActivePoints(size_t count);
     void IncrementNumActivePoints();
@@ -24,6 +21,8 @@ public:
 
     const std::array<unsigned char, TransferFunctionConstants::textureDataSize>& GetTextureData() const;
     std::array<unsigned char, TransferFunctionConstants::textureDataSize>& GetTextureData();
+
+    void UpdateTextureData();
 
 private:
     std::array<TransferFunctionControlPoint, TransferFunctionConstants::maxNumControlPoints> m_controlPoints;
