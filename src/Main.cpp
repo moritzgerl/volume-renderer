@@ -7,10 +7,10 @@
 #include <renderpass/MakeRenderPasses.h>
 #include <shader/SsaoUpdater.h>
 #include <shader/MakeSsaoUpdater.h>
-#include <shader/TransferFunctionTextureUpdater.h>
-#include <shader/MakeTransferFunctionTextureUpdater.h>
 #include <storage/MakeStorage.h>
 #include <storage/Storage.h>
+#include <transferfunction/TransferFunctionTextureUpdater.h>
+#include <transferfunction/MakeTransferFunctionTextureUpdater.h>
 
 #include <glad/glad.h>
 

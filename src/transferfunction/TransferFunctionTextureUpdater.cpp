@@ -1,8 +1,9 @@
-#include <shader/TransferFunctionTextureUpdater.h>
-#include <gui/TransferFunction.h>
+#include <transferfunction/TransferFunctionTextureUpdater.h>
+
 #include <gui/GuiUpdateFlags.h>
 #include <textures/Texture.h>
-#include <textures/UpdateTransferFunctionTexture.h>
+#include <transferfunction/TransferFunction.h>
+#include <transferfunction/UpdateTransferFunctionTexture.h>
 
 TransferFunctionTextureUpdater::TransferFunctionTextureUpdater(
     GuiUpdateFlags& guiUpdateFlags,

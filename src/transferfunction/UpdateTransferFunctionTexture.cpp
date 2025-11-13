@@ -1,8 +1,9 @@
-#include <textures/UpdateTransferFunctionTexture.h>
+#include <transferfunction/UpdateTransferFunctionTexture.h>
+
+#include <config/TransferFunctionConstants.h>
 #include <textures/Texture.h>
 #include <textures/TextureId.h>
-#include <config/TransferFunctionConstants.h>
-#include <gui/TransferFunction.h>
+#include <transferfunction/TransferFunction.h>
 
 #include <glad/glad.h>
 

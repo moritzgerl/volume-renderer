@@ -1,4 +1,4 @@
-#include <gui/TransferFunction.h>
+#include <transferfunction/TransferFunction.h>
 
 #include <algorithm>
 #include <array>

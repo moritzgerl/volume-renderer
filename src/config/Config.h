@@ -1,11 +1,11 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <gui/MakeDefaultTransferFunction.h>
 #include <lights/DirectionalLight.h>
 #include <lights/PointLight.h>
 #include <lights/MakeDefaultDirectionalLight.h>
 #include <lights/MakeDefaultPointLights.h>
+#include <transferfunction/MakeDefaultTransferFunction.h>
 
 #include <glm/glm.hpp>
 

@@ -3,7 +3,7 @@
 
 #include <persistence/ApplicationStateIniFileLoadingError.h>
 #include <persistence/ApplicationStateIniFileKey.h>
-#include <gui/TransferFunctionControlPoint.h>
+#include <transferfunction/TransferFunctionControlPoint.h>
 
 #include <expected>
 #include <string_view>

@@ -1,5 +1,6 @@
 #include <storage/MakeStorage.h>
 #include <storage/ElementStorage.h>
+
 #include <buffers/FrameBufferId.h>
 #include <buffers/MakeFrameBuffers.h>
 #include <camera/Camera.h>
@@ -7,7 +8,6 @@
 #include <config/Config.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
-#include <gui/TransferFunction.h>
 #include <input/DisplayProperties.h>
 #include <input/InputHandler.h>
 #include <input/MakeDisplayProperties.h>
@@ -18,6 +18,7 @@
 #include <renderpass/MakeRenderPasses.h>
 #include <shader/MakeShaders.h>
 #include <shader/ShaderId.h>
+#include <transferfunction/TransferFunction.h>
 #include <shader/SsaoUpdater.h>
 #include <textures/MakeTextures.h>
 #include <textures/TextureId.h>

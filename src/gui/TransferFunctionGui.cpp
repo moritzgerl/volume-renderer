@@ -1,6 +1,7 @@
 #include <gui/TransferFunctionGui.h>
 #include <gui/GuiUpdateFlags.h>
-#include <gui/TransferFunction.h>
+
+#include <transferfunction/TransferFunction.h>
 
 #include <imgui.h>
 #include <algorithm>

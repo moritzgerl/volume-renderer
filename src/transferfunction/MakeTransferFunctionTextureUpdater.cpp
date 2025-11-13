@@ -1,4 +1,5 @@
-#include <shader/MakeTransferFunctionTextureUpdater.h>
+#include <transferfunction/MakeTransferFunctionTextureUpdater.h>
+
 #include <gui/GuiParameters.h>
 #include <storage/Storage.h>
 #include <textures/TextureId.h>

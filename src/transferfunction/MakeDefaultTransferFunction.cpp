@@ -1,4 +1,4 @@
-#include <gui/MakeDefaultTransferFunction.h>
+#include <transferfunction/MakeDefaultTransferFunction.h>
 
 TransferFunction MakeDefaultTransferFunction()
 {

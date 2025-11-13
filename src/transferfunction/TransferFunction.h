@@ -1,8 +1,9 @@
 #ifndef TRANSFER_FUNCTION_H
 #define TRANSFER_FUNCTION_H
 
+#include <transferfunction/TransferFunctionControlPoint.h>
+
 #include <config/TransferFunctionConstants.h>
-#include <gui/TransferFunctionControlPoint.h>
 
 #include <array>
 

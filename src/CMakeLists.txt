@@ -124,8 +124,16 @@ file(GLOB_RECURSE SRC_TEXTURES_CPP
     "${CMAKE_CURRENT_SOURCE_DIR}/textures/*.cpp"
 )
 
+file(GLOB_RECURSE SRC_TRANSFERFUNCTION_H
+    "${CMAKE_CURRENT_SOURCE_DIR}/transferfunction/*.h"
+)
+
+file(GLOB_RECURSE SRC_TRANSFERFUNCTION_CPP
+    "${CMAKE_CURRENT_SOURCE_DIR}/transferfunction/*.cpp"
+)
+
 file(GLOB_RECURSE SRC_UTILS_H
-    "${CMAKE_CURRENT_SOURCE_DIR}/utils/*.h" 
+    "${CMAKE_CURRENT_SOURCE_DIR}/utils/*.h"
 )
 
 file(GLOB_RECURSE SRC_UTILS_CPP
@@ -178,6 +186,9 @@ source_group("storage\\Source Files" FILES ${SRC_STORAGE_CPP})
 source_group("textures\\Header Files" FILES ${SRC_TEXTURES_H})
 source_group("textures\\Source Files" FILES ${SRC_TEXTURES_CPP})
 
+source_group("transferfunction\\Header Files" FILES ${SRC_TRANSFERFUNCTION_H})
+source_group("transferfunction\\Source Files" FILES ${SRC_TRANSFERFUNCTION_CPP})
+
 source_group("utils\\Header Files" FILES ${SRC_UTILS_H})
 source_group("utils\\Source Files" FILES ${SRC_UTILS_CPP})
 
@@ -214,6 +225,8 @@ add_executable(${PROJECT_NAME}
     ${SRC_STORAGE_CPP}
     ${SRC_TEXTURES_H}
     ${SRC_TEXTURES_CPP}
+    ${SRC_TRANSFERFUNCTION_H}
+    ${SRC_TRANSFERFUNCTION_CPP}
     ${SRC_UTILS_H}
     ${SRC_UTILS_CPP}
 )
