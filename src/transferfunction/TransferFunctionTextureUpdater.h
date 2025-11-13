@@ -16,6 +16,9 @@ public:
 
     void Update();
 
+private: 
+    void UpdateTransferFunctionTexture();
+
 private:
     GuiUpdateFlags& m_guiUpdateFlags;
     TransferFunction& m_transferFunction;
