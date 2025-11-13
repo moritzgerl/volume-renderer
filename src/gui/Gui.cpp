@@ -94,7 +94,7 @@ void Gui::Draw()
             m_guiParameters.trackballSensitivity = Config::trackballSensitivityMin + normalizedSensitivity * (Config::trackballSensitivityMax - Config::trackballSensitivityMin);
         }
     }
-
+ /*
     // SSAO
     if (ImGui::CollapsingHeader("SSAO", ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow))
     {
@@ -167,7 +167,7 @@ void Gui::Draw()
             }
         }
     }
-
+*/
     // Transfer Function
     if (ImGui::CollapsingHeader("Transfer Function", ImGuiTreeNodeFlags_DefaultOpen))
     {
