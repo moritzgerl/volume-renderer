@@ -20,7 +20,5 @@ TransferFunction Factory::MakeDefaultTransferFunction()
     transferFunction[2].color = glm::vec3(1.0f, 1.0f, 1.0f);
     transferFunction[2].opacity = 1.0f;
 
-    transferFunction.UpdateTextureData();
-
     return transferFunction;
 }

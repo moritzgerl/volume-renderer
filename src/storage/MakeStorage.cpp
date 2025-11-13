@@ -104,7 +104,7 @@ namespace Factory
         ScreenQuad screenQuad;
         UnitCube unitCube;
         SsaoKernel ssaoKernel;
-        TextureStorage textureStorage(MakeTextures(guiParameters, volumeData, ssaoKernel));
+        TextureStorage textureStorage(MakeTextures(volumeData, ssaoKernel));
         ShaderStorage shaderStorage(MakeShaders(guiParameters, ssaoKernel, textureStorage));
         FrameBufferStorage frameBufferStorage(MakeFrameBuffers(textureStorage));
 

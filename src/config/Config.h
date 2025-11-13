@@ -27,6 +27,7 @@ namespace Config
     const unsigned int numPointLights = 2;
     const DirectionalLight defaultDirectionalLight = Factory::MakeDefaultDirectionalLight();
     const std::vector<PointLight> defaultPointLights = Factory::MakeDefaultPointLights(numPointLights);
+    // move to its own header, use constexpr
     const TransferFunction defaultTransferFunction = Factory::MakeDefaultTransferFunction();
     const unsigned int defaultSsaoKernelSize = 64;
     const unsigned int defaultSsaoNoiseSize = 4;

@@ -3,7 +3,6 @@
 
 #include <config/Config.h>
 #include <config/TransferFunctionConstants.h>
-#include <gui/GuiParameters.h>
 #include <ssao/SsaoKernel.h>
 #include <volumedata/MakeVolumeDataTexture.h>
 
@@ -11,13 +10,13 @@
 
 namespace Factory
 {
-    std::vector<Texture> MakeTextures(const GuiParameters& guiParameters, const VolumeData::VolumeData& volumeData, const SsaoKernel& ssaoKernel)
+    std::vector<Texture> MakeTextures(const VolumeData::VolumeData& volumeData, const SsaoKernel& ssaoKernel)
     {
         std::vector<Texture> textures;
         textures.reserve(9);
 
         textures.emplace_back(MakeVolumeDataTexture(TextureId::VolumeData, GL_TEXTURE1, volumeData));
-        textures.emplace_back(TextureId::TransferFunction, GL_TEXTURE2, static_cast<unsigned int>(TransferFunctionConstants::textureSize), GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, GL_LINEAR, GL_CLAMP_TO_EDGE, guiParameters.transferFunction.GetTextureData().data());
+        textures.emplace_back(TextureId::TransferFunction, GL_TEXTURE2, static_cast<unsigned int>(TransferFunctionConstants::textureSize), GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, GL_LINEAR, GL_CLAMP_TO_EDGE, nullptr);
         textures.emplace_back(TextureId::SsaoPosition, GL_TEXTURE3, Config::windowWidth, Config::windowHeight, GL_RGBA16F, GL_RGBA, GL_FLOAT, GL_NEAREST, GL_CLAMP_TO_EDGE);
         textures.emplace_back(TextureId::SsaoNormal, GL_TEXTURE4, Config::windowWidth, Config::windowHeight, GL_RGBA16F, GL_RGBA, GL_FLOAT, GL_NEAREST, GL_REPEAT);
         textures.emplace_back(TextureId::SsaoAlbedo, GL_TEXTURE5, Config::windowWidth, Config::windowHeight, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, GL_NEAREST, GL_REPEAT);

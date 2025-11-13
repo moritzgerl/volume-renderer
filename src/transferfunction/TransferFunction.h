@@ -20,15 +20,9 @@ public:
     const TransferFunctionControlPoint& operator[](size_t index) const;
     TransferFunctionControlPoint& operator[](size_t index);
 
-    const std::array<unsigned char, TransferFunctionConstants::textureDataSize>& GetTextureData() const;
-    std::array<unsigned char, TransferFunctionConstants::textureDataSize>& GetTextureData();
-
-    void UpdateTextureData();
-
 private:
     std::array<TransferFunctionControlPoint, TransferFunctionConstants::maxNumControlPoints> m_controlPoints;
     size_t m_numActivePoints;
-    std::array<unsigned char, TransferFunctionConstants::textureDataSize> m_textureData;
 };
 
 #endif

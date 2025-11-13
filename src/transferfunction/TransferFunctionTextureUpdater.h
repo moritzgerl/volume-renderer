@@ -1,6 +1,10 @@
 #ifndef TRANSFER_FUNCTION_TEXTURE_UPDATER_H
 #define TRANSFER_FUNCTION_TEXTURE_UPDATER_H
 
+#include <config/TransferFunctionConstants.h>
+
+#include <array>
+
 struct GuiUpdateFlags;
 class TransferFunction;
 class Texture;
@@ -16,10 +20,12 @@ public:
 
     void Update();
 
-private: 
-    void UpdateTransferFunctionTexture();
+private:
+    void UpdateTextureData();
+    void UpdateTexture();
 
 private:
+    std::array<unsigned char, TransferFunctionConstants::textureDataSize> m_textureData;
     GuiUpdateFlags& m_guiUpdateFlags;
     TransferFunction& m_transferFunction;
     Texture& m_transferFunctionTexture;
