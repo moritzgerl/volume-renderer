@@ -83,9 +83,8 @@ You can find brief documentation in [CLAUDE.md](./CLAUDE.md)
 
 &nbsp;
 
-## AI Usage
-I use Claude Code as a coding assistant for this project. I suggest all changes myself in small increments, and review all changes manually.\
-In addition to refactoring and developing new features, I also use Claude Code for learning about new C++ concepts.
+## AI sage
+I use Claude Code as a coding assistant for this project. I suggest all changes myself in small increments, and review all changes manually. In addition to refactoring and developing new features, I also use Claude Code for learning about new C++ concepts.
 
 &nbsp;
 
