@@ -1,11 +1,13 @@
 #include <gui/TransferFunctionGui.h>
 #include <gui/GuiUpdateFlags.h>
 
+#include <transferfunction/InterpolateTransferFunction.h>
 #include <transferfunction/TransferFunction.h>
 
 #include <imgui.h>
 #include <algorithm>
 #include <cmath>
+#include <span>
 #include <string>
 
 namespace
@@ -285,48 +287,27 @@ void TransferFunctionGui::Draw(TransferFunction& transferFunction, GuiUpdateFlag
         drawList->AddRectFilled(ImVec2(x1, y1), ImVec2(x2, y2), col);
     }
 
-    // Draw opacity curve with Catmull-Rom spline interpolation
+    // Draw opacity curve using shared interpolation
     if (numActivePoints >= 2)
     {
-        const int segmentsPerInterval = 20;
+        const int totalSegments = 100;  // Total segments across entire curve for smooth rendering
+        const auto activePoints = std::span{transferFunction.GetControlPoints().data(), numActivePoints};
 
-        for (size_t i = 0; i < numActivePoints - 1; ++i)
+        for (int seg = 0; seg < totalSegments; ++seg)
         {
-            // Get control points for Catmull-Rom spline
-            // Use edge points for extrapolation at boundaries
-            auto& p0 = (i == 0) ? transferFunction[0] : transferFunction[i - 1];
-            auto& p1 = transferFunction[i];
-            auto& p2 = transferFunction[i + 1];
-            auto& p3 = (i + 2 >= numActivePoints) ? transferFunction[i + 1] : transferFunction[i + 2];
+            float value0 = static_cast<float>(seg) / totalSegments;
+            float value1 = static_cast<float>(seg + 1) / totalSegments;
 
-            // Draw segments between p1 and p2
-            for (int seg = 0; seg < segmentsPerInterval; ++seg)
-            {
-                float t0 = static_cast<float>(seg) / segmentsPerInterval;
-                float t1 = static_cast<float>(seg + 1) / segmentsPerInterval;
+            // Evaluate transfer function at segment endpoints using shared interpolation
+            glm::vec4 rgba0 = InterpolateTransferFunction(value0, activePoints);
+            glm::vec4 rgba1 = InterpolateTransferFunction(value1, activePoints);
 
-                // Catmull-Rom spline interpolation
-                auto catmullRom = [](float t, float p0, float p1, float p2, float p3) -> float {
-                    float t2 = t * t;
-                    float t3 = t2 * t;
-                    return 0.5f * ((2.0f * p1) +
-                        (-p0 + p2) * t +
-                        (2.0f * p0 - 5.0f * p1 + 4.0f * p2 - p3) * t2 +
-                        (-p0 + 3.0f * p1 - 3.0f * p2 + p3) * t3);
-                };
+            float x0 = plotPos.x + value0 * plotSize.x;
+            float y0 = plotPos.y + plotSize.y - gradientHeight - (rgba0.a * (plotSize.y - gradientHeight));
+            float x1 = plotPos.x + value1 * plotSize.x;
+            float y1 = plotPos.y + plotSize.y - gradientHeight - (rgba1.a * (plotSize.y - gradientHeight));
 
-                float opacity0 = catmullRom(t0, p0.opacity, p1.opacity, p2.opacity, p3.opacity);
-                float opacity1 = catmullRom(t1, p0.opacity, p1.opacity, p2.opacity, p3.opacity);
-                float value0 = p1.value + t0 * (p2.value - p1.value);
-                float value1 = p1.value + t1 * (p2.value - p1.value);
-
-                float x0 = plotPos.x + value0 * plotSize.x;
-                float y0 = plotPos.y + plotSize.y - gradientHeight - (opacity0 * (plotSize.y - gradientHeight));
-                float x1 = plotPos.x + value1 * plotSize.x;
-                float y1 = plotPos.y + plotSize.y - gradientHeight - (opacity1 * (plotSize.y - gradientHeight));
-
-                drawList->AddLine(ImVec2(x0, y0), ImVec2(x1, y1), IM_COL32(255, 255, 255, 200), 1.8f);
-            }
+            drawList->AddLine(ImVec2(x0, y0), ImVec2(x1, y1), IM_COL32(255, 255, 255, 200), 1.8f);
         }
     }
 
