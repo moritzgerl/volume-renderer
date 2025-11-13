@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-volume-renderer is an OpenGL-based volume rendering application that uses ray-casting with transfer functions to visualize 3D volumetric data. It implements Screen Space Ambient Occlusion (SSAO) for enhanced depth perception. The application uses modern C++ (C++26), CMake for build management, and leverages GLFW for windowing, GLAD for OpenGL loading, GLM for mathematics, and ImGui for the GUI. It features an interactive transfer function editor, application state persistence, and a modular architecture built around a centralized storage pattern.
+volume-renderer is an OpenGL-based volume rendering application that uses ray-casting with transfer functions to visualize 3D volumetric data. It implements Screen Space Ambient Occlusion (SSAO) for enhanced depth perception (not fully implemented yet). The application uses modern C++ (C++26), CMake for build management, and leverages GLFW for windowing, GLAD for OpenGL loading, GLM for mathematics, and ImGui for the GUI. It features an interactive transfer function editor, application state persistence, and a modular architecture built around a centralized storage pattern.
 
 ## Build System
 
