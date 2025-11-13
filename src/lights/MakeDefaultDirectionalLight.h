@@ -3,6 +3,9 @@
 
 #include <lights/DirectionalLight.h>
 
-DirectionalLight MakeDefaultDirectionalLight();
+namespace Factory
+{
+    DirectionalLight MakeDefaultDirectionalLight();
+}
 
 #endif

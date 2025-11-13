@@ -1,6 +1,6 @@
 #include <lights/MakeDefaultPointLights.h>
 
-std::vector<PointLight> MakeDefaultPointLights(unsigned int numPointLights)
+std::vector<PointLight> Factory::MakeDefaultPointLights(unsigned int numPointLights)
 {
     std::vector<PointLight> pointLights(numPointLights);
 

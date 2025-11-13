@@ -1,6 +1,6 @@
 #include <transferfunction/MakeDefaultTransferFunction.h>
 
-TransferFunction MakeDefaultTransferFunction()
+TransferFunction Factory::MakeDefaultTransferFunction()
 {
     TransferFunction transferFunction;
     transferFunction.SetNumActivePoints(3);

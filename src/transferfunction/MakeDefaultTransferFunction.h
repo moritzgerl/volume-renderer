@@ -3,6 +3,9 @@
 
 #include <transferfunction/TransferFunction.h>
 
-TransferFunction MakeDefaultTransferFunction();
+namespace Factory
+{
+    TransferFunction MakeDefaultTransferFunction();
+}
 
 #endif

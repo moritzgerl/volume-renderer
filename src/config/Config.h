@@ -25,9 +25,9 @@ namespace Config
     const float defaultGuiWidthRatio = 0.3f;
     const float defaultTransferFunctionGuiHeightRatio = 0.3f;
     const unsigned int numPointLights = 2;
-    const DirectionalLight defaultDirectionalLight = MakeDefaultDirectionalLight();
-    const std::vector<PointLight> defaultPointLights = MakeDefaultPointLights(numPointLights);
-    const TransferFunction defaultTransferFunction = MakeDefaultTransferFunction();
+    const DirectionalLight defaultDirectionalLight = Factory::MakeDefaultDirectionalLight();
+    const std::vector<PointLight> defaultPointLights = Factory::MakeDefaultPointLights(numPointLights);
+    const TransferFunction defaultTransferFunction = Factory::MakeDefaultTransferFunction();
     const unsigned int defaultSsaoKernelSize = 64;
     const unsigned int defaultSsaoNoiseSize = 4;
     const float defaultSsaoRadius = 0.538f;

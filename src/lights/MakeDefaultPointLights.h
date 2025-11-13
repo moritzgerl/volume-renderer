@@ -5,6 +5,9 @@
 
 #include <lights/PointLight.h>
 
-std::vector<PointLight> MakeDefaultPointLights(unsigned int numPointLights);
+namespace Factory
+{
+    std::vector<PointLight> MakeDefaultPointLights(unsigned int numPointLights);
+}
 
 #endif

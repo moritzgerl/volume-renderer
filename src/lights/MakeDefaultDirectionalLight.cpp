@@ -1,6 +1,6 @@
 #include <lights/MakeDefaultDirectionalLight.h>
 
-DirectionalLight MakeDefaultDirectionalLight()
+DirectionalLight Factory::MakeDefaultDirectionalLight()
 {
     DirectionalLight directionalLight;
 
