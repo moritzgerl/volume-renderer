@@ -68,14 +68,24 @@ I used Claude Code to generate knee.ini
 
 &nbsp;
 
+## Documentation
+You can find brief documentation in [CLAUDE.md](./CLAUDE.md)
+
+&nbsp;
+
 ## Roadmap
 - Refactor transfer function GUI code
-- Apply transfer function
 - Write documentation
 - Write tests
 - Lighting
 - Screen-space Ambient Occlusion (SSAO)
-- Physics-based Rendering
+- Physics-based rendering
+
+&nbsp;
+
+## AI Usage
+I use Claude Code as a coding assistant for this project. I suggest all changes myself in small increments, and review all changes manually.\
+In addition to refactoring and developing new features, I also use Claude Code for learning about new C++ concepts.
 
 &nbsp;
 
