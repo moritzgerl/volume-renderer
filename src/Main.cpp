@@ -22,7 +22,6 @@ int main()
     SsaoUpdater ssaoUpdater = Factory::MakeSsaoUpdater(storage);
     TransferFunctionTextureUpdater transferFunctionTextureUpdater = Factory::MakeTransferFunctionTextureUpdater(storage);
     const RenderPasses renderPasses = Factory::MakeRenderPasses(gui, inputHandler, storage);
-    const DisplayProperties& displayProperties = storage.GetDisplayProperties();
     Context::GlfwWindow& window = storage.GetWindow();
 
     while (!window.ShouldClose())
