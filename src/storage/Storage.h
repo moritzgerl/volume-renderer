@@ -2,6 +2,7 @@
 #define STORAGE_H
 
 #include <storage/StorageTypes.h>
+
 #include <camera/Camera.h>
 #include <context/GlfwWindow.h>
 #include <gui/GuiParameters.h>
@@ -10,8 +11,8 @@
 #include <input/InputHandler.h>
 #include <primitives/ScreenQuad.h>
 #include <primitives/UnitCube.h>
-#include <shader/SsaoUpdater.h>
-#include <utils/SsaoUtils.h>
+#include <ssao/SsaoUpdater.h>
+#include <ssao/SsaoUtils.h>
 #include <volumedata/VolumeData.h>
 
 #include <memory>

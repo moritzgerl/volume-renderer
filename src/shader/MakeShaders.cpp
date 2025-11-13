@@ -1,15 +1,16 @@
 #include <shader/MakeShaders.h>
 #include <shader/ShaderId.h>
-#include <shader/UpdateSsaoShader.h>
+
+#include <config/Config.h>
+#include <gui/GuiParameters.h>
+#include <ssao/SsaoUtils.h>
 #include <storage/ElementStorage.h>
 #include <textures/Texture.h>
 #include <textures/TextureId.h>
-#include <config/Config.h>
-#include <gui/GuiParameters.h>
-#include <utils/SsaoUtils.h>
 #include <utils/FileSystem.h>
 
 #include <glm/glm.hpp>
+#include <string>
 
 namespace
 {
@@ -68,7 +69,14 @@ namespace Factory
         ssaoShader.SetInt("gPosition", ssaoPositionTexture.GetTextureUnit());
         ssaoShader.SetInt("gNormal", ssaoNormalTexture.GetTextureUnit());
         ssaoShader.SetInt("texNoise", ssaoNoiseTexture.GetTextureUnit());
-        ShaderUtils::UpdateSsaoShader(guiParameters, ssaoUtils, ssaoShader);
+        ssaoShader.SetInt("kernelSize", guiParameters.ssaoKernelSize);
+        ssaoShader.SetInt("noiseSize", guiParameters.ssaoNoiseSize);
+        ssaoShader.SetFloat("radius", guiParameters.ssaoRadius);
+        ssaoShader.SetFloat("bias", guiParameters.ssaoBias);
+        for (unsigned int i = 0; i < guiParameters.ssaoKernelSize; ++i)
+        {
+            ssaoShader.SetVec3("samples[" + std::to_string(i) + "]", ssaoUtils.GetSamplePosition(i));
+        }
 
         const Shader& ssaoBlurShader = GetShader(shaders, ShaderId::SsaoBlur);
         ssaoBlurShader.Use();

@@ -1,4 +1,5 @@
-#include <utils/SsaoUtils.h>
+#include <ssao/SsaoUtils.h>
+
 #include <config/Config.h>
 
 

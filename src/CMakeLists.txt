@@ -108,6 +108,14 @@ file(GLOB_RECURSE SRC_SHADERS
     "${CMAKE_CURRENT_SOURCE_DIR}/shaders/*.frag"
 )
 
+file(GLOB_RECURSE SRC_SSAO_H
+    "${CMAKE_CURRENT_SOURCE_DIR}/ssao/*.h"
+)
+
+file(GLOB_RECURSE SRC_SSAO_CPP
+    "${CMAKE_CURRENT_SOURCE_DIR}/ssao/*.cpp"
+)
+
 file(GLOB_RECURSE SRC_STORAGE_H
     "${CMAKE_CURRENT_SOURCE_DIR}/storage/*.h"
 )
@@ -180,6 +188,9 @@ source_group("shader\\Source Files" FILES ${SRC_SHADER_CPP})
 
 source_group("shaders" FILES ${SRC_SHADERS})
 
+source_group("ssao\\Header Files" FILES ${SRC_SSAO_H})
+source_group("ssao\\Source Files" FILES ${SRC_SSAO_CPP})
+
 source_group("storage\\Header Files" FILES ${SRC_STORAGE_H})
 source_group("storage\\Source Files" FILES ${SRC_STORAGE_CPP})
 
@@ -221,6 +232,8 @@ add_executable(${PROJECT_NAME}
     ${SRC_SHADER_H}
     ${SRC_SHADER_CPP}
     ${SRC_SHADERS}
+    ${SRC_SSAO_H}
+    ${SRC_SSAO_CPP}
     ${SRC_STORAGE_H}
     ${SRC_STORAGE_CPP}
     ${SRC_TEXTURES_H}

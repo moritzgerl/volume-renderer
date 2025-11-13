@@ -22,6 +22,11 @@ public:
     void Update();
 
 private:
+    void UpdateSsaoNoiseTexture();
+    void UpdateSsaoShader();
+    void UpdateSsaoFinalShader();
+
+private:
     GuiUpdateFlags& m_guiUpdateFlags;
     const GuiParameters& m_guiParameters;
     SsaoUtils& m_ssaoUtils;

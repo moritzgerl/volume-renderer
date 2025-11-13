@@ -5,8 +5,8 @@
 #include <input/InputHandler.h>
 #include <input/MakeInputHandler.h>
 #include <renderpass/MakeRenderPasses.h>
-#include <shader/SsaoUpdater.h>
-#include <shader/MakeSsaoUpdater.h>
+#include <ssao/SsaoUpdater.h>
+#include <ssao/MakeSsaoUpdater.h>
 #include <storage/MakeStorage.h>
 #include <storage/Storage.h>
 #include <transferfunction/TransferFunctionTextureUpdater.h>

@@ -1,12 +1,14 @@
-#include <shader/SsaoUpdater.h>
-#include <shader/Shader.h>
-#include <shader/UpdateSsaoFinalShader.h>
-#include <shader/UpdateSsaoShader.h>
+#include <ssao/SsaoUpdater.h>
+
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
+#include <shader/Shader.h>
+#include <ssao/SsaoUtils.h>
 #include <textures/Texture.h>
-#include <textures/UpdateSsaoNoiseTexture.h>
-#include <utils/SsaoUtils.h>
+#include <textures/TextureId.h>
+
+#include <glad/glad.h>
+#include <string>
 
 SsaoUpdater::SsaoUpdater(
     GuiUpdateFlags& guiUpdateFlags,
@@ -31,11 +33,45 @@ void SsaoUpdater::Update()
     {
         m_ssaoUtils.UpdateKernel(m_guiParameters.ssaoKernelSize);
         m_ssaoUtils.UpdateNoise(m_guiParameters.ssaoNoiseSize);
-        TextureUtils::UpdateSsaoNoiseTexture(m_guiParameters, m_ssaoUtils, m_ssaoNoiseTexture);
+        UpdateSsaoNoiseTexture();
         m_ssaoShader.Use();
-        ShaderUtils::UpdateSsaoShader(m_guiParameters, m_ssaoUtils, m_ssaoShader);
+        UpdateSsaoShader();
         m_ssaoFinalShader.Use();
-        ShaderUtils::UpdateSsaoFinalShader(m_guiParameters, m_ssaoFinalShader);
+        UpdateSsaoFinalShader();
         m_guiUpdateFlags.ssaoParametersChanged = false;
     }
+}
+
+void SsaoUpdater::UpdateSsaoNoiseTexture()
+{
+    m_ssaoNoiseTexture = Texture(
+        TextureId::SsaoNoise,
+        m_ssaoNoiseTexture.GetTextureUnitEnum(),
+        m_guiParameters.ssaoNoiseSize,
+        m_guiParameters.ssaoNoiseSize,
+        GL_RGBA32F,
+        GL_RGB,
+        GL_FLOAT,
+        GL_NEAREST,
+        GL_REPEAT,
+        m_ssaoUtils.GetNoise()
+    );
+}
+
+void SsaoUpdater::UpdateSsaoShader()
+{
+    m_ssaoShader.SetInt("kernelSize", m_guiParameters.ssaoKernelSize);
+    m_ssaoShader.SetInt("noiseSize", m_guiParameters.ssaoNoiseSize);
+    m_ssaoShader.SetFloat("radius", m_guiParameters.ssaoRadius);
+    m_ssaoShader.SetFloat("bias", m_guiParameters.ssaoBias);
+
+    for (unsigned int i = 0; i < m_guiParameters.ssaoKernelSize; ++i)
+    {
+        m_ssaoShader.SetVec3("samples[" + std::to_string(i) + "]", m_ssaoUtils.GetSamplePosition(i));
+    }
+}
+
+void SsaoUpdater::UpdateSsaoFinalShader()
+{
+    m_ssaoFinalShader.SetInt("enableSsao", static_cast<int>(m_guiParameters.enableSsao));
 }

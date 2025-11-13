@@ -1,7 +1,7 @@
 #ifndef MAKE_SSAO_UPDATER_H
 #define MAKE_SSAO_UPDATER_H
 
-#include <shader/SsaoUpdater.h>
+#include <ssao/SsaoUpdater.h>
 
 class Storage;
 

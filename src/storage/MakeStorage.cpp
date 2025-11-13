@@ -4,8 +4,8 @@
 #include <buffers/FrameBufferId.h>
 #include <buffers/MakeFrameBuffers.h>
 #include <camera/Camera.h>
-#include <context/GlfwWindow.h>
 #include <config/Config.h>
+#include <context/GlfwWindow.h>
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
 #include <input/DisplayProperties.h>
@@ -18,11 +18,11 @@
 #include <renderpass/MakeRenderPasses.h>
 #include <shader/MakeShaders.h>
 #include <shader/ShaderId.h>
-#include <transferfunction/TransferFunction.h>
-#include <shader/SsaoUpdater.h>
+#include <ssao/SsaoUpdater.h>
+#include <ssao/SsaoUtils.h>
 #include <textures/MakeTextures.h>
 #include <textures/TextureId.h>
-#include <utils/SsaoUtils.h>
+#include <transferfunction/TransferFunction.h>
 #include <volumedata/LoadVolumeRaw.h>
 
 #include <cstdlib>

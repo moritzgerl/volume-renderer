@@ -1,4 +1,5 @@
-#include <shader/MakeSsaoUpdater.h>
+#include <ssao/MakeSsaoUpdater.h>
+
 #include <storage/Storage.h>
 
 SsaoUpdater Factory::MakeSsaoUpdater(Storage& storage)
