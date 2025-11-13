@@ -18,8 +18,8 @@
 #include <renderpass/MakeRenderPasses.h>
 #include <shader/MakeShaders.h>
 #include <shader/ShaderId.h>
+#include <ssao/SsaoKernel.h>
 #include <ssao/SsaoUpdater.h>
-#include <ssao/SsaoUtils.h>
 #include <textures/MakeTextures.h>
 #include <textures/TextureId.h>
 #include <transferfunction/TransferFunction.h>
@@ -103,9 +103,9 @@ namespace Factory
         GuiUpdateFlags guiUpdateFlags;
         ScreenQuad screenQuad;
         UnitCube unitCube;
-        SsaoUtils ssaoUtils;
-        TextureStorage textureStorage(MakeTextures(guiParameters, volumeData, ssaoUtils));
-        ShaderStorage shaderStorage(MakeShaders(guiParameters, ssaoUtils, textureStorage));
+        SsaoKernel ssaoKernel;
+        TextureStorage textureStorage(MakeTextures(guiParameters, volumeData, ssaoKernel));
+        ShaderStorage shaderStorage(MakeShaders(guiParameters, ssaoKernel, textureStorage));
         FrameBufferStorage frameBufferStorage(MakeFrameBuffers(textureStorage));
 
         return Storage(
@@ -114,7 +114,7 @@ namespace Factory
             std::move(guiParameters),
             std::move(guiUpdateFlags),
             std::move(screenQuad),
-            std::move(ssaoUtils),
+            std::move(ssaoKernel),
             std::move(textureStorage),
             std::move(shaderStorage),
             std::move(frameBufferStorage),

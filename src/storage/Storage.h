@@ -11,8 +11,8 @@
 #include <input/InputHandler.h>
 #include <primitives/ScreenQuad.h>
 #include <primitives/UnitCube.h>
+#include <ssao/SsaoKernel.h>
 #include <ssao/SsaoUpdater.h>
-#include <ssao/SsaoUtils.h>
 #include <volumedata/VolumeData.h>
 
 #include <memory>
@@ -27,7 +27,7 @@ public:
         GuiParameters&& guiParameters,
         GuiUpdateFlags&& guiUpdateFlags,
         ScreenQuad&& screenQuad,
-        SsaoUtils&& ssaoUtils,
+        SsaoKernel&& ssaoKernel,
         TextureStorage&& textureStorage,
         ShaderStorage&& shaderStorage,
         FrameBufferStorage&& frameBufferStorage,
@@ -54,8 +54,8 @@ public:
     const GuiUpdateFlags& GetGuiUpdateFlags() const;
     const ScreenQuad& GetScreenQuad() const;
     const UnitCube& GetUnitCube() const;
-    SsaoUtils& GetSsaoUtils();
-    const SsaoUtils& GetSsaoUtils() const;
+    SsaoKernel& GetSsaoKernel();
+    const SsaoKernel& GetSsaoKernel() const;
     Texture const& GetTexture(TextureId textureId) const;
     Texture& GetTexture(TextureId textureId);
     Shader const& GetShader(ShaderId shaderId) const;
@@ -75,7 +75,7 @@ private:
     GuiUpdateFlags m_guiUpdateFlags;
     ScreenQuad m_screenQuad;
     UnitCube m_unitCube;
-    SsaoUtils m_ssaoUtils;
+    SsaoKernel m_ssaoKernel;
     TextureStorage m_textureStorage;
     ShaderStorage m_shaderStorage;
     FrameBufferStorage m_frameBufferStorage;

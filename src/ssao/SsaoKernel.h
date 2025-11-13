@@ -1,15 +1,15 @@
-#ifndef SSAO_UTILS_H
-#define SSAO_UTILS_H
+#ifndef SSAO_KERNEL_H
+#define SSAO_KERNEL_H
 
 #include <glm/glm.hpp>
 
 #include <random>
 #include <vector>
 
-class SsaoUtils
+class SsaoKernel
 {
 public:
-    SsaoUtils();
+    SsaoKernel();
     const glm::vec3& GetSamplePosition(unsigned int i) const;
     const void* GetNoise() const;
     void UpdateKernel(unsigned int kernelSize);

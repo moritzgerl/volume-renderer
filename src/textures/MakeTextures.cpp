@@ -4,14 +4,14 @@
 #include <config/Config.h>
 #include <config/TransferFunctionConstants.h>
 #include <gui/GuiParameters.h>
-#include <ssao/SsaoUtils.h>
+#include <ssao/SsaoKernel.h>
 #include <volumedata/MakeVolumeDataTexture.h>
 
 #include <glad/glad.h>
 
 namespace Factory
 {
-    std::vector<Texture> MakeTextures(const GuiParameters& guiParameters, const VolumeData::VolumeData& volumeData, const SsaoUtils& ssaoUtils)
+    std::vector<Texture> MakeTextures(const GuiParameters& guiParameters, const VolumeData::VolumeData& volumeData, const SsaoKernel& ssaoKernel)
     {
         std::vector<Texture> textures;
         textures.reserve(9);
@@ -23,7 +23,7 @@ namespace Factory
         textures.emplace_back(TextureId::SsaoAlbedo, GL_TEXTURE5, Config::windowWidth, Config::windowHeight, GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, GL_NEAREST, GL_REPEAT);
         textures.emplace_back(TextureId::Ssao, GL_TEXTURE6, Config::windowWidth, Config::windowHeight, GL_RED, GL_RED, GL_FLOAT, GL_NEAREST, GL_REPEAT);
         textures.emplace_back(TextureId::SsaoBlur, GL_TEXTURE7, Config::windowWidth, Config::windowHeight, GL_RED, GL_RED, GL_FLOAT, GL_NEAREST, GL_REPEAT);
-        textures.emplace_back(TextureId::SsaoNoise, GL_TEXTURE8, Config::defaultSsaoNoiseSize, Config::defaultSsaoNoiseSize, GL_RGBA32F, GL_RGB, GL_FLOAT, GL_NEAREST, GL_REPEAT, ssaoUtils.GetNoise());
+        textures.emplace_back(TextureId::SsaoNoise, GL_TEXTURE8, Config::defaultSsaoNoiseSize, Config::defaultSsaoNoiseSize, GL_RGBA32F, GL_RGB, GL_FLOAT, GL_NEAREST, GL_REPEAT, ssaoKernel.GetNoise());
         textures.emplace_back(TextureId::SsaoPointLightsContribution, GL_TEXTURE9, Config::windowWidth, Config::windowHeight, GL_RED, GL_RED, GL_FLOAT, GL_NEAREST, GL_REPEAT);
 
         return textures;

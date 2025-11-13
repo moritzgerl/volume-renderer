@@ -1,4 +1,4 @@
-#include <ssao/SsaoUtils.h>
+#include <ssao/SsaoKernel.h>
 
 #include <config/Config.h>
 
@@ -11,7 +11,7 @@ namespace
     }
 }
 
-SsaoUtils::SsaoUtils()
+SsaoKernel::SsaoKernel()
     : m_randomDistribution(0.0, 1.0)
     , m_randomGenerator()
     , m_kernel()
@@ -21,17 +21,17 @@ SsaoUtils::SsaoUtils()
     UpdateNoise(Config::defaultSsaoNoiseSize);
 }
 
-const glm::vec3& SsaoUtils::GetSamplePosition(unsigned int i) const
+const glm::vec3& SsaoKernel::GetSamplePosition(unsigned int i) const
 {
     return m_kernel[i];
 }
 
-const void* SsaoUtils::GetNoise() const
+const void* SsaoKernel::GetNoise() const
 {
     return &m_noise[0];
 }
 
-void SsaoUtils::UpdateKernel(unsigned int kernelSize)
+void SsaoKernel::UpdateKernel(unsigned int kernelSize)
 {
     m_kernel.resize(kernelSize);
 
@@ -47,7 +47,7 @@ void SsaoUtils::UpdateKernel(unsigned int kernelSize)
     }
 }
 
-void SsaoUtils::UpdateNoise(unsigned int noiseSize)
+void SsaoKernel::UpdateNoise(unsigned int noiseSize)
 {
     m_noise.resize(noiseSize * noiseSize);
 

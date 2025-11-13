@@ -3,7 +3,7 @@
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
 #include <shader/Shader.h>
-#include <ssao/SsaoUtils.h>
+#include <ssao/SsaoKernel.h>
 #include <textures/Texture.h>
 #include <textures/TextureId.h>
 
@@ -13,14 +13,14 @@
 SsaoUpdater::SsaoUpdater(
     GuiUpdateFlags& guiUpdateFlags,
     const GuiParameters& guiParameters,
-    SsaoUtils& ssaoUtils,
+    SsaoKernel& ssaoKernel,
     Texture& ssaoNoiseTexture,
     const Shader& ssaoShader,
     const Shader& ssaoFinalShader
 )
     : m_guiUpdateFlags(guiUpdateFlags)
     , m_guiParameters(guiParameters)
-    , m_ssaoUtils(ssaoUtils)
+    , m_ssaoKernel(ssaoKernel)
     , m_ssaoNoiseTexture(ssaoNoiseTexture)
     , m_ssaoShader(ssaoShader)
     , m_ssaoFinalShader(ssaoFinalShader)
@@ -31,8 +31,8 @@ void SsaoUpdater::Update()
 {
     if (m_guiUpdateFlags.ssaoParametersChanged)
     {
-        m_ssaoUtils.UpdateKernel(m_guiParameters.ssaoKernelSize);
-        m_ssaoUtils.UpdateNoise(m_guiParameters.ssaoNoiseSize);
+        m_ssaoKernel.UpdateKernel(m_guiParameters.ssaoKernelSize);
+        m_ssaoKernel.UpdateNoise(m_guiParameters.ssaoNoiseSize);
         UpdateSsaoNoiseTexture();
         m_ssaoShader.Use();
         UpdateSsaoShader();
@@ -54,7 +54,7 @@ void SsaoUpdater::UpdateSsaoNoiseTexture()
         GL_FLOAT,
         GL_NEAREST,
         GL_REPEAT,
-        m_ssaoUtils.GetNoise()
+        m_ssaoKernel.GetNoise()
     );
 }
 
@@ -67,7 +67,7 @@ void SsaoUpdater::UpdateSsaoShader()
 
     for (unsigned int i = 0; i < m_guiParameters.ssaoKernelSize; ++i)
     {
-        m_ssaoShader.SetVec3("samples[" + std::to_string(i) + "]", m_ssaoUtils.GetSamplePosition(i));
+        m_ssaoShader.SetVec3("samples[" + std::to_string(i) + "]", m_ssaoKernel.GetSamplePosition(i));
     }
 }
 

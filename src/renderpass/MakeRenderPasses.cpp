@@ -16,7 +16,7 @@
 #include <shader/UpdateCameraMatricesInShader.h>
 #include <shader/UpdateLightingParametersInShader.h>
 #include <shader/UpdateLightSourceModelMatrixInShader.h>
-#include <ssao/SsaoUtils.h>
+#include <ssao/SsaoKernel.h>
 #include <storage/ElementStorage.h>
 #include <storage/Storage.h>
 #include <textures/Texture.h>
@@ -29,7 +29,7 @@ RenderPasses Factory::MakeRenderPasses(const Gui& gui, const InputHandler& input
     const Camera& camera = storage.GetCamera();
     const DisplayProperties& displayProperties = storage.GetDisplayProperties();
     const GuiParameters& guiParameters = storage.GetGuiParameters();
-    const SsaoUtils& ssaoUtils = storage.GetSsaoUtils();
+    const SsaoKernel& ssaoKernel = storage.GetSsaoKernel();
     const ScreenQuad& screenQuad = storage.GetScreenQuad();
     const UnitCube& unitCube = storage.GetUnitCube();
     const TextureStorage& textureStorage = storage.GetTextureStorage();

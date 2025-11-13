@@ -3,7 +3,7 @@
 
 struct GuiParameters;
 struct GuiUpdateFlags;
-class SsaoUtils;
+class SsaoKernel;
 class Shader;
 class Texture;
 
@@ -13,7 +13,7 @@ public:
     SsaoUpdater(
         GuiUpdateFlags& guiUpdateFlags,
         const GuiParameters& guiParameters,
-        SsaoUtils& ssaoUtils,
+        SsaoKernel& ssaoKernel,
         Texture& ssaoNoiseTexture,
         const Shader& ssaoShader,
         const Shader& ssaoFinalShader
@@ -29,7 +29,7 @@ private:
 private:
     GuiUpdateFlags& m_guiUpdateFlags;
     const GuiParameters& m_guiParameters;
-    SsaoUtils& m_ssaoUtils;
+    SsaoKernel& m_ssaoKernel;
     Texture& m_ssaoNoiseTexture;
     const Shader& m_ssaoShader;
     const Shader& m_ssaoFinalShader;

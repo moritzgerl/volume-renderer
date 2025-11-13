@@ -8,7 +8,7 @@ Storage::Storage(
     GuiParameters&& guiParameters,
     GuiUpdateFlags&& guiUpdateFlags,
     ScreenQuad&& screenQuad,
-    SsaoUtils&& ssaoUtils,
+    SsaoKernel&& ssaoKernel,
     TextureStorage&& textureStorage,
     ShaderStorage&& shaderStorage,
     FrameBufferStorage&& frameBufferStorage,
@@ -21,7 +21,7 @@ Storage::Storage(
     , m_guiUpdateFlags(std::move(guiUpdateFlags))
     , m_screenQuad(std::move(screenQuad))
     , m_unitCube(std::move(unitCube))
-    , m_ssaoUtils(std::move(ssaoUtils))
+    , m_ssaoKernel(std::move(ssaoKernel))
     , m_textureStorage(std::move(textureStorage))
     , m_shaderStorage(std::move(shaderStorage))
     , m_frameBufferStorage(std::move(frameBufferStorage))
@@ -100,14 +100,14 @@ const UnitCube& Storage::GetUnitCube() const
     return m_unitCube;
 }
 
-SsaoUtils& Storage::GetSsaoUtils()
+SsaoKernel& Storage::GetSsaoKernel()
 {
-    return m_ssaoUtils;
+    return m_ssaoKernel;
 }
 
-const SsaoUtils& Storage::GetSsaoUtils() const
+const SsaoKernel& Storage::GetSsaoKernel() const
 {
-    return m_ssaoUtils;
+    return m_ssaoKernel;
 }
 
 const TextureStorage& Storage::GetTextureStorage() const

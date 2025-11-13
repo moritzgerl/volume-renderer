@@ -3,7 +3,7 @@
 
 #include <config/Config.h>
 #include <gui/GuiParameters.h>
-#include <ssao/SsaoUtils.h>
+#include <ssao/SsaoKernel.h>
 #include <storage/ElementStorage.h>
 #include <textures/Texture.h>
 #include <textures/TextureId.h>
@@ -30,7 +30,7 @@ namespace Factory
 {
     std::vector<Shader> MakeShaders(
         const GuiParameters& guiParameters,
-        const SsaoUtils& ssaoUtils,
+        const SsaoKernel& ssaoKernel,
         const TextureStorage& textureStorage
     )
     {
@@ -75,7 +75,7 @@ namespace Factory
         ssaoShader.SetFloat("bias", guiParameters.ssaoBias);
         for (unsigned int i = 0; i < guiParameters.ssaoKernelSize; ++i)
         {
-            ssaoShader.SetVec3("samples[" + std::to_string(i) + "]", ssaoUtils.GetSamplePosition(i));
+            ssaoShader.SetVec3("samples[" + std::to_string(i) + "]", ssaoKernel.GetSamplePosition(i));
         }
 
         const Shader& ssaoBlurShader = GetShader(shaders, ShaderId::SsaoBlur);

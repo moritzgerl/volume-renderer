@@ -6,13 +6,13 @@
 #include <vector>
 
 struct GuiParameters;
-class SsaoUtils;
+class SsaoKernel;
 
 namespace Factory
 {
     std::vector<Shader> MakeShaders(
         const GuiParameters& guiParameters,
-        const SsaoUtils& ssaoUtils,
+        const SsaoKernel& ssaoKernel,
         const TextureStorage& textureStorage
     );
 }
