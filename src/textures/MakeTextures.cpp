@@ -1,10 +1,11 @@
 #include <textures/MakeTextures.h>
-#include <textures/MakeVolumeDataTexture.h>
 #include <textures/TextureId.h>
+
 #include <config/Config.h>
 #include <config/TransferFunctionConstants.h>
 #include <gui/GuiParameters.h>
 #include <utils/SsaoUtils.h>
+#include <volumedata/MakeVolumeDataTexture.h>
 
 #include <glad/glad.h>
 

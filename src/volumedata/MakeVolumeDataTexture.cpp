@@ -1,4 +1,4 @@
-#include <textures/MakeVolumeDataTexture.h>
+#include <volumedata/MakeVolumeDataTexture.h>
 #include <volumedata/VolumeData.h>
 
 #include <glad/glad.h>
