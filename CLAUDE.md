@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-volume-renderer is an OpenGL-based volume rendering demo that implements Screen Space Ambient Occlusion (SSAO) with shadow mapping. It uses modern C++ (C++26), CMake for build management, and leverages GLFW for windowing, GLAD for OpenGL loading, GLM for mathematics, and ImGui for the GUI.
+volume-renderer is an OpenGL-based volume rendering application that uses ray-casting with transfer functions to visualize 3D volumetric data. It implements Screen Space Ambient Occlusion (SSAO) for enhanced depth perception. The application uses modern C++ (C++26), CMake for build management, and leverages GLFW for windowing, GLAD for OpenGL loading, GLM for mathematics, and ImGui for the GUI. It features an interactive transfer function editor, application state persistence, and a modular architecture built around a centralized storage pattern.
 
 ## Build System
 
@@ -34,77 +34,144 @@ cmake --build build
 ### Source Organization
 The codebase follows a modular structure under `src/`:
 
-- **buffers/**: OpenGL buffer abstractions (FrameBuffer, VertexBuffer)
-- **camera/**: Camera system for 3D navigation
-- **config/**: Global configuration (window size, shadow map resolution, SSAO parameters, lighting defaults)
-- **context/**: OpenGL initialization (GLFW window creation, GLAD loading, GL state setup)
-- **gui/**: ImGui integration for runtime parameter adjustment
+- **buffers/**: OpenGL buffer abstractions (FrameBuffer, VertexBuffer) and factory functions for creating framebuffers
+- **camera/**: Camera system for 3D navigation with CameraParameters for serialization
+- **config/**: Global configuration (window size, transfer function constants)
+- **context/**: OpenGL initialization (GLFW window creation with custom deleter, GLAD loading, GL state setup)
+- **gui/**: ImGui integration for runtime parameter adjustment with modular widget creation (MakeSlider, MakeCheckbox) and transfer function editing
 - **imgui/**: ImGui library source files
 - **input/**: Input handling and display properties
 - **lights/**: Lighting system (DirectionalLight, PointLight) with factory functions
+- **persistence/**: Application state serialization/deserialization to/from INI files (camera, GUI parameters, transfer function)
+- **primitives/**: Geometric primitives (ScreenQuad, UnitCube) with vertex coordinate data and rendering methods
+- **renderpass/**: Render pass abstraction with RenderPassId enum and factory functions
+- **shader/**: Shader compilation, linking, and uniform updating helpers (camera matrices, lighting parameters)
 - **shaders/**: GLSL shader files for rendering pipeline stages
-- **textures/**: Texture wrapper and texture unit management
-- **utils/**: Shader loading, SSAO utilities, file system helpers
+- **ssao/**: SSAO kernel generation and updater for managing SSAO texture resources
+- **storage/**: Central storage system managing all application state and resources
+- **textures/**: Texture wrapper, texture unit mapping, and factory functions for creating textures
+- **transferfunction/**: Transfer function for volume rendering with control points, interpolation, and texture updating
+- **utils/**: File system helpers for shader path resolution
+- **volumedata/**: Volume data loading (raw format), metadata parsing, and 3D texture creation
+
+### Application Architecture
+
+The application uses a **centralized storage pattern** where all major components and resources are owned by the `Storage` class:
+
+**Storage System** ([storage/Storage.h](src/storage/Storage.h)):
+- Central owner of all application state and OpenGL resources
+- Contains: Camera, DisplayProperties, GuiParameters, GuiUpdateFlags, primitives (ScreenQuad, UnitCube), SSAO kernel, textures, shaders, framebuffers, volume data, and GLFW window
+- Provides getter methods for accessing stored components
+- Handles application state persistence via `SaveApplicationState()`
+- Initialized via `Factory::MakeStorage()` which constructs all components in the correct order
+
+**Render Pass System** ([renderpass/RenderPass.h](src/renderpass/RenderPass.h)):
+- Encapsulates each rendering stage as a self-contained object
+- Each RenderPass contains: shader reference, framebuffer reference, texture references, prepare function (for GL state setup), and render function (for drawing commands)
+- RenderPassId enum defines pipeline stages: Setup, Volume, SsaoInput, Ssao, SsaoBlur, SsaoFinal, LightSource, Debug
+- Created via `Factory::MakeRenderPasses()` which configures the entire rendering pipeline
+- Render passes are executed sequentially in the main loop
+
+**Persistence System** ([persistence/](src/persistence/)):
+- ApplicationState struct holds camera parameters, GUI parameters, and transfer function data
+- LoadApplicationStateFromIniFile/SaveApplicationStateToIniFile handle serialization
+- Custom parsers for each parameter type (ParseCameraParameter, ParseGuiParameter, ParseTransferFunctionControlPoint)
+- Application state is loaded at startup and saved on shutdown
+
+**Transfer Function System** ([transferfunction/](src/transferfunction/)):
+- TransferFunction class manages control points for mapping scalar values to colors/opacity
+- InterpolateTransferFunction performs interpolation between control points
+- TransferFunctionTextureUpdater updates the 1D texture when control points change
+- GUI provides interactive editing of control points
+
+**Volume Rendering** ([volumedata/](src/volumedata/)):
+- VolumeData class stores 3D volume data with metadata (dimensions, bit depth)
+- LoadVolumeRaw reads raw volume files with accompanying metadata
+- MakeVolumeDataTexture creates 3D OpenGL textures from volume data
+- Volume rendering performed via ray-casting in fragment shader
 
 ### Rendering Pipeline
-The application implements a multi-pass deferred rendering pipeline (see `Main.cpp`):
+The application implements a multi-pass volume rendering pipeline with SSAO (see [Main.cpp](src/Main.cpp)):
 
-1. **Shadow Map Pass**: Renders scene from light's perspective into depth buffer (shadowFrameBuffer)
-2. **SSAO Input Pass**: Renders geometry into G-buffer (position, light-space position, normals, albedo, point light contribution, stencil)
-3. **SSAO Pass**: Computes ambient occlusion from G-buffer data using randomized kernel samples
-4. **SSAO Blur Pass**: Applies blur to reduce noise in SSAO output
-5. **SSAO Compositing Pass**: Combines all buffers with lighting calculations to produce final image
-6. **Forward Pass**: Renders light source visualizations and debug overlays
+1. **Setup Pass**: Clears the screen and prepares for rendering
+2. **Volume Pass**: Ray-casts through the volume using transfer function to produce colored output
+3. **SSAO Input Pass**: Renders geometry into G-buffer (position, normals, etc.) for SSAO computation
+4. **SSAO Pass**: Computes ambient occlusion from G-buffer data using randomized kernel samples
+5. **SSAO Blur Pass**: Applies blur to reduce noise in SSAO output
+6. **SSAO Final Pass**: Combines volume rendering with SSAO to produce final composited image
+7. **Light Source Pass**: Renders light source visualizations (if enabled)
+8. **Debug Pass**: Renders debug overlays (if enabled)
 
 ### Key Components
 
-**Config System** (`config/Config.h`):
+**Config System** ([config/Config.h](src/config/Config.h)):
 - Centralized configuration namespace with compile-time constants
-- Window dimensions, shadow map resolution, SSAO parameters
-- Default lighting setup via factory functions
+- Window dimensions, transfer function constants (max control points)
 
-**Shader Management** (`utils/Shader.h`):
-- Shader compilation and linking
-- Uniform setting helpers
+**Shader Management** ([shader/Shader.h](src/shader/Shader.h)):
+- Shader compilation and linking with error reporting
+- Uniform setting helpers (int, float, vec3, mat4, etc.)
 - Paths resolved via `FileSystem::getPath()` using generated `root_directory.h`
+- Factory function `MakeShaders()` creates all shaders and stores them by ShaderId
 
-**Texture System** (`textures/Texture.h`):
+**Texture System** ([textures/Texture.h](src/textures/Texture.h)):
 - Encapsulates OpenGL texture creation and binding
-- Supports various internal formats (depth, color, HDR)
-- Texture unit mapping managed separately
+- Supports various internal formats (depth, color, HDR, 3D volumes)
+- TextureUnitMapping provides named binding points for shader samplers
+- Factory function `MakeTextures()` creates all textures and stores them by TextureId
 
-**FrameBuffer Abstraction** (`buffers/FrameBuffer.h`):
-- Simplifies FBO creation and attachment
-- Used for shadow maps, G-buffer, SSAO intermediate buffers
+**FrameBuffer Abstraction** ([buffers/FrameBuffer.h](src/buffers/FrameBuffer.h)):
+- Simplifies FBO creation and attachment management
+- Stores framebuffer ID and dimensions
+- Factory function `MakeFrameBuffers()` creates all framebuffers for the pipeline
 
-**Input Handling** (`input/InputHandler.h`):
-- Processes keyboard/mouse input
+**Input Handling** ([input/InputHandler.h](src/input/InputHandler.h)):
+- Processes keyboard/mouse input via GLFW callbacks
 - Updates camera based on user interaction
 - Manages display properties (GUI visibility, debug views)
+- Created via `Factory::MakeInputHandler()` with reference to Storage
 
-**GUI System** (`gui/Gui.h`):
-- ImGui-based interface for tweaking lighting, SSAO parameters
+**GUI System** ([gui/Gui.h](src/gui/Gui.h)):
+- ImGui-based interface for tweaking lighting, SSAO, and transfer function parameters
 - Updates `GuiParameters` which drive shader uniforms
 - Sets `GuiUpdateFlags` to signal when expensive resources need regeneration (e.g., SSAO noise texture)
+- TransferFunctionGui provides interactive control point editing
+- Created via `Factory::MakeGui()` with reference to Storage
 
-### Initialization Flow
-1. `Context::InitGlfw()` - Create GLFW window
-2. `Context::InitGlad()` - Load OpenGL function pointers
-3. `Context::InitGl()` - Set up OpenGL state (blending, depth testing)
-4. Load shaders from `src/shaders/` using `FileSystem::getPath()`
-5. Create textures and framebuffers for multi-pass rendering
-6. Initialize camera, input handler, GUI
-7. Enter main render loop
+**SSAO Updater** ([ssao/SsaoUpdater.h](src/ssao/SsaoUpdater.h)):
+- Monitors GuiUpdateFlags for changes requiring SSAO texture regeneration
+- Regenerates SSAO kernel and noise textures when parameters change
+- Updates textures in Storage via reference
+
+**Transfer Function Texture Updater** ([transferfunction/TransferFunctionTextureUpdater.h](src/transferfunction/TransferFunctionTextureUpdater.h)):
+- Monitors GuiUpdateFlags for transfer function changes
+- Interpolates control points and updates 1D transfer function texture
+- Updates texture in Storage via reference
+
+### Main Loop Flow
+The main loop in [Main.cpp](src/Main.cpp) is remarkably simple due to the refactored architecture:
+
+1. **Initialization**: `Factory::MakeStorage()` creates Storage with all components (window, camera, textures, shaders, framebuffers, volume data)
+2. **Create Components**: InputHandler, Gui, SsaoUpdater, TransferFunctionTextureUpdater created with Storage references
+3. **Create Render Passes**: `Factory::MakeRenderPasses()` creates configured render pass sequence
+4. **Main Loop**:
+   - `inputHandler.Update()` - Process input and update camera
+   - `ssaoUpdater.Update()` - Regenerate SSAO resources if needed
+   - `transferFunctionTextureUpdater.Update()` - Update transfer function texture if needed
+   - For each RenderPass: `renderPass.Render()` - Execute rendering stage
+   - `gui.Draw()` - Render GUI
+   - `window.PostRender()` - Swap buffers and poll events
+5. **Shutdown**: Save application state and clean up GLFW
 
 ### Conventions
 - Headers use include guards with underscores separating words (e.g., `#ifndef VOLUME_DATA_H`)
   - Insert underscores before each uppercase letter that follows a lowercase letter in CamelCase names
   - Example: `VolumeData` → `VOLUME_DATA_H`, `VolumeLoaderRaw` → `VOLUME_LOADER_RAW_H`
 - Member variables use `m_` prefix followed by camelCase (e.g., `m_width`, `m_bitsPerComponent`)
-- Factory functions prefixed with `Make` (e.g., `MakeGuiParameters()`, `MakeDefaultPointLights()`)
-- OpenGL resources created in main loop (no RAII wrappers yet - see TODOs in `Main.cpp`)
-- Shader uniforms updated per-frame or on GUI parameter changes
-- Anonymous namespaces in `Main.cpp` for helper functions that should be refactored into separate modules (marked with `// TODO move` comments)
+- Factory functions prefixed with `Make` and placed in `Factory` namespace (e.g., `Factory::MakeGuiParameters()`, `Factory::MakeDefaultPointLights()`)
+- Enum classes used for type-safe identifiers (RenderPassId, ShaderId, TextureId, FrameBufferId)
+- Components access shared state via references to Storage rather than owning resources
+- Updater pattern used for components that monitor flags and perform conditional updates (SsaoUpdater, TransferFunctionTextureUpdater)
 
 ## Coding Guidelines
 
@@ -219,19 +286,36 @@ Example with fewer than 5 includes:
 ## Development Workflow
 
 ### Modifying Shaders
-Shaders are loaded at runtime via `FileSystem::getPath("src/shaders/...")`. Changes to `.vert`, `.frag`, or `.geom` files require restarting the application (no hot reload).
+Shaders are loaded at runtime via `FileSystem::getPath("src/shaders/...")`. Changes to `.vert` or `.frag` files require restarting the application (no hot reload).
 
 ### Adding New Rendering Features
 1. Modify or add shaders in `src/shaders/`
 2. Update `GuiParameters` if runtime tweaking is needed
-3. Add corresponding GUI controls in `gui/Gui.cpp`
-4. Update render passes in `Main.cpp` main loop
-5. If new framebuffers/textures are needed, create them in initialization section
+3. Add corresponding GUI controls in `gui/Gui.cpp` or `gui/TransferFunctionGui.cpp`
+4. Add new RenderPassId to [renderpass/RenderPassId.h](src/renderpass/RenderPassId.h) if needed
+5. Update `Factory::MakeRenderPasses()` in [renderpass/MakeRenderPasses.cpp](src/renderpass/MakeRenderPasses.cpp) to include new pass
+6. If new framebuffers/textures are needed:
+   - Add TextureId/FrameBufferId enums to respective header files
+   - Update factory functions in [textures/MakeTextures.cpp](src/textures/MakeTextures.cpp) or [buffers/MakeFrameBuffers.cpp](src/buffers/MakeFrameBuffers.cpp)
 
 ### Adjusting Lighting
-- Default lights defined in `config/Config.h` via factory functions
+- Default lights defined via factory functions in [lights/](src/lights/)
 - Runtime adjustments via GUI (stores in `GuiParameters`)
-- Lighting parameters passed to shaders in `UpdateLightingParametersInShader()` helpers
+- Lighting parameters passed to shaders via `UpdateLightingParametersInShader()` in [shader/UpdateLightingParametersInShader.cpp](src/shader/UpdateLightingParametersInShader.cpp)
+
+### Modifying Transfer Functions
+- Default transfer function defined in [transferfunction/MakeDefaultTransferFunction.cpp](src/transferfunction/MakeDefaultTransferFunction.cpp)
+- Interactive editing via GUI using TransferFunctionGui
+- Transfer function stored as control points in GuiParameters
+- TransferFunctionTextureUpdater automatically updates the 1D texture when control points change
+- Interpolation performed by InterpolateTransferFunction
 
 ### Camera Configuration
-The camera is initialized with hardcoded position/orientation in `Main.cpp:259`. Modify these values or implement a camera preset system if different starting views are needed.
+- Default camera parameters created in [camera/MakeDefaultCameraParameters.cpp](src/camera/MakeDefaultCameraParameters.cpp)
+- Camera state persisted to/loaded from INI file via persistence system
+- Runtime control via mouse/keyboard through InputHandler
+
+### Application State Persistence
+- Application state (camera, GUI parameters, transfer function) automatically saved to `settings.ini` on shutdown
+- State loaded from `settings.ini` on startup if file exists
+- To modify persistence behavior, edit [persistence/SaveApplicationStateToIniFile.cpp](src/persistence/SaveApplicationStateToIniFile.cpp) and [persistence/LoadApplicationStateFromIniFile.cpp](src/persistence/LoadApplicationStateFromIniFile.cpp)
