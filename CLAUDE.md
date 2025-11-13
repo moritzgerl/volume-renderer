@@ -283,6 +283,101 @@ Example with fewer than 5 includes:
   #endif  // Correct: no comment
   ```
 
+### Modern C++ Practices
+This project embraces modern C++ idioms and best practices:
+
+- **Leverage the Standard Library** - Use STL containers, algorithms, and utilities wherever applicable rather than reinventing functionality
+  ```cpp
+  // Preferred
+  std::vector<float> values;
+  std::ranges::sort(values);
+
+  // Avoid
+  float values[100];
+  // manual sorting implementation
+  ```
+
+- **Prefer STL algorithms over raw loops** - Use `<algorithm>`, `<ranges>`, and related headers instead of manual iteration when possible
+  ```cpp
+  // Preferred
+  auto it = std::ranges::find_if(items, [](const auto& item) { return item.isValid(); });
+
+  // Avoid
+  Item* found = nullptr;
+  for (size_t i = 0; i < items.size(); ++i) {
+      if (items[i].isValid()) {
+          found = &items[i];
+          break;
+      }
+  }
+  ```
+
+- **Use modern C++26 features** - Take advantage of ranges, views, spans, and other modern constructs
+  ```cpp
+  // Use std::span for non-owning array views
+  void ProcessData(std::span<const uint8_t> data);
+
+  // Use ranges for composable operations
+  auto filtered = data | std::views::filter(predicate) | std::views::transform(mapper);
+  ```
+
+- **Prefer smart pointers over raw pointers** - Use `std::unique_ptr` for exclusive ownership and `std::shared_ptr` for shared ownership
+  ```cpp
+  // Preferred
+  std::unique_ptr<Texture> texture = std::make_unique<Texture>();
+
+  // Avoid
+  Texture* texture = new Texture();
+  // ... manual delete required
+  ```
+
+- **Use anonymous namespaces instead of static** - In `.cpp` files, place internal implementation details in anonymous namespaces rather than using the `static` keyword
+  ```cpp
+  // Preferred (.cpp file)
+  namespace
+  {
+      void HelperFunction() { /* ... */ }
+      constexpr int kConstant = 42;
+  } // anonymous namespace
+
+  // Avoid
+  static void HelperFunction() { /* ... */ }
+  static const int kConstant = 42;
+  ```
+
+- **Avoid classes without members** - If a class has no member variables and only static methods, use free functions in a namespace instead
+  ```cpp
+  // Preferred
+  namespace MathUtils
+  {
+      float CalculateDistance(const glm::vec3& a, const glm::vec3& b);
+  }
+
+  // Avoid
+  class MathUtils
+  {
+  public:
+      static float CalculateDistance(const glm::vec3& a, const glm::vec3& b);
+  };
+  ```
+
+- **Prefer uniform initialization** - Use brace initialization `{}` for consistency and to avoid narrowing conversions
+  ```cpp
+  // Preferred
+  int count{0};
+  std::vector<float> values{1.0f, 2.0f, 3.0f};
+  Camera camera{position, target, up};
+
+  // Acceptable for simple types
+  int count = 0;
+  ```
+
+- **Follow core design principles**:
+  - **RAII (Resource Acquisition Is Initialization)**: Manage resources through object lifetimes; acquire in constructor, release in destructor
+  - **YAGNI (You Aren't Gonna Need It)**: Don't implement functionality until it's actually needed
+  - **KISS (Keep It Simple, Stupid)**: Favor simple, straightforward solutions over complex ones
+  - **DRY (Don't Repeat Yourself)**: Extract common functionality into reusable functions or classes; use factory functions for repeated object construction patterns
+
 ## Development Workflow
 
 ### Modifying Shaders
