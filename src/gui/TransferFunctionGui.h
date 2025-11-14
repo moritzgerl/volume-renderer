@@ -23,6 +23,14 @@ private:
     void HandleDrag();
     void Draw();
 
+    void DrawBackground(ImDrawList& drawList);
+    void DrawGrid(ImDrawList& drawList);
+    void DrawColorGradient(ImDrawList& drawList);
+    void DrawOpacityCurve(ImDrawList& drawList);
+    void DrawControlPoints(ImDrawList& drawList);
+    void DrawColorPicker();
+    void SetMouseCursor();
+
     std::optional<size_t> GetNearestPointIndex() const;
 
 private:
