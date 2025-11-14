@@ -423,6 +423,39 @@ This project embraces modern C++ idioms and best practices:
   int count = 0;
   ```
 
+- **Apply const correctness rigorously** - Mark variables and member functions as `const` whenever they do not modify state, ensuring immutability is enforced at compile-time
+  ```cpp
+  // Preferred - const variables and const member functions
+  std::optional<size_t> TransferFunctionGui::GetNearestPointIndex() const
+  {
+      auto calculateDistance = [&](size_t index)
+      {
+          const auto& point = m_transferFunction[index];
+          const float x = m_plotPos.x + point.value * m_plotSize.x;
+          const float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
+          return std::sqrt((m_mousePos.x - x) * (m_mousePos.x - x) + (m_mousePos.y - y) * (m_mousePos.y - y));
+      };
+      // ...
+  }
+
+  // Avoid - missing const qualifiers
+  std::optional<size_t> TransferFunctionGui::GetNearestPointIndex()  // Should be const
+  {
+      auto calculateDistance = [&](size_t index)
+      {
+          auto& point = m_transferFunction[index];  // Should be const auto&
+          float x = m_plotPos.x + point.value * m_plotSize.x;  // Should be const float
+          // ...
+      };
+      // ...
+  }
+  ```
+  Guidelines for const correctness:
+  - Mark member functions `const` if they do not modify member variables
+  - Use `const auto&` for local variables that reference objects and won't be modified
+  - Use `const` for local variables that won't be reassigned (especially in tight scopes like lambdas)
+  - Prefer `const` references for function parameters that won't be modified
+
 - **Follow core design principles**:
   - **RAII (Resource Acquisition Is Initialization)**: Manage resources through object lifetimes; acquire in constructor, release in destructor
   - **YAGNI (You Aren't Gonna Need It)**: Don't implement functionality until it's actually needed
