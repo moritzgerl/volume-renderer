@@ -187,7 +187,7 @@ void TransferFunctionGui::Draw()
 
     ImDrawList* drawList = ImGui::GetWindowDrawList();
 
-    // Draw background (transparent)
+    // Draw background
     drawList->AddRectFilled(m_plotPos, ImVec2(m_plotPos.x + m_plotSize.x, m_plotPos.y + m_plotSize.y), IM_COL32(0, 0, 0, 255));
 
     // Draw grid lines
@@ -202,44 +202,47 @@ void TransferFunctionGui::Draw()
 
     // Draw color gradient at the bottom
     const int gradientSteps = 256;
-    for (int i = 0; i < gradientSteps - 1; ++i)
+    auto gradientIndices = std::views::iota(0, gradientSteps - 1);
+    std::ranges::for_each(gradientIndices, [&](int i)
     {
-        float t = static_cast<float>(i) / (gradientSteps - 1);
-        float nextT = static_cast<float>(i + 1) / (gradientSteps - 1);
+        const float t = static_cast<float>(i) / (gradientSteps - 1);
+        const float nextT = static_cast<float>(i + 1) / (gradientSteps - 1);
 
         // Find surrounding control points and interpolate color
+        auto pointIndices = std::views::iota(size_t{0}, m_numActivePoints);
+        auto it = std::ranges::find_if(pointIndices, [&](size_t j) {
+            return m_transferFunction[j].value >= t;
+        });
+
         glm::vec3 color = glm::vec3(0.5f);
-        for (size_t j = 0; j < m_numActivePoints; ++j)
+        if (it != pointIndices.end())
         {
-            if (m_transferFunction[j].value >= t)
-            {
-                if (j == 0)
-                {
-                    color = m_transferFunction[j].color;
-                }
-                else
-                {
-                    auto& p0 = m_transferFunction[j - 1];
-                    auto& p1 = m_transferFunction[j];
-                    float localT = (t - p0.value) / (p1.value - p0.value);
-                    color = glm::mix(p0.color, p1.color, localT);
-                }
-                break;
-            }
-            else if (j == m_numActivePoints - 1)
+            const size_t j = *it;
+            if (j == 0)
             {
                 color = m_transferFunction[j].color;
             }
+            else
+            {
+                const auto& p0 = m_transferFunction[j - 1];
+                const auto& p1 = m_transferFunction[j];
+                const float localT = (t - p0.value) / (p1.value - p0.value);
+                color = glm::mix(p0.color, p1.color, localT);
+            }
+        }
+        else if (m_numActivePoints > 0)
+        {
+            color = m_transferFunction[m_numActivePoints - 1].color;
         }
 
-        float x1 = m_plotPos.x + t * m_plotSize.x;
-        float x2 = m_plotPos.x + nextT * m_plotSize.x;
-        float y1 = m_plotPos.y + m_plotSize.y - m_gradientHeight;
-        float y2 = m_plotPos.y + m_plotSize.y;
+        const float x1 = m_plotPos.x + t * m_plotSize.x;
+        const float x2 = m_plotPos.x + nextT * m_plotSize.x;
+        const float y1 = m_plotPos.y + m_plotSize.y - m_gradientHeight;
+        const float y2 = m_plotPos.y + m_plotSize.y;
 
-        ImU32 col = IM_COL32(static_cast<int>(color.r * 255), static_cast<int>(color.g * 255), static_cast<int>(color.b * 255), 255);
+        const ImU32 col = IM_COL32(static_cast<int>(color.r * 255), static_cast<int>(color.g * 255), static_cast<int>(color.b * 255), 255);
         drawList->AddRectFilled(ImVec2(x1, y1), ImVec2(x2, y2), col);
-    }
+    });
 
     // Draw opacity curve using shared interpolation
     if (m_numActivePoints >= 2)
