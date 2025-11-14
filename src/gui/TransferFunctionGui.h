@@ -3,6 +3,8 @@
 
 #include <imgui.h>
 
+#include <optional>
+
 struct GuiUpdateFlags;
 class TransferFunction;
 
@@ -22,9 +24,9 @@ private:
     bool m_isActive;
     bool m_wasClicked;
     size_t m_numActivePoints;
-    int m_draggedPointIndex;
-    int m_colorPickerPointIndex;
-    int m_hoveredPointIndex;
+    std::optional<size_t> m_draggedPointIndex;
+    std::optional<size_t> m_colorPickerPointIndex;
+    std::optional<size_t> m_hoveredPointIndex;
     float m_interactiveAreaHeight;
     float m_gradientHeight;
     ImVec2 m_plotSize;

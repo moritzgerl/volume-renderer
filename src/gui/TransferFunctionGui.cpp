@@ -20,9 +20,9 @@ TransferFunctionGui::TransferFunctionGui(TransferFunction& transferFunction, Gui
     , m_isActive{ false }
     , m_wasClicked{ false }
     , m_numActivePoints{ 0 }
-    , m_draggedPointIndex{ -1 }
-    , m_colorPickerPointIndex{ -1 }
-    , m_hoveredPointIndex{ -1 }
+    , m_draggedPointIndex{ std::nullopt }
+    , m_colorPickerPointIndex{ std::nullopt }
+    , m_hoveredPointIndex{ std::nullopt }
     , m_interactiveAreaHeight{ 0.0f }
     , m_gradientHeight{ 15.0f }
     , m_plotSize{}
@@ -57,7 +57,7 @@ void TransferFunctionGui::UpdateState()
 void TransferFunctionGui::HandleInteraction()
 {
     // Check if hovering over a control point
-    m_hoveredPointIndex = -1;
+    m_hoveredPointIndex = std::nullopt;
     if (m_isHovered)
     {
         float minDist = 15.0f; // Hover radius
@@ -71,13 +71,13 @@ void TransferFunctionGui::HandleInteraction()
             if (dist < minDist)
             {
                 minDist = dist;
-                m_hoveredPointIndex = static_cast<int>(i);
+                m_hoveredPointIndex = i;
             }
         }
     }
 
     // Set cursor when hovering over a control point
-    if (m_hoveredPointIndex != -1 && !ImGui::GetIO().KeyShift)
+    if (m_hoveredPointIndex && !ImGui::GetIO().KeyShift)
     {
         ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
     }
@@ -96,7 +96,7 @@ void TransferFunctionGui::HandleInteraction()
             if (dist < minDist)
             {
                 minDist = dist;
-                m_colorPickerPointIndex = static_cast<int>(i);
+                m_colorPickerPointIndex = i;
                 break;
             }
         }
@@ -107,7 +107,7 @@ void TransferFunctionGui::HandleInteraction()
     {
         // Check if we clicked near an existing point
         float minDist = 15.0f; // Click radius
-        int clickedPointIndex = -1;
+        std::optional<size_t> clickedPointIndex = std::nullopt;
         for (size_t i = 0; i < m_numActivePoints; ++i)
         {
             auto& point = m_transferFunction[i];
@@ -118,15 +118,15 @@ void TransferFunctionGui::HandleInteraction()
             if (dist < minDist)
             {
                 minDist = dist;
-                clickedPointIndex = static_cast<int>(i);
+                clickedPointIndex = i;
             }
         }
 
         // If Shift is held and we clicked on a point, delete it
-        if (ImGui::GetIO().KeyShift && clickedPointIndex != -1)
+        if (ImGui::GetIO().KeyShift && clickedPointIndex)
         {
             // Shift remaining points down
-            for (size_t j = clickedPointIndex; j < m_numActivePoints - 1; ++j)
+            for (size_t j = clickedPointIndex.value(); j < m_numActivePoints - 1; ++j)
             {
                 m_transferFunction[j] = m_transferFunction[j + 1];
             }
@@ -135,7 +135,7 @@ void TransferFunctionGui::HandleInteraction()
             m_wasClicked = true;
         }
         // If we didn't click near an existing point, add a new one
-        else if (clickedPointIndex == -1 && m_numActivePoints < TransferFunctionConstants::maxNumControlPoints)
+        else if (!clickedPointIndex && m_numActivePoints < TransferFunctionConstants::maxNumControlPoints)
         {
             // Calculate new point position
             float newValue = std::clamp((m_mousePos.x - m_plotPos.x) / m_plotSize.x, 0.0f, 1.0f);
@@ -194,7 +194,7 @@ void TransferFunctionGui::HandleInteraction()
     if (m_isActive && ImGui::IsMouseDragging(ImGuiMouseButton_Left, 0.0f) && !m_wasClicked)
     {
         // If we're dragging, find the closest point on first click or continue dragging
-        if (m_draggedPointIndex == -1)
+        if (!m_draggedPointIndex)
         {
             float minDist = 15.0f; // Click radius
             for (size_t i = 0; i < m_numActivePoints; ++i)
@@ -207,15 +207,16 @@ void TransferFunctionGui::HandleInteraction()
                 if (dist < minDist)
                 {
                     minDist = dist;
-                    m_draggedPointIndex = static_cast<int>(i);
+                    m_draggedPointIndex = i;
                 }
             }
         }
 
         // Update the dragged point
-        if (m_draggedPointIndex >= 0)
+        if (m_draggedPointIndex)
         {
-            auto& point = m_transferFunction[m_draggedPointIndex];
+            size_t draggedIndex = m_draggedPointIndex.value();
+            auto& point = m_transferFunction[draggedIndex];
 
             // Update value (x-axis) - clamp to prevent crossing adjacent points
             float newValue = (m_mousePos.x - m_plotPos.x) / m_plotSize.x;
@@ -224,14 +225,14 @@ void TransferFunctionGui::HandleInteraction()
             float minValue = 0.0f;
             float maxValue = 1.0f;
 
-            if (m_draggedPointIndex > 0)
+            if (draggedIndex > 0)
             {
-                minValue = m_transferFunction[m_draggedPointIndex - 1].value + 0.001f;
+                minValue = m_transferFunction[draggedIndex - 1].value + 0.001f;
             }
 
-            if (m_draggedPointIndex < static_cast<int>(m_numActivePoints) - 1)
+            if (draggedIndex < m_numActivePoints - 1)
             {
-                maxValue = m_transferFunction[m_draggedPointIndex + 1].value - 0.001f;
+                maxValue = m_transferFunction[draggedIndex + 1].value - 0.001f;
             }
 
             point.value = std::clamp(newValue, minValue, maxValue);
@@ -246,7 +247,7 @@ void TransferFunctionGui::HandleInteraction()
     else
     {
         // Reset dragged point when mouse is released
-        m_draggedPointIndex = -1;
+        m_draggedPointIndex = std::nullopt;
         m_wasClicked = false;
     }
 }
@@ -341,8 +342,8 @@ void TransferFunctionGui::Draw()
         float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
 
         // Determine color and size based on state
-        bool isDragged = (m_draggedPointIndex == static_cast<int>(i));
-        bool isHoveredForDelete = (m_hoveredPointIndex == static_cast<int>(i) && ImGui::GetIO().KeyShift);
+        bool isDragged = (m_draggedPointIndex == i);
+        bool isHoveredForDelete = (m_hoveredPointIndex == i && ImGui::GetIO().KeyShift);
 
         float radius = isDragged ? 9.0f : 8.0f;
         ImU32 fillColor;
@@ -371,24 +372,25 @@ void TransferFunctionGui::Draw()
     }
 
     // Color picker popup
-    if (m_colorPickerPointIndex != -1 && m_colorPickerPointIndex < static_cast<int>(m_numActivePoints))
+    if (m_colorPickerPointIndex && m_colorPickerPointIndex.value() < m_numActivePoints)
     {
         ImGui::OpenPopup("ColorPickerPopup");
     }
 
     if (ImGui::BeginPopup("ColorPickerPopup"))
     {
-        if (m_colorPickerPointIndex != -1 && m_colorPickerPointIndex < static_cast<int>(m_numActivePoints))
+        if (m_colorPickerPointIndex && m_colorPickerPointIndex.value() < m_numActivePoints)
         {
-            auto& point = m_transferFunction[m_colorPickerPointIndex];
-            ImGui::Text("Control Point %d Color", m_colorPickerPointIndex);
+            size_t index = m_colorPickerPointIndex.value();
+            auto& point = m_transferFunction[index];
+            ImGui::Text("Control Point %zu Color", index);
             if (ImGui::ColorPicker3("##picker", (float*)&point.color, colorPickerFlags))
             {
                 m_guiUpdateFlags.transferFunctionChanged = true;
             }
             if (ImGui::Button("Close") || ImGui::IsKeyPressed(ImGuiKey_Escape))
             {
-                m_colorPickerPointIndex = -1;
+                m_colorPickerPointIndex = std::nullopt;
                 ImGui::CloseCurrentPopup();
             }
         }
@@ -397,9 +399,9 @@ void TransferFunctionGui::Draw()
     else
     {
         // Reset if popup was closed by clicking outside
-        if (m_colorPickerPointIndex != -1 && !ImGui::IsPopupOpen("ColorPickerPopup"))
+        if (m_colorPickerPointIndex && !ImGui::IsPopupOpen("ColorPickerPopup"))
         {
-            m_colorPickerPointIndex = -1;
+            m_colorPickerPointIndex = std::nullopt;
         }
     }
 }
