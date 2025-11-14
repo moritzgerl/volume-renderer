@@ -352,6 +352,36 @@ This project embraces modern C++ idioms and best practices:
   // ... manual delete required
   ```
 
+- **Initialize members in constructor, not in header** - Always initialize member variables in the constructor initializer list (in the `.cpp` file) rather than using in-class initializers in the header file
+  ```cpp
+  // Preferred - initialization in .cpp file
+  // TransferFunctionGui.h
+  class TransferFunctionGui
+  {
+  private:
+      int m_draggedPointIndex;
+      float m_gradientHeight;
+      ImVec2 m_plotSize;
+  };
+
+  // TransferFunctionGui.cpp
+  TransferFunctionGui::TransferFunctionGui(TransferFunction& transferFunction, GuiUpdateFlags& guiUpdateFlags)
+      : m_draggedPointIndex{ -1 }
+      , m_gradientHeight{ 15.0f }
+      , m_plotSize{ }
+  {
+  }
+
+  // Avoid - in-class initializers in header
+  class TransferFunctionGui
+  {
+  private:
+      int m_draggedPointIndex{-1};
+      float m_gradientHeight{15.0f};
+      ImVec2 m_plotSize{};
+  };
+  ```
+
 - **Use anonymous namespaces instead of static** - In `.cpp` files, place internal implementation details in anonymous namespaces rather than using the `static` keyword
   ```cpp
   // Preferred (.cpp file)
