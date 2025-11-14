@@ -221,12 +221,12 @@ std::optional<size_t> TransferFunctionGui::GetNearestPointIndex() const
         return std::sqrt((m_mousePos.x - x) * (m_mousePos.x - x) + (m_mousePos.y - y) * (m_mousePos.y - y));
     };
 
-    auto indices = std::views::iota(size_t{ 0 }, m_numActivePoints);
-    auto closest = std::ranges::min_element(indices, {}, calculateDistance);
+    auto pointIndices = std::views::iota(size_t{ 0 }, m_numActivePoints);
+    auto nearestPointIndex = std::ranges::min_element(pointIndices, {}, calculateDistance);
 
-    if (closest != indices.end() && calculateDistance(*closest) < Constants::interactionRadius)
+    if (nearestPointIndex != pointIndices.end() && calculateDistance(*nearestPointIndex) < Constants::interactionRadius)
     {
-        return *closest;
+        return *nearestPointIndex;
     }
 
     return std::nullopt;
