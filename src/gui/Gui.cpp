@@ -20,6 +20,7 @@ Gui::Gui(const Context::WindowPtr& window, GuiParameters& guiParameters, GuiUpda
     , m_guiUpdateFlags(guiUpdateFlags)
     , m_guiWidth(0.0f)
     , m_transferFunctionHeight(0.0f)
+    , m_transferFunctionGui(guiParameters.transferFunction, guiUpdateFlags)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -185,7 +186,7 @@ void Gui::Draw()
 
         // Child window for the transfer function
         ImGui::BeginChild("TransferFunctionContent", ImVec2(0, m_transferFunctionHeight), true, ImGuiWindowFlags_None);
-        TransferFunctionGui::Draw(m_guiParameters.transferFunction, m_guiUpdateFlags);
+        m_transferFunctionGui.Draw();
         ImGui::EndChild();
 
         // Resize handle at the bottom

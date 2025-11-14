@@ -1,6 +1,8 @@
 #ifndef GUI_H
 #define GUI_H
 
+#include <gui/TransferFunctionGui.h>
+
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
@@ -24,6 +26,7 @@ private:
     GuiUpdateFlags& m_guiUpdateFlags;
     float m_guiWidth;
     float m_transferFunctionHeight;
+    TransferFunctionGui m_transferFunctionGui;
 };
 
 #endif
