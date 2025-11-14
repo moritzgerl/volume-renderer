@@ -321,7 +321,28 @@ This project embraces modern C++ idioms and best practices:
   auto filtered = data | std::views::filter(predicate) | std::views::transform(mapper);
   ```
 
-- **Prefer smart pointers over raw pointers** - Use `std::unique_ptr` for exclusive ownership and `std::shared_ptr` for shared ownership
+- **Prefer references over pointers for non-owning dependencies** - When a class needs access to another object but doesn't own it, use reference members with RAII constructors to establish the dependency at construction time
+  ```cpp
+  // Preferred - references with RAII constructor
+  class TransferFunctionGui
+  {
+  public:
+      TransferFunctionGui(TransferFunction& transferFunction, GuiUpdateFlags& guiUpdateFlags);
+  private:
+      TransferFunction& m_transferFunction;
+      GuiUpdateFlags& m_guiUpdateFlags;
+  };
+
+  // Avoid - raw pointers for non-owning dependencies
+  class TransferFunctionGui
+  {
+  private:
+      TransferFunction* m_transferFunction{nullptr};  // Not recommended
+      GuiUpdateFlags* m_guiUpdateFlags{nullptr};      // Not recommended
+  };
+  ```
+
+- **Prefer smart pointers over raw pointers for ownership** - Use `std::unique_ptr` for exclusive ownership and `std::shared_ptr` for shared ownership when dynamic allocation is required
   ```cpp
   // Preferred
   std::unique_ptr<Texture> texture = std::make_unique<Texture>();
