@@ -25,6 +25,9 @@ TransferFunctionGui::TransferFunctionGui(TransferFunction& transferFunction, Gui
     , m_hoveredPointIndex{ -1 }
     , m_interactiveAreaHeight{ 0.0f }
     , m_gradientHeight{ 15.0f }
+    , m_plotSize{}
+    , m_plotPos{}
+    , m_mousePos{}
     , m_transferFunction{transferFunction}
     , m_guiUpdateFlags{guiUpdateFlags}
 {

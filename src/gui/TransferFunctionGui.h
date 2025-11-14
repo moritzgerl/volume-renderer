@@ -9,7 +9,7 @@ class TransferFunction;
 class TransferFunctionGui
 {
 public:
-    TransferFunctionGui(TransferFunction& transferFunction, GuiUpdateFlags& guiUpdateFlags);    
+    TransferFunctionGui(TransferFunction& transferFunction, GuiUpdateFlags& guiUpdateFlags);
     void Update();
 
 private:
