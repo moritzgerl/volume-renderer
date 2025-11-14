@@ -20,6 +20,8 @@ public:
     const TransferFunctionControlPoint& operator[](size_t index) const;
     TransferFunctionControlPoint& operator[](size_t index);
 
+    void RemovePoint(size_t index);
+
 private:
     std::array<TransferFunctionControlPoint, TransferFunctionConstants::maxNumControlPoints> m_controlPoints;
     size_t m_numActivePoints;

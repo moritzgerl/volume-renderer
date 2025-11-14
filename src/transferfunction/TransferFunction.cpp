@@ -39,3 +39,13 @@ TransferFunctionControlPoint& TransferFunction::operator[](size_t index)
 {
     return m_controlPoints[index];
 }
+
+void TransferFunction::RemovePoint(size_t index)
+{
+    // Shift remaining points down
+    for (size_t j = index; j < m_numActivePoints - 1; ++j)
+    {
+        m_controlPoints[j] = m_controlPoints[j + 1];
+    }
+    --m_numActivePoints;
+}

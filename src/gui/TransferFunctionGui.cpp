@@ -93,12 +93,7 @@ void TransferFunctionGui::HandleClick()
         // If Shift is held and we clicked on a point, delete it
         if (ImGui::GetIO().KeyShift && clickedPointIndex)
         {
-            // Shift remaining points down
-            for (size_t j = clickedPointIndex.value(); j < m_numActivePoints - 1; ++j)
-            {
-                m_transferFunction[j] = m_transferFunction[j + 1];
-            }
-            m_transferFunction.SetNumActivePoints(m_numActivePoints - 1);
+            m_transferFunction.RemovePoint(clickedPointIndex.value());
             m_guiUpdateFlags.transferFunctionChanged = true;
             m_wasClicked = true;
         }
