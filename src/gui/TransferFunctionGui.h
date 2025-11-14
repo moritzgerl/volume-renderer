@@ -10,22 +10,26 @@ class TransferFunctionGui
 {
 public:
     TransferFunctionGui(TransferFunction& transferFunction, GuiUpdateFlags& guiUpdateFlags);    
+    void Update();
+
+private:
+    void UpdateState();
+    void HandleInteraction();
     void Draw();
 
 private:
-    void HandleInteraction();
-
-private:
-    bool m_isHovered{false};
-    bool m_isActive{false};
-    bool m_wasClicked{false};
-    int m_draggedPointIndex{-1};
-    int m_colorPickerPointIndex{-1};
-    int m_hoveredPointIndex{-1};
-    float m_gradientHeight{15.0f};
-    ImVec2 m_plotSize{};
-    ImVec2 m_plotPos{};
-    ImVec2 m_mousePos{};
+    bool m_isHovered;
+    bool m_isActive;
+    bool m_wasClicked;
+    size_t m_numActivePoints;
+    int m_draggedPointIndex;
+    int m_colorPickerPointIndex;
+    int m_hoveredPointIndex;
+    float m_interactiveAreaHeight;
+    float m_gradientHeight;
+    ImVec2 m_plotSize;
+    ImVec2 m_plotPos;
+    ImVec2 m_mousePos;
     TransferFunction& m_transferFunction;
     GuiUpdateFlags& m_guiUpdateFlags;
 };

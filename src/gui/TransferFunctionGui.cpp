@@ -16,34 +16,50 @@ namespace
 } // anonymous namespace
 
 TransferFunctionGui::TransferFunctionGui(TransferFunction& transferFunction, GuiUpdateFlags& guiUpdateFlags)
-    : m_transferFunction{transferFunction}
+    : m_isHovered{ false }
+    , m_isActive{ false }
+    , m_wasClicked{ false }
+    , m_numActivePoints{ 0 }
+    , m_draggedPointIndex{ -1 }
+    , m_colorPickerPointIndex{ -1 }
+    , m_hoveredPointIndex{ -1 }
+    , m_interactiveAreaHeight{ 0.0f }
+    , m_gradientHeight{ 15.0f }
+    , m_transferFunction{transferFunction}
     , m_guiUpdateFlags{guiUpdateFlags}
 {
 }
 
-void TransferFunctionGui::HandleInteraction()
+void TransferFunctionGui::Update()
 {
-    const size_t numActivePoints = m_transferFunction.GetNumActivePoints();
-    const float interactiveAreaHeight = m_plotSize.y - m_gradientHeight;
+    UpdateState();
+    HandleInteraction();
+    Draw();
+}
 
-    // Make the plot area interactive
-    ImGui::InvisibleButton("TransferFunctionPlot", m_plotSize);
+void TransferFunctionGui::UpdateState()
+{
     m_isHovered = ImGui::IsItemHovered();
     m_isActive = ImGui::IsItemActive();
-
-    // Handle mouse interaction with control points
     m_mousePos = ImGui::GetMousePos();
+    m_plotPos = ImGui::GetCursorScreenPos();
+    m_plotSize = ImGui::GetContentRegionAvail();    
+    m_numActivePoints = m_transferFunction.GetNumActivePoints();
+    m_interactiveAreaHeight = m_plotSize.y - m_gradientHeight;
+}
 
+void TransferFunctionGui::HandleInteraction()
+{
     // Check if hovering over a control point
     m_hoveredPointIndex = -1;
     if (m_isHovered)
     {
         float minDist = 15.0f; // Hover radius
-        for (size_t i = 0; i < numActivePoints; ++i)
+        for (size_t i = 0; i < m_numActivePoints; ++i)
         {
             auto& point = m_transferFunction[i];
             float x = m_plotPos.x + point.value * m_plotSize.x;
-            float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * interactiveAreaHeight);
+            float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
 
             float dist = std::sqrt((m_mousePos.x - x) * (m_mousePos.x - x) + (m_mousePos.y - y) * (m_mousePos.y - y));
             if (dist < minDist)
@@ -64,11 +80,11 @@ void TransferFunctionGui::HandleInteraction()
     if (m_isActive && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
     {
         float minDist = 15.0f;
-        for (size_t i = 0; i < numActivePoints; ++i)
+        for (size_t i = 0; i < m_numActivePoints; ++i)
         {
             auto& point = m_transferFunction[i];
             float x = m_plotPos.x + point.value * m_plotSize.x;
-            float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * interactiveAreaHeight);
+            float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
 
             float dist = std::sqrt((m_mousePos.x - x) * (m_mousePos.x - x) + (m_mousePos.y - y) * (m_mousePos.y - y));
             if (dist < minDist)
@@ -86,11 +102,11 @@ void TransferFunctionGui::HandleInteraction()
         // Check if we clicked near an existing point
         float minDist = 15.0f; // Click radius
         int clickedPointIndex = -1;
-        for (size_t i = 0; i < numActivePoints; ++i)
+        for (size_t i = 0; i < m_numActivePoints; ++i)
         {
             auto& point = m_transferFunction[i];
             float x = m_plotPos.x + point.value * m_plotSize.x;
-            float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * interactiveAreaHeight);
+            float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
 
             float dist = std::sqrt((m_mousePos.x - x) * (m_mousePos.x - x) + (m_mousePos.y - y) * (m_mousePos.y - y));
             if (dist < minDist)
@@ -104,24 +120,24 @@ void TransferFunctionGui::HandleInteraction()
         if (ImGui::GetIO().KeyShift && clickedPointIndex != -1)
         {
             // Shift remaining points down
-            for (size_t j = clickedPointIndex; j < numActivePoints - 1; ++j)
+            for (size_t j = clickedPointIndex; j < m_numActivePoints - 1; ++j)
             {
                 m_transferFunction[j] = m_transferFunction[j + 1];
             }
-            m_transferFunction.SetNumActivePoints(numActivePoints - 1);
+            m_transferFunction.SetNumActivePoints(m_numActivePoints - 1);
             m_guiUpdateFlags.transferFunctionChanged = true;
             m_wasClicked = true;
         }
         // If we didn't click near an existing point, add a new one
-        else if (clickedPointIndex == -1 && numActivePoints < TransferFunctionConstants::maxNumControlPoints)
+        else if (clickedPointIndex == -1 && m_numActivePoints < TransferFunctionConstants::maxNumControlPoints)
         {
             // Calculate new point position
             float newValue = std::clamp((m_mousePos.x - m_plotPos.x) / m_plotSize.x, 0.0f, 1.0f);
-            float newOpacity = std::clamp(1.0f - ((m_mousePos.y - m_plotPos.y) / interactiveAreaHeight), 0.0f, 1.0f);
+            float newOpacity = std::clamp(1.0f - ((m_mousePos.y - m_plotPos.y) / m_interactiveAreaHeight), 0.0f, 1.0f);
 
             // Find the insertion position to keep points sorted by value
-            size_t insertIndex = numActivePoints;
-            for (size_t j = 0; j < numActivePoints; ++j)
+            size_t insertIndex = m_numActivePoints;
+            for (size_t j = 0; j < m_numActivePoints; ++j)
             {
                 if (m_transferFunction[j].value > newValue)
                 {
@@ -131,14 +147,14 @@ void TransferFunctionGui::HandleInteraction()
             }
 
             // Shift existing points to make room for the new point
-            for (size_t j = numActivePoints; j > insertIndex; --j)
+            for (size_t j = m_numActivePoints; j > insertIndex; --j)
             {
                 m_transferFunction[j] = m_transferFunction[j - 1];
             }
 
             // Interpolate color from surrounding points
             glm::vec3 newColor = glm::vec3(0.5f);
-            if (insertIndex > 0 && insertIndex < numActivePoints)
+            if (insertIndex > 0 && insertIndex < m_numActivePoints)
             {
                 // Between two points
                 auto& p0 = m_transferFunction[insertIndex - 1];
@@ -146,12 +162,12 @@ void TransferFunctionGui::HandleInteraction()
                 float t = (newValue - p0.value) / (p1.value - p0.value);
                 newColor = glm::mix(p0.color, p1.color, t);
             }
-            else if (insertIndex == 0 && numActivePoints > 0)
+            else if (insertIndex == 0 && m_numActivePoints > 0)
             {
                 // Before the first point
                 newColor = m_transferFunction[1].color;
             }
-            else if (insertIndex == numActivePoints && numActivePoints > 0)
+            else if (insertIndex == m_numActivePoints && m_numActivePoints > 0)
             {
                 // After the last point
                 newColor = m_transferFunction[insertIndex - 1].color;
@@ -175,11 +191,11 @@ void TransferFunctionGui::HandleInteraction()
         if (m_draggedPointIndex == -1)
         {
             float minDist = 15.0f; // Click radius
-            for (size_t i = 0; i < numActivePoints; ++i)
+            for (size_t i = 0; i < m_numActivePoints; ++i)
             {
                 auto& point = m_transferFunction[i];
                 float x = m_plotPos.x + point.value * m_plotSize.x;
-                float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * interactiveAreaHeight);
+                float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
 
                 float dist = std::sqrt((m_mousePos.x - x) * (m_mousePos.x - x) + (m_mousePos.y - y) * (m_mousePos.y - y));
                 if (dist < minDist)
@@ -207,7 +223,7 @@ void TransferFunctionGui::HandleInteraction()
                 minValue = m_transferFunction[m_draggedPointIndex - 1].value + 0.001f;
             }
 
-            if (m_draggedPointIndex < static_cast<int>(numActivePoints) - 1)
+            if (m_draggedPointIndex < static_cast<int>(m_numActivePoints) - 1)
             {
                 maxValue = m_transferFunction[m_draggedPointIndex + 1].value - 0.001f;
             }
@@ -215,7 +231,7 @@ void TransferFunctionGui::HandleInteraction()
             point.value = std::clamp(newValue, minValue, maxValue);
 
             // Update opacity (y-axis) - clamp to [0, 1]
-            float newOpacity = 1.0f - ((m_mousePos.y - m_plotPos.y) / interactiveAreaHeight);
+            float newOpacity = 1.0f - ((m_mousePos.y - m_plotPos.y) / m_interactiveAreaHeight);
             point.opacity = std::clamp(newOpacity, 0.0f, 1.0f);
 
             m_guiUpdateFlags.transferFunctionChanged = true;
@@ -231,16 +247,9 @@ void TransferFunctionGui::HandleInteraction()
 
 void TransferFunctionGui::Draw()
 {
-    const size_t numActivePoints = m_transferFunction.GetNumActivePoints();
+    ImGui::InvisibleButton("TransferFunctionPlot", m_plotSize);
 
-    // Transfer function plot - scale to available height
-    m_plotSize = ImGui::GetContentRegionAvail();
     ImDrawList* drawList = ImGui::GetWindowDrawList();
-    m_plotPos = ImGui::GetCursorScreenPos();
-
-    const float interactiveAreaHeight = m_plotSize.y - m_gradientHeight;
-
-    HandleInteraction();
 
     // Draw background (transparent)
     drawList->AddRectFilled(m_plotPos, ImVec2(m_plotPos.x + m_plotSize.x, m_plotPos.y + m_plotSize.y), IM_COL32(0, 0, 0, 255));
@@ -264,7 +273,7 @@ void TransferFunctionGui::Draw()
 
         // Find surrounding control points and interpolate color
         glm::vec3 color = glm::vec3(0.5f);
-        for (size_t j = 0; j < numActivePoints; ++j)
+        for (size_t j = 0; j < m_numActivePoints; ++j)
         {
             if (m_transferFunction[j].value >= t)
             {
@@ -281,7 +290,7 @@ void TransferFunctionGui::Draw()
                 }
                 break;
             }
-            else if (j == numActivePoints - 1)
+            else if (j == m_numActivePoints - 1)
             {
                 color = m_transferFunction[j].color;
             }
@@ -297,10 +306,10 @@ void TransferFunctionGui::Draw()
     }
 
     // Draw opacity curve using shared interpolation
-    if (numActivePoints >= 2)
+    if (m_numActivePoints >= 2)
     {
         const int totalSegments = 100;  // Total segments across entire curve for smooth rendering
-        const auto activePoints = std::span{m_transferFunction.GetControlPoints().data(), numActivePoints};
+        const auto activePoints = std::span{m_transferFunction.GetControlPoints().data(), m_numActivePoints};
 
         for (int seg = 0; seg < totalSegments; ++seg)
         {
@@ -321,11 +330,11 @@ void TransferFunctionGui::Draw()
     }
 
     // Draw control points
-    for (size_t i = 0; i < numActivePoints; ++i)
+    for (size_t i = 0; i < m_numActivePoints; ++i)
     {
         auto& point = m_transferFunction[i];
         float x = m_plotPos.x + point.value * m_plotSize.x;
-        float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * interactiveAreaHeight);
+        float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
 
         // Determine color and size based on state
         bool isDragged = (m_draggedPointIndex == static_cast<int>(i));
@@ -358,14 +367,14 @@ void TransferFunctionGui::Draw()
     }
 
     // Color picker popup
-    if (m_colorPickerPointIndex != -1 && m_colorPickerPointIndex < static_cast<int>(numActivePoints))
+    if (m_colorPickerPointIndex != -1 && m_colorPickerPointIndex < static_cast<int>(m_numActivePoints))
     {
         ImGui::OpenPopup("ColorPickerPopup");
     }
 
     if (ImGui::BeginPopup("ColorPickerPopup"))
     {
-        if (m_colorPickerPointIndex != -1 && m_colorPickerPointIndex < static_cast<int>(numActivePoints))
+        if (m_colorPickerPointIndex != -1 && m_colorPickerPointIndex < static_cast<int>(m_numActivePoints))
         {
             auto& point = m_transferFunction[m_colorPickerPointIndex];
             ImGui::Text("Control Point %d Color", m_colorPickerPointIndex);

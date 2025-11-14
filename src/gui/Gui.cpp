@@ -186,7 +186,7 @@ void Gui::Draw()
 
         // Child window for the transfer function
         ImGui::BeginChild("TransferFunctionContent", ImVec2(0, m_transferFunctionHeight), true, ImGuiWindowFlags_None);
-        m_transferFunctionGui.Draw();
+        m_transferFunctionGui.Update();
         ImGui::EndChild();
 
         // Resize handle at the bottom
