@@ -1,6 +1,7 @@
 #include <transferfunction/TransferFunction.h>
 
 #include <algorithm>
+#include <ranges>
 #include <glm/glm.hpp>
 
 size_t TransferFunction::GetNumActivePoints() const
@@ -44,44 +45,41 @@ TransferFunctionControlPoint& TransferFunction::operator[](size_t index)
 void TransferFunction::AddPoint(float value, float opacity)
 {
     // Find the insertion position to keep points sorted by value
-    size_t insertIndex = m_numActivePoints;
-    for (size_t j = 0; j < m_numActivePoints; ++j)
-    {
-        if (m_controlPoints[j].value > value)
-        {
-            insertIndex = j;
-            break;
-        }
-    }
+    auto pointIndices = std::views::iota(size_t{0}, m_numActivePoints);
+    auto it = std::ranges::find_if(pointIndices, [&](size_t index) {
+        return m_controlPoints[index].value > value;
+    });
+
+    size_t insertionIndex = (it != pointIndices.end()) ? *it : m_numActivePoints;
 
     // Interpolate color from surrounding points
     glm::vec3 newColor = glm::vec3(0.5f);
-    if (insertIndex > 0 && insertIndex < m_numActivePoints)
+    if (insertionIndex > 0 && insertionIndex < m_numActivePoints)
     {
         // Between two points
-        const auto& p0 = m_controlPoints[insertIndex - 1];
-        const auto& p1 = m_controlPoints[insertIndex + 1];
+        const auto& p0 = m_controlPoints[insertionIndex - 1];
+        const auto& p1 = m_controlPoints[insertionIndex + 1];
         const float t = (value - p0.value) / (p1.value - p0.value);
         newColor = glm::mix(p0.color, p1.color, t);
     }
-    else if (insertIndex == 0 && m_numActivePoints > 0)
+    else if (insertionIndex == 0 && m_numActivePoints > 0)
     {
         // Before the first point
         newColor = m_controlPoints[1].color;
     }
-    else if (insertIndex == m_numActivePoints && m_numActivePoints > 0)
+    else if (insertionIndex == m_numActivePoints && m_numActivePoints > 0)
     {
         // After the last point
-        newColor = m_controlPoints[insertIndex - 1].color;
+        newColor = m_controlPoints[insertionIndex - 1].color;
     }
 
     // Shift existing points to make room for the new point
-    std::shift_right(m_controlPoints.begin() + insertIndex, m_controlPoints.begin() + m_numActivePoints + 1, 1);
+    std::shift_right(m_controlPoints.begin() + insertionIndex, m_controlPoints.begin() + m_numActivePoints + 1, 1);
 
     // Insert the new point at the correct position
-    m_controlPoints[insertIndex].value = value;
-    m_controlPoints[insertIndex].color = newColor;
-    m_controlPoints[insertIndex].opacity = opacity;
+    m_controlPoints[insertionIndex].value = value;
+    m_controlPoints[insertionIndex].color = newColor;
+    m_controlPoints[insertionIndex].opacity = opacity;
 
     ++m_numActivePoints;
 }
