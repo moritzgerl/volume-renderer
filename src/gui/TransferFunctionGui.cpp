@@ -16,8 +16,9 @@ namespace
 } // anonymous namespace
 
 TransferFunctionGui::TransferFunctionGui(TransferFunction& transferFunction, GuiUpdateFlags& guiUpdateFlags)
-    : m_isHovered{ false }
-    , m_isActive{ false }
+    : m_isActive{ false }
+    , m_isHovered{ false }
+    , m_isShiftPressed{ false }
     , m_wasClicked{ false }
     , m_numActivePoints{ 0 }
     , m_draggedPointIndex{ std::nullopt }
@@ -47,8 +48,9 @@ void TransferFunctionGui::UpdateState()
 
     ImGui::InvisibleButton("TransferFunctionPlot", m_plotSize);
     
-    m_isHovered = ImGui::IsItemHovered();
     m_isActive = ImGui::IsItemActive();
+    m_isHovered = ImGui::IsItemHovered();
+    m_isShiftPressed = ImGui::GetIO().KeyShift;
     m_mousePos = ImGui::GetMousePos();
     m_numActivePoints = m_transferFunction.GetNumActivePoints();
     m_interactiveAreaHeight = m_plotSize.y - m_gradientHeight;
@@ -74,12 +76,6 @@ void TransferFunctionGui::HandleInteraction()
                 m_hoveredPointIndex = i;
             }
         }
-    }
-
-    // Set cursor when hovering over a control point
-    if (m_hoveredPointIndex && !ImGui::GetIO().KeyShift)
-    {
-        ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
     }
 
     // Handle double-click to open color picker
@@ -254,6 +250,12 @@ void TransferFunctionGui::HandleInteraction()
 
 void TransferFunctionGui::Draw()
 {
+    // Set cursor when hovering over a control point
+    if (m_hoveredPointIndex && !m_isShiftPressed)
+    {
+        ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
+    }
+
     ImDrawList* drawList = ImGui::GetWindowDrawList();
 
     // Draw background (transparent)

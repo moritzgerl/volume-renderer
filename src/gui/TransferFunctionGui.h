@@ -20,8 +20,9 @@ private:
     void Draw();
 
 private:
-    bool m_isHovered;
     bool m_isActive;
+    bool m_isHovered;    
+    bool m_isShiftPressed;
     bool m_wasClicked;
     size_t m_numActivePoints;
     std::optional<size_t> m_draggedPointIndex;
