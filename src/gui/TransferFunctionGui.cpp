@@ -7,13 +7,14 @@
 #include <imgui.h>
 #include <algorithm>
 #include <cmath>
+#include <ranges>
 #include <span>
 #include <string>
 
 namespace
 {
     const ImGuiColorEditFlags colorPickerFlags = ImGuiColorEditFlags_NoAlpha | ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_Float;
-} // anonymous namespace
+}
 
 TransferFunctionGui::TransferFunctionGui(TransferFunction& transferFunction, GuiUpdateFlags& guiUpdateFlags)
     : m_wasClicked{ false }
@@ -42,9 +43,7 @@ void TransferFunctionGui::PrepareInteraction()
 {
     m_plotSize = ImGui::GetContentRegionAvail();
     m_plotPos = ImGui::GetCursorScreenPos();
-
     ImGui::InvisibleButton("TransferFunctionPlot", m_plotSize);
-
     m_mousePos = ImGui::GetMousePos();
     m_numActivePoints = m_transferFunction.GetNumActivePoints();
     m_interactiveAreaHeight = m_plotSize.y - m_gradientHeight;
@@ -52,64 +51,87 @@ void TransferFunctionGui::PrepareInteraction()
 
 void TransferFunctionGui::HandleInteraction()
 {
-    // Check if hovering over a control point
+    HandleHover();
+    HandleDoubleClick();
+    HandleClick();
+    HandleDrag();
+}
+
+// For interacting with control points
+void TransferFunctionGui::HandleHover()
+{
     m_hoveredPointIndex = std::nullopt;
+
     if (ImGui::IsItemHovered())
     {
-        float minDist = 15.0f; // Hover radius
-        for (size_t i = 0; i < m_numActivePoints; ++i)
-        {
-            auto& point = m_transferFunction[i];
-            float x = m_plotPos.x + point.value * m_plotSize.x;
-            float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
+        constexpr float hoverRadius = 15.0f;
 
-            float dist = std::sqrt((m_mousePos.x - x) * (m_mousePos.x - x) + (m_mousePos.y - y) * (m_mousePos.y - y));
-            if (dist < minDist)
-            {
-                minDist = dist;
-                m_hoveredPointIndex = i;
-            }
+        auto calculateDistance = [&](size_t index)
+        {
+            const auto& point = m_transferFunction[index];
+            const float x = m_plotPos.x + point.value * m_plotSize.x;
+            const float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
+            return std::sqrt((m_mousePos.x - x) * (m_mousePos.x - x) + (m_mousePos.y - y) * (m_mousePos.y - y));
+        };
+
+        auto indices = std::views::iota(size_t{0}, m_numActivePoints);
+        auto closest = std::ranges::min_element(indices, {}, calculateDistance);
+
+        if (closest != indices.end() && calculateDistance(*closest) < hoverRadius)
+        {
+            m_hoveredPointIndex = *closest;
         }
     }
+}
 
-    // Handle double-click to open color picker
+// For opening color picker
+void TransferFunctionGui::HandleDoubleClick()
+{
     if (ImGui::IsItemActive() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
     {
-        float minDist = 15.0f;
-        for (size_t i = 0; i < m_numActivePoints; ++i)
+        constexpr float clickRadius = 15.0f;
+
+        auto calculateDistance = [&](size_t index)
         {
-            auto& point = m_transferFunction[i];
+            auto& point = m_transferFunction[index];
             float x = m_plotPos.x + point.value * m_plotSize.x;
             float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
+            return std::sqrt((m_mousePos.x - x) * (m_mousePos.x - x) + (m_mousePos.y - y) * (m_mousePos.y - y));
+        };
 
-            float dist = std::sqrt((m_mousePos.x - x) * (m_mousePos.x - x) + (m_mousePos.y - y) * (m_mousePos.y - y));
-            if (dist < minDist)
-            {
-                minDist = dist;
-                m_colorPickerPointIndex = i;
-                break;
-            }
+        auto indices = std::views::iota(size_t{0}, m_numActivePoints);
+        auto closest = std::ranges::min_element(indices, {}, calculateDistance);
+
+        if (closest != indices.end() && calculateDistance(*closest) < clickRadius)
+        {
+            m_colorPickerPointIndex = *closest;
         }
     }
+}
 
-    // Handle single click to add new control point or Shift+Click to delete
+// For adding / removing control points
+void TransferFunctionGui::HandleClick()
+{
     if (ImGui::IsItemActive() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
     {
         // Check if we clicked near an existing point
-        float minDist = 15.0f; // Click radius
-        std::optional<size_t> clickedPointIndex = std::nullopt;
-        for (size_t i = 0; i < m_numActivePoints; ++i)
+        constexpr float clickRadius = 15.0f;
+
+        auto calculateDistance = [&](size_t index)
         {
-            auto& point = m_transferFunction[i];
+            auto& point = m_transferFunction[index];
             float x = m_plotPos.x + point.value * m_plotSize.x;
             float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
+            return std::sqrt((m_mousePos.x - x) * (m_mousePos.x - x) + (m_mousePos.y - y) * (m_mousePos.y - y));
+        };
 
-            float dist = std::sqrt((m_mousePos.x - x) * (m_mousePos.x - x) + (m_mousePos.y - y) * (m_mousePos.y - y));
-            if (dist < minDist)
-            {
-                minDist = dist;
-                clickedPointIndex = i;
-            }
+        auto indices = std::views::iota(size_t{0}, m_numActivePoints);
+        auto closest = std::ranges::min_element(indices, {}, calculateDistance);
+
+        std::optional<size_t> clickedPointIndex = std::nullopt;
+        if (closest != indices.end() && calculateDistance(*closest) < clickRadius)
+        {
+            clickedPointIndex = *closest;
         }
 
         // If Shift is held and we clicked on a point, delete it
@@ -180,25 +202,32 @@ void TransferFunctionGui::HandleInteraction()
             m_wasClicked = true;
         }
     }
+}
 
+// For dragging control points
+void TransferFunctionGui::HandleDrag()
+{
     if (ImGui::IsItemActive() && ImGui::IsMouseDragging(ImGuiMouseButton_Left, 0.0f) && !m_wasClicked)
     {
         // If we're dragging, find the closest point on first click or continue dragging
         if (!m_draggedPointIndex)
         {
-            float minDist = 15.0f; // Click radius
-            for (size_t i = 0; i < m_numActivePoints; ++i)
+            constexpr float dragRadius = 15.0f;
+
+            auto calculateDistance = [&](size_t index)
             {
-                auto& point = m_transferFunction[i];
+                auto& point = m_transferFunction[index];
                 float x = m_plotPos.x + point.value * m_plotSize.x;
                 float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
+                return std::sqrt((m_mousePos.x - x) * (m_mousePos.x - x) + (m_mousePos.y - y) * (m_mousePos.y - y));
+            };
 
-                float dist = std::sqrt((m_mousePos.x - x) * (m_mousePos.x - x) + (m_mousePos.y - y) * (m_mousePos.y - y));
-                if (dist < minDist)
-                {
-                    minDist = dist;
-                    m_draggedPointIndex = i;
-                }
+            auto indices = std::views::iota(size_t{0}, m_numActivePoints);
+            auto closest = std::ranges::min_element(indices, {}, calculateDistance);
+
+            if (closest != indices.end() && calculateDistance(*closest) < dragRadius)
+            {
+                m_draggedPointIndex = *closest;
             }
         }
 
@@ -241,6 +270,7 @@ void TransferFunctionGui::HandleInteraction()
         m_wasClicked = false;
     }
 }
+
 
 void TransferFunctionGui::Draw()
 {

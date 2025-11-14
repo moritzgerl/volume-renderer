@@ -17,6 +17,10 @@ public:
 private:
     void PrepareInteraction();
     void HandleInteraction();
+    void HandleHover();
+    void HandleDoubleClick();
+    void HandleClick();
+    void HandleDrag();
     void Draw();
 
 private:
