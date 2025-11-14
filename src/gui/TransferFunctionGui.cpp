@@ -13,19 +13,18 @@
 namespace
 {
     const ImGuiColorEditFlags colorPickerFlags = ImGuiColorEditFlags_NoAlpha | ImGuiColorEditFlags_PickerHueBar | ImGuiColorEditFlags_DisplayRGB | ImGuiColorEditFlags_Float;
-}
 
-// TODO refactor
-void TransferFunctionGui::Draw(TransferFunction& transferFunction, GuiUpdateFlags& guiUpdateFlags)
+    // Shared interaction state
+    int draggedPointIndex = -1;
+    int colorPickerPointIndex = -1;
+    int hoveredPointIndex = -1;
+    bool wasClicked = false;
+} // anonymous namespace
+
+void TransferFunctionGui::HandleInteraction(TransferFunction& transferFunction, GuiUpdateFlags& guiUpdateFlags,
+                                            const ImVec2& plotSize, const ImVec2& plotPos, float gradientHeight)
 {
     const size_t numActivePoints = transferFunction.GetNumActivePoints();
-
-    // Transfer function plot - scale to available height
-    ImVec2 plotSize(ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y);
-    ImDrawList* drawList = ImGui::GetWindowDrawList();
-    ImVec2 plotPos = ImGui::GetCursorScreenPos();
-
-    const float gradientHeight = 15.0f;
     const float interactiveAreaHeight = plotSize.y - gradientHeight;
 
     // Make the plot area interactive
@@ -34,12 +33,10 @@ void TransferFunctionGui::Draw(TransferFunction& transferFunction, GuiUpdateFlag
     bool isActive = ImGui::IsItemActive();
 
     // Handle mouse interaction with control points
-    static int draggedPointIndex = -1;
-    static int colorPickerPointIndex = -1;
     ImVec2 mousePos = ImGui::GetMousePos();
 
     // Check if hovering over a control point
-    int hoveredPointIndex = -1;
+    hoveredPointIndex = -1;
     if (isHovered)
     {
         float minDist = 15.0f; // Hover radius
@@ -85,7 +82,6 @@ void TransferFunctionGui::Draw(TransferFunction& transferFunction, GuiUpdateFlag
     }
 
     // Handle single click to add new control point or Shift+Click to delete
-    static bool wasClicked = false;
     if (isActive && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
     {
         // Check if we clicked near an existing point
@@ -232,6 +228,21 @@ void TransferFunctionGui::Draw(TransferFunction& transferFunction, GuiUpdateFlag
         draggedPointIndex = -1;
         wasClicked = false;
     }
+}
+
+void TransferFunctionGui::Draw(TransferFunction& transferFunction, GuiUpdateFlags& guiUpdateFlags)
+{
+    const size_t numActivePoints = transferFunction.GetNumActivePoints();
+
+    // Transfer function plot - scale to available height
+    ImVec2 plotSize(ImGui::GetContentRegionAvail().x, ImGui::GetContentRegionAvail().y);
+    ImDrawList* drawList = ImGui::GetWindowDrawList();
+    ImVec2 plotPos = ImGui::GetCursorScreenPos();
+
+    const float gradientHeight = 15.0f;
+    const float interactiveAreaHeight = plotSize.y - gradientHeight;
+
+    HandleInteraction(transferFunction, guiUpdateFlags, plotSize, plotPos, gradientHeight);
 
     // Draw background (transparent)
     drawList->AddRectFilled(plotPos, ImVec2(plotPos.x + plotSize.x, plotPos.y + plotSize.y), IM_COL32(0, 0, 0, 255));
