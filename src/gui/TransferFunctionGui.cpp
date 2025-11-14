@@ -39,11 +39,14 @@ void TransferFunctionGui::Update()
 
 void TransferFunctionGui::UpdateState()
 {
+    m_plotSize = ImGui::GetContentRegionAvail();
+    m_plotPos = ImGui::GetCursorScreenPos();
+
+    ImGui::InvisibleButton("TransferFunctionPlot", m_plotSize);
+    
     m_isHovered = ImGui::IsItemHovered();
     m_isActive = ImGui::IsItemActive();
     m_mousePos = ImGui::GetMousePos();
-    m_plotPos = ImGui::GetCursorScreenPos();
-    m_plotSize = ImGui::GetContentRegionAvail();    
     m_numActivePoints = m_transferFunction.GetNumActivePoints();
     m_interactiveAreaHeight = m_plotSize.y - m_gradientHeight;
 }
@@ -247,8 +250,6 @@ void TransferFunctionGui::HandleInteraction()
 
 void TransferFunctionGui::Draw()
 {
-    ImGui::InvisibleButton("TransferFunctionPlot", m_plotSize);
-
     ImDrawList* drawList = ImGui::GetWindowDrawList();
 
     // Draw background (transparent)
