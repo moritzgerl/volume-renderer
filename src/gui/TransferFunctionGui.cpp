@@ -87,20 +87,17 @@ void TransferFunctionGui::HandleClick()
 {
     if (ImGui::IsItemActive() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
     {
-        // Check if we clicked near an existing point
         std::optional<size_t> clickedPointIndex = GetNearestPointIndex();
 
-        // If Shift is held and we clicked on a point, delete it
         if (ImGui::GetIO().KeyShift && clickedPointIndex)
         {
             m_transferFunction.RemovePoint(clickedPointIndex.value());
             m_guiUpdateFlags.transferFunctionChanged = true;
             m_wasClicked = true;
         }
-        // If we didn't click near an existing point, add a new one
+
         else if (!clickedPointIndex && m_numActivePoints < TransferFunctionConstants::maxNumControlPoints)
         {
-            // Calculate new point position
             const float newValue = std::clamp((m_mousePos.x - m_plotPos.x) / m_plotSize.x, 0.0f, 1.0f);
             const float newOpacity = std::clamp(1.0f - ((m_mousePos.y - m_plotPos.y) / m_interactiveAreaHeight), 0.0f, 1.0f);
 
@@ -116,13 +113,11 @@ void TransferFunctionGui::HandleDrag()
 {
     if (ImGui::IsItemActive() && ImGui::IsMouseDragging(ImGuiMouseButton_Left, 0.0f) && !m_wasClicked)
     {
-        // If we're dragging, find the closest point on first click or continue dragging
         if (!m_draggedPointIndex)
         {
             m_draggedPointIndex = GetNearestPointIndex();
         }
 
-        // Update the dragged point
         if (m_draggedPointIndex)
         {
             size_t draggedIndex = m_draggedPointIndex.value();
@@ -147,7 +142,6 @@ void TransferFunctionGui::HandleDrag()
 
             point.value = std::clamp(newValue, minValue, maxValue);
 
-            // Update opacity (y-axis) - clamp to [0, 1]
             float newOpacity = 1.0f - ((m_mousePos.y - m_plotPos.y) / m_interactiveAreaHeight);
             point.opacity = std::clamp(newOpacity, 0.0f, 1.0f);
 
