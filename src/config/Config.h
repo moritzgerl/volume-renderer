@@ -1,3 +1,17 @@
+/**
+* \file Config.h
+*
+* \brief Configuration constants for the volume renderer.
+*
+* Central location for compile-time configuration constants including window dimensions,
+* file paths, default lighting parameters, camera settings, SSAO parameters, and transfer
+* function defaults. These constants are used throughout the application for initialization.
+*
+* @see Factory::MakeStorage for using configuration values during storage initialization.
+* @see Camera for default camera parameters.
+* @see GuiParameters for default GUI parameter values.
+*/
+
 #ifndef CONFIG_H
 #define CONFIG_H
 
@@ -13,6 +27,14 @@
 #include <string>
 #include <vector>
 
+/**
+* \namespace Config
+*
+* \brief Configuration namespace containing compile-time constants.
+*
+* Provides centralized configuration for window settings, file paths, default lighting,
+* camera parameters, SSAO settings, and other application-wide constants.
+*/
 namespace Config
 {
     const unsigned int windowWidth = 1920;
