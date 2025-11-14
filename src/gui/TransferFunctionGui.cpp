@@ -222,10 +222,10 @@ void TransferFunctionGui::Draw()
         drawList->AddRectFilled(ImVec2(x1, y1), ImVec2(x2, y2), col);
     });
 
-    // Draw opacity curve using shared interpolation
+    // Draw opacity curve 
     if (m_numActivePoints >= 2)
     {
-        const int totalSegments = 100;  // Total segments across entire curve for smooth rendering
+        const int totalSegments = 100;
         const auto activePoints = std::span{m_transferFunction.GetControlPoints().data(), m_numActivePoints};
 
         for (int seg = 0; seg < totalSegments; ++seg)
@@ -233,7 +233,6 @@ void TransferFunctionGui::Draw()
             float value0 = static_cast<float>(seg) / totalSegments;
             float value1 = static_cast<float>(seg + 1) / totalSegments;
 
-            // Evaluate transfer function at segment endpoints using shared interpolation
             glm::vec4 rgba0 = InterpolateTransferFunction(value0, activePoints);
             glm::vec4 rgba1 = InterpolateTransferFunction(value1, activePoints);
 
