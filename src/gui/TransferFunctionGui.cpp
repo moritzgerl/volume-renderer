@@ -202,38 +202,16 @@ void TransferFunctionGui::Draw()
 
     // Draw color gradient at the bottom
     const int gradientSteps = 256;
+    const auto activePoints = std::span{m_transferFunction.GetControlPoints().data(), m_numActivePoints};
     auto gradientIndices = std::views::iota(0, gradientSteps - 1);
+
     std::ranges::for_each(gradientIndices, [&](int i)
     {
         const float t = static_cast<float>(i) / (gradientSteps - 1);
         const float nextT = static_cast<float>(i + 1) / (gradientSteps - 1);
 
-        // Find surrounding control points and interpolate color
-        auto pointIndices = std::views::iota(size_t{0}, m_numActivePoints);
-        auto it = std::ranges::find_if(pointIndices, [&](size_t j) {
-            return m_transferFunction[j].value >= t;
-        });
-
-        glm::vec3 color = glm::vec3(0.5f);
-        if (it != pointIndices.end())
-        {
-            const size_t j = *it;
-            if (j == 0)
-            {
-                color = m_transferFunction[j].color;
-            }
-            else
-            {
-                const auto& p0 = m_transferFunction[j - 1];
-                const auto& p1 = m_transferFunction[j];
-                const float localT = (t - p0.value) / (p1.value - p0.value);
-                color = glm::mix(p0.color, p1.color, localT);
-            }
-        }
-        else if (m_numActivePoints > 0)
-        {
-            color = m_transferFunction[m_numActivePoints - 1].color;
-        }
+        const glm::vec4 rgba = InterpolateTransferFunction(t, activePoints);
+        const glm::vec3 color = glm::vec3(rgba.r, rgba.g, rgba.b);
 
         const float x1 = m_plotPos.x + t * m_plotSize.x;
         const float x2 = m_plotPos.x + nextT * m_plotSize.x;
