@@ -23,6 +23,8 @@ private:
     void HandleDrag();
     void Draw();
 
+    std::optional<size_t> GetNearestPointIndex() const;
+
 private:
     bool m_wasClicked;
     size_t m_numActivePoints;
