@@ -74,7 +74,6 @@ You can find brief documentation in [CLAUDE.md](./CLAUDE.md)
 &nbsp;
 
 ## Roadmap
-- Refactor transfer function GUI code
 - Write documentation
 - Write tests
 - Lighting
