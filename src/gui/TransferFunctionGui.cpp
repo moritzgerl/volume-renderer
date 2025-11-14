@@ -33,12 +33,12 @@ TransferFunctionGui::TransferFunctionGui(TransferFunction& transferFunction, Gui
 
 void TransferFunctionGui::Update()
 {
-    UpdateState();
+    PrepareInteraction();
     HandleInteraction();
     Draw();
 }
 
-void TransferFunctionGui::UpdateState()
+void TransferFunctionGui::PrepareInteraction()
 {
     m_plotSize = ImGui::GetContentRegionAvail();
     m_plotPos = ImGui::GetCursorScreenPos();

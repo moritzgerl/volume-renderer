@@ -15,7 +15,7 @@ public:
     void Update();
 
 private:
-    void UpdateState();
+    void PrepareInteraction();
     void HandleInteraction();
     void Draw();
 
