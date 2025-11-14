@@ -20,6 +20,7 @@ public:
     const TransferFunctionControlPoint& operator[](size_t index) const;
     TransferFunctionControlPoint& operator[](size_t index);
 
+    void AddPoint(float value, float opacity);
     void RemovePoint(size_t index);
 
 private:

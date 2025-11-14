@@ -101,54 +101,10 @@ void TransferFunctionGui::HandleClick()
         else if (!clickedPointIndex && m_numActivePoints < TransferFunctionConstants::maxNumControlPoints)
         {
             // Calculate new point position
-            float newValue = std::clamp((m_mousePos.x - m_plotPos.x) / m_plotSize.x, 0.0f, 1.0f);
-            float newOpacity = std::clamp(1.0f - ((m_mousePos.y - m_plotPos.y) / m_interactiveAreaHeight), 0.0f, 1.0f);
+            const float newValue = std::clamp((m_mousePos.x - m_plotPos.x) / m_plotSize.x, 0.0f, 1.0f);
+            const float newOpacity = std::clamp(1.0f - ((m_mousePos.y - m_plotPos.y) / m_interactiveAreaHeight), 0.0f, 1.0f);
 
-            // Find the insertion position to keep points sorted by value
-            size_t insertIndex = m_numActivePoints;
-            for (size_t j = 0; j < m_numActivePoints; ++j)
-            {
-                if (m_transferFunction[j].value > newValue)
-                {
-                    insertIndex = j;
-                    break;
-                }
-            }
-
-            // Shift existing points to make room for the new point
-            for (size_t j = m_numActivePoints; j > insertIndex; --j)
-            {
-                m_transferFunction[j] = m_transferFunction[j - 1];
-            }
-
-            // Interpolate color from surrounding points
-            glm::vec3 newColor = glm::vec3(0.5f);
-            if (insertIndex > 0 && insertIndex < m_numActivePoints)
-            {
-                // Between two points
-                auto& p0 = m_transferFunction[insertIndex - 1];
-                auto& p1 = m_transferFunction[insertIndex + 1];
-                float t = (newValue - p0.value) / (p1.value - p0.value);
-                newColor = glm::mix(p0.color, p1.color, t);
-            }
-            else if (insertIndex == 0 && m_numActivePoints > 0)
-            {
-                // Before the first point
-                newColor = m_transferFunction[1].color;
-            }
-            else if (insertIndex == m_numActivePoints && m_numActivePoints > 0)
-            {
-                // After the last point
-                newColor = m_transferFunction[insertIndex - 1].color;
-            }
-
-            // Insert the new point at the correct position
-            m_transferFunction[insertIndex].value = newValue;
-            m_transferFunction[insertIndex].color = newColor;
-            m_transferFunction[insertIndex].opacity = newOpacity;
-
-            m_transferFunction.IncrementNumActivePoints();
-
+            m_transferFunction.AddPoint(newValue, newOpacity);
             m_guiUpdateFlags.transferFunctionChanged = true;
             m_wasClicked = true;
         }
