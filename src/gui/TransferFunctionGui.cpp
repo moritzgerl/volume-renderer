@@ -16,10 +16,7 @@ namespace
 } // anonymous namespace
 
 TransferFunctionGui::TransferFunctionGui(TransferFunction& transferFunction, GuiUpdateFlags& guiUpdateFlags)
-    : m_isActive{ false }
-    , m_isHovered{ false }
-    , m_isShiftPressed{ false }
-    , m_wasClicked{ false }
+    : m_wasClicked{ false }
     , m_numActivePoints{ 0 }
     , m_draggedPointIndex{ std::nullopt }
     , m_colorPickerPointIndex{ std::nullopt }
@@ -47,10 +44,7 @@ void TransferFunctionGui::UpdateState()
     m_plotPos = ImGui::GetCursorScreenPos();
 
     ImGui::InvisibleButton("TransferFunctionPlot", m_plotSize);
-    
-    m_isActive = ImGui::IsItemActive();
-    m_isHovered = ImGui::IsItemHovered();
-    m_isShiftPressed = ImGui::GetIO().KeyShift;
+
     m_mousePos = ImGui::GetMousePos();
     m_numActivePoints = m_transferFunction.GetNumActivePoints();
     m_interactiveAreaHeight = m_plotSize.y - m_gradientHeight;
@@ -60,7 +54,7 @@ void TransferFunctionGui::HandleInteraction()
 {
     // Check if hovering over a control point
     m_hoveredPointIndex = std::nullopt;
-    if (m_isHovered)
+    if (ImGui::IsItemHovered())
     {
         float minDist = 15.0f; // Hover radius
         for (size_t i = 0; i < m_numActivePoints; ++i)
@@ -79,7 +73,7 @@ void TransferFunctionGui::HandleInteraction()
     }
 
     // Handle double-click to open color picker
-    if (m_isActive && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+    if (ImGui::IsItemActive() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
     {
         float minDist = 15.0f;
         for (size_t i = 0; i < m_numActivePoints; ++i)
@@ -99,7 +93,7 @@ void TransferFunctionGui::HandleInteraction()
     }
 
     // Handle single click to add new control point or Shift+Click to delete
-    if (m_isActive && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+    if (ImGui::IsItemActive() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
     {
         // Check if we clicked near an existing point
         float minDist = 15.0f; // Click radius
@@ -187,7 +181,7 @@ void TransferFunctionGui::HandleInteraction()
         }
     }
 
-    if (m_isActive && ImGui::IsMouseDragging(ImGuiMouseButton_Left, 0.0f) && !m_wasClicked)
+    if (ImGui::IsItemActive() && ImGui::IsMouseDragging(ImGuiMouseButton_Left, 0.0f) && !m_wasClicked)
     {
         // If we're dragging, find the closest point on first click or continue dragging
         if (!m_draggedPointIndex)
@@ -251,7 +245,7 @@ void TransferFunctionGui::HandleInteraction()
 void TransferFunctionGui::Draw()
 {
     // Set cursor when hovering over a control point
-    if (m_hoveredPointIndex && !m_isShiftPressed)
+    if (m_hoveredPointIndex && !ImGui::GetIO().KeyShift)
     {
         ImGui::SetMouseCursor(ImGuiMouseCursor_Hand);
     }
