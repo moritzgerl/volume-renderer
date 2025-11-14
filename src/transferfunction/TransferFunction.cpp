@@ -54,12 +54,6 @@ void TransferFunction::AddPoint(float value, float opacity)
         }
     }
 
-    // Shift existing points to make room for the new point
-    for (size_t j = m_numActivePoints; j > insertIndex; --j)
-    {
-        m_controlPoints[j] = m_controlPoints[j - 1];
-    }
-
     // Interpolate color from surrounding points
     glm::vec3 newColor = glm::vec3(0.5f);
     if (insertIndex > 0 && insertIndex < m_numActivePoints)
@@ -80,6 +74,9 @@ void TransferFunction::AddPoint(float value, float opacity)
         // After the last point
         newColor = m_controlPoints[insertIndex - 1].color;
     }
+
+    // Shift existing points to make room for the new point
+    std::shift_right(m_controlPoints.begin() + insertIndex, m_controlPoints.begin() + m_numActivePoints + 1, 1);
 
     // Insert the new point at the correct position
     m_controlPoints[insertIndex].value = value;
