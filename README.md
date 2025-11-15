@@ -69,7 +69,8 @@ I used Claude Code to generate knee.ini
 &nbsp;
 
 ## Documentation
-You can find brief documentation in [CLAUDE.md](./CLAUDE.md)
+You can find brief documentation in [CLAUDE.md](./CLAUDE.md)\
+The repo also contains a Doxyfile for building a more detailed documentation with Doxygen. I used Doxygen 1.15.0.
 
 &nbsp;
 
