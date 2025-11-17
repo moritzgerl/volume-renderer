@@ -44,12 +44,22 @@ Permission is hereby granted, free of charge, to any person obtaining a copy...
 &nbsp;
 
 ## Dear ImGui
-MIT License  
-Copyright (c) 2014-2025 Omar Cornut  
+MIT License
+Copyright (c) 2014-2025 Omar Cornut
 
 Permission is hereby granted, free of charge, to any person obtaining a copy...
 
 [Full license available at https://github.com/ocornut/imgui/blob/master/LICENSE.txt]
+
+&nbsp;
+
+## Google Test
+BSD 3-Clause License
+Copyright 2008, Google Inc.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted...
+
+[Full license available at https://github.com/google/googletest/blob/main/LICENSE]
 
 &nbsp;
 

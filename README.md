@@ -20,15 +20,17 @@ Volume rendering demo. Basic GPU volume raycasting with a simple GUI and persist
 * GLFW
 * glm
 * ImGui (included in src/imgui)
+* googletest
 
 #### For Windows with [vcpkg](https://github.com/microsoft/vcpkg)
 ```
-vcpkg install opengl glad glfw3 glm
+vcpkg install opengl glad glfw3 glm gtest
 ```
 Please use CMake to adjust CMAKE_PREFIX_PATH to the path where you have vcpkg packages installed on your machine. CMAKE_PREFIX_PATH defaults to the path on my machine:
 ```
 C:/Libraries/vcpkg/installed/x64-windows
 ```
+Linking to googletest and building the unit tests can be disabled via BUILD_TESTS in CMake.
 
 ### Building on Windows
 Tested with:
@@ -97,6 +99,7 @@ OpenGL — API specification by the [Khronos Group](https://www.khronos.org/open
 [GLFW](https://www.glfw.org/) — Licensed under the zlib/libpng License\
 [GLM](https://github.com/g-truc/glm) — Licensed under the MIT License\
 [Dear ImGui](https://github.com/ocornut/imgui) — Licensed under the MIT License  
+[Google Test](https://github.com/google/googletest) — Licensed under the BSD 3-Clause License
 
 &nbsp;
 

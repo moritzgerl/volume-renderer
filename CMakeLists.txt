@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.10)
 set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR} CACHE STRING " " FORCE)
 
+option(BUILD_TESTS "Build tests" ON)
+
 configure_file(cmake/root_directory.h.in cmake/root_directory.h)
 include_directories(${CMAKE_BINARY_DIR}/cmake)
 
@@ -27,3 +29,10 @@ find_package(glfw3 CONFIG REQUIRED)
 message(STATUS "Found glfw3 in ${glfw3_DIR}")
 
 add_subdirectory(src)
+
+if(BUILD_TESTS)    
+    find_package(gtest CONFIG REQUIRED)
+    message(STATUS "Found gtest in ${gtest_DIR}")
+
+    #add_subdirectory(test)
+endif(BUILD_TESTS)
