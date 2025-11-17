@@ -1,0 +1,17 @@
+<map id="src/renderpass/RenderPass.h" name="src/renderpass/RenderPass.h">
+<area shape="rect" id="Node000001" title="Self&#45;contained rendering stage abstraction." alt="" coords="218,5,412,32"/>
+<area shape="rect" id="Node000002" href="$_render_pass_types_8h.html" title="Type aliases for render pass collections." alt="" coords="121,80,304,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="286,43,241,82,237,77,290,40"/>
+<area shape="rect" id="Node000004" href="$_storage_types_8h.html" title="Type aliases for resource storage containers." alt="" coords="335,88,517,115"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="345,39,411,87,406,88,345,44"/>
+<area shape="rect" id="Node000003" href="$_make_render_passes_8h.html" title="Factory function for creating and configuring all render passes." alt="" coords="5,171,191,213"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="172,134,127,172,123,168,176,130"/>
+<area shape="rect" id="Node000005" href="$_make_frame_buffers_8h.html" title="Factory function for creating all framebuffers used in the rendering pipeline." alt="" coords="214,179,422,205"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="401,124,335,180,332,176,396,126"/>
+<area shape="rect" id="Node000006" href="$_make_shaders_8h.html" title="Factory function for creating and configuring all shader programs." alt="" coords="445,179,623,205"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="454,122,521,178,516,178,453,127"/>
+<area shape="rect" id="Node000007" href="$_storage_8h.html" title="Central storage for application state and OpenGL resources." alt="" coords="646,179,792,205"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="483,117,680,178,675,179,482,122"/>
+<area shape="rect" id="Node000008" href="$_make_storage_8h.html" title="Factory function for creating and initializing the central storage system." alt="" coords="630,261,808,288"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="721,219,721,263,717,259,717,223"/>
+</map>

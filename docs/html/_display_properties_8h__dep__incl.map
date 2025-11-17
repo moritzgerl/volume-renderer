@@ -1,0 +1,9 @@
+<map id="src/input/DisplayProperties.h" name="src/input/DisplayProperties.h">
+<area shape="rect" id="Node000001" title="Display and debug visualization state for the application." alt="" coords="125,5,315,32"/>
+<area shape="rect" id="Node000002" href="$_make_display_properties_8h.html" title="Factory function for creating display properties." alt="" coords="5,80,227,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="188,43,136,82,133,77,192,39"/>
+<area shape="rect" id="Node000003" href="$_storage_8h.html" title="Central storage for application state and OpenGL resources." alt="" coords="251,80,397,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="251,38,308,79,303,80,250,44"/>
+<area shape="rect" id="Node000004" href="$_make_storage_8h.html" title="Factory function for creating and initializing the central storage system." alt="" coords="235,155,413,181"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="326,121,326,156,322,153,322,124"/>
+</map>

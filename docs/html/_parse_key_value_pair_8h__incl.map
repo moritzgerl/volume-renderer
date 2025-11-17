@@ -1,0 +1,12 @@
+<map id="src/persistence/ParseKeyValuePair.h" name="src/persistence/ParseKeyValuePair.h">
+<area shape="rect" id="Node000001" title="Function for parsing key&#45;value pairs from INI file lines." alt="" coords="285,5,457,48"/>
+<area shape="rect" id="Node000002" href="$_application_state_ini_file_loading_error_8h.html" title="Error codes for application state INI file loading operations." alt="" coords="5,96,193,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="305,50,178,93,176,88,309,47"/>
+<area shape="rect" id="Node000003" href="$_key_value_pair_8h.html" title="Structure representing a key&#45;value pair from INI file parsing." alt="" coords="216,104,398,131"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="358,47,327,93,323,89,354,50"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="327,187,415,213"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="387,46,402,69,412,95,416,117,412,140,393,176,390,172,407,138,411,117,407,97,397,72,385,51"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="472,104,547,131"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="404,46,480,95,474,95,403,51"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="318,129,354,175,349,174,316,134"/>
+</map>

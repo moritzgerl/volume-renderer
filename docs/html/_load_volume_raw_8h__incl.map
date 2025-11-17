@@ -1,0 +1,23 @@
+<map id="src/volumedata/LoadVolumeRaw.h" name="src/volumedata/LoadVolumeRaw.h">
+<area shape="rect" id="Node000001" title="Functions for loading raw volume data files." alt="" coords="521,5,706,48"/>
+<area shape="rect" id="Node000002" href="$_volume_loading_types_8h.html" title="Type aliases for volume loading results." alt="" coords="356,96,536,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="572,50,500,91,497,86,577,47"/>
+<area shape="rect" id="Node000004" href="$_volume_metadata_8h.html" title="Metadata for 3D volume datasets." alt="" coords="179,277,379,304"/>
+<area shape="poly" id="edge10_Node000001_Node000004" title=" " alt="" coords="620,46,626,86,626,135,617,186,606,210,590,231,559,251,511,265,454,276,395,283,395,278,453,271,510,260,557,246,587,227,601,207,611,185,621,135,621,87,617,51"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="652,104,733,131"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="633,46,674,93,669,92,631,51"/>
+<area shape="rect" id="Node000003" href="$_volume_data_8h.html" title="3D volume data storage and voxel access." alt="" coords="5,195,180,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="362,142,159,193,157,188,364,137"/>
+<area shape="rect" id="Node000007" href="$_volume_loading_error_8h.html" title="Error codes for volume loading operations." alt="" coords="204,187,384,229"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="408,141,344,181,341,176,412,138"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="409,195,483,221"/>
+<area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="447,137,448,180,443,178,444,141"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="508,195,576,221"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="469,136,520,184,515,184,467,142"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="122,219,239,270,234,273,121,224"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="138,352,199,379"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="89,219,81,260,81,282,87,303,104,325,128,344,123,344,101,329,82,305,76,283,76,260,86,224"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="97,277,154,304"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="99,219,118,263,112,263,97,224"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="262,304,202,346,199,341,257,305"/>
+</map>

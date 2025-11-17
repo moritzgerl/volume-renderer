@@ -1,0 +1,5 @@
+<map id="UnitCubeVertexCoordinates::Get" name="UnitCubeVertexCoordinates::Get">
+<area shape="rect" id="Node000001" title=" " alt="" coords="225,5,437,32"/>
+<area shape="rect" id="Node000002" href="$class_vertex_buffer.html#a34f18f4d128da28478e423c6e479021e" title=" " alt="" coords="5,5,177,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,19,177,21,177,16,212,19"/>
+</map>

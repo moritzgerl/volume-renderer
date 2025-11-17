@@ -1,0 +1,7 @@
+<map id="Factory::MakeRenderPasses" name="Factory::MakeRenderPasses">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,197,57"/>
+<area shape="rect" id="Node000002" href="$class_element_storage.html#a32d51d984a2b8fbe82cfcd62d060241f" title=" " alt="" coords="245,5,436,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="197,31,232,30,226,31,198,36"/>
+<area shape="rect" id="Node000003" href="$class_unit_cube.html#af6a85367ee1aefeaa239ce5677342ee0" title=" " alt="" coords="277,56,404,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="197,51,265,61,259,61,197,57"/>
+</map>

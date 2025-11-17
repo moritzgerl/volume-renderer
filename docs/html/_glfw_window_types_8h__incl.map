@@ -1,0 +1,7 @@
+<map id="src/context/GlfwWindowTypes.h" name="src/context/GlfwWindowTypes.h">
+<area shape="rect" id="Node000001" title="Type aliases for GLFW window management." alt="" coords="75,5,286,32"/>
+<area shape="rect" id="Node000002" href="$_glfw_window_deleter_8h.html" title="Custom deleter for GLFW window smart pointers." alt="" coords="5,80,201,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,32,129,71,126,67,164,34"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="225,80,293,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="195,30,237,69,232,69,193,35"/>
+</map>

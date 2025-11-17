@@ -1,0 +1,7 @@
+<map id="VolumeData::VolumeData::SetVoxel8" name="VolumeData::VolumeData::SetVoxel8">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,39,177,81"/>
+<area shape="rect" id="Node000002" href="$class_volume_data_1_1_volume_data.html#a3ed9d202b0a8f94e9bdbd18d3bfa9a0c" title=" " alt="" coords="225,5,396,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,44,212,41,206,43,177,50"/>
+<area shape="rect" id="Node000003" href="$class_volume_data_1_1_volume_data.html#ab44fe4506a952b993d8293b98784e9fa" title=" " alt="" coords="225,72,396,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="177,70,212,78,206,78,177,76"/>
+</map>

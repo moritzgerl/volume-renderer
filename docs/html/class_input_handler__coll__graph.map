@@ -1,0 +1,13 @@
+<map id="InputHandler" name="InputHandler">
+<area shape="rect" id="Node000001" title="Processes keyboard and mouse input via GLFW callbacks." alt="" coords="111,203,207,229"/>
+<area shape="rect" id="Node000002" href="$class_camera.html" title="Camera for 3D navigation using trackball&#45;style mouse controls." alt="" coords="5,104,73,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,141,86,177,127,201,122,203,83,181,53,146"/>
+<area shape="rect" id="Node000003" href="$struct_display_properties.html" title="Stores flags for controlling debug visualization modes." alt="" coords="97,104,221,131"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="161,145,161,203,157,201,157,148"/>
+<area shape="rect" id="Node000004" href="$struct_gui_parameters.html" title="Stores all runtime&#45;adjustable parameters exposed through the GUI." alt="" coords="262,104,370,131"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="311,144,302,165,289,181,270,193,249,203,208,213,207,208,248,198,267,189,285,177,298,162,307,147"/>
+<area shape="rect" id="Node000005" href="$class_transfer_function.html" title="Manages control points for volume rendering transfer function." alt="" coords="186,5,305,32"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="241,45,243,64,249,79,260,92,277,103,272,103,257,96,244,81,238,65,239,50"/>
+<area shape="rect" id="Node000006" href="$struct_directional_light.html" title="Parameters for a directional light source." alt="" coords="330,5,441,32"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="376,44,356,82,333,106,330,101,352,78,372,48"/>
+</map>

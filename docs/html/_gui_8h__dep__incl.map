@@ -1,0 +1,5 @@
+<map id="src/gui/Gui.h" name="src/gui/Gui.h">
+<area shape="rect" id="Node000001" title="ImGui&#45;based graphical user interface for runtime parameter adjustment." alt="" coords="21,5,117,32"/>
+<area shape="rect" id="Node000002" href="$_make_gui_8h.html" title="Factory function for creating the graphical user interface." alt="" coords="5,80,133,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="71,46,72,80,66,79,67,50"/>
+</map>

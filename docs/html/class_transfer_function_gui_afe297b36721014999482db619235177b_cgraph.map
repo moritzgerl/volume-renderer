@@ -1,0 +1,36 @@
+<map id="TransferFunctionGui::Update" name="TransferFunctionGui::Update">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,539,145,581"/>
+<area shape="rect" id="Node000002" href="$class_transfer_function_gui.html#aeefe9bf2d63a030029dfb58cd5672c6c" title=" " alt="" coords="193,239,332,281"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,537,238,293,242,296,92,540"/>
+<area shape="rect" id="Node000010" href="$class_transfer_function_gui.html#a44befdc34346d257d444718f758c40b9" title=" " alt="" coords="193,539,332,581"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="144,557,180,559,175,561,146,563"/>
+<area shape="rect" id="Node000016" href="$class_transfer_function_gui.html#afb5610cb6dcddb7c54f0102ee1953093" title=" " alt="" coords="193,605,332,648"/>
+<area shape="poly" id="edge18_Node000001_Node000016" title=" " alt="" coords="137,579,189,599,184,601,137,584"/>
+<area shape="rect" id="Node000003" href="$class_transfer_function_gui.html#af51e53b24ee344ef662b55cc624c0c2c" title=" " alt="" coords="381,5,520,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="269,237,284,200,308,153,339,103,378,58,385,55,381,59,382,62,343,106,312,155,289,202,274,240"/>
+<area shape="rect" id="Node000004" href="$class_transfer_function_gui.html#a292c19f4aa06f83abbd69e28ff938014" title=" " alt="" coords="380,72,521,115"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="276,237,319,182,347,152,378,125,387,121,383,125,382,129,351,156,323,186,281,240"/>
+<area shape="rect" id="Node000005" href="$class_transfer_function_gui.html#a914971db996bf81281443d09612d7701" title=" " alt="" coords="381,139,520,181"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="298,236,379,191,391,187,387,190,381,196,302,240"/>
+<area shape="rect" id="Node000006" href="$class_transfer_function_gui.html#a23ee3f21dd63a8bf7482be567efcb929" title=" " alt="" coords="381,205,520,248"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="331,245,368,240,363,243,334,250"/>
+<area shape="rect" id="Node000007" href="$class_transfer_function_gui.html#a027db2cafe704df3608cdbd146f31976" title=" " alt="" coords="381,272,520,315"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="331,270,368,277,363,279,333,275"/>
+<area shape="rect" id="Node000008" href="$class_transfer_function_gui.html#a9d4435e2bae36163a4e0ab4c71352c46" title=" " alt="" coords="380,339,521,381"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="300,279,381,324,392,331,386,332,379,329,300,284"/>
+<area shape="rect" id="Node000009" href="$class_transfer_function_gui.html#a0a56f465a8a42199b488afdb0dcb2ad5" title=" " alt="" coords="381,405,520,448"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="279,279,323,334,351,364,382,391,387,397,382,397,378,395,347,368,319,338,278,284"/>
+<area shape="rect" id="Node000011" href="$class_transfer_function_gui.html#a555d42d76b59930ac314676b352f9a8a" title=" " alt="" coords="381,472,520,515"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="323,536,377,519,372,521,326,541"/>
+<area shape="rect" id="Node000013" href="$class_transfer_function_gui.html#acb4dccdac2ff970c65ce048a18a159ab" title=" " alt="" coords="380,539,521,581"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="332,557,367,559,362,561,333,563"/>
+<area shape="rect" id="Node000014" href="$class_transfer_function_gui.html#aa777b555acf88e867db6035e0e81d064" title=" " alt="" coords="381,605,520,648"/>
+<area shape="poly" id="edge14_Node000010_Node000014" title=" " alt="" coords="325,579,377,599,371,600,324,584"/>
+<area shape="rect" id="Node000015" href="$class_transfer_function_gui.html#a300209d9e29fd6319a81a31659f519e9" title=" " alt="" coords="381,672,520,715"/>
+<area shape="poly" id="edge16_Node000010_Node000015" title=" " alt="" coords="316,579,334,591,350,609,358,625,367,641,382,658,386,664,381,662,378,662,362,645,354,628,345,612,330,595,315,585"/>
+<area shape="rect" id="Node000012" href="$class_transfer_function_gui.html#a060a17cff87f8b32c83e02d7d8ce2125" title=" " alt="" coords="569,572,728,615"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="499,513,523,524,596,564,591,564,520,529,498,518"/>
+<area shape="poly" id="edge13_Node000013_Node000012" title=" " alt="" coords="522,569,556,577,551,578,522,575"/>
+<area shape="poly" id="edge15_Node000014_Node000012" title=" " alt="" coords="520,612,557,609,551,610,521,618"/>
+<area shape="poly" id="edge17_Node000015_Node000012" title=" " alt="" coords="498,669,520,658,591,623,596,622,523,662,499,674"/>
+</map>

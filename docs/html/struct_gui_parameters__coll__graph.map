@@ -1,0 +1,7 @@
+<map id="GuiParameters" name="GuiParameters">
+<area shape="rect" id="Node000001" title="Stores all runtime&#45;adjustable parameters exposed through the GUI." alt="" coords="80,104,188,131"/>
+<area shape="rect" id="Node000002" href="$class_transfer_function.html" title="Manages control points for volume rendering transfer function." alt="" coords="5,5,125,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="65,45,69,64,76,79,88,91,104,103,99,104,85,96,71,81,64,65,63,50"/>
+<area shape="rect" id="Node000003" href="$struct_directional_light.html" title="Parameters for a directional light source." alt="" coords="149,5,261,32"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="197,45,178,82,153,106,150,101,174,78,193,48"/>
+</map>

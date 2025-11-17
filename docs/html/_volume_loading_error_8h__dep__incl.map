@@ -1,0 +1,7 @@
+<map id="src/volumedata/VolumeLoadingError.h" name="src/volumedata/VolumeLoadingError.h">
+<area shape="rect" id="Node000001" title="Error codes for volume loading operations." alt="" coords="5,5,208,48"/>
+<area shape="rect" id="Node000002" href="$_volume_loading_types_8h.html" title="Type aliases for volume loading results." alt="" coords="5,96,208,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,61,109,96,104,95,105,66"/>
+<area shape="rect" id="Node000003" href="$_load_volume_raw_8h.html" title="Functions for loading raw volume data files." alt="" coords="14,187,199,229"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="108,152,109,187,104,185,105,156"/>
+</map>

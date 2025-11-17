@@ -1,0 +1,5 @@
+<map id="src/ssao/MakeSsaoUpdater.h" name="src/ssao/MakeSsaoUpdater.h">
+<area shape="rect" id="Node000001" title="Factory function for creating the SSAO updater." alt="" coords="5,5,200,32"/>
+<area shape="rect" id="Node000002" href="$_ssao_updater_8h.html" title="Monitors and updates SSAO resources when parameters change." alt="" coords="32,80,173,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,31,105,65,100,63,101,35"/>
+</map>

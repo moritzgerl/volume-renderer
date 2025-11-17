@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['initgl_0',['InitGl',['../_init_gl_8h.html#ab2e8877a8b2e7ed061f3bf3a64dce4ac',1,'Context']]],
+  ['initgl_2eh_1',['InitGl.h',['../_init_gl_8h.html',1,'']]],
+  ['initglad_2',['InitGlad',['../_init_glad_8h.html#a91aa4ab73e8560c8770970ab45aea495',1,'Context']]],
+  ['initglad_2eh_3',['InitGlad.h',['../_init_glad_8h.html',1,'']]],
+  ['initglfw_4',['InitGlfw',['../_init_glfw_8h.html#aac024f310ae6132352d57fc96785ee5b',1,'Context']]],
+  ['initglfw_2eh_5',['InitGlfw.h',['../_init_glfw_8h.html',1,'']]],
+  ['initglfwcallbacks_6',['InitGlfwCallbacks',['../class_input_handler.html#a5bfd56de321be604e829f9ab6ee34c01',1,'InputHandler']]],
+  ['inputhandler_7',['InputHandler',['../class_input_handler.html',1,'InputHandler'],['../class_input_handler.html#a29bf9def33b2de44846b0d37f2d0045c',1,'InputHandler::InputHandler()']]],
+  ['inputhandler_2eh_8',['InputHandler.h',['../_input_handler_8h.html',1,'']]],
+  ['intensity_9',['Intensity',['../_application_state_ini_file_key_8h.html#a232bdb5d17a2e36f0159687d9aa9175fa71bb6e4d1fa40e68f8c45ea97acae945',1,'Persistence']]],
+  ['intensity_10',['intensity',['../struct_directional_light.html#ab269f01389cd88101e7d27ce7e149e5e',1,'DirectionalLight::intensity'],['../struct_point_light.html#aefa51d6ad5e2b6747d605bc5038692a2',1,'PointLight::intensity']]],
+  ['interpolatetransferfunction_11',['InterpolateTransferFunction',['../_interpolate_transfer_function_8h.html#a0096e1543d30e63241802f101dc87589',1,'InterpolateTransferFunction.cpp']]],
+  ['interpolatetransferfunction_2eh_12',['InterpolateTransferFunction.h',['../_interpolate_transfer_function_8h.html',1,'']]],
+  ['invalidmetadata_13',['InvalidMetadata',['../class_volume_data.html#a174986609167b8ea73d5e126cf64de98aecab2ca4971a1e854b84997cc49ac09f',1,'VolumeData']]],
+  ['invalidvolumedata_14',['InvalidVolumeData',['../class_volume_data.html#a174986609167b8ea73d5e126cf64de98a40222bd1c92afd51c6f1600cd014b638',1,'VolumeData']]],
+  ['isinbounds_15',['IsInBounds',['../class_volume_data_1_1_volume_data.html#ab44fe4506a952b993d8293b98784e9fa',1,'VolumeData::VolumeData']]],
+  ['isvalid_16',['IsValid',['../class_volume_data_1_1_volume_data.html#a2d76a6cb31f04e93d4aa2e61d95a628e',1,'VolumeData::VolumeData::IsValid()'],['../class_volume_data_1_1_volume_metadata.html#ab524e90eacf18b0c302e37b7b826859e',1,'VolumeData::VolumeMetadata::IsValid()']]]
+];

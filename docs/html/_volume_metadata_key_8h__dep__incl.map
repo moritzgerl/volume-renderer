@@ -1,0 +1,5 @@
+<map id="src/volumedata/VolumeMetadataKey.h" name="src/volumedata/VolumeMetadataKey.h">
+<area shape="rect" id="Node000001" title="Enumeration of metadata field identifiers for volume files." alt="" coords="5,5,217,48"/>
+<area shape="rect" id="Node000002" href="$_get_volume_metadata_key_8h.html" title="Function for converting string keys to VolumeMetadataKey enum values." alt="" coords="22,96,200,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,62,113,97,109,95,109,66"/>
+</map>

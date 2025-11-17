@@ -1,0 +1,15 @@
+<map id="src/persistence/ParseCameraParameter.h" name="src/persistence/ParseCameraParameter.h">
+<area shape="rect" id="Node000001" title="Function for parsing camera parameters from INI file values." alt="" coords="427,5,622,48"/>
+<area shape="rect" id="Node000002" href="$_application_state_ini_file_loading_error_8h.html" title="Error codes for application state INI file loading operations." alt="" coords="5,96,193,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="425,50,209,96,207,91,428,46"/>
+<area shape="rect" id="Node000003" href="$_application_state_ini_file_key_8h.html" title="Key identifiers for application state INI file parameters." alt="" coords="217,96,405,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="477,48,376,92,374,87,472,50"/>
+<area shape="rect" id="Node000004" href="$_camera_parameters_8h.html" title="Serializable camera state structure." alt="" coords="428,104,620,131"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="526,46,527,90,522,87,523,50"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="644,104,719,131"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="562,46,649,96,643,96,561,51"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="743,104,831,131"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="589,46,732,93,741,99,736,98,730,99,588,51"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="478,187,570,213"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="526,129,526,173,522,170,522,133"/>
+</map>

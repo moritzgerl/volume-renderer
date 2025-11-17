@@ -1,0 +1,18 @@
+<map id="src/volumedata/VolumeLoadingTypes.h" name="src/volumedata/VolumeLoadingTypes.h">
+<area shape="rect" id="Node000001" title="Type aliases for volume loading results." alt="" coords="419,5,621,48"/>
+<area shape="rect" id="Node000002" href="$_volume_data_8h.html" title="3D volume data storage and voxel access." alt="" coords="156,104,330,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="453,50,298,101,296,96,457,47"/>
+<area shape="rect" id="Node000006" href="$_volume_loading_error_8h.html" title="Error codes for volume loading operations." alt="" coords="354,96,534,139"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="505,47,473,86,470,82,500,50"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="559,104,633,131"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="539,46,578,93,573,92,537,51"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="658,104,726,131"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="561,46,657,96,651,97,560,51"/>
+<area shape="rect" id="Node000003" href="$_volume_metadata_8h.html" title="Metadata for 3D volume datasets." alt="" coords="5,187,206,213"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="219,133,141,181,139,176,223,129"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="143,261,204,288"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="243,129,236,169,220,215,196,251,193,247,215,212,231,168,239,133"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="281,187,338,213"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="254,129,292,175,287,175,252,134"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="118,211,154,250,149,250,116,216"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="src/textures/Texture.h" name="src/textures/Texture.h">
+<area shape="rect" id="Node000001" title="Texture creation and management for OpenGL textures." alt="" coords="169,5,318,32"/>
+<area shape="rect" id="Node000002" href="$_texture_id_8h.html" title="Enumeration of textures used in the rendering pipeline." alt="" coords="5,80,143,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,33,119,76,117,71,211,32"/>
+<area shape="rect" id="Node000003" href="$_texture_type_8h.html" title="Enumeration of OpenGL texture dimensionalities." alt="" coords="166,80,320,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="245,31,246,66,241,63,241,34"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="345,80,398,107"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="266,30,338,72,333,72,265,35"/>
+</map>

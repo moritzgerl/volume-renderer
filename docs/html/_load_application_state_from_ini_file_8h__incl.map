@@ -1,0 +1,36 @@
+<map id="src/persistence/LoadApplicationStateFromIniFile.h" name="src/persistence/LoadApplicationStateFromIniFile.h">
+<area shape="rect" id="Node000001" title="Function for loading application state from an INI file." alt="" coords="388,5,594,48"/>
+<area shape="rect" id="Node000002" href="$_application_state_8h.html" title="Application state structure for persistence to INI files." alt="" coords="97,104,295,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="420,51,254,101,251,97,424,47"/>
+<area shape="rect" id="Node000014" href="$_application_state_ini_file_loading_error_8h.html" title="Error codes for application state INI file loading operations." alt="" coords="320,96,507,139"/>
+<area shape="poly" id="edge16_Node000001_Node000014" title=" " alt="" coords="475,47,443,86,439,82,471,50"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="531,104,605,131"/>
+<area shape="poly" id="edge17_Node000001_Node000015" title=" " alt="" coords="509,46,550,92,545,92,508,51"/>
+<area shape="rect" id="Node000016" title=" " alt="" coords="629,104,710,131"/>
+<area shape="poly" id="edge18_Node000001_Node000016" title=" " alt="" coords="533,46,633,96,628,97,533,51"/>
+<area shape="rect" id="Node000003" href="$_camera_parameters_8h.html" title="Serializable camera state structure." alt="" coords="5,187,198,213"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="180,133,129,178,125,175,183,129"/>
+<area shape="rect" id="Node000005" href="$_gui_parameters_8h.html" title="GUI parameter structure for storing runtime&#45;adjustable settings." alt="" coords="234,187,374,213"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="213,129,278,177,273,178,213,134"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="205,443,297,469"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="98,211,91,248,83,295,86,346,92,371,104,393,121,412,142,426,192,446,187,447,140,431,117,416,99,396,87,373,80,347,78,295,85,247,96,216"/>
+<area shape="rect" id="Node000006" href="$_directional_light_8h.html" title="Directional light parameters for lighting calculations." alt="" coords="114,360,271,387"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="281,216,257,236,232,263,211,305,199,346,195,343,206,303,227,260,253,232,285,212"/>
+<area shape="rect" id="Node000007" href="$_point_light_8h.html" title="Point light parameters for lighting calculations." alt="" coords="242,269,367,296"/>
+<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="305,212,307,255,302,253,303,216"/>
+<area shape="rect" id="Node000008" href="$_transfer_function_8h.html" title="Transfer function for mapping scalar values to colors and opacity." alt="" coords="390,261,554,304"/>
+<area shape="poly" id="edge9_Node000005_Node000008" title=" " alt="" coords="331,211,418,254,413,255,330,216"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="578,269,636,296"/>
+<area shape="poly" id="edge15_Node000005_Node000013" title=" " alt="" coords="374,210,467,230,566,259,572,263,567,263,565,264,466,235,375,216"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="203,385,236,431,231,430,200,390"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="305,295,299,341,285,396,268,431,265,427,280,394,294,340,301,299"/>
+<area shape="rect" id="Node000009" href="$_transfer_function_control_point_8h.html" title="Control point structure for transfer function definition." alt="" coords="345,352,508,395"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="464,303,446,340,443,336,460,306"/>
+<area shape="rect" id="Node000010" href="$_transfer_function_constants_8h.html" title="Compile&#45;time constants for transfer function configuration." alt="" coords="532,360,762,387"/>
+<area shape="poly" id="edge12_Node000008_Node000010" title=" " alt="" coords="514,302,611,353,606,353,513,307"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="786,360,836,387"/>
+<area shape="poly" id="edge14_Node000008_Node000012" title=" " alt="" coords="555,299,688,328,774,349,779,353,773,353,773,355,686,333,554,304"/>
+<area shape="poly" id="edge11_Node000009_Node000004" title=" " alt="" coords="384,395,293,438,292,433,379,396"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="615,443,679,469"/>
+<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="649,385,649,429,645,426,645,389"/>
+</map>

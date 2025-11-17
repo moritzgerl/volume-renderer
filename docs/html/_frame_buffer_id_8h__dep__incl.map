@@ -1,0 +1,17 @@
+<map id="src/buffers/FrameBufferId.h" name="src/buffers/FrameBufferId.h">
+<area shape="rect" id="Node000001" title="Enumeration of framebuffer objects used in the rendering pipeline." alt="" coords="151,5,331,32"/>
+<area shape="rect" id="Node000002" href="$_frame_buffer_8h.html" title="Framebuffer object (FBO) abstraction for off&#45;screen rendering." alt="" coords="97,80,265,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="219,46,193,81,189,78,223,42"/>
+<area shape="rect" id="Node000004" href="$_storage_types_8h.html" title="Type aliases for resource storage containers." alt="" coords="212,155,393,181"/>
+<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="259,43,279,79,294,120,302,155,297,154,289,121,275,81,257,48"/>
+<area shape="rect" id="Node000003" href="$_make_frame_buffers_8h.html" title="Factory function for creating all framebuffers used in the rendering pipeline." alt="" coords="5,229,213,256"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="170,120,117,230,113,228,166,122"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="215,112,284,153,278,155,215,118"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="253,189,144,231,142,226,257,185"/>
+<area shape="rect" id="Node000005" href="$_make_shaders_8h.html" title="Factory function for creating and configuring all shader programs." alt="" coords="236,229,414,256"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="312,194,324,230,319,228,310,199"/>
+<area shape="rect" id="Node000006" href="$_storage_8h.html" title="Central storage for application state and OpenGL resources." alt="" coords="437,229,584,256"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="353,184,476,228,471,229,352,189"/>
+<area shape="rect" id="Node000007" href="$_make_storage_8h.html" title="Factory function for creating and initializing the central storage system." alt="" coords="421,304,600,331"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="512,270,512,305,508,302,508,274"/>
+</map>

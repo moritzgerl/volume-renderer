@@ -1,0 +1,9 @@
+<map id="TransferFunctionTextureUpdater" name="TransferFunctionTextureUpdater">
+<area shape="rect" id="Node000001" title="Updates the transfer function texture when control points are modified." alt="" coords="107,104,315,131"/>
+<area shape="rect" id="Node000002" href="$struct_gui_update_flags.html" title="Tracks which rendering resources need regeneration due to GUI changes." alt="" coords="5,5,121,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="70,44,79,63,90,78,110,91,133,103,128,104,107,96,87,82,74,66,68,49"/>
+<area shape="rect" id="Node000003" href="$class_transfer_function.html" title="Manages control points for volume rendering transfer function." alt="" coords="151,5,271,32"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="213,46,213,105,209,102,209,50"/>
+<area shape="rect" id="Node000004" href="$class_texture.html" title="Encapsulates OpenGL texture creation, binding, and management." alt="" coords="330,5,394,32"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="356,45,347,66,334,82,313,96,289,106,288,101,310,91,331,78,343,63,352,49"/>
+</map>

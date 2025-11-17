@@ -1,0 +1,7 @@
+<map id="ScreenQuad" name="ScreenQuad">
+<area shape="rect" id="Node000001" title="Renderable screen&#45;aligned quad covering the entire viewport." alt="" coords="144,104,238,131"/>
+<area shape="rect" id="Node000002" href="$class_screen_quad_vertex_coordinates.html" title="Manages vertex coordinate data for a full&#45;screen quad." alt="" coords="5,5,206,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,45,110,64,117,78,131,92,149,104,144,103,127,96,113,82,105,65,103,50"/>
+<area shape="rect" id="Node000003" href="$class_vertex_buffer.html" title="Encapsulates OpenGL vertex buffer objects for storing geometry data." alt="" coords="230,5,322,32"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="269,46,249,82,218,106,215,101,245,78,264,48"/>
+</map>

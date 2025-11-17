@@ -1,0 +1,21 @@
+<map id="src/textures/TextureId.h" name="src/textures/TextureId.h">
+<area shape="rect" id="Node000001" title="Enumeration of textures used in the rendering pipeline." alt="" coords="453,5,613,32"/>
+<area shape="rect" id="Node000002" href="$_storage_types_8h.html" title="Type aliases for resource storage containers." alt="" coords="234,163,416,189"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="504,39,448,82,342,164,339,160,445,78,500,42"/>
+<area shape="rect" id="Node000007" href="$_texture_8h.html" title="Texture creation and management for OpenGL textures." alt="" coords="459,80,607,107"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="534,46,535,81,531,78,532,50"/>
+<area shape="rect" id="Node000009" href="$_make_volume_data_texture_8h.html" title="Factory function for creating 3D volume data textures." alt="" coords="650,155,840,197"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="564,38,621,78,721,154,716,154,618,82,564,44"/>
+<area shape="rect" id="Node000003" href="$_make_frame_buffers_8h.html" title="Factory function for creating all framebuffers used in the rendering pipeline." alt="" coords="5,245,213,272"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="275,197,144,247,142,242,279,193"/>
+<area shape="rect" id="Node000004" href="$_make_shaders_8h.html" title="Factory function for creating and configuring all shader programs." alt="" coords="236,245,414,272"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="327,203,327,247,323,244,323,207"/>
+<area shape="rect" id="Node000005" href="$_storage_8h.html" title="Central storage for application state and OpenGL resources." alt="" coords="437,245,584,272"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="368,193,484,245,479,245,368,199"/>
+<area shape="rect" id="Node000006" href="$_make_storage_8h.html" title="Factory function for creating and initializing the central storage system." alt="" coords="421,320,600,347"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="512,286,512,321,508,318,508,290"/>
+<area shape="poly" id="edge7_Node000007_Node000002" title=" " alt="" coords="484,114,359,165,357,160,489,111"/>
+<area shape="rect" id="Node000008" href="$_make_textures_8h.html" title="Factory function for creating all textures used in the rendering pipeline." alt="" coords="439,163,627,189"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="535,120,535,164,531,161,531,124"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="580,110,693,154,688,154,580,115"/>
+</map>

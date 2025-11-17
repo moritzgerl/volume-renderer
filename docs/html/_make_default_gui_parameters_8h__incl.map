@@ -1,0 +1,25 @@
+<map id="src/gui/MakeDefaultGuiParameters.h" name="src/gui/MakeDefaultGuiParameters.h">
+<area shape="rect" id="Node000001" title="Factory function for creating GUI parameters with default values." alt="" coords="166,5,402,32"/>
+<area shape="rect" id="Node000002" href="$_gui_parameters_8h.html" title="GUI parameter structure for storing runtime&#45;adjustable settings." alt="" coords="214,80,354,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="285,30,287,65,281,64,283,35"/>
+<area shape="rect" id="Node000003" href="$_directional_light_8h.html" title="Directional light parameters for lighting calculations." alt="" coords="5,253,163,280"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="213,109,169,128,147,141,127,157,113,175,102,196,90,239,85,237,97,194,108,172,123,153,144,136,166,123,217,105"/>
+<area shape="rect" id="Node000005" href="$_point_light_8h.html" title="Point light parameters for lighting calculations." alt="" coords="137,163,263,189"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="269,109,225,154,222,150,273,105"/>
+<area shape="rect" id="Node000006" href="$_transfer_function_8h.html" title="Transfer function for mapping scalar values to colors and opacity." alt="" coords="286,155,450,197"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="298,105,339,144,333,144,297,110"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="474,163,531,189"/>
+<area shape="poly" id="edge12_Node000002_Node000011" title=" " alt="" coords="326,105,462,152,467,156,462,156,460,157,326,110"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="154,336,246,363"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="103,278,172,326,167,328,101,283"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="202,188,203,321,197,320,198,191"/>
+<area shape="rect" id="Node000007" href="$_transfer_function_control_point_8h.html" title="Control point structure for transfer function definition." alt="" coords="237,245,400,288"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="359,196,339,234,336,230,354,199"/>
+<area shape="rect" id="Node000008" href="$_transfer_function_constants_8h.html" title="Compile&#45;time constants for transfer function configuration." alt="" coords="424,253,653,280"/>
+<area shape="poly" id="edge9_Node000006_Node000008" title=" " alt="" coords="408,195,503,246,498,246,408,201"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="678,253,728,280"/>
+<area shape="poly" id="edge11_Node000006_Node000010" title=" " alt="" coords="450,192,581,221,666,243,671,247,665,246,665,248,580,226,450,198"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="291,288,232,329,230,325,286,289"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="506,336,571,363"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="541,279,541,322,537,319,537,282"/>
+</map>

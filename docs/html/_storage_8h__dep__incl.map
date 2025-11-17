@@ -1,0 +1,5 @@
+<map id="src/storage/Storage.h" name="src/storage/Storage.h">
+<area shape="rect" id="Node000001" title="Central storage for application state and OpenGL resources." alt="" coords="21,5,168,32"/>
+<area shape="rect" id="Node000002" href="$_make_storage_8h.html" title="Factory function for creating and initializing the central storage system." alt="" coords="5,80,184,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,46,97,81,92,79,93,50"/>
+</map>

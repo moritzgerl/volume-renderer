@@ -1,0 +1,9 @@
+<map id="src/primitives/ScreenQuad.h" name="src/primitives/ScreenQuad.h">
+<area shape="rect" id="Node000001" title="Screen&#45;aligned quad primitive for full&#45;screen rendering passes." alt="" coords="103,5,290,32"/>
+<area shape="rect" id="Node000002" href="$_screen_quad_vertex_coordinates_8h.html" title="Vertex data for screen&#45;aligned quad rendering." alt="" coords="5,80,196,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,34,138,72,135,68,183,31"/>
+<area shape="rect" id="Node000004" href="$_vertex_buffer_8h.html" title="Vertex buffer object (VBO) abstraction for geometry data." alt="" coords="219,88,366,115"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="212,30,269,78,264,78,211,35"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="72,171,129,197"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="102,121,103,156,98,154,99,125"/>
+</map>

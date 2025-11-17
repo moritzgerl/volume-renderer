@@ -1,0 +1,7 @@
+<map id="src/buffers/FrameBuffer.h" name="src/buffers/FrameBuffer.h">
+<area shape="rect" id="Node000001" title="Framebuffer object (FBO) abstraction for off&#45;screen rendering." alt="" coords="65,5,234,32"/>
+<area shape="rect" id="Node000002" href="$_frame_buffer_id_8h.html" title="Enumeration of framebuffer objects used in the rendering pipeline." alt="" coords="5,80,163,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,31,107,71,104,67,136,34"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="187,80,245,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,30,197,69,192,68,160,35"/>
+</map>

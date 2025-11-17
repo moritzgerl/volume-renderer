@@ -1,0 +1,15 @@
+<map id="Gui" name="Gui">
+<area shape="rect" id="Node000001" title="Manages the ImGui interface for tweaking rendering parameters." alt="" coords="370,203,411,229"/>
+<area shape="rect" id="Node000002" href="$struct_gui_parameters.html" title="Stores all runtime&#45;adjustable parameters exposed through the GUI." alt="" coords="132,104,240,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="214,138,244,158,276,176,326,195,372,210,367,210,324,200,274,181,241,162,213,143"/>
+<area shape="rect" id="Node000003" href="$class_transfer_function.html" title="Manages control points for volume rendering transfer function." alt="" coords="201,5,321,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="206,38,191,57,184,80,186,104,181,102,179,80,186,55,202,42"/>
+<area shape="rect" id="Node000006" href="$class_transfer_function_gui.html" title="ImGui widget for interactive transfer function editing." alt="" coords="321,104,460,131"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="282,41,323,78,364,103,359,104,319,82,281,47"/>
+<area shape="rect" id="Node000004" href="$struct_directional_light.html" title="Parameters for a directional light source." alt="" coords="5,5,117,32"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="65,44,73,63,83,78,106,95,134,107,129,108,103,99,79,82,68,66,64,50"/>
+<area shape="rect" id="Node000005" href="$struct_gui_update_flags.html" title="Tracks which rendering resources need regeneration due to GUI changes." alt="" coords="481,5,596,32"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="578,39,591,55,598,73,598,91,587,126,564,156,537,181,506,199,472,210,412,217,411,212,471,204,504,194,534,177,560,153,582,123,593,90,592,74,587,57,577,44"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="502,38,473,58,443,82,410,106,407,101,439,78,471,54,498,41"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="392,145,393,204,388,201,388,148"/>
+</map>

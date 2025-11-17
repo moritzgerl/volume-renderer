@@ -1,0 +1,20 @@
+<map id="src/gui/Gui.h" name="src/gui/Gui.h">
+<area shape="rect" id="Node000001" title="ImGui&#45;based graphical user interface for runtime parameter adjustment." alt="" coords="267,5,362,32"/>
+<area shape="rect" id="Node000002" href="$_transfer_function_gui_8h.html" title="Interactive transfer function editor widget for volume rendering." alt="" coords="57,80,228,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="282,34,187,76,185,71,287,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,155,69,181"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="264,25,207,34,141,45,83,61,61,71,47,82,39,94,35,109,35,140,29,139,30,108,34,92,43,78,59,66,81,56,140,40,206,28,269,23"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="252,80,376,107"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="316,30,317,66,312,63,313,35"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="401,80,548,107"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="343,30,435,73,430,74,342,35"/>
+<area shape="rect" id="Node000007" href="$_glfw_window_types_8h.html" title="Type aliases for GLFW window management." alt="" coords="572,80,760,107"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="363,27,592,75,587,77,362,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="127,107,69,148,66,143,121,107"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="109,155,176,181"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="144,105,145,140,140,138,141,109"/>
+<area shape="rect" id="Node000008" href="$_glfw_window_deleter_8h.html" title="Custom deleter for GLFW window smart pointers." alt="" coords="490,155,685,181"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="655,106,614,146,611,142,650,108"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="710,155,778,181"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="681,105,722,145,717,143,679,110"/>
+</map>

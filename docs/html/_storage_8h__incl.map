@@ -1,0 +1,111 @@
+<map id="src/storage/Storage.h" name="src/storage/Storage.h">
+<area shape="rect" id="Node000001" title="Central storage for application state and OpenGL resources." alt="" coords="2297,5,2444,32"/>
+<area shape="rect" id="Node000002" href="$_storage_types_8h.html" title="Type aliases for resource storage containers." alt="" coords="621,80,781,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2297,26,797,91,796,85,2297,21"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="1684,253,1742,280"/>
+<area shape="poly" id="edge65_Node000001_Node000004" title=" " alt="" coords="2294,24,2204,37,2091,60,2032,77,1974,98,1917,125,1865,157,1843,177,1821,199,1750,248,1748,243,1818,195,1839,174,1862,153,1915,120,1972,93,2031,72,2090,55,2203,32,2299,23"/>
+<area shape="rect" id="Node000018" href="$_camera_8h.html" title="Camera system for 3D navigation and view transformation." alt="" coords="2569,80,2694,107"/>
+<area shape="poly" id="edge24_Node000001_Node000018" title=" " alt="" coords="2416,30,2574,75,2568,75,2416,35"/>
+<area shape="rect" id="Node000019" href="$_glfw_window_8h.html" title="GLFW window wrapper for OpenGL context management." alt="" coords="2932,80,3084,107"/>
+<area shape="poly" id="edge26_Node000001_Node000019" title=" " alt="" coords="2444,25,2919,79,2913,80,2444,30"/>
+<area shape="rect" id="Node000022" title=" " alt="" coords="2708,253,2776,280"/>
+<area shape="poly" id="edge64_Node000001_Node000022" title=" " alt="" coords="2444,21,2517,27,2595,38,2663,54,2690,65,2708,78,2723,96,2733,116,2746,159,2750,202,2748,240,2744,236,2744,202,2741,160,2728,118,2718,99,2705,82,2687,70,2662,60,2594,43,2517,33,2444,26"/>
+<area shape="rect" id="Node000023" href="$_gui_parameters_8h.html" title="GUI parameter structure for storing runtime&#45;adjustable settings." alt="" coords="2042,80,2182,107"/>
+<area shape="poly" id="edge30_Node000001_Node000023" title=" " alt="" coords="2328,32,2172,78,2171,73,2323,33"/>
+<area shape="rect" id="Node000031" href="$_gui_update_flags_8h.html" title="Flags for tracking GUI&#45;triggered resource updates." alt="" coords="2206,80,2353,107"/>
+<area shape="poly" id="edge42_Node000001_Node000031" title=" " alt="" coords="2357,32,2308,73,2306,68,2352,34"/>
+<area shape="rect" id="Node000032" href="$_display_properties_8h.html" title="Display and debug visualization state for the application." alt="" coords="2377,80,2545,107"/>
+<area shape="poly" id="edge43_Node000001_Node000032" title=" " alt="" coords="2387,30,2436,71,2431,70,2385,35"/>
+<area shape="rect" id="Node000033" href="$_input_handler_8h.html" title="Keyboard and mouse input handling for camera control and application state." alt="" coords="2769,80,2908,107"/>
+<area shape="poly" id="edge44_Node000001_Node000033" title=" " alt="" coords="2444,29,2756,79,2751,79,2444,34"/>
+<area shape="rect" id="Node000034" href="$_screen_quad_8h.html" title="Screen&#45;aligned quad primitive for full&#45;screen rendering passes." alt="" coords="1631,80,1795,107"/>
+<area shape="poly" id="edge46_Node000001_Node000034" title=" " alt="" coords="2294,28,1811,84,1810,79,2299,28"/>
+<area shape="rect" id="Node000037" href="$_unit_cube_8h.html" title="Unit cube primitive for volume ray&#45;casting." alt="" coords="1447,80,1595,107"/>
+<area shape="poly" id="edge50_Node000001_Node000037" title=" " alt="" coords="2294,25,2000,49,1619,83,1610,84,1610,78,1618,77,2000,44,2299,25"/>
+<area shape="rect" id="Node000039" href="$_ssao_kernel_8h.html" title="SSAO sample kernel and noise texture generation." alt="" coords="1983,163,2115,189"/>
+<area shape="poly" id="edge54_Node000001_Node000039" title=" " alt="" coords="2294,23,2222,30,2142,40,2073,57,2048,69,2031,82,2024,97,2024,114,2035,151,2031,148,2018,114,2019,95,2027,78,2045,64,2071,52,2141,35,2221,25,2299,22"/>
+<area shape="rect" id="Node000041" href="$_ssao_updater_8h.html" title="Monitors and updates SSAO resources when parameters change." alt="" coords="3108,80,3248,107"/>
+<area shape="poly" id="edge58_Node000001_Node000041" title=" " alt="" coords="2444,22,2725,42,3095,80,3090,80,2724,48,2444,27"/>
+<area shape="rect" id="Node000042" href="$_volume_data_8h.html" title="3D volume data storage and voxel access." alt="" coords="3272,80,3447,107"/>
+<area shape="poly" id="edge59_Node000001_Node000042" title=" " alt="" coords="2444,21,2790,41,3259,80,3254,80,2790,46,2444,26"/>
+<area shape="rect" id="Node000003" href="$_element_storage_8h.html" title="Generic storage container for indexed collections of elements." alt="" coords="1054,163,1226,189"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="776,105,1041,152,1067,159,1061,159,1041,157,776,110"/>
+<area shape="rect" id="Node000005" href="$_texture_8h.html" title="Texture creation and management for OpenGL textures." alt="" coords="490,163,616,189"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="680,106,591,157,588,153,675,108"/>
+<area shape="rect" id="Node000006" href="$_texture_id_8h.html" title="Enumeration of textures used in the rendering pipeline." alt="" coords="315,253,452,280"/>
+<area shape="poly" id="edge8_Node000002_Node000006" title=" " alt="" coords="619,105,550,125,514,139,480,157,455,176,434,198,400,242,397,238,430,194,452,172,477,152,511,134,548,120,624,103"/>
+<area shape="rect" id="Node000009" href="$_shader_8h.html" title="Shader program compilation, linking, and uniform management." alt="" coords="691,163,807,189"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="710,105,737,150,731,149,707,110"/>
+<area shape="rect" id="Node000012" href="$_shader_id_8h.html" title="Enumeration of shader programs used in the rendering pipeline." alt="" coords="732,253,859,280"/>
+<area shape="poly" id="edge14_Node000002_Node000012" title=" " alt="" coords="695,105,677,149,674,173,681,196,692,211,707,225,742,247,736,246,703,229,688,215,676,199,669,174,672,148,691,109"/>
+<area shape="rect" id="Node000013" href="$_frame_buffer_8h.html" title="Framebuffer object (FBO) abstraction for off&#45;screen rendering." alt="" coords="882,163,1029,189"/>
+<area shape="poly" id="edge15_Node000002_Node000013" title=" " alt="" coords="741,105,904,157,899,158,741,110"/>
+<area shape="rect" id="Node000014" href="$_frame_buffer_id_8h.html" title="Enumeration of framebuffer objects used in the rendering pipeline." alt="" coords="1042,253,1200,280"/>
+<area shape="poly" id="edge18_Node000002_Node000014" title=" " alt="" coords="731,105,775,126,821,153,846,175,857,185,872,195,948,221,1051,249,1046,249,947,227,869,200,853,189,843,179,818,157,772,130,730,110"/>
+<area shape="rect" id="Node000015" href="$_render_pass_8h.html" title="Self&#45;contained rendering stage abstraction." alt="" coords="170,163,342,189"/>
+<area shape="poly" id="edge19_Node000002_Node000015" title=" " alt="" coords="629,109,341,162,340,157,633,105"/>
+<area shape="rect" id="Node000016" href="$_render_pass_id_8h.html" title="Enumeration of rendering pipeline stages." alt="" coords="5,253,189,280"/>
+<area shape="poly" id="edge23_Node000002_Node000016" title=" " alt="" coords="618,95,503,100,367,109,243,127,194,140,158,157,140,174,125,195,106,239,102,237,120,193,136,170,156,152,192,135,241,122,367,104,503,95,623,94"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1199,187,1239,195,1482,232,1672,260,1666,260,1481,238,1238,200,1199,193"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="531,189,423,248,420,243,526,191"/>
+<area shape="rect" id="Node000007" href="$_texture_type_8h.html" title="Enumeration of OpenGL texture dimensionalities." alt="" coords="476,253,630,280"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="555,188,555,239,551,236,551,192"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="654,253,708,280"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="572,187,653,244,647,244,571,193"/>
+<area shape="poly" id="edge13_Node000009_Node000008" title=" " alt="" coords="742,189,702,243,699,239,737,191"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="883,253,967,280"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="775,187,889,246,884,246,774,193"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="2360,336,2452,363"/>
+<area shape="poly" id="edge11_Node000009_Node000011" title=" " alt="" coords="790,187,815,195,862,206,900,213,937,223,981,243,996,254,1006,266,1016,277,1031,286,1061,293,1106,300,1234,311,1579,324,2134,333,2347,345,2342,345,2134,339,1579,329,1234,316,1105,305,1060,298,1029,290,1013,281,1002,270,993,258,978,248,935,228,899,219,861,212,814,200,790,193"/>
+<area shape="poly" id="edge12_Node000009_Node000012" title=" " alt="" coords="757,188,784,240,779,238,754,192"/>
+<area shape="poly" id="edge17_Node000013_Node000004" title=" " alt="" coords="1005,187,1041,195,1223,221,1403,240,1671,263,1666,263,1402,245,1223,226,1041,200,1005,193"/>
+<area shape="poly" id="edge16_Node000013_Node000014" title=" " alt="" coords="980,187,1087,246,1081,245,979,193"/>
+<area shape="poly" id="edge22_Node000015_Node000004" title=" " alt="" coords="342,183,479,195,838,218,1188,238,1671,263,1666,264,1188,243,838,224,478,200,343,188"/>
+<area shape="poly" id="edge20_Node000015_Node000016" title=" " alt="" coords="231,192,134,248,131,243,235,188"/>
+<area shape="rect" id="Node000017" title=" " alt="" coords="213,253,290,280"/>
+<area shape="poly" id="edge21_Node000015_Node000017" title=" " alt="" coords="257,188,255,239,251,237,253,192"/>
+<area shape="poly" id="edge25_Node000018_Node000011" title=" " alt="" coords="2639,105,2652,148,2654,174,2647,198,2632,224,2613,247,2567,285,2516,313,2467,333,2466,328,2513,308,2564,281,2609,243,2628,221,2643,196,2648,173,2647,149,2636,109"/>
+<area shape="rect" id="Node000020" href="$_glfw_window_types_8h.html" title="Type aliases for GLFW window management." alt="" coords="2787,163,2975,189"/>
+<area shape="poly" id="edge27_Node000019_Node000020" title=" " alt="" coords="2990,106,2914,157,2913,152,2985,108"/>
+<area shape="rect" id="Node000021" href="$_glfw_window_deleter_8h.html" title="Custom deleter for GLFW window smart pointers." alt="" coords="2801,253,2996,280"/>
+<area shape="poly" id="edge28_Node000020_Node000021" title=" " alt="" coords="2885,188,2895,239,2891,236,2882,192"/>
+<area shape="poly" id="edge29_Node000020_Node000022" title=" " alt="" coords="2864,189,2776,247,2774,242,2859,191"/>
+<area shape="poly" id="edge41_Node000023_Node000004" title=" " alt="" coords="2063,107,1997,130,1929,157,1897,178,1865,200,1757,251,1755,246,1862,195,1894,173,1926,152,1995,124,2058,108"/>
+<area shape="rect" id="Node000024" href="$_directional_light_8h.html" title="Directional light parameters for lighting calculations." alt="" coords="2476,163,2633,189"/>
+<area shape="poly" id="edge31_Node000023_Node000024" title=" " alt="" coords="2182,103,2464,152,2487,159,2482,159,2463,157,2182,108"/>
+<area shape="rect" id="Node000025" href="$_point_light_8h.html" title="Point light parameters for lighting calculations." alt="" coords="2326,163,2452,189"/>
+<area shape="poly" id="edge33_Node000023_Node000025" title=" " alt="" coords="2155,105,2334,158,2328,158,2155,110"/>
+<area shape="rect" id="Node000026" href="$_transfer_function_8h.html" title="Transfer function for mapping scalar values to colors and opacity." alt="" coords="2139,155,2303,197"/>
+<area shape="poly" id="edge35_Node000023_Node000026" title=" " alt="" coords="2129,105,2184,146,2178,145,2128,110"/>
+<area shape="poly" id="edge32_Node000024_Node000011" title=" " alt="" coords="2553,188,2535,237,2520,264,2502,290,2476,313,2448,331,2446,326,2473,308,2498,286,2516,262,2530,235,2548,191"/>
+<area shape="poly" id="edge34_Node000025_Node000011" title=" " alt="" coords="2418,187,2452,210,2468,226,2481,244,2487,267,2481,289,2465,311,2444,329,2442,324,2461,308,2476,287,2482,267,2476,246,2464,229,2449,214,2416,192"/>
+<area shape="rect" id="Node000027" href="$_transfer_function_control_point_8h.html" title="Control point structure for transfer function definition." alt="" coords="2229,245,2392,288"/>
+<area shape="poly" id="edge36_Node000026_Node000027" title=" " alt="" coords="2243,195,2281,235,2276,234,2241,200"/>
+<area shape="rect" id="Node000028" href="$_transfer_function_constants_8h.html" title="Compile&#45;time constants for transfer function configuration." alt="" coords="1976,253,2205,280"/>
+<area shape="poly" id="edge38_Node000026_Node000028" title=" " alt="" coords="2193,197,2122,247,2121,242,2188,199"/>
+<area shape="rect" id="Node000030" title=" " alt="" coords="2416,253,2466,280"/>
+<area shape="poly" id="edge40_Node000026_Node000030" title=" " alt="" coords="2283,195,2405,243,2408,246,2402,245,2403,248,2282,201"/>
+<area shape="poly" id="edge37_Node000027_Node000011" title=" " alt="" coords="2336,286,2382,326,2377,325,2334,291"/>
+<area shape="rect" id="Node000029" title=" " alt="" coords="2058,336,2122,363"/>
+<area shape="poly" id="edge39_Node000028_Node000029" title=" " alt="" coords="2092,279,2092,323,2088,319,2088,282"/>
+<area shape="poly" id="edge45_Node000033_Node000020" title=" " alt="" coords="2846,105,2870,150,2865,148,2844,109"/>
+<area shape="rect" id="Node000035" href="$_screen_quad_vertex_coordinates_8h.html" title="Vertex data for screen&#45;aligned quad rendering." alt="" coords="1618,155,1808,197"/>
+<area shape="poly" id="edge47_Node000034_Node000035" title=" " alt="" coords="1715,105,1715,141,1711,138,1711,109"/>
+<area shape="rect" id="Node000036" href="$_vertex_buffer_8h.html" title="Vertex buffer object (VBO) abstraction for geometry data." alt="" coords="1448,163,1594,189"/>
+<area shape="poly" id="edge49_Node000034_Node000036" title=" " alt="" coords="1686,107,1566,159,1564,154,1680,108"/>
+<area shape="poly" id="edge48_Node000035_Node000004" title=" " alt="" coords="1715,196,1715,239,1711,236,1711,200"/>
+<area shape="poly" id="edge53_Node000037_Node000036" title=" " alt="" coords="1523,105,1523,149,1519,146,1519,109"/>
+<area shape="rect" id="Node000038" href="$_unit_cube_vertex_coordinates_8h.html" title="Vertex data for unit cube rendering." alt="" coords="1250,155,1424,197"/>
+<area shape="poly" id="edge51_Node000037_Node000038" title=" " alt="" coords="1495,106,1399,151,1397,146,1490,108"/>
+<area shape="poly" id="edge52_Node000038_Node000004" title=" " alt="" coords="1424,195,1672,255,1666,255,1424,200"/>
+<area shape="poly" id="edge57_Node000039_Node000004" title=" " alt="" coords="2003,190,1758,256,1757,251,1998,190"/>
+<area shape="poly" id="edge55_Node000039_Node000011" title=" " alt="" coords="2030,189,2000,211,1973,236,1964,249,1959,262,1959,274,1966,286,1983,296,2018,305,2120,321,2347,344,2342,344,2120,326,2017,310,1981,301,1962,290,1954,276,1954,261,1959,246,1969,232,1997,207,2025,191"/>
+<area shape="rect" id="Node000040" title=" " alt="" coords="1837,253,1901,280"/>
+<area shape="poly" id="edge56_Node000039_Node000040" title=" " alt="" coords="2026,189,1909,249,1907,244,2021,191"/>
+<area shape="poly" id="edge63_Node000042_Node000004" title=" " alt="" coords="3275,105,3261,109,3018,115,2614,120,2210,131,2060,142,2007,149,1973,157,1956,166,1944,176,1933,188,1916,200,1833,235,1757,258,1756,252,1831,230,1913,195,1929,184,1940,173,1953,162,1971,152,2006,144,2060,137,2210,126,2613,114,3018,110,3261,104,3269,106"/>
+<area shape="rect" id="Node000043" href="$_volume_metadata_8h.html" title="Metadata for 3D volume datasets." alt="" coords="3190,163,3390,189"/>
+<area shape="poly" id="edge60_Node000042_Node000043" title=" " alt="" coords="3351,106,3312,153,3310,149,3346,108"/>
+<area shape="rect" id="Node000044" title=" " alt="" coords="3328,253,3388,280"/>
+<area shape="poly" id="edge62_Node000042_Node000044" title=" " alt="" coords="3373,105,3391,127,3405,154,3409,176,3405,198,3395,222,3380,243,3378,239,3390,219,3400,197,3404,176,3400,156,3387,130,3371,110"/>
+<area shape="poly" id="edge61_Node000043_Node000044" title=" " alt="" coords="3301,188,3342,242,3337,240,3299,192"/>
+</map>

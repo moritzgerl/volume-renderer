@@ -1,0 +1,7 @@
+<map id="src/persistence/GetApplicationStateIniFileSection.h" name="src/persistence/GetApplicationStateIniFileSection.h">
+<area shape="rect" id="Node000001" title="Function for converting string sections to ApplicationStateIniFileSection enum values." alt="" coords="79,5,279,48"/>
+<area shape="rect" id="Node000002" href="$_application_state_ini_file_section_8h.html" title="Section identifiers for application state INI file structure." alt="" coords="5,96,193,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="163,47,129,87,126,83,158,50"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="217,104,304,131"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="199,46,241,93,236,92,197,51"/>
+</map>

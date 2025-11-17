@@ -1,0 +1,7 @@
+<map id="TransferFunctionGui" name="TransferFunctionGui">
+<area shape="rect" id="Node000001" title="ImGui widget for interactive transfer function editing." alt="" coords="70,104,209,131"/>
+<area shape="rect" id="Node000002" href="$class_transfer_function.html" title="Manages control points for volume rendering transfer function." alt="" coords="5,5,125,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="61,45,63,64,69,79,81,92,98,103,92,104,77,96,64,81,58,65,59,50"/>
+<area shape="rect" id="Node000003" href="$struct_gui_update_flags.html" title="Tracks which rendering resources need regeneration due to GUI changes." alt="" coords="158,5,273,32"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="208,45,188,82,161,106,159,101,184,78,204,48"/>
+</map>

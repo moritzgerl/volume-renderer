@@ -1,0 +1,17 @@
+<map id="src/shader/ShaderId.h" name="src/shader/ShaderId.h">
+<area shape="rect" id="Node000001" title="Enumeration of shader programs used in the rendering pipeline." alt="" coords="159,5,309,32"/>
+<area shape="rect" id="Node000002" href="$_shader_8h.html" title="Shader program compilation, linking, and uniform management." alt="" coords="112,80,250,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="214,47,192,81,188,78,217,43"/>
+<area shape="rect" id="Node000004" href="$_storage_types_8h.html" title="Type aliases for resource storage containers." alt="" coords="197,155,378,181"/>
+<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="248,44,265,79,287,155,282,154,259,81,247,49"/>
+<area shape="rect" id="Node000003" href="$_make_shaders_8h.html" title="Factory function for creating and configuring all shader programs." alt="" coords="5,229,183,256"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="168,119,104,230,99,227,163,121"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="212,113,271,153,266,155,211,118"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="238,189,129,231,127,226,241,185"/>
+<area shape="rect" id="Node000005" href="$_make_frame_buffers_8h.html" title="Factory function for creating all framebuffers used in the rendering pipeline." alt="" coords="206,229,414,256"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="297,194,309,230,304,228,295,199"/>
+<area shape="rect" id="Node000006" href="$_storage_8h.html" title="Central storage for application state and OpenGL resources." alt="" coords="438,229,584,256"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="341,184,475,228,469,229,340,189"/>
+<area shape="rect" id="Node000007" href="$_make_storage_8h.html" title="Factory function for creating and initializing the central storage system." alt="" coords="422,304,600,331"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="513,270,513,305,509,302,509,274"/>
+</map>

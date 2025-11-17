@@ -1,0 +1,15 @@
+<map id="src/persistence/ParseTransferFunctionControlPoint.h" name="src/persistence/ParseTransferFunctionControlPoint.h">
+<area shape="rect" id="Node000001" title="Function for parsing transfer function control points from INI file values." alt="" coords="413,5,609,48"/>
+<area shape="rect" id="Node000002" href="$_application_state_ini_file_loading_error_8h.html" title="Error codes for application state INI file loading operations." alt="" coords="5,96,193,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="413,51,209,95,207,90,416,47"/>
+<area shape="rect" id="Node000003" href="$_application_state_ini_file_key_8h.html" title="Key identifiers for application state INI file parameters." alt="" coords="217,96,405,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="467,48,373,92,371,87,462,50"/>
+<area shape="rect" id="Node000004" href="$_transfer_function_control_point_8h.html" title="Control point structure for transfer function definition." alt="" coords="429,96,593,139"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="513,46,513,82,509,79,509,50"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="616,104,691,131"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="545,46,623,96,618,96,544,51"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="715,104,803,131"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="570,46,704,93,713,99,707,98,702,99,569,51"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="465,187,557,213"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="513,137,513,173,509,169,509,141"/>
+</map>

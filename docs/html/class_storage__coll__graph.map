@@ -1,0 +1,40 @@
+<map id="Storage" name="Storage">
+<area shape="rect" id="Node000001" title="Central owner of all application state and OpenGL resources." alt="" coords="773,333,839,359"/>
+<area shape="rect" id="Node000002" href="$class_camera.html" title="Camera for 3D navigation using trackball&#45;style mouse controls." alt="" coords="453,31,520,58"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="534,32,585,27,643,29,700,42,727,54,751,72,765,92,776,121,793,197,802,275,806,333,802,331,797,276,787,198,771,123,760,94,747,76,724,59,699,47,642,34,585,32,537,37"/>
+<area shape="rect" id="Node000003" href="$struct_display_properties.html" title="Stores flags for controlling debug visualization modes." alt="" coords="424,86,548,113"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="563,96,672,102,719,112,751,127,762,142,773,165,789,224,806,333,801,332,783,225,768,167,758,145,747,131,717,117,671,108,565,101"/>
+<area shape="rect" id="Node000004" href="$struct_gui_parameters.html" title="Stores all runtime&#45;adjustable parameters exposed through the GUI." alt="" coords="432,141,540,167"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="555,151,667,157,717,166,751,181,767,197,780,217,797,259,805,301,807,334,802,331,800,301,792,261,775,219,763,201,747,185,715,172,667,163,557,156"/>
+<area shape="rect" id="Node000005" href="$class_transfer_function.html" title="Manages control points for volume rendering transfer function." alt="" coords="46,86,165,113"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="180,104,362,126,434,141,429,143,361,131,182,109"/>
+<area shape="rect" id="Node000006" href="$struct_directional_light.html" title="Parameters for a directional light source." alt="" coords="50,141,161,167"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="176,151,434,152,430,156,178,156"/>
+<area shape="rect" id="Node000007" href="$struct_gui_update_flags.html" title="Tracks which rendering resources need regeneration due to GUI changes." alt="" coords="429,195,544,222"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="559,207,668,215,717,224,750,237,772,258,788,284,804,333,799,331,783,286,768,262,748,241,715,229,668,220,560,212"/>
+<area shape="rect" id="Node000008" href="$class_screen_quad.html" title="Renderable screen&#45;aligned quad covering the entire viewport." alt="" coords="440,250,533,277"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="548,260,645,269,699,280,750,298,774,313,795,332,789,332,771,317,748,303,697,286,645,274,549,265"/>
+<area shape="rect" id="Node000009" href="$class_screen_quad_vertex_coordinates.html" title="Manages vertex coordinate data for a full&#45;screen quad." alt="" coords="5,195,206,222"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="220,221,362,241,442,254,437,257,361,246,222,226"/>
+<area shape="rect" id="Node000010" href="$class_vertex_buffer.html" title="Encapsulates OpenGL vertex buffer objects for storing geometry data." alt="" coords="59,277,152,303"/>
+<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="166,283,441,264,438,269,168,288"/>
+<area shape="rect" id="Node000011" href="$class_unit_cube.html" title="Renderable unit cube for volume rendering ray entry/exit points." alt="" coords="448,305,524,331"/>
+<area shape="poly" id="edge12_Node000011_Node000010" title=" " alt="" coords="166,299,230,307,349,314,450,317,445,320,349,320,229,313,168,304"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="539,320,775,342,770,344,540,325"/>
+<area shape="rect" id="Node000012" href="$class_unit_cube_vertex_coordinates.html" title="Manages vertex coordinate data for a unit cube." alt="" coords="14,359,197,386"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="212,362,361,343,450,326,446,329,362,349,214,367"/>
+<area shape="rect" id="Node000013" href="$class_ssao_kernel.html" title="Generates and manages SSAO sample kernel and noise texture." alt="" coords="442,355,530,382"/>
+<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="545,374,642,379,696,376,748,369,783,359,778,361,750,374,696,382,642,384,546,379"/>
+<area shape="rect" id="Node000014" href="$class_element_storage.html" title=" " alt="" coords="400,406,572,449"/>
+<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="587,436,627,436,668,432,709,424,748,409,763,399,776,385,795,361,800,358,780,389,766,403,750,414,711,429,669,438,627,442,588,442"/>
+<area shape="rect" id="Node000015" href="$class_element_storage.html" title=" " alt="" coords="401,473,572,515"/>
+<area shape="poly" id="edge15_Node000001_Node000015" title=" " alt="" coords="587,504,628,504,670,498,711,486,747,466,770,443,786,413,801,362,805,358,791,415,775,446,751,471,713,491,671,503,629,509,588,509"/>
+<area shape="rect" id="Node000016" href="$class_element_storage.html" title=" " alt="" coords="386,539,587,582"/>
+<area shape="poly" id="edge16_Node000001_Node000016" title=" " alt="" coords="602,574,641,573,679,567,715,555,747,535,765,516,779,494,796,444,802,396,804,362,807,358,808,396,801,445,784,496,769,519,751,539,717,559,680,572,641,578,603,580"/>
+<area shape="rect" id="Node000017" href="$class_volume_data_1_1_volume_data.html" title=" " alt="" coords="401,606,572,633"/>
+<area shape="poly" id="edge17_Node000001_Node000017" title=" " alt="" coords="554,633,601,640,653,639,703,629,726,618,747,604,760,587,771,560,787,488,797,414,802,362,806,358,802,414,792,489,776,561,765,589,751,608,729,623,705,634,653,645,601,645,553,639"/>
+<area shape="rect" id="Node000018" href="$class_volume_data_1_1_volume_metadata.html" title="Stores dimensional and format information for volume datasets." alt="" coords="7,606,204,633"/>
+<area shape="poly" id="edge18_Node000017_Node000018" title=" " alt="" coords="220,617,403,618,398,621,220,622"/>
+<area shape="rect" id="Node000019" href="$class_context_1_1_glfw_window.html" title="RAII wrapper for GLFW window creation and lifecycle management." alt="" coords="412,657,561,683"/>
+<area shape="poly" id="edge19_Node000001_Node000019" title=" " alt="" coords="540,686,589,697,644,703,672,701,699,696,725,686,747,671,763,648,776,614,792,522,800,427,803,362,806,358,805,427,797,523,781,615,768,651,751,675,727,690,701,701,673,706,644,708,588,703,539,691"/>
+</map>

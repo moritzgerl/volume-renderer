@@ -1,0 +1,7 @@
+<map id="Storage::GetTexture" name="Storage::GetTexture">
+<area shape="rect" id="Node000001" title=" " alt="" coords="257,35,395,61"/>
+<area shape="rect" id="Node000002" href="$_make_ssao_updater_8h.html#a27f7be30cb82fe5c17ff4e1b02d5735a" title=" " alt="" coords="16,5,198,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="238,37,198,34,198,28,244,36"/>
+<area shape="rect" id="Node000003" href="$_make_transfer_function_texture_updater_8h.html#a2dd43a696805af65e171162d070c78fe" title=" " alt="" coords="5,56,209,99"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="238,60,209,66,209,61,244,59"/>
+</map>

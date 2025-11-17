@@ -1,0 +1,5 @@
+<map id="ScreenQuadVertexCoordinates::Get" name="ScreenQuadVertexCoordinates::Get">
+<area shape="rect" id="Node000001" title=" " alt="" coords="225,5,454,32"/>
+<area shape="rect" id="Node000002" href="$class_vertex_buffer.html#ac0f7c0c824303384aaacfc587d3fc79c" title=" " alt="" coords="5,5,177,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,19,177,21,177,16,212,19"/>
+</map>

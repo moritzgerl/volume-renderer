@@ -1,0 +1,9 @@
+<map id="src/transferfunction/TransferFunctionTextureUpdater.h" name="src/transferfunction/TransferFunctionTextureUpdater.h">
+<area shape="rect" id="Node000001" title="Monitors and updates the transfer function 1D texture when control points change." alt="" coords="90,5,313,48"/>
+<area shape="rect" id="Node000002" href="$_transfer_function_constants_8h.html" title="Compile&#45;time constants for transfer function configuration." alt="" coords="5,96,235,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,47,145,87,142,83,178,50"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="259,96,309,123"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="223,46,263,85,257,85,222,51"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="88,171,152,197"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="122,121,122,156,118,154,118,125"/>
+</map>

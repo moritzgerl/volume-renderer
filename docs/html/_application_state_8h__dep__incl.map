@@ -1,0 +1,9 @@
+<map id="src/persistence/ApplicationState.h" name="src/persistence/ApplicationState.h">
+<area shape="rect" id="Node000001" title="Application state structure for persistence to INI files." alt="" coords="241,5,419,48"/>
+<area shape="rect" id="Node000002" href="$_load_application_state_from_ini_file_8h.html" title="Function for loading application state from an INI file." alt="" coords="5,96,212,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="266,54,161,98,160,93,261,55"/>
+<area shape="rect" id="Node000003" href="$_make_default_application_state_8h.html" title="Factory function for creating application state with default values." alt="" coords="236,96,424,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="332,62,332,97,328,94,328,65"/>
+<area shape="rect" id="Node000004" href="$_save_application_state_to_ini_file_8h.html" title="Function for saving application state to an INI file." alt="" coords="448,96,657,139"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="396,51,503,95,498,95,395,57"/>
+</map>

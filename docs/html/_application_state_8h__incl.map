@@ -1,0 +1,28 @@
+<map id="src/persistence/ApplicationState.h" name="src/persistence/ApplicationState.h">
+<area shape="rect" id="Node000001" title="Application state structure for persistence to INI files." alt="" coords="107,5,285,48"/>
+<area shape="rect" id="Node000002" href="$_camera_parameters_8h.html" title="Serializable camera state structure." alt="" coords="5,96,198,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,51,130,87,126,84,173,46"/>
+<area shape="rect" id="Node000004" href="$_gui_parameters_8h.html" title="GUI parameter structure for storing runtime&#45;adjustable settings." alt="" coords="234,96,374,123"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="224,46,278,86,272,87,224,51"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="205,352,297,379"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="98,120,91,157,83,204,86,256,92,280,104,302,121,321,142,336,192,355,187,356,140,340,117,325,99,306,87,282,80,256,78,204,85,156,96,125"/>
+<area shape="rect" id="Node000005" href="$_directional_light_8h.html" title="Directional light parameters for lighting calculations." alt="" coords="114,269,271,296"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="281,125,257,145,232,172,211,214,199,255,195,253,206,212,227,169,253,141,285,121"/>
+<area shape="rect" id="Node000006" href="$_point_light_8h.html" title="Point light parameters for lighting calculations." alt="" coords="242,179,367,205"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="305,121,307,164,302,162,303,125"/>
+<area shape="rect" id="Node000007" href="$_transfer_function_8h.html" title="Transfer function for mapping scalar values to colors and opacity." alt="" coords="390,171,554,213"/>
+<area shape="poly" id="edge8_Node000004_Node000007" title=" " alt="" coords="331,121,418,163,413,164,330,126"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="578,179,636,205"/>
+<area shape="poly" id="edge14_Node000004_Node000012" title=" " alt="" coords="374,120,467,139,566,168,572,172,567,172,565,173,466,145,375,125"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="203,294,236,340,231,340,200,299"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="305,204,299,250,285,305,268,340,265,337,280,303,294,249,301,208"/>
+<area shape="rect" id="Node000008" href="$_transfer_function_control_point_8h.html" title="Control point structure for transfer function definition." alt="" coords="345,261,508,304"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="464,212,446,249,443,245,460,215"/>
+<area shape="rect" id="Node000009" href="$_transfer_function_constants_8h.html" title="Compile&#45;time constants for transfer function configuration." alt="" coords="532,269,762,296"/>
+<area shape="poly" id="edge11_Node000007_Node000009" title=" " alt="" coords="514,211,611,262,606,262,513,217"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="786,269,836,296"/>
+<area shape="poly" id="edge13_Node000007_Node000011" title=" " alt="" coords="555,208,688,237,774,259,779,263,773,262,773,264,686,242,554,213"/>
+<area shape="poly" id="edge10_Node000008_Node000003" title=" " alt="" coords="384,304,293,348,292,343,379,305"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="615,352,679,379"/>
+<area shape="poly" id="edge12_Node000009_Node000010" title=" " alt="" coords="649,295,649,338,645,335,645,298"/>
+</map>

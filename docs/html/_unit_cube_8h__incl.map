@@ -1,0 +1,9 @@
+<map id="src/primitives/UnitCube.h" name="src/primitives/UnitCube.h">
+<area shape="rect" id="Node000001" title="Unit cube primitive for volume ray&#45;casting." alt="" coords="99,5,269,32"/>
+<area shape="rect" id="Node000002" href="$_unit_cube_vertex_coordinates_8h.html" title="Vertex data for unit cube rendering." alt="" coords="5,80,179,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,34,129,72,125,68,172,31"/>
+<area shape="rect" id="Node000004" href="$_vertex_buffer_8h.html" title="Vertex buffer object (VBO) abstraction for geometry data." alt="" coords="203,88,349,115"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="199,30,253,78,248,78,198,35"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="63,171,121,197"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="94,121,95,156,89,154,90,125"/>
+</map>

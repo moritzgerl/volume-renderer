@@ -1,0 +1,9 @@
+<map id="src/persistence/ParseValue.h" name="src/persistence/ParseValue.h">
+<area shape="rect" id="Node000001" title="Template function for parsing typed values from string views." alt="" coords="158,5,349,32"/>
+<area shape="rect" id="Node000002" href="$_application_state_ini_file_loading_error_8h.html" title="Error codes for application state INI file loading operations." alt="" coords="5,80,193,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="232,32,153,75,151,70,227,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="216,88,291,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="256,31,256,74,251,71,252,34"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="315,88,403,115"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="271,30,334,79,328,79,269,35"/>
+</map>

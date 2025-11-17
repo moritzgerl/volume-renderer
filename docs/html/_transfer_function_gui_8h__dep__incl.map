@@ -1,0 +1,7 @@
+<map id="src/gui/TransferFunctionGui.h" name="src/gui/TransferFunctionGui.h">
+<area shape="rect" id="Node000001" title="Interactive transfer function editor widget for volume rendering." alt="" coords="5,5,168,48"/>
+<area shape="rect" id="Node000002" href="$_gui_8h.html" title="ImGui&#45;based graphical user interface for runtime parameter adjustment." alt="" coords="39,96,134,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,61,89,96,84,95,85,66"/>
+<area shape="rect" id="Node000003" href="$_make_gui_8h.html" title="Factory function for creating the graphical user interface." alt="" coords="23,171,150,197"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="88,137,89,171,84,169,85,140"/>
+</map>

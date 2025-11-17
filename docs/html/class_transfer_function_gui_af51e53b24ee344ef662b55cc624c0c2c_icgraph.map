@@ -1,0 +1,7 @@
+<map id="TransferFunctionGui::DrawBackground" name="TransferFunctionGui::DrawBackground">
+<area shape="rect" id="Node000001" title=" " alt="" coords="380,5,519,48"/>
+<area shape="rect" id="Node000002" href="$class_transfer_function_gui.html#aeefe9bf2d63a030029dfb58cd5672c6c" title=" " alt="" coords="193,5,332,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="362,27,333,29,332,24,367,27"/>
+<area shape="rect" id="Node000003" href="$class_transfer_function_gui.html#afe297b36721014999482db619235177b" title=" " alt="" coords="5,5,145,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="175,27,145,29,145,24,180,26"/>
+</map>

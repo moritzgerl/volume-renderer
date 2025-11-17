@@ -1,0 +1,7 @@
+<map id="src/ssao/SsaoKernel.h" name="src/ssao/SsaoKernel.h">
+<area shape="rect" id="Node000001" title="SSAO sample kernel and noise texture generation." alt="" coords="18,5,171,32"/>
+<area shape="rect" id="Node000002" href="$_storage_8h.html" title="Central storage for application state and OpenGL resources." alt="" coords="21,80,168,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,45,97,80,92,79,93,50"/>
+<area shape="rect" id="Node000003" href="$_make_storage_8h.html" title="Factory function for creating and initializing the central storage system." alt="" coords="5,155,184,181"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="96,121,97,155,92,153,93,124"/>
+</map>

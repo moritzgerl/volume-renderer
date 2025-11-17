@@ -1,0 +1,7 @@
+<map id="src/camera/MakeDefaultCameraParameters.h" name="src/camera/MakeDefaultCameraParameters.h">
+<area shape="rect" id="Node000001" title="Factory function for creating camera parameters with default values." alt="" coords="5,5,216,48"/>
+<area shape="rect" id="Node000002" href="$_camera_parameters_8h.html" title="Serializable camera state structure." alt="" coords="14,96,207,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,46,113,81,108,79,109,51"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="64,171,157,197"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="112,121,113,156,108,154,109,125"/>
+</map>

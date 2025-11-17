@@ -1,0 +1,7 @@
+<map id="src/gui/TransferFunctionGui.h" name="src/gui/TransferFunctionGui.h">
+<area shape="rect" id="Node000001" title="Interactive transfer function editor widget for volume rendering." alt="" coords="5,5,168,48"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="11,96,74,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,47,59,84,55,81,73,50"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="99,96,165,123"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="99,46,120,82,115,82,97,51"/>
+</map>

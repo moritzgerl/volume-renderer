@@ -1,0 +1,17 @@
+<map id="SsaoUpdater" name="SsaoUpdater">
+<area shape="rect" id="Node000001" title="Updates SSAO kernel, noise texture, and shader uniforms when parameters change." alt="" coords="304,224,401,251"/>
+<area shape="rect" id="Node000002" href="$struct_gui_update_flags.html" title="Tracks which rendering resources need regeneration due to GUI changes." alt="" coords="5,104,121,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="67,143,77,174,84,187,94,198,109,206,130,213,185,224,306,235,301,236,185,229,129,218,107,211,91,202,80,190,72,176,65,148"/>
+<area shape="rect" id="Node000003" href="$struct_gui_parameters.html" title="Stores all runtime&#45;adjustable parameters exposed through the GUI." alt="" coords="157,104,265,131"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="215,144,223,173,239,198,269,218,306,231,301,231,267,223,235,202,218,175,212,148"/>
+<area shape="rect" id="Node000004" href="$class_transfer_function.html" title="Manages control points for volume rendering transfer function." alt="" coords="81,5,200,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="136,45,138,64,143,79,155,92,172,103,166,104,152,96,139,81,133,65,134,50"/>
+<area shape="rect" id="Node000005" href="$struct_directional_light.html" title="Parameters for a directional light source." alt="" coords="225,5,336,32"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="270,44,250,82,228,106,224,102,246,78,267,48"/>
+<area shape="rect" id="Node000006" href="$class_ssao_kernel.html" title="Generates and manages SSAO sample kernel and noise texture." alt="" coords="308,104,396,131"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="354,145,355,225,350,222,350,148"/>
+<area shape="rect" id="Node000007" href="$class_texture.html" title="Encapsulates OpenGL texture creation, binding, and management." alt="" coords="442,104,506,131"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="472,144,463,175,446,202,426,217,402,228,401,223,423,213,442,198,459,173,468,147"/>
+<area shape="rect" id="Node000008" href="$class_shader.html" title="Encapsulates an OpenGL shader program with uniform setting helpers." alt="" coords="604,104,666,131"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="634,144,625,176,617,190,606,202,570,218,516,228,402,237,401,232,515,223,568,213,603,198,613,187,620,174,630,147"/>
+</map>

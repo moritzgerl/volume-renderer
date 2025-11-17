@@ -1,0 +1,11 @@
+<map id="Persistence::ApplicationState" name="Persistence::ApplicationState">
+<area shape="rect" id="Node000001" title="Serializable application state for saving/loading configuration." alt="" coords="66,203,228,245"/>
+<area shape="rect" id="Node000002" href="$struct_camera_parameters.html" title="Holds serializable camera state for persistence." alt="" coords="5,104,140,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,144,72,162,77,177,87,190,101,202,95,202,83,194,72,180,66,163,67,149"/>
+<area shape="rect" id="Node000003" href="$struct_gui_parameters.html" title="Stores all runtime&#45;adjustable parameters exposed through the GUI." alt="" coords="168,104,276,131"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="213,144,195,180,173,204,170,200,190,177,209,147"/>
+<area shape="rect" id="Node000004" href="$class_transfer_function.html" title="Manages control points for volume rendering transfer function." alt="" coords="92,5,211,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="147,45,149,64,154,79,166,92,182,103,177,104,162,96,150,81,144,65,145,50"/>
+<area shape="rect" id="Node000005" href="$struct_directional_light.html" title="Parameters for a directional light source." alt="" coords="236,5,347,32"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="281,44,261,82,238,106,235,102,257,78,278,48"/>
+</map>

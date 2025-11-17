@@ -1,0 +1,13 @@
+<map id="src/storage/ElementStorage.h" name="src/storage/ElementStorage.h">
+<area shape="rect" id="Node000001" title="Generic storage container for indexed collections of elements." alt="" coords="228,5,422,32"/>
+<area shape="rect" id="Node000002" href="$_storage_types_8h.html" title="Type aliases for resource storage containers." alt="" coords="234,80,416,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="326,46,327,81,323,78,324,50"/>
+<area shape="rect" id="Node000003" href="$_make_frame_buffers_8h.html" title="Factory function for creating all framebuffers used in the rendering pipeline." alt="" coords="5,155,213,181"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="271,114,148,157,146,152,275,110"/>
+<area shape="rect" id="Node000004" href="$_make_shaders_8h.html" title="Factory function for creating and configuring all shader programs." alt="" coords="236,155,414,181"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="327,120,327,156,323,153,323,125"/>
+<area shape="rect" id="Node000005" href="$_storage_8h.html" title="Central storage for application state and OpenGL resources." alt="" coords="437,155,584,181"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="372,110,480,154,475,154,371,115"/>
+<area shape="rect" id="Node000006" href="$_make_storage_8h.html" title="Factory function for creating and initializing the central storage system." alt="" coords="421,229,600,256"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="512,195,512,231,508,227,508,199"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="src/lights/MakeDefaultPointLights.h" name="src/lights/MakeDefaultPointLights.h">
+<area shape="rect" id="Node000001" title="Factory function for creating point lights with default properties." alt="" coords="5,5,188,48"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="10,96,68,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="81,51,59,85,55,82,83,46"/>
+<area shape="rect" id="Node000003" href="$_point_light_8h.html" title="Point light parameters for lighting calculations." alt="" coords="92,96,218,123"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="112,46,140,83,134,83,111,51"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="109,171,201,197"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="157,121,158,156,153,154,153,125"/>
+</map>

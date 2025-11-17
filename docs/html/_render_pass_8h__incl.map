@@ -1,0 +1,9 @@
+<map id="src/renderpass/RenderPass.h" name="src/renderpass/RenderPass.h">
+<area shape="rect" id="Node000001" title="Self&#45;contained rendering stage abstraction." alt="" coords="154,5,349,32"/>
+<area shape="rect" id="Node000002" href="$_render_pass_id_8h.html" title="Enumeration of rendering pipeline stages." alt="" coords="5,80,189,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,32,139,76,137,71,222,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="213,80,290,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="254,31,254,66,249,63,250,34"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="315,80,372,107"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="269,30,319,71,313,70,267,35"/>
+</map>

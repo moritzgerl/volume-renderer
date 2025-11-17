@@ -1,0 +1,15 @@
+<map id="src/camera/CameraParameters.h" name="src/camera/CameraParameters.h">
+<area shape="rect" id="Node000001" title="Serializable camera state structure." alt="" coords="223,5,437,32"/>
+<area shape="rect" id="Node000002" href="$_make_default_camera_parameters_8h.html" title="Factory function for creating camera parameters with default values." alt="" coords="6,80,216,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="280,39,169,82,167,77,284,36"/>
+<area shape="rect" id="Node000003" href="$_application_state_8h.html" title="Application state structure for persistence to INI files." alt="" coords="241,80,419,123"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="331,45,332,81,328,79,328,50"/>
+<area shape="rect" id="Node000007" href="$_parse_camera_parameter_8h.html" title="Function for parsing camera parameters from INI file values." alt="" coords="443,80,638,123"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="377,35,489,79,483,80,377,40"/>
+<area shape="rect" id="Node000004" href="$_load_application_state_from_ini_file_8h.html" title="Function for loading application state from an INI file." alt="" coords="5,171,212,213"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="266,128,161,173,160,168,261,130"/>
+<area shape="rect" id="Node000005" href="$_make_default_application_state_8h.html" title="Factory function for creating application state with default values." alt="" coords="236,171,424,213"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="332,136,332,172,328,169,328,140"/>
+<area shape="rect" id="Node000006" href="$_save_application_state_to_ini_file_8h.html" title="Function for saving application state to an INI file." alt="" coords="448,171,657,213"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="396,126,503,170,498,170,395,131"/>
+</map>
