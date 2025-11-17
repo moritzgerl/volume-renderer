@@ -30,9 +30,9 @@ message(STATUS "Found glfw3 in ${glfw3_DIR}")
 
 add_subdirectory(src)
 
-if(BUILD_TESTS)    
-    find_package(gtest CONFIG REQUIRED)
-    message(STATUS "Found gtest in ${gtest_DIR}")
-
-    #add_subdirectory(test)
+if(BUILD_TESTS)
+    enable_testing()
+    find_package(GTest CONFIG REQUIRED)
+    message(STATUS "Found GTest in ${GTest_DIR}")
+    add_subdirectory(test)
 endif(BUILD_TESTS)
