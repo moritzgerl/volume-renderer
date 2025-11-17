@@ -70,7 +70,8 @@ I used Claude Code to generate knee.ini
 
 ## Documentation
 You can find brief documentation in [CLAUDE.md](./CLAUDE.md)\
-The repo also contains a Doxyfile for building a more detailed documentation with Doxygen. I used Doxygen 1.15.0.
+The repo also contains a Doxyfile for building a more detailed documentation with Doxygen. I used Doxygen 1.15.0. The generated documentation is hosted here:
+[Volume Renderer Documentation](https://moritzgerl.github.io/volume-renderer/)
 
 &nbsp;
 
