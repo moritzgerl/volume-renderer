@@ -1,6 +1,4 @@
-file(GLOB_RECURSE SRC_MAIN_CPP
-    "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
-)
+set(SRC_MAIN_CPP "${CMAKE_CURRENT_SOURCE_DIR}/Main.cpp")
 
 file(GLOB_RECURSE SRC_BUFFERS_H
     "${CMAKE_CURRENT_SOURCE_DIR}/buffers/*.h" 
@@ -203,8 +201,10 @@ source_group("transferfunction\\Source Files" FILES ${SRC_TRANSFERFUNCTION_CPP})
 source_group("utils\\Header Files" FILES ${SRC_UTILS_H})
 source_group("utils\\Source Files" FILES ${SRC_UTILS_CPP})
 
+source_group("" FILES ${SRC_MAIN_CPP})
 
-add_executable(${PROJECT_NAME}
+
+add_library(VolumeRendererLib STATIC
     ${SRC_BUFFERS_H}
     ${SRC_BUFFERS_CPP}
     ${SRC_CAMERA_H}
@@ -222,7 +222,6 @@ add_executable(${PROJECT_NAME}
     ${SRC_IMGUI_CPP}
     ${SRC_INPUT_H}
     ${SRC_INPUT_CPP}
-    ${SRC_MAIN_CPP}
     ${SRC_LIGHTS_H}
     ${SRC_LIGHTS_CPP}
     ${SRC_PRIMITIVES_H}
@@ -244,19 +243,27 @@ add_executable(${PROJECT_NAME}
     ${SRC_UTILS_CPP}
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE
+target_include_directories(VolumeRendererLib PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
+target_link_libraries(VolumeRendererLib PUBLIC
     glad::glad
     glfw
     glm::glm
     opengl32
 )
 
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
+add_executable(VolumeRenderer
+    ${SRC_MAIN_CPP}
+)
 
-install(TARGETS ${PROJECT_NAME} PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_WRITE GROUP_EXECUTE WORLD_READ WORLD_WRITE WORLD_EXECUTE)
+target_link_libraries(VolumeRenderer PRIVATE
+    VolumeRendererLib
+)
+
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT VolumeRenderer)
+
+install(TARGETS VolumeRenderer PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_WRITE GROUP_EXECUTE WORLD_READ WORLD_WRITE WORLD_EXECUTE)
