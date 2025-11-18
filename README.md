@@ -53,7 +53,7 @@ VolumeRenderer.exe
 ```
 For the tests, run:
 ```
-VolumeRendererTest.exe
+test/VolumeRendererTest.exe
 ```
 
 &nbsp;
