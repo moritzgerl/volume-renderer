@@ -20,7 +20,7 @@ volume-renderer is an OpenGL-based volume rendering application that uses ray-ca
 cmake -B build
 cmake --build build
 
-# The executable will be in build/src/Debug/volume-renderer.exe (Debug) or build/src/Release/volume-renderer.exe (Release)
+# The executable will be in build/src/Debug/VolumeRenderer.exe (Debug) or build/src/Release/VolumeRenderer.exe (Release)
 ```
 
 ### Important CMake Details

@@ -49,13 +49,17 @@ Building the INSTALL target will install the binaries to [build]/bin.
 ### Running on Windows
 From [build]/bin, run:
 ```
-volume-renderer.exe
+VolumeRenderer.exe
+```
+For the tests, run:
+```
+VolumeRendererTest.exe
 ```
 
 &nbsp;
 
 ## Dataset
-The dataset path is currently hardcoded. Please create a folder called datasets next to volume-renderer.exe and place these two files:\
+The dataset path is currently hardcoded. Please create a folder called datasets next to VolumeRenderer.exe and place these two files:\
 [knee.raw](https://drive.google.com/file/d/1O3l4bhImrU0P-hzkCiHWina0UrVD3WqM/view?usp=drive_link)\
 [knee.ini](https://drive.google.com/file/d/199tYRytMlkCsYgNwjp-3bxSs7khPzBfg/view?usp=drive_link)
 
