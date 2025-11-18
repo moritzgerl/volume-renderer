@@ -26,11 +26,16 @@ file(GLOB_RECURSE TEST_SRC_INPUT_CPP
     "${TEST_SRC_ROOT}/input/*.cpp"
 )
 
+file(GLOB_RECURSE TEST_SRC_LIGHTS_CPP
+    "${TEST_SRC_ROOT}/lights/*.cpp"
+)
+
 source_group("buffers" FILES ${TEST_SRC_BUFFERS_CPP})
 source_group("camera" FILES ${TEST_SRC_CAMERA_CPP})
 source_group("context" FILES ${TEST_SRC_CONTEXT_CPP})
 source_group("gui" FILES ${TEST_SRC_GUI_CPP})
 source_group("input" FILES ${TEST_SRC_INPUT_CPP})
+source_group("lights" FILES ${TEST_SRC_LIGHTS_CPP})
 
 source_group("" FILES ${SRC_MAIN_CPP})
 
@@ -40,6 +45,7 @@ add_executable(${TEST_EXECUTABLE_NAME}
     ${TEST_SRC_CONTEXT_CPP}
     ${TEST_SRC_GUI_CPP}
     ${TEST_SRC_INPUT_CPP}
+    ${TEST_SRC_LIGHTS_CPP}
     ${SRC_MAIN_CPP}
 )
 
