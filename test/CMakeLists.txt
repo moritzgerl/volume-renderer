@@ -10,12 +10,18 @@ file(GLOB_RECURSE TEST_SRC_BUFFERS_CPP
     "${TEST_SRC_ROOT}/buffers/*.cpp"
 )
 
+file(GLOB_RECURSE TEST_SRC_CAMERA_CPP
+    "${TEST_SRC_ROOT}/camera/*.cpp"
+)
+
 source_group("buffers" FILES ${TEST_SRC_BUFFERS_CPP})
+source_group("camera" FILES ${TEST_SRC_CAMERA_CPP})
 
 source_group("" FILES ${SRC_MAIN_CPP})
 
 add_executable(${TEST_EXECUTABLE_NAME}
     ${TEST_SRC_BUFFERS_CPP}
+    ${TEST_SRC_CAMERA_CPP}
     ${SRC_MAIN_CPP}
 )
 
