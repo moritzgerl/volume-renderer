@@ -29,6 +29,63 @@ cmake --build build
 - GLM and GLFW3 are located via vcpkg
 - Shader files (`.vert`, `.geom`, `.frag`) are included in the build for IDE organization
 
+## Testing
+
+### Test Organization
+The project uses Google Test (GTest) for unit testing. Tests are organized in the `test/` directory, mirroring the structure of `src/`:
+
+- **One test file per class** - Each class being tested should have its own dedicated test file
+  - Example: `GuiParameters` class → `test/gui/gui_parameters_test.cpp`
+  - Example: `GuiUpdateFlags` class → `test/gui/gui_update_flags_test.cpp`
+  - Example: `Camera` class → `test/camera/camera_test.cpp`
+
+- **Test file naming convention** - Use lowercase with underscores: `<class_name>_test.cpp`
+  - Convert CamelCase class names to snake_case for test files
+  - Always append `_test.cpp` suffix
+
+- **Test fixtures** - Each test file should define a test fixture class inheriting from `::testing::Test`
+  ```cpp
+  class GuiParametersTest : public ::testing::Test
+  {
+  protected:
+      void SetUp() override
+      {
+          guiParameters = GuiParameters{};
+      }
+
+      GuiParameters guiParameters;
+  };
+  ```
+
+- **OpenGL context requirements** - Tests that use OpenGL functionality require context initialization:
+  ```cpp
+  void SetUp() override
+  {
+      window = std::make_unique<Context::GlfwWindow>();
+      Context::InitGl();
+      // ... create objects requiring OpenGL
+  }
+  ```
+
+### Running Tests
+```bash
+# Build tests (included in normal build)
+cmake --build build
+
+# Run tests from install directory
+./bin/test/VolumeRendererTest.exe
+
+# Or run via CTest from build directory
+cd build
+ctest
+```
+
+### Test Coverage Guidelines
+- Focus on testing class behavior and public API, not factory functions (which are integration code)
+- Pure logic tests (like Camera) run very fast and don't require OpenGL
+- OpenGL-dependent tests (like FrameBuffer, VertexBuffer) need context initialization
+- Data structure tests (like GuiParameters, GuiUpdateFlags) verify state storage/retrieval
+
 ## Code Architecture
 
 ### Source Organization
