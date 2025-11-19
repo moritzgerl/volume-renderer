@@ -42,6 +42,10 @@ file(GLOB_RECURSE TEST_SRC_RENDERPASS_CPP
     "${TEST_SRC_ROOT}/renderpass/*.cpp"
 )
 
+file(GLOB_RECURSE TEST_SRC_SHADER_CPP
+    "${TEST_SRC_ROOT}/shader/*.cpp"
+)
+
 source_group("buffers" FILES ${TEST_SRC_BUFFERS_CPP})
 source_group("camera" FILES ${TEST_SRC_CAMERA_CPP})
 source_group("context" FILES ${TEST_SRC_CONTEXT_CPP})
@@ -51,6 +55,7 @@ source_group("lights" FILES ${TEST_SRC_LIGHTS_CPP})
 source_group("persistence" FILES ${TEST_SRC_PERSISTENCE_CPP})
 source_group("primitives" FILES ${TEST_SRC_PRIMITIVES_CPP})
 source_group("renderpass" FILES ${TEST_SRC_RENDERPASS_CPP})
+source_group("shader" FILES ${TEST_SRC_SHADER_CPP})
 
 source_group("" FILES ${SRC_MAIN_CPP})
 
@@ -64,6 +69,7 @@ add_executable(${TEST_EXECUTABLE_NAME}
     ${TEST_SRC_PERSISTENCE_CPP}
     ${TEST_SRC_PRIMITIVES_CPP}
     ${TEST_SRC_RENDERPASS_CPP}
+    ${TEST_SRC_SHADER_CPP}
     ${SRC_MAIN_CPP}
 )
 
