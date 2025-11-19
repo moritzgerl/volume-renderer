@@ -54,6 +54,14 @@ file(GLOB_RECURSE TEST_SRC_STORAGE_CPP
     "${TEST_SRC_ROOT}/storage/*.cpp"
 )
 
+file(GLOB_RECURSE TEST_SRC_TEXTURES_CPP
+    "${TEST_SRC_ROOT}/textures/*.cpp"
+)
+
+file(GLOB_RECURSE TEST_SRC_TRANSFERFUNCTION_CPP
+    "${TEST_SRC_ROOT}/transferfunction/*.cpp"
+)
+
 source_group("buffers" FILES ${TEST_SRC_BUFFERS_CPP})
 source_group("camera" FILES ${TEST_SRC_CAMERA_CPP})
 source_group("context" FILES ${TEST_SRC_CONTEXT_CPP})
@@ -66,6 +74,8 @@ source_group("renderpass" FILES ${TEST_SRC_RENDERPASS_CPP})
 source_group("shader" FILES ${TEST_SRC_SHADER_CPP})
 source_group("ssao" FILES ${TEST_SRC_SSAO_CPP})
 source_group("storage" FILES ${TEST_SRC_STORAGE_CPP})
+source_group("textures" FILES ${TEST_SRC_TEXTURES_CPP})
+source_group("transferfunction" FILES ${TEST_SRC_TRANSFERFUNCTION_CPP})
 
 source_group("" FILES ${SRC_MAIN_CPP})
 
@@ -82,6 +92,8 @@ add_executable(${TEST_EXECUTABLE_NAME}
     ${TEST_SRC_SHADER_CPP}
     ${TEST_SRC_SSAO_CPP}
     ${TEST_SRC_STORAGE_CPP}
+    ${TEST_SRC_TEXTURES_CPP}
+    ${TEST_SRC_TRANSFERFUNCTION_CPP}
     ${SRC_MAIN_CPP}
 )
 
