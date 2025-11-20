@@ -35,8 +35,8 @@ Linking to googletest and building the unit tests can be disabled via BUILD_TEST
 ### Building on Windows
 Tested with:
 * Windows 10 64 bit
-* CMake 3.31.4
-* Visual Studio 17 2022
+* CMake 4.2.0
+* Visual Studio 18 2026
 * x64
 * Use default native compilers
 
