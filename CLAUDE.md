@@ -232,6 +232,13 @@ The main loop in [Main.cpp](src/Main.cpp) is remarkably simple due to the refact
 
 ## Coding Guidelines
 
+### File and Folder Naming Conventions
+- **File names use CamelCase starting with a capital letter** - All source files (`.cpp`, `.h`) should be named using CamelCase with an initial capital letter
+  - Examples: `VolumeData.h`, `VolumeData.cpp`, `FrameBufferTest.cpp`, `Main.cpp`
+  - This applies to both source files in `src/` and test files in `test/`
+- **Folder names use lowercase** - All directory names should be in lowercase  
+  - Examples: `camera/`, `shader/`, `textures/`
+
 ### Include Directives
 - **Always use angle bracket includes** (`<>`) for all project headers, never quoted includes (`""`)
   - Correct: `#include <context/GlfwWindow.h>`
