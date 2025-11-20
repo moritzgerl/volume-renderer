@@ -4,6 +4,7 @@
 #include <context/InitGl.h>
 #include <shader/Shader.h>
 #include <shader/UpdateLightSourceModelMatrixInShader.h>
+#include <utils/FileSystem.h>
 
 #include <glm/glm.hpp>
 #include <memory>
@@ -16,7 +17,7 @@ protected:
         window = std::make_unique<Context::GlfwWindow>();
         Context::InitGl();
 
-        shader = std::make_unique<Shader>(ShaderId::LightSource, "src/shaders/LightSource.vert", "src/shaders/LightSource.frag");
+        shader = std::make_unique<Shader>(ShaderId::LightSource, FileSystem::getPath("src/shaders/LightSource.vert").c_str(), FileSystem::getPath("src/shaders/LightSource.frag").c_str());
     }
 
     std::unique_ptr<Context::GlfwWindow> window;

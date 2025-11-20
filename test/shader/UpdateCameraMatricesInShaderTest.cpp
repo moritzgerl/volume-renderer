@@ -6,6 +6,7 @@
 #include <context/InitGl.h>
 #include <shader/Shader.h>
 #include <shader/UpdateCameraMatricesInShader.h>
+#include <utils/FileSystem.h>
 
 #include <memory>
 
@@ -22,7 +23,7 @@ protected:
         params.zoom = 45.0f;
 
         camera = std::make_unique<Camera>(params);
-        shader = std::make_unique<Shader>(ShaderId::Volume, "src/shaders/Volume.vert", "src/shaders/Volume.frag");
+        shader = std::make_unique<Shader>(ShaderId::Volume, FileSystem::getPath("src/shaders/Volume.vert").c_str(), FileSystem::getPath("src/shaders/Volume.frag").c_str());
     }
 
     std::unique_ptr<Context::GlfwWindow> window;
