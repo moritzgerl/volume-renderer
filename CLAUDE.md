@@ -236,8 +236,41 @@ The main loop in [Main.cpp](src/Main.cpp) is remarkably simple due to the refact
 - **File names use CamelCase starting with a capital letter** - All source files (`.cpp`, `.h`) should be named using CamelCase with an initial capital letter
   - Examples: `VolumeData.h`, `VolumeData.cpp`, `FrameBufferTest.cpp`, `Main.cpp`
   - This applies to both source files in `src/` and test files in `test/`
-- **Folder names use lowercase** - All directory names should be in lowercase  
+- **Folder names use lowercase** - All directory names should be in lowercase
   - Examples: `camera/`, `shader/`, `textures/`
+
+### Const Correctness
+- **Apply const correctness rigorously throughout the codebase** - Mark all variables and member functions as `const` when they do not modify state
+- **Variables**: Use `const` for any variable that is not modified after initialization
+  ```cpp
+  // Preferred
+  const float radius = 5.0f;
+  const auto& point = m_points[index];
+
+  // Avoid
+  float radius = 5.0f;  // Will not be modified, should be const
+  auto& point = m_points[index];  // Will not be modified, should be const auto&
+  ```
+- **Member functions**: Mark member functions as `const` when they do not modify any member variables
+  ```cpp
+  // Preferred
+  float GetRadius() const { return m_radius; }
+  bool IsValid() const { return m_width > 0 && m_height > 0; }
+
+  // Avoid
+  float GetRadius() { return m_radius; }  // Should be const
+  bool IsValid() { return m_width > 0 && m_height > 0; }  // Should be const
+  ```
+- **Function parameters**: Use `const` references for parameters that will not be modified
+  ```cpp
+  // Preferred
+  void Process(const VolumeData& data);
+  float Calculate(const glm::vec3& position) const;
+
+  // Avoid
+  void Process(VolumeData& data);  // Should be const& if not modifying
+  float Calculate(glm::vec3& position) const;  // Should be const& if not modifying
+  ```
 
 ### Include Directives
 - **Always use angle bracket includes** (`<>`) for all project headers, never quoted includes (`""`)
