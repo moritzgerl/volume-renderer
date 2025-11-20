@@ -30,25 +30,25 @@ void InputHandler::InitGlfwCallbacks()
 
     glfwSetKeyCallback(m_window.get(), [](GLFWwindow* window, int key, int scancode, int action, int mods)
     {
-        auto self = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
+        auto* const self = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
         self->ProcessKeyPresses(key, scancode, action, mods);
     });
 
     glfwSetFramebufferSizeCallback(m_window.get(), [](GLFWwindow* window, int width, int height)
     {
-        auto self = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
+        auto* const self = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
         self->ProcessWindowResize(width, height);
     });
 
     glfwSetCursorPosCallback(m_window.get(), [](GLFWwindow* window, double x, double y)
     {
-        auto self = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
+        auto* const self = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
         self->ProcessMouseMove(x, y);
     });
 
     glfwSetScrollCallback(m_window.get(), [](GLFWwindow* window, double offsetX, double offsetY)
     {
-        auto self = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
+        auto* const self = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
         self->ProcessMouseWheel(offsetX, offsetY);
     });
 }
@@ -60,7 +60,7 @@ void InputHandler::Update()
         return;
     }
 
-    float currentFrameTime = static_cast<float>(glfwGetTime());
+    const float currentFrameTime = static_cast<float>(glfwGetTime());
     m_timeSinceLastFrame = currentFrameTime - m_lastFrameTime;
     m_lastFrameTime = currentFrameTime;
 

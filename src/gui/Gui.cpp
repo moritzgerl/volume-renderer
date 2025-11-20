@@ -60,7 +60,8 @@ void Gui::Draw()
     ImGui::NewFrame();
 
     // Get window dimensions
-    int windowWidth, windowHeight;
+    int windowWidth{};
+    int windowHeight{};
     glfwGetWindowSize(m_window.get(), &windowWidth, &windowHeight);
 
     // Calculate initial GUI width and transfer function height based on config
@@ -175,7 +176,7 @@ void Gui::Draw()
         ImVec4 bgColor = ImGui::GetStyleColorVec4(ImGuiCol_WindowBg);
 
         // Measure the space available before resizing
-        float availableHeightBeforeTransferFunction = ImGui::GetContentRegionAvail().y;
+        const float availableHeightBeforeTransferFunction = ImGui::GetContentRegionAvail().y;
 
         // Spacer at the top for symmetry
         ImGui::PushStyleColor(ImGuiCol_Button, bgColor);
@@ -203,7 +204,7 @@ void Gui::Draw()
 
             // Calculate maximum height to prevent pushing content out of window
             // Subtract the space used by the top spacer (8px) from available space
-            float maxHeight = availableHeightBeforeTransferFunction - 8.0f;
+            const float maxHeight = availableHeightBeforeTransferFunction - 8.0f;
 
             m_transferFunctionHeight = std::clamp(m_transferFunctionHeight, 128.0f, maxHeight);
 

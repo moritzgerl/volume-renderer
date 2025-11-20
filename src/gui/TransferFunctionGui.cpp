@@ -87,7 +87,7 @@ void TransferFunctionGui::HandleClick()
 {
     if (ImGui::IsItemActive() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
     {
-        std::optional<size_t> clickedPointIndex = GetNearestPointIndex();
+        const std::optional<size_t> clickedPointIndex = GetNearestPointIndex();
 
         if (ImGui::GetIO().KeyShift && clickedPointIndex)
         {
@@ -120,11 +120,11 @@ void TransferFunctionGui::HandleDrag()
 
         if (m_draggedPointIndex)
         {
-            size_t draggedIndex = m_draggedPointIndex.value();
+            const size_t draggedIndex = m_draggedPointIndex.value();
             auto& point = m_transferFunction[draggedIndex];
 
             // Update value (x-axis) - clamp to prevent crossing adjacent points
-            float newValue = (m_mousePos.x - m_plotPos.x) / m_plotSize.x;
+            const float newValue = (m_mousePos.x - m_plotPos.x) / m_plotSize.x;
 
             // Get boundaries from adjacent control points
             float minValue = 0.0f;

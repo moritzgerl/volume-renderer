@@ -11,6 +11,6 @@ namespace Constants
 
 void ShaderUtils::UpdateLightSourceModelMatrixInShader(const glm::vec3& lightPosition, const Shader& shader)
 {
-    glm::mat4 model = glm::translate(glm::mat4(1.0f), lightPosition) * Constants::lightSourceCubeScalingMatrix;
+    const glm::mat4 model = glm::translate(glm::mat4(1.0f), lightPosition) * Constants::lightSourceCubeScalingMatrix;
     shader.SetMat4("model", model);
 }

@@ -45,12 +45,12 @@ TransferFunctionControlPoint& TransferFunction::operator[](size_t index)
 void TransferFunction::AddPoint(float value, float opacity)
 {
     // Find the insertion position to keep points sorted by value
-    auto pointIndices = std::views::iota(size_t{0}, m_numActivePoints);
-    auto it = std::ranges::find_if(pointIndices, [&](size_t index) {
+    const auto pointIndices = std::views::iota(size_t{0}, m_numActivePoints);
+    const auto it = std::ranges::find_if(pointIndices, [&](size_t index) {
         return m_controlPoints[index].value > value;
     });
 
-    size_t insertionIndex = (it != pointIndices.end()) ? *it : m_numActivePoints;
+    const size_t insertionIndex = (it != pointIndices.end()) ? *it : m_numActivePoints;
 
     // Interpolate color from surrounding points
     glm::vec3 newColor = glm::vec3(0.5f);
