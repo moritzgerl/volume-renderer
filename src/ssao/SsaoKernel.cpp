@@ -5,7 +5,7 @@
 
 namespace
 {
-    float Lerp(float a, float b, float f)
+    constexpr float Lerp(float a, float b, float f)
     {
         return a + f * (b - a);
     }
