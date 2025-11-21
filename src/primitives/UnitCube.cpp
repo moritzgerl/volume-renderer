@@ -2,8 +2,8 @@
 #include <glad/glad.h>
 
 UnitCube::UnitCube()
-    : m_vertexCoordinates()
-    , m_vertexBuffer(m_vertexCoordinates)
+    : m_vertexCoordinates{}
+    , m_vertexBuffer{m_vertexCoordinates}
 {
 }
 

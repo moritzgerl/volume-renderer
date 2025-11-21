@@ -53,7 +53,7 @@ void TransferFunction::AddPoint(float value, float opacity)
     const size_t insertionIndex = (it != pointIndices.end()) ? *it : m_numActivePoints;
 
     // Interpolate color from surrounding points
-    glm::vec3 newColor = glm::vec3(0.5f);
+    glm::vec3 newColor = glm::vec3{0.5f};
     if (insertionIndex > 0 && insertionIndex < m_numActivePoints)
     {
         // Between two points

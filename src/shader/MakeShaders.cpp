@@ -65,7 +65,7 @@ namespace Factory
 
         const Shader& ssaoShader = GetShader(shaders, ShaderId::Ssao);
         ssaoShader.Use();
-        ssaoShader.SetVec2("windowSize", glm::vec2(Config::windowWidth, Config::windowHeight));
+        ssaoShader.SetVec2("windowSize", glm::vec2{Config::windowWidth, Config::windowHeight});
         ssaoShader.SetInt("gPosition", ssaoPositionTexture.GetTextureUnit());
         ssaoShader.SetInt("gNormal", ssaoNormalTexture.GetTextureUnit());
         ssaoShader.SetInt("texNoise", ssaoNoiseTexture.GetTextureUnit());

@@ -96,7 +96,7 @@ namespace Factory
     {
         Context::GlfwWindow window;
         Persistence::ApplicationState applicationState = LoadApplicationState(Config::applicationStateIniFilePath);
-        Camera camera(applicationState.cameraParameters);
+        Camera camera{applicationState.cameraParameters};
         GuiParameters guiParameters = std::move(applicationState.guiParameters);
         DisplayProperties displayProperties = MakeDisplayProperties();
         VolumeData::VolumeData volumeData = LoadVolume(Config::datasetPath);
@@ -104,9 +104,9 @@ namespace Factory
         ScreenQuad screenQuad;
         UnitCube unitCube;
         SsaoKernel ssaoKernel;
-        TextureStorage textureStorage(MakeTextures(volumeData, ssaoKernel));
-        ShaderStorage shaderStorage(MakeShaders(guiParameters, ssaoKernel, textureStorage));
-        FrameBufferStorage frameBufferStorage(MakeFrameBuffers(textureStorage));
+        TextureStorage textureStorage{MakeTextures(volumeData, ssaoKernel)};
+        ShaderStorage shaderStorage{MakeShaders(guiParameters, ssaoKernel, textureStorage)};
+        FrameBufferStorage frameBufferStorage{MakeFrameBuffers(textureStorage)};
 
         return Storage(
             std::move(camera),

@@ -18,12 +18,12 @@ SsaoUpdater::SsaoUpdater(
     const Shader& ssaoShader,
     const Shader& ssaoFinalShader
 )
-    : m_guiUpdateFlags(guiUpdateFlags)
-    , m_guiParameters(guiParameters)
-    , m_ssaoKernel(ssaoKernel)
-    , m_ssaoNoiseTexture(ssaoNoiseTexture)
-    , m_ssaoShader(ssaoShader)
-    , m_ssaoFinalShader(ssaoFinalShader)
+    : m_guiUpdateFlags{guiUpdateFlags}
+    , m_guiParameters{guiParameters}
+    , m_ssaoKernel{ssaoKernel}
+    , m_ssaoNoiseTexture{ssaoNoiseTexture}
+    , m_ssaoShader{ssaoShader}
+    , m_ssaoFinalShader{ssaoFinalShader}
 {
 }
 
@@ -44,7 +44,7 @@ void SsaoUpdater::Update()
 
 void SsaoUpdater::UpdateSsaoNoiseTexture()
 {
-    m_ssaoNoiseTexture = Texture(
+    m_ssaoNoiseTexture = Texture{
         TextureId::SsaoNoise,
         m_ssaoNoiseTexture.GetTextureUnitEnum(),
         m_guiParameters.ssaoNoiseSize,
@@ -55,7 +55,7 @@ void SsaoUpdater::UpdateSsaoNoiseTexture()
         GL_NEAREST,
         GL_REPEAT,
         m_ssaoKernel.GetNoise()
-    );
+    };
 }
 
 void SsaoUpdater::UpdateSsaoShader()

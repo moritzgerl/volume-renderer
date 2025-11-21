@@ -6,9 +6,9 @@
 #include <glad/glad.h>
 
 VertexBuffer::VertexBuffer(const ScreenQuadVertexCoordinates& screenQuadVertexCoordinates)
-    : m_vertexBufferObject()
-    , m_vertexArrayObject()
-    , m_elementBufferObject()
+    : m_vertexBufferObject{}
+    , m_vertexArrayObject{}
+    , m_elementBufferObject{}
 {
     const float* const vertexCoordinates = screenQuadVertexCoordinates.Get();
     const size_t sizeInBytes = screenQuadVertexCoordinates.GetSizeInBytes();
@@ -30,9 +30,9 @@ VertexBuffer::VertexBuffer(const ScreenQuadVertexCoordinates& screenQuadVertexCo
 }
 
 VertexBuffer::VertexBuffer(const UnitCubeVertexCoordinates& unitCubeVertexCoordinates)
-    : m_vertexBufferObject()
-    , m_vertexArrayObject()
-    , m_elementBufferObject()
+    : m_vertexBufferObject{}
+    , m_vertexArrayObject{}
+    , m_elementBufferObject{}
 {
     const float* const vertexCoordinates = unitCubeVertexCoordinates.Get();
     const size_t sizeInBytes = unitCubeVertexCoordinates.GetSizeInBytes();
@@ -56,9 +56,9 @@ VertexBuffer::VertexBuffer(const UnitCubeVertexCoordinates& unitCubeVertexCoordi
 }
 
 VertexBuffer::VertexBuffer(VertexBuffer&& other) noexcept
-    : m_vertexBufferObject(other.m_vertexBufferObject)
-    , m_vertexArrayObject(other.m_vertexArrayObject)
-    , m_elementBufferObject(other.m_elementBufferObject)
+    : m_vertexBufferObject{other.m_vertexBufferObject}
+    , m_vertexArrayObject{other.m_vertexArrayObject}
+    , m_elementBufferObject{other.m_elementBufferObject}
 {
     other.m_vertexBufferObject = 0;
     other.m_vertexArrayObject = 0;

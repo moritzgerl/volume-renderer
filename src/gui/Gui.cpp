@@ -15,12 +15,12 @@ namespace Constants
 }
 
 Gui::Gui(const Context::WindowPtr& window, GuiParameters& guiParameters, GuiUpdateFlags& guiUpdateFlags)
-    : m_window(window)
-    , m_guiParameters(guiParameters)
-    , m_guiUpdateFlags(guiUpdateFlags)
-    , m_guiWidth(0.0f)
-    , m_transferFunctionHeight(0.0f)
-    , m_transferFunctionGui(guiParameters.transferFunction, guiUpdateFlags)
+    : m_window{window}
+    , m_guiParameters{guiParameters}
+    , m_guiUpdateFlags{guiUpdateFlags}
+    , m_guiWidth{0.0f}
+    , m_transferFunctionHeight{0.0f}
+    , m_transferFunctionGui{guiParameters.transferFunction, guiUpdateFlags}
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();

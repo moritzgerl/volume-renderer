@@ -38,9 +38,9 @@ TransferFunctionTextureUpdater::TransferFunctionTextureUpdater(
     Texture& transferFunctionTexture
 )
     : m_textureData{}
-    , m_guiUpdateFlags{ guiUpdateFlags }
-    , m_transferFunction{ transferFunction }
-    , m_transferFunctionTexture{ transferFunctionTexture }
+    , m_guiUpdateFlags{guiUpdateFlags}
+    , m_transferFunction{transferFunction}
+    , m_transferFunctionTexture{transferFunctionTexture}
 {
     UpdateTextureData();
     UpdateTexture();
@@ -83,7 +83,7 @@ void TransferFunctionTextureUpdater::UpdateTextureData()
 
 void TransferFunctionTextureUpdater::UpdateTexture()
 {
-    m_transferFunctionTexture = Texture(
+    m_transferFunctionTexture = Texture{
         TextureId::TransferFunction,
         m_transferFunctionTexture.GetTextureUnitEnum(),
         static_cast<unsigned int>(TransferFunctionConstants::textureSize),
@@ -93,5 +93,5 @@ void TransferFunctionTextureUpdater::UpdateTexture()
         GL_LINEAR,
         GL_CLAMP_TO_EDGE,
         m_textureData.data()
-    );
+    };
 }

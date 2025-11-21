@@ -35,7 +35,7 @@ namespace
 
 template <typename ElementType, typename ElementIdType>
 ElementStorage<ElementType, ElementIdType>::ElementStorage(std::vector<ElementType>&& elements)
-    : m_elements(std::move(elements))
+    : m_elements{std::move(elements)}
 {
 }
 

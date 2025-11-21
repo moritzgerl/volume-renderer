@@ -22,13 +22,13 @@ namespace Constants
 }
 
 TransferFunctionGui::TransferFunctionGui(TransferFunction& transferFunction, GuiUpdateFlags& guiUpdateFlags)
-    : m_wasClicked{ false }
-    , m_numActivePoints{ 0 }
-    , m_draggedPointIndex{ std::nullopt }
-    , m_colorPickerPointIndex{ std::nullopt }
-    , m_hoveredPointIndex{ std::nullopt }
-    , m_interactiveAreaHeight{ 0.0f }
-    , m_gradientHeight{ 15.0f }
+    : m_wasClicked{false}
+    , m_numActivePoints{0}
+    , m_draggedPointIndex{std::nullopt}
+    , m_colorPickerPointIndex{std::nullopt}
+    , m_hoveredPointIndex{std::nullopt}
+    , m_interactiveAreaHeight{0.0f}
+    , m_gradientHeight{15.0f}
     , m_plotSize{}
     , m_plotPos{}
     , m_mousePos{}
@@ -218,7 +218,7 @@ void TransferFunctionGui::DrawColorGradient(ImDrawList& drawList)
         const float nextT = static_cast<float>(i + 1) / (gradientSteps - 1);
 
         const glm::vec4 rgba = InterpolateTransferFunction(t, activePoints);
-        const glm::vec3 color = glm::vec3(rgba.r, rgba.g, rgba.b);
+        const glm::vec3 color = glm::vec3{rgba.r, rgba.g, rgba.b};
 
         const float x1 = m_plotPos.x + t * m_plotSize.x;
         const float x2 = m_plotPos.x + nextT * m_plotSize.x;

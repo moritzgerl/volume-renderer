@@ -13,7 +13,7 @@ namespace Factory
         std::vector<FrameBuffer> frameBuffers;
         frameBuffers.reserve(4);
 
-        FrameBuffer ssaoInputFrameBuffer(FrameBufferId::SsaoInput);
+        FrameBuffer ssaoInputFrameBuffer{FrameBufferId::SsaoInput};
         ssaoInputFrameBuffer.Bind();
         ssaoInputFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT0, textureStorage.GetElement(TextureId::SsaoPosition));
         ssaoInputFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT1, textureStorage.GetElement(TextureId::SsaoNormal));
@@ -26,21 +26,21 @@ namespace Factory
         ssaoInputFrameBuffer.Unbind();
         frameBuffers.emplace_back(std::move(ssaoInputFrameBuffer));
 
-        FrameBuffer ssaoFrameBuffer(FrameBufferId::Ssao);
+        FrameBuffer ssaoFrameBuffer{FrameBufferId::Ssao};
         ssaoFrameBuffer.Bind();
         ssaoFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT0, textureStorage.GetElement(TextureId::Ssao));
         ssaoFrameBuffer.Check();
         ssaoFrameBuffer.Unbind();
         frameBuffers.emplace_back(std::move(ssaoFrameBuffer));
 
-        FrameBuffer ssaoBlurFrameBuffer(FrameBufferId::SsaoBlur);
+        FrameBuffer ssaoBlurFrameBuffer{FrameBufferId::SsaoBlur};
         ssaoBlurFrameBuffer.Bind();
         ssaoBlurFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT0, textureStorage.GetElement(TextureId::SsaoBlur));
         ssaoBlurFrameBuffer.Check();
         ssaoBlurFrameBuffer.Unbind();
         frameBuffers.emplace_back(std::move(ssaoBlurFrameBuffer));
 
-        FrameBuffer defaultFrameBuffer(FrameBufferId::Default);
+        FrameBuffer defaultFrameBuffer{FrameBufferId::Default};
         frameBuffers.emplace_back(std::move(defaultFrameBuffer));
 
         return frameBuffers;

@@ -12,10 +12,10 @@ namespace
 }
 
 SsaoKernel::SsaoKernel()
-    : m_randomDistribution(0.0, 1.0)
-    , m_randomGenerator()
-    , m_kernel()
-    , m_noise()
+    : m_randomDistribution{0.0, 1.0}
+    , m_randomGenerator{}
+    , m_kernel{}
+    , m_noise{}
 {
     UpdateKernel(Config::defaultSsaoKernelSize);
     UpdateNoise(Config::defaultSsaoNoiseSize);
@@ -37,7 +37,7 @@ void SsaoKernel::UpdateKernel(unsigned int kernelSize)
 
     for (unsigned int i = 0; i < kernelSize; ++i)
     {
-        glm::vec3 sample(m_randomDistribution(m_randomGenerator) * 2.0 - 1.0, m_randomDistribution(m_randomGenerator) * 2.0 - 1.0, m_randomDistribution(m_randomGenerator));
+        glm::vec3 sample{m_randomDistribution(m_randomGenerator) * 2.0 - 1.0, m_randomDistribution(m_randomGenerator) * 2.0 - 1.0, m_randomDistribution(m_randomGenerator)};
         sample = glm::normalize(sample);
         sample *= m_randomDistribution(m_randomGenerator);
         const float scale = Lerp(0.1f, 1.0f, (float(i) / 64.0f) * (float(i) / 64.0f));
@@ -52,7 +52,7 @@ void SsaoKernel::UpdateNoise(unsigned int noiseSize)
 
     for (unsigned int i = 0; i < noiseSize * noiseSize; i++)
     {
-        const glm::vec3 noise(m_randomDistribution(m_randomGenerator) * 2.0 - 1.0, m_randomDistribution(m_randomGenerator) * 2.0 - 1.0, 0.0f); // rotate around z-axis (in tangent space)
+        const glm::vec3 noise{m_randomDistribution(m_randomGenerator) * 2.0 - 1.0, m_randomDistribution(m_randomGenerator) * 2.0 - 1.0, 0.0f}; // rotate around z-axis (in tangent space)
         m_noise[i] = noise;
     }
 }

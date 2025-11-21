@@ -3,14 +3,14 @@
 
 
 VolumeData::VolumeData::VolumeData()
-    : m_metadata()
-    , m_data()
+    : m_metadata{}
+    , m_data{}
 {
 }
 
 VolumeData::VolumeData::VolumeData(const VolumeMetadata& metadata)
-    : m_metadata(metadata)
-    , m_data()
+    : m_metadata{metadata}
+    , m_data{}
 {
     AllocateData();
 }
@@ -36,7 +36,7 @@ bool VolumeData::VolumeData::IsValid() const
 void VolumeData::VolumeData::Clear()
 {
     m_data.clear();
-    m_metadata = VolumeMetadata();
+    m_metadata = VolumeMetadata{};
 }
 
 size_t VolumeData::VolumeData::GetVoxelIndex(uint32_t x, uint32_t y, uint32_t z) const

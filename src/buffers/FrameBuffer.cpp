@@ -7,9 +7,9 @@
 #include <iostream>
 
 FrameBuffer::FrameBuffer(FrameBufferId frameBufferId)
-    : m_frameBufferId(frameBufferId)
-    , m_frameBufferObject(0)
-    , m_renderBufferObjects()
+    : m_frameBufferId{frameBufferId}
+    , m_frameBufferObject{0}
+    , m_renderBufferObjects{}
 {
     if (frameBufferId != FrameBufferId::Default)
     {

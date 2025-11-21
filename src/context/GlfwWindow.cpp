@@ -8,7 +8,7 @@
 namespace Context
 {
     GlfwWindow::GlfwWindow()
-        : m_window(InitGlfw())
+        : m_window{InitGlfw()}
     {
         InitGlad();
         InitGl();

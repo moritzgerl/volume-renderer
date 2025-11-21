@@ -9,13 +9,13 @@
 
 
 Camera::Camera(const CameraParameters& cameraParameters)
-    : m_zoom(cameraParameters.zoom)
-    , m_position(cameraParameters.position)
-    , m_lookAt(cameraParameters.lookAt)
-    , m_front(glm::normalize(m_lookAt - m_position))
-    , m_worldUp(cameraParameters.up)
-    , m_right(glm::normalize(glm::cross(m_front, m_worldUp)))
-    , m_up(glm::normalize(glm::cross(m_right, m_front)))
+    : m_zoom{cameraParameters.zoom}
+    , m_position{cameraParameters.position}
+    , m_lookAt{cameraParameters.lookAt}
+    , m_front{glm::normalize(m_lookAt - m_position)}
+    , m_worldUp{cameraParameters.up}
+    , m_right{glm::normalize(glm::cross(m_front, m_worldUp))}
+    , m_up{glm::normalize(glm::cross(m_right, m_front))}
 {
 }
 
@@ -73,14 +73,14 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool invertY, fl
     const float radius = glm::length(toCamera);
 
     // Horizontal rotation around world up axis
-    const glm::mat4 horizontalRotation = glm::rotate(glm::mat4(1.0f), -xoffset, m_worldUp);
+    const glm::mat4 horizontalRotation = glm::rotate(glm::mat4{1.0f}, -xoffset, m_worldUp);
 
     // Vertical rotation around right axis
-    const glm::mat4 verticalRotation = glm::rotate(glm::mat4(1.0f), -yoffset, m_right);
+    const glm::mat4 verticalRotation = glm::rotate(glm::mat4{1.0f}, -yoffset, m_right);
 
     // Apply rotations
-    const glm::vec4 rotatedPosition = horizontalRotation * verticalRotation * glm::vec4(toCamera, 1.0f);
-    m_position = m_lookAt + glm::vec3(rotatedPosition);
+    const glm::vec4 rotatedPosition = horizontalRotation * verticalRotation * glm::vec4{toCamera, 1.0f};
+    m_position = m_lookAt + glm::vec3{rotatedPosition};
 
     // Update camera vectors
     m_front = glm::normalize(m_lookAt - m_position);

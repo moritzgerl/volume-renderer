@@ -9,8 +9,8 @@
 
 
 Shader::Shader(ShaderId shaderId, const char* vertexPath, const char* fragmentPath, const char* geometryPath)
-    : m_shaderId(shaderId)
-    , m_programId(0)
+    : m_shaderId{shaderId}
+    , m_programId{0}
 {
     // 1. retrieve the vertex/fragment source code from filePath
     std::string vertexCode;

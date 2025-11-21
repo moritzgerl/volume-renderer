@@ -84,7 +84,7 @@ RenderPasses Factory::MakeRenderPasses(const Gui& gui, const InputHandler& input
             const float viewportHeight = static_cast<float>(inputHandler.GetWindowHeight());
             ShaderUtils::UpdateCameraMatricesInShader(camera, shader, viewportWidth, viewportHeight);
             shader.SetVec3("cameraPos", camera.GetPosition());
-            shader.SetMat4("model", glm::mat4(1.0f));
+            shader.SetMat4("model", glm::mat4{1.0f});
             shader.SetFloat("densityMultiplier", guiParameters.raycastingDensityMultiplier);
         };
 

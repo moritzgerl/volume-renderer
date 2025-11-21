@@ -2,8 +2,8 @@
 #include <glad/glad.h>
 
 ScreenQuad::ScreenQuad()
-    : m_vertexCoordinates()
-    , m_vertexBuffer(m_vertexCoordinates)
+    : m_vertexCoordinates{}
+    , m_vertexBuffer{m_vertexCoordinates}
 {
 }
 

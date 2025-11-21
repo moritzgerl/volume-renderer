@@ -1,27 +1,27 @@
 #include <volumedata/VolumeMetadata.h>
 
 VolumeData::VolumeMetadata::VolumeMetadata()
-    : m_width(0)
-    , m_height(0)
-    , m_depth(0)
-    , m_components(1)
-    , m_bitsPerComponent(8)
-    , m_scaleX(1.0f)
-    , m_scaleY(1.0f)
-    , m_scaleZ(1.0f)
+    : m_width{0}
+    , m_height{0}
+    , m_depth{0}
+    , m_components{1}
+    , m_bitsPerComponent{8}
+    , m_scaleX{1.0f}
+    , m_scaleY{1.0f}
+    , m_scaleZ{1.0f}
 {
 }
 
 VolumeData::VolumeMetadata::VolumeMetadata(uint32_t width, uint32_t height, uint32_t depth,
                                uint32_t components, uint32_t bitsPerComponent)
-    : m_width(width)
-    , m_height(height)
-    , m_depth(depth)
-    , m_components(components)
-    , m_bitsPerComponent(bitsPerComponent)
-    , m_scaleX(1.0f)
-    , m_scaleY(1.0f)
-    , m_scaleZ(1.0f)
+    : m_width{width}
+    , m_height{height}
+    , m_depth{depth}
+    , m_components{components}
+    , m_bitsPerComponent{bitsPerComponent}
+    , m_scaleX{1.0f}
+    , m_scaleY{1.0f}
+    , m_scaleZ{1.0f}
 {
 }
 

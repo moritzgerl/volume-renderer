@@ -15,18 +15,18 @@ Storage::Storage(
     UnitCube&& unitCube,
     VolumeData::VolumeData&& volumeData,
     Context::GlfwWindow&& window)
-    : m_camera(std::move(camera))
-    , m_displayProperties(std::move(displayProperties))
-    , m_guiParameters(std::move(guiParameters))
-    , m_guiUpdateFlags(std::move(guiUpdateFlags))
-    , m_screenQuad(std::move(screenQuad))
-    , m_unitCube(std::move(unitCube))
-    , m_ssaoKernel(std::move(ssaoKernel))
-    , m_textureStorage(std::move(textureStorage))
-    , m_shaderStorage(std::move(shaderStorage))
-    , m_frameBufferStorage(std::move(frameBufferStorage))
-    , m_volumeData(std::move(volumeData))
-    , m_window(std::move(window))
+    : m_camera{std::move(camera)}
+    , m_displayProperties{std::move(displayProperties)}
+    , m_guiParameters{std::move(guiParameters)}
+    , m_guiUpdateFlags{std::move(guiUpdateFlags)}
+    , m_screenQuad{std::move(screenQuad)}
+    , m_unitCube{std::move(unitCube)}
+    , m_ssaoKernel{std::move(ssaoKernel)}
+    , m_textureStorage{std::move(textureStorage)}
+    , m_shaderStorage{std::move(shaderStorage)}
+    , m_frameBufferStorage{std::move(frameBufferStorage)}
+    , m_volumeData{std::move(volumeData)}
+    , m_window{std::move(window)}
 {
 }
 
