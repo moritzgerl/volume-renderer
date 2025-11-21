@@ -1,10 +1,12 @@
 #include <primitives/UnitCubeVertexCoordinates.h>
 
-UnitCubeVertexCoordinates::UnitCubeVertexCoordinates()
-    : m_vertexCoordinates()
+#include <array>
+
+namespace Constants
 {
     // https://www.paridebroggi.com/blogpost/2015/06/16/optimized-cube-opengl-triangle-strip/
-    m_vertexCoordinates =
+    // Position (x, y, z), Normal (nx, ny, nz)
+    constexpr std::array<float, 216> vertexCoordinates =
     {
         -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
          0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -50,7 +52,11 @@ UnitCubeVertexCoordinates::UnitCubeVertexCoordinates()
     };
 }
 
+UnitCubeVertexCoordinates::UnitCubeVertexCoordinates()
+{
+}
+
 const float* const UnitCubeVertexCoordinates::Get() const
 {
-    return &m_vertexCoordinates[0];
+    return Constants::vertexCoordinates.data();
 }

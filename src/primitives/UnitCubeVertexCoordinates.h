@@ -7,9 +7,6 @@
 #ifndef UNIT_CUBE_VERTEX_COORDINATES_H
 #define UNIT_CUBE_VERTEX_COORDINATES_H
 
-#include <vector>
-
-// TODO make generic class
 /**
 * \class UnitCubeVertexCoordinates
 *
@@ -21,7 +18,7 @@
 * front and back faces.
 *
 * The cube is defined as 36 vertices (6 faces × 2 triangles × 3 vertices),
-* with each vertex containing 3D position coordinates.
+* with each vertex containing 3D position coordinates and normals.
 *
 * @see UnitCube for the renderable cube primitive using this data.
 * @see VertexBuffer for uploading vertex data to the GPU.
@@ -40,9 +37,6 @@ public:
     * @return Const pointer to the raw vertex data array.
     */
     const float* const Get() const;
-
-private:
-    std::vector<float> m_vertexCoordinates; /**< Vertex position data for the cube. */
 };
 
 #endif

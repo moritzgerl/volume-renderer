@@ -7,8 +7,6 @@
 #ifndef SCREEN_QUAD_VERTEX_COORDINATES_H
 #define SCREEN_QUAD_VERTEX_COORDINATES_H
 
-#include <vector>
-
 /**
 * \class ScreenQuadVertexCoordinates
 *
@@ -18,7 +16,7 @@
 * quad covering the entire viewport. The quad is defined in normalized device
 * coordinates (NDC) from (-1, -1) to (1, 1).
 *
-* Each vertex contains position (x, y) and texture coordinates (u, v),
+* Each vertex contains position (x, y, z) and texture coordinates (u, v),
 * arranged as two triangles forming a rectangle.
 *
 * @see ScreenQuad for the renderable quad primitive using this data.
@@ -38,9 +36,6 @@ public:
     * @return Const pointer to the raw vertex data array.
     */
     const float* const Get() const;
-
-private:
-    std::vector<float> m_vertexCoordinates; /**< Interleaved vertex position and texture coordinate data. */
 };
 
 #endif
