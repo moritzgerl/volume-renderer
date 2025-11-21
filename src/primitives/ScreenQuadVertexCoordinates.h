@@ -21,6 +21,10 @@
 * Each vertex contains position (x, y, z) and texture coordinates (u, v),
 * arranged as two triangles forming a rectangle.
 *
+* Exception to the coding guideline "No Classes Without Members"
+* ScreenQuadVertexCoordinates is a lightweight type-safe handle to constexpr vertex data stored in namespace Constants.
+* Provides compile-time type differentiation for VertexBuffer constructors and zero runtime overhead (all data is constexpr)
+* 
 * @see ScreenQuad for the renderable quad primitive using this data.
 * @see VertexBuffer for uploading vertex data to the GPU.
 */

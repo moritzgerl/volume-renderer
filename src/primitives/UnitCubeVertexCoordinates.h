@@ -22,6 +22,10 @@
 * The cube is defined as 36 vertices (6 faces × 2 triangles × 3 vertices),
 * with each vertex containing 3D position coordinates and normals.
 *
+* Exception to the coding guideline "No Classes Without Members"
+* UnitCubeVertexCoordinates is a lightweight type-safe handle to constexpr vertex data stored in namespace Constants.
+* Provides compile-time type differentiation for VertexBuffer constructors and zero runtime overhead (all data is constexpr)
+*
 * @see UnitCube for the renderable cube primitive using this data.
 * @see VertexBuffer for uploading vertex data to the GPU.
 */
