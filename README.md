@@ -82,7 +82,6 @@ The repo also contains a Doxyfile for building a more detailed documentation wit
 &nbsp;
 
 ## Roadmap
-- Write tests
 - Lighting
 - Screen-space Ambient Occlusion (SSAO)
 - Physics-based rendering
