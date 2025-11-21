@@ -28,9 +28,9 @@ TEST(TextureUnitMappingTest, CanConvertGLTexture15To15)
     EXPECT_EQ(result, 15u);
 }
 
-TEST(TextureUnitMappingTest, CanConvertUnmappedTextureUnitToZero)
+TEST(TextureUnitMappingTest, CanConvertGLTexture31To31)
 {
-    // GL_TEXTURE31 is not in the mapping, so it should return 0
+    // GL_TEXTURE31 converts to 31 using arithmetic (GL_TEXTURE31 - GL_TEXTURE0)
     const unsigned int result = TextureUnitMapping::GLenumToUnsignedInt(GL_TEXTURE31);
-    EXPECT_EQ(result, 0u);
+    EXPECT_EQ(result, 31u);
 }

@@ -7,6 +7,8 @@
 #ifndef TEXTURE_UNIT_MAPPING_H
 #define TEXTURE_UNIT_MAPPING_H
 
+#include <glad/glad.h>
+
 /**
 * \namespace TextureUnitMapping
 *
@@ -26,7 +28,10 @@ namespace TextureUnitMapping
     * @param textureUnit OpenGL texture unit (e.g., GL_TEXTURE0, GL_TEXTURE1).
     * @return Zero-based texture unit index (e.g., 0 for GL_TEXTURE0, 1 for GL_TEXTURE1).
     */
-    unsigned int GLenumToUnsignedInt(unsigned int textureUnit);
+    constexpr unsigned int GLenumToUnsignedInt(GLenum textureUnit)
+    {
+        return static_cast<unsigned int>(textureUnit) - static_cast<unsigned int>(GL_TEXTURE0);
+    }
 }
 
 #endif
