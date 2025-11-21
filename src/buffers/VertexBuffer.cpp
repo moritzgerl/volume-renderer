@@ -11,13 +11,13 @@ VertexBuffer::VertexBuffer(const ScreenQuadVertexCoordinates& screenQuadVertexCo
     , m_elementBufferObject()
 {
     const float* const vertexCoordinates = screenQuadVertexCoordinates.Get();
+    const size_t sizeInBytes = screenQuadVertexCoordinates.GetSizeInBytes();
 
     glGenVertexArrays(1, &m_vertexArrayObject);
     glGenBuffers(1, &m_vertexBufferObject);
     glBindVertexArray(m_vertexArrayObject);
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
-    // TODO add get size method to ScreenQuadVertexCoordinates
-    glBufferData(GL_ARRAY_BUFFER, 4 * 5 * sizeof(float), vertexCoordinates, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeInBytes, vertexCoordinates, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
@@ -35,6 +35,7 @@ VertexBuffer::VertexBuffer(const UnitCubeVertexCoordinates& unitCubeVertexCoordi
     , m_elementBufferObject()
 {
     const float* const vertexCoordinates = unitCubeVertexCoordinates.Get();
+    const size_t sizeInBytes = unitCubeVertexCoordinates.GetSizeInBytes();
 
     glGenVertexArrays(1, &m_vertexArrayObject);
     glGenBuffers(1, &m_vertexBufferObject);
@@ -42,8 +43,7 @@ VertexBuffer::VertexBuffer(const UnitCubeVertexCoordinates& unitCubeVertexCoordi
     glBindVertexArray(m_vertexArrayObject);
 
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferObject);
-    // TODO add get size method to UnitCubeVertexCoordinates
-    glBufferData(GL_ARRAY_BUFFER, 36 * 6 * sizeof(float), vertexCoordinates, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeInBytes, vertexCoordinates, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);

@@ -7,6 +7,8 @@
 #ifndef UNIT_CUBE_VERTEX_COORDINATES_H
 #define UNIT_CUBE_VERTEX_COORDINATES_H
 
+#include <cstddef>
+
 /**
 * \class UnitCubeVertexCoordinates
 *
@@ -27,16 +29,16 @@ class UnitCubeVertexCoordinates
 {
 public:
     /**
-    * Constructor.
-    * Initializes vertex coordinates for a unit cube.
-    */
-    UnitCubeVertexCoordinates();
-
-    /**
     * Gets a pointer to the vertex coordinate data.
     * @return Const pointer to the raw vertex data array.
     */
     const float* const Get() const;
+
+    /**
+    * Gets the size of the vertex data in bytes.
+    * @return Size in bytes.
+    */
+    size_t GetSizeInBytes() const;
 };
 
 #endif
