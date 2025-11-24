@@ -41,20 +41,20 @@ namespace FileSystem
     /**
     * Resolves a relative path to an absolute path based on the project root.
     * @param relativePath Relative path from project root (e.g., "src/shaders/volume.frag").
-    * @return Absolute path to the file as a std::filesystem::path.
+    * @return Absolute path to the file as a string.
     */
-    inline std::filesystem::path GetPath(const std::string& relativePath)
+    inline std::string GetPath(const std::string& relativePath)
     {
         const auto envRoot = std::getenv("LOGL_ROOT_PATH");
         const auto* const givenRoot = (envRoot != nullptr ? envRoot : logl_root);
 
         if (givenRoot != nullptr && givenRoot[0] != '\0')
         {
-            return std::filesystem::path{givenRoot} / relativePath;
+            return (std::filesystem::path{givenRoot} / relativePath).string();
         }
         else
         {
-            return std::filesystem::path{"../../.."} / relativePath;
+            return (std::filesystem::path{"../../.."} / relativePath).string();
         }
     }
 }

@@ -17,7 +17,7 @@ protected:
         window = std::make_unique<Context::GlfwWindow>();
         Context::InitGl();
 
-        shader = std::make_unique<Shader>(ShaderId::LightSource, FileSystem::GetPath("src/shaders/LightSource.vert").string().c_str(), FileSystem::GetPath("src/shaders/LightSource.frag").string().c_str());
+        shader = std::make_unique<Shader>(ShaderId::LightSource, FileSystem::GetPath("src/shaders/LightSource.vert").c_str(), FileSystem::GetPath("src/shaders/LightSource.frag").c_str());
     }
 
     std::unique_ptr<Context::GlfwWindow> window;

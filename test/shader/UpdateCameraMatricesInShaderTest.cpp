@@ -23,7 +23,7 @@ protected:
         params.zoom = 45.0f;
 
         camera = std::make_unique<Camera>(params);
-        shader = std::make_unique<Shader>(ShaderId::Volume, FileSystem::GetPath("src/shaders/Volume.vert").string().c_str(), FileSystem::GetPath("src/shaders/Volume.frag").string().c_str());
+        shader = std::make_unique<Shader>(ShaderId::Volume, FileSystem::GetPath("src/shaders/Volume.vert").c_str(), FileSystem::GetPath("src/shaders/Volume.frag").c_str());
     }
 
     std::unique_ptr<Context::GlfwWindow> window;
