@@ -5,9 +5,6 @@ set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR} CACHE STRING " " FORCE)
 
 option(BUILD_TESTS "Build tests" ON)
 
-configure_file(cmake/root_directory.h.in cmake/root_directory.h)
-include_directories(${CMAKE_BINARY_DIR}/cmake)
-
 if(MSVC)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")

@@ -5,12 +5,12 @@
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
 #include <gui/MakeDefaultGuiParameters.h>
+#include <shader/GetShaderSource.h>
 #include <shader/Shader.h>
 #include <ssao/SsaoKernel.h>
 #include <ssao/SsaoUpdater.h>
 #include <textures/Texture.h>
 #include <textures/TextureId.h>
-#include <utils/FileSystem.h>
 
 #include <glad/glad.h>
 #include <memory>
@@ -39,8 +39,8 @@ protected:
             GL_REPEAT
         );
 
-        ssaoShader = std::make_unique<Shader>(ShaderId::Ssao, FileSystem::GetPath("src/shaders/Ssao.vert").c_str(), FileSystem::GetPath("src/shaders/Ssao.frag").c_str());
-        ssaoFinalShader = std::make_unique<Shader>(ShaderId::SsaoFinal, FileSystem::GetPath("src/shaders/SsaoFinal.vert").c_str(), FileSystem::GetPath("src/shaders/SsaoFinal.frag").c_str());
+        ssaoShader = std::make_unique<Shader>(ShaderId::Ssao, ShaderSource::GetShaderSource(ShaderId::Ssao, true), ShaderSource::GetShaderSource(ShaderId::Ssao, false));
+        ssaoFinalShader = std::make_unique<Shader>(ShaderId::SsaoFinal, ShaderSource::GetShaderSource(ShaderId::SsaoFinal, true), ShaderSource::GetShaderSource(ShaderId::SsaoFinal, false));
     }
 
     std::unique_ptr<Context::GlfwWindow> window;

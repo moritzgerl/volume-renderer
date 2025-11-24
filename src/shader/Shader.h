@@ -12,6 +12,7 @@
 #include <shader/ShaderId.h>
 
 #include <string>
+#include <string_view>
 
 /**
 * \class Shader
@@ -23,7 +24,7 @@
 * setting uniform values of various types.
 *
 * Each Shader is identified by a ShaderId for type-safe retrieval from Storage.
-* Shader paths are resolved via FileSystem::GetPath() using the generated root_directory.h.
+* Shader sources are embedded at compile-time using std::embed (C++23).
 * Shaders are created via Factory::MakeShaders() which compiles all shader programs needed
 * for the rendering pipeline.
 *
@@ -38,16 +39,15 @@
 class Shader
 {
 public:
-    // TODO use strings
     /**
     * Constructor.
     * Compiles and links vertex, fragment, and optional geometry shaders into a program.
     * @param shaderId The ID identifying this shader program.
-    * @param vertexPath The file path to the vertex shader source.
-    * @param fragmentPath The file path to the fragment shader source.
-    * @param geometryPath The file path to the geometry shader source (optional, nullptr if not used).
+    * @param vertexSource The vertex shader source code.
+    * @param fragmentSource The fragment shader source code.
+    * @param geometrySource The geometry shader source code (optional, empty if not used).
     */
-    Shader(ShaderId shaderId, const char* vertexPath, const char* fragmentPath, const char* geometryPath = nullptr);
+    Shader(ShaderId shaderId, std::string_view vertexSource, std::string_view fragmentSource, std::string_view geometrySource = "");
 
     ShaderId GetId() const;
 

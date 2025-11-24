@@ -3,11 +3,11 @@
 
 #include <config/Config.h>
 #include <gui/GuiParameters.h>
+#include <shader/GetShaderSource.h>
 #include <ssao/SsaoKernel.h>
 #include <storage/ElementStorage.h>
 #include <textures/Texture.h>
 #include <textures/TextureId.h>
-#include <utils/FileSystem.h>
 
 #include <glm/glm.hpp>
 #include <string>
@@ -38,13 +38,13 @@ namespace Factory
         shaders.reserve(7);
 
         // TODO use initializer list
-        shaders.emplace_back(ShaderId::Volume, FileSystem::GetPath("src/shaders/Volume.vert").c_str(), FileSystem::GetPath("src/shaders/Volume.frag").c_str());
-        shaders.emplace_back(ShaderId::SsaoInput, FileSystem::GetPath("src/shaders/SsaoInput.vert").c_str(), FileSystem::GetPath("src/shaders/SsaoInput.frag").c_str());
-        shaders.emplace_back(ShaderId::Ssao, FileSystem::GetPath("src/shaders/Ssao.vert").c_str(), FileSystem::GetPath("src/shaders/Ssao.frag").c_str());
-        shaders.emplace_back(ShaderId::SsaoBlur, FileSystem::GetPath("src/shaders/Ssao.vert").c_str(), FileSystem::GetPath("src/shaders/SsaoBlur.frag").c_str());
-        shaders.emplace_back(ShaderId::SsaoFinal, FileSystem::GetPath("src/shaders/SsaoFinal.vert").c_str(), FileSystem::GetPath("src/shaders/SsaoFinal.frag").c_str());
-        shaders.emplace_back(ShaderId::DebugQuad, FileSystem::GetPath("src/shaders/DebugQuad.vert").c_str(), FileSystem::GetPath("src/shaders/DebugQuadColor.frag").c_str());
-        shaders.emplace_back(ShaderId::LightSource, FileSystem::GetPath("src/shaders/LightSource.vert").c_str(), FileSystem::GetPath("src/shaders/LightSource.frag").c_str());
+        shaders.emplace_back(ShaderId::Volume, ShaderSource::GetShaderSource(ShaderId::Volume, true), ShaderSource::GetShaderSource(ShaderId::Volume, false));
+        shaders.emplace_back(ShaderId::SsaoInput, ShaderSource::GetShaderSource(ShaderId::SsaoInput, true), ShaderSource::GetShaderSource(ShaderId::SsaoInput, false));
+        shaders.emplace_back(ShaderId::Ssao, ShaderSource::GetShaderSource(ShaderId::Ssao, true), ShaderSource::GetShaderSource(ShaderId::Ssao, false));
+        shaders.emplace_back(ShaderId::SsaoBlur, ShaderSource::GetShaderSource(ShaderId::SsaoBlur, true), ShaderSource::GetShaderSource(ShaderId::SsaoBlur, false));
+        shaders.emplace_back(ShaderId::SsaoFinal, ShaderSource::GetShaderSource(ShaderId::SsaoFinal, true), ShaderSource::GetShaderSource(ShaderId::SsaoFinal, false));
+        shaders.emplace_back(ShaderId::DebugQuad, ShaderSource::GetShaderSource(ShaderId::DebugQuad, true), ShaderSource::GetShaderSource(ShaderId::DebugQuad, false));
+        shaders.emplace_back(ShaderId::LightSource, ShaderSource::GetShaderSource(ShaderId::LightSource, true), ShaderSource::GetShaderSource(ShaderId::LightSource, false));
 
         const auto& volumeTexture = textureStorage.GetElement(TextureId::VolumeData);
         const auto& transferFunctionTexture = textureStorage.GetElement(TextureId::TransferFunction);
