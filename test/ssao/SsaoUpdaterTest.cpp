@@ -39,8 +39,8 @@ protected:
             GL_REPEAT
         );
 
-        ssaoShader = std::make_unique<Shader>(ShaderId::Ssao, FileSystem::getPath("src/shaders/Ssao.vert").c_str(), FileSystem::getPath("src/shaders/Ssao.frag").c_str());
-        ssaoFinalShader = std::make_unique<Shader>(ShaderId::SsaoFinal, FileSystem::getPath("src/shaders/SsaoFinal.vert").c_str(), FileSystem::getPath("src/shaders/SsaoFinal.frag").c_str());
+        ssaoShader = std::make_unique<Shader>(ShaderId::Ssao, FileSystem::GetPath("src/shaders/Ssao.vert").string().c_str(), FileSystem::GetPath("src/shaders/Ssao.frag").string().c_str());
+        ssaoFinalShader = std::make_unique<Shader>(ShaderId::SsaoFinal, FileSystem::GetPath("src/shaders/SsaoFinal.vert").string().c_str(), FileSystem::GetPath("src/shaders/SsaoFinal.frag").string().c_str());
     }
 
     std::unique_ptr<Context::GlfwWindow> window;

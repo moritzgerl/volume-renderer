@@ -23,7 +23,7 @@
 * setting uniform values of various types.
 *
 * Each Shader is identified by a ShaderId for type-safe retrieval from Storage.
-* Shader paths are resolved via FileSystem::getPath() using the generated root_directory.h.
+* Shader paths are resolved via FileSystem::GetPath() using the generated root_directory.h.
 * Shaders are created via Factory::MakeShaders() which compiles all shader programs needed
 * for the rendering pipeline.
 *

@@ -19,7 +19,7 @@ protected:
         Context::InitGl();
 
         guiParameters = Factory::MakeDefaultGuiParameters();
-        shader = std::make_unique<Shader>(ShaderId::Volume, FileSystem::getPath("src/shaders/Volume.vert").c_str(), FileSystem::getPath("src/shaders/Volume.frag").c_str());
+        shader = std::make_unique<Shader>(ShaderId::Volume, FileSystem::GetPath("src/shaders/Volume.vert").string().c_str(), FileSystem::GetPath("src/shaders/Volume.frag").string().c_str());
     }
 
     std::unique_ptr<Context::GlfwWindow> window;

@@ -168,7 +168,7 @@ The application implements a multi-pass volume rendering pipeline with SSAO (see
 **Shader Management** ([shader/Shader.h](src/shader/Shader.h)):
 - Shader compilation and linking with error reporting
 - Uniform setting helpers (int, float, vec3, mat4, etc.)
-- Paths resolved via `FileSystem::getPath()` using generated `root_directory.h`
+- Paths resolved via `FileSystem::GetPath()` using generated `root_directory.h`
 - Factory function `MakeShaders()` creates all shaders and stores them by ShaderId
 
 **Texture System** ([textures/Texture.h](src/textures/Texture.h)):
@@ -696,7 +696,7 @@ This project embraces modern C++ idioms and best practices:
 ## Development Workflow
 
 ### Modifying Shaders
-Shaders are loaded at runtime via `FileSystem::getPath("src/shaders/...")`. Changes to `.vert` or `.frag` files require restarting the application (no hot reload).
+Shaders are loaded at runtime via `FileSystem::GetPath("src/shaders/...")`. Changes to `.vert` or `.frag` files require restarting the application (no hot reload).
 
 ### Adding New Rendering Features
 1. Modify or add shaders in `src/shaders/`
