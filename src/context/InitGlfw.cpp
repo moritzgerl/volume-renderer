@@ -11,9 +11,9 @@ GLFWwindow* Context::InitGlfw()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(Config::windowWidth, Config::windowHeight, "Volume Renderer", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(Config::windowWidth, Config::windowHeight, "Volume Renderer", nullptr, nullptr);
 
-    if (window == NULL)
+    if (window == nullptr)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();

@@ -122,17 +122,17 @@ void Gui::Draw()
 
             if (ImGui::TreeNode("Ambient"))
             {
-                ImGui::ColorPicker4("Ambient", (float*)&m_guiParameters.directionalLight.ambient, Constants::colorPickerFlags, NULL);
+                ImGui::ColorPicker4("Ambient", (float*)&m_guiParameters.directionalLight.ambient, Constants::colorPickerFlags, nullptr);
                 ImGui::TreePop();
             }
             if (ImGui::TreeNode("Diffuse"))
             {
-                ImGui::ColorPicker4("Diffuse", (float*)&m_guiParameters.directionalLight.diffuse, Constants::colorPickerFlags, NULL);
+                ImGui::ColorPicker4("Diffuse", (float*)&m_guiParameters.directionalLight.diffuse, Constants::colorPickerFlags, nullptr);
                 ImGui::TreePop();
             }
             if (ImGui::TreeNode("Specular"))
             {
-                ImGui::ColorPicker4("Specular", (float*)&m_guiParameters.directionalLight.specular, Constants::colorPickerFlags, NULL);
+                ImGui::ColorPicker4("Specular", (float*)&m_guiParameters.directionalLight.specular, Constants::colorPickerFlags, nullptr);
                 ImGui::TreePop();
             }
             ImGui::TreePop();
@@ -152,17 +152,17 @@ void Gui::Draw()
 
                 if (ImGui::TreeNode("Ambient"))
                 {
-                    ImGui::ColorPicker4("Ambient", (float*)&m_guiParameters.pointLights[i].ambient, Constants::colorPickerFlags, NULL);
+                    ImGui::ColorPicker4("Ambient", (float*)&m_guiParameters.pointLights[i].ambient, Constants::colorPickerFlags, nullptr);
                     ImGui::TreePop();
                 }
                 if (ImGui::TreeNode("Diffuse"))
                 {
-                    ImGui::ColorPicker4("Diffuse", (float*)&m_guiParameters.pointLights[i].diffuse, Constants::colorPickerFlags, NULL);
+                    ImGui::ColorPicker4("Diffuse", (float*)&m_guiParameters.pointLights[i].diffuse, Constants::colorPickerFlags, nullptr);
                     ImGui::TreePop();
                 }
                 if (ImGui::TreeNode("Specular"))
                 {
-                    ImGui::ColorPicker4("Specular", (float*)&m_guiParameters.pointLights[i].specular, Constants::colorPickerFlags, NULL);
+                    ImGui::ColorPicker4("Specular", (float*)&m_guiParameters.pointLights[i].specular, Constants::colorPickerFlags, nullptr);
                     ImGui::TreePop();
                 }
                 ImGui::TreePop();

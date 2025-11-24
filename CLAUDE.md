@@ -380,6 +380,32 @@ The main loop in [Main.cpp](src/Main.cpp) is remarkably simple due to the refact
     glm::vec3 GetPosition() const;  // Clear return type in API
     ```
 
+### Null Pointer Literals
+- **Always use `nullptr` instead of `NULL` or `0` for null pointer literals** - `nullptr` is type-safe, prevents implicit conversions to integer types, and is the modern C++ standard for null pointers
+  ```cpp
+  // Preferred
+  GLFWwindow* window = glfwCreateWindow(800, 600, "Title", nullptr, nullptr);
+  if (window == nullptr)
+  {
+      // handle error
+  }
+  glShaderSource(shader, 1, &source, nullptr);
+
+  // Avoid
+  GLFWwindow* window = glfwCreateWindow(800, 600, "Title", NULL, NULL);
+  if (window == NULL)  // Not type-safe
+  {
+      // handle error
+  }
+  glShaderSource(shader, 1, &source, NULL);  // Avoid NULL
+  ```
+- **Rationale**:
+  - `nullptr` has type `std::nullptr_t` which implicitly converts to any pointer type but not to integral types
+  - `NULL` is typically defined as `0` or `((void*)0)` which can lead to ambiguity in function overloading
+  - `0` as a null pointer is deprecated in modern C++ and causes confusion between integer zero and null pointer
+  - Using `nullptr` consistently prevents bugs related to implicit conversions and makes code intent clearer
+- **Exception**: Third-party library code (such as imgui) may use `NULL` - do not modify these files
+
 ### Include Directives
 - **Always use angle bracket includes** (`<>`) for all project headers, never quoted includes (`""`)
   - Correct: `#include <context/GlfwWindow.h>`

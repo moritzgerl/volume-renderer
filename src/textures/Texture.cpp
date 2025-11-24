@@ -27,7 +27,7 @@ Texture::Texture(TextureId textureId, GLenum textureUnit, unsigned int width, un
     , m_textureUnitEnum{textureUnit}
     , m_textureUnitInt{TextureUnitMapping::GLenumToUnsignedInt(textureUnit)}
 {
-    Create2D(width, height, internalFormat, format, type, filterParameter, wrapParameter, NULL);
+    Create2D(width, height, internalFormat, format, type, filterParameter, wrapParameter, nullptr);
 }
 
 Texture::Texture(TextureId textureId, GLenum textureUnit, unsigned int width, unsigned int height, GLenum internalFormat, GLenum format, GLenum type, GLenum filterParameter, GLenum wrapParameter, const void* data)
