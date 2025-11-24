@@ -8,8 +8,8 @@ namespace
 {
     float CatmullRom(float t, float p0, float p1, float p2, float p3)
     {
-        float t2 = t * t;
-        float t3 = t2 * t;
+        const auto t2 = t * t;
+        const auto t3 = t2 * t;
         return 0.5f * ((2.0f * p1) +
             (-p0 + p2) * t +
             (2.0f * p0 - 5.0f * p1 + 4.0f * p2 - p3) * t2 +
@@ -22,7 +22,7 @@ glm::vec4 InterpolateTransferFunction(
     std::span<const TransferFunctionControlPoint> activePoints
 )
 {
-    const size_t numActivePoints = activePoints.size();
+    const auto numActivePoints = activePoints.size();
 
     switch (numActivePoints)
     {
@@ -48,24 +48,24 @@ glm::vec4 InterpolateTransferFunction(
             else if (upperIt == activePoints.end())
             {
                 // After last control point: use last control point's color/opacity
-                const size_t lastIndex = numActivePoints - 1;
+                const auto lastIndex = numActivePoints - 1;
                 return glm::vec4{activePoints[lastIndex].color, activePoints[lastIndex].opacity};
             }
             else
             {
                 // Between two control points: interpolate
-                auto lowerIt = upperIt - 1;
-                const size_t lowerIndex = std::distance(activePoints.begin(), lowerIt);
-                const size_t upperIndex = std::distance(activePoints.begin(), upperIt);
+                const auto lowerIt = upperIt - 1;
+                const auto lowerIndex = std::distance(activePoints.begin(), lowerIt);
+                const auto upperIndex = std::distance(activePoints.begin(), upperIt);
 
-                const TransferFunctionControlPoint& lower = *lowerIt;
-                const TransferFunctionControlPoint& upper = *upperIt;
+                const auto& lower = *lowerIt;
+                const auto& upper = *upperIt;
 
                 // Calculate linear interpolation factor
-                const float t = (normalizedValue - lower.value) / (upper.value - lower.value);
+                const auto t = (normalizedValue - lower.value) / (upper.value - lower.value);
 
                 // Linear interpolation for color
-                const glm::vec3 interpolatedColor = glm::mix(lower.color, upper.color, t);
+                const auto interpolatedColor = glm::mix(lower.color, upper.color, t);
 
                 // Catmull-Rom spline interpolation for opacity
                 // Get control points with edge extrapolation
@@ -74,7 +74,7 @@ glm::vec4 InterpolateTransferFunction(
                 const auto& p2 = upper;
                 const auto& p3 = (upperIndex + 1 >= numActivePoints) ? activePoints[upperIndex] : activePoints[upperIndex + 1];
 
-                const float interpolatedOpacity = CatmullRom(t, p0.opacity, p1.opacity, p2.opacity, p3.opacity);
+                const auto interpolatedOpacity = CatmullRom(t, p0.opacity, p1.opacity, p2.opacity, p3.opacity);
 
                 return glm::vec4{interpolatedColor, interpolatedOpacity};
             }

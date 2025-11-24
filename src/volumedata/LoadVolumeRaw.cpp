@@ -218,11 +218,11 @@ namespace
 VolumeData::VolumeLoadingResult VolumeData::LoadVolumeRaw(const std::filesystem::path& rawFilePath)
 {
     // Load metadata from .ini file
-    std::filesystem::path iniFilePath = rawFilePath;
+    auto iniFilePath = rawFilePath;
     iniFilePath.replace_extension(".ini");
 
-    VolumeMetadata metadata;
-    if (auto result = LoadMetadataFromIni(iniFilePath, metadata); !result)
+    auto metadata = VolumeMetadata{};
+    if (const auto result = LoadMetadataFromIni(iniFilePath, metadata); !result)
     {
         return std::unexpected(result.error());
     }
@@ -237,9 +237,9 @@ VolumeData::VolumeLoadingResult VolumeData::LoadVolumeRaw(const std::filesystem:
         return std::unexpected(VolumeLoadingError::InvalidMetadata);
     }
 
-    VolumeData volumeData(metadata);
+    auto volumeData = VolumeData{metadata};
 
-    if (auto result = LoadRawData(rawFilePath, volumeData); !result)
+    if (const auto result = LoadRawData(rawFilePath, volumeData); !result)
     {
         return std::unexpected(result.error());
     }

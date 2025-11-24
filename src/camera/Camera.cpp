@@ -69,17 +69,17 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool invertY, fl
     }
 
     // Calculate the vector from target to camera
-    const glm::vec3 toCamera = m_position - m_lookAt;
-    const float radius = glm::length(toCamera);
+    const auto toCamera = m_position - m_lookAt;
+    const auto radius = glm::length(toCamera);
 
     // Horizontal rotation around world up axis
-    const glm::mat4 horizontalRotation = glm::rotate(glm::mat4{1.0f}, -xoffset, m_worldUp);
+    const auto horizontalRotation = glm::rotate(glm::mat4{1.0f}, -xoffset, m_worldUp);
 
     // Vertical rotation around right axis
-    const glm::mat4 verticalRotation = glm::rotate(glm::mat4{1.0f}, -yoffset, m_right);
+    const auto verticalRotation = glm::rotate(glm::mat4{1.0f}, -yoffset, m_right);
 
     // Apply rotations
-    const glm::vec4 rotatedPosition = horizontalRotation * verticalRotation * glm::vec4{toCamera, 1.0f};
+    const auto rotatedPosition = horizontalRotation * verticalRotation * glm::vec4{toCamera, 1.0f};
     m_position = m_lookAt + glm::vec3{rotatedPosition};
 
     // Update camera vectors

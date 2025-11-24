@@ -138,9 +138,9 @@ void Gui::Draw()
             ImGui::TreePop();
         }
 
-        for (unsigned int i = 0; i < Config::numPointLights; ++i)
+        for (auto i = 0u; i < Config::numPointLights; ++i)
         {
-            const std::string index = std::to_string(i);
+            const auto index = std::to_string(i);
 
             if (ImGui::TreeNode(("Point Light " + index).c_str()))
             {

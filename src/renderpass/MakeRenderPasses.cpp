@@ -26,30 +26,30 @@
 
 RenderPasses Factory::MakeRenderPasses(const Gui& gui, const InputHandler& inputHandler, const Storage& storage)
 {
-    const Camera& camera = storage.GetCamera();
-    const DisplayProperties& displayProperties = storage.GetDisplayProperties();
-    const GuiParameters& guiParameters = storage.GetGuiParameters();
-    const SsaoKernel& ssaoKernel = storage.GetSsaoKernel();
-    const ScreenQuad& screenQuad = storage.GetScreenQuad();
-    const UnitCube& unitCube = storage.GetUnitCube();
-    const TextureStorage& textureStorage = storage.GetTextureStorage();
-    const ShaderStorage& shaderStorage = storage.GetShaderStorage();
-    const FrameBufferStorage& frameBufferStorage = storage.GetFrameBufferStorage();
+    const auto& camera = storage.GetCamera();
+    const auto& displayProperties = storage.GetDisplayProperties();
+    const auto& guiParameters = storage.GetGuiParameters();
+    const auto& ssaoKernel = storage.GetSsaoKernel();
+    const auto& screenQuad = storage.GetScreenQuad();
+    const auto& unitCube = storage.GetUnitCube();
+    const auto& textureStorage = storage.GetTextureStorage();
+    const auto& shaderStorage = storage.GetShaderStorage();
+    const auto& frameBufferStorage = storage.GetFrameBufferStorage();
 
-    RenderPasses renderPasses;
+    auto renderPasses = RenderPasses{};
     renderPasses.reserve(2);
 
     // Setup
     // TODO - remove? do setup in raycasting pass directly ?
     {
-        std::vector<std::reference_wrapper<const Texture>> textures;
+        auto textures = std::vector<std::reference_wrapper<const Texture>>{};
 
         const auto& shader = shaderStorage.GetElement(ShaderId::SsaoInput);     // Dummy shader
 
         auto prepareFunction = [&gui, &inputHandler]()
         {
-            const int viewportX = static_cast<int>(gui.GetGuiWidth());
-            const int viewportWidth = inputHandler.GetWindowWidth() - viewportX;
+            const auto viewportX = static_cast<int>(gui.GetGuiWidth());
+            const auto viewportWidth = inputHandler.GetWindowWidth() - viewportX;
             glViewport(viewportX, 0, viewportWidth, inputHandler.GetWindowHeight());
             glDisable(GL_BLEND);
         };
@@ -70,7 +70,7 @@ RenderPasses Factory::MakeRenderPasses(const Gui& gui, const InputHandler& input
 
     // Raycasting
     {
-        std::vector<std::reference_wrapper<const Texture>> textures;
+        auto textures = std::vector<std::reference_wrapper<const Texture>>{};
         textures.push_back(std::cref(textureStorage.GetElement(TextureId::VolumeData)));
         textures.push_back(std::cref(textureStorage.GetElement(TextureId::TransferFunction)));
 
@@ -80,8 +80,8 @@ RenderPasses Factory::MakeRenderPasses(const Gui& gui, const InputHandler& input
         {
             glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            const float viewportWidth = static_cast<float>(inputHandler.GetWindowWidth() - static_cast<int>(gui.GetGuiWidth()));
-            const float viewportHeight = static_cast<float>(inputHandler.GetWindowHeight());
+            const auto viewportWidth = static_cast<float>(inputHandler.GetWindowWidth() - static_cast<int>(gui.GetGuiWidth()));
+            const auto viewportHeight = static_cast<float>(inputHandler.GetWindowHeight());
             ShaderUtils::UpdateCameraMatricesInShader(camera, shader, viewportWidth, viewportHeight);
             shader.SetVec3("cameraPos", camera.GetPosition());
             shader.SetMat4("model", glm::mat4{1.0f});

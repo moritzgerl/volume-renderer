@@ -101,8 +101,8 @@ void InputHandler::ProcessKeyPresses(int key, int scancode, int action, int mods
 
 void InputHandler::ProcessMouseMove(double x, double y)
 {
-    float positionX = static_cast<float>(x);
-    float positionY = static_cast<float>(y);
+    const auto positionX = static_cast<float>(x);
+    const auto positionY = static_cast<float>(y);
 
     if (m_isFirstMouseMove)
     {
@@ -111,8 +111,8 @@ void InputHandler::ProcessMouseMove(double x, double y)
         m_isFirstMouseMove = false;
     }
 
-    float offsetX = positionX - m_lastMousePositionX;
-    float offsetY = m_lastMousePositionY - positionY;
+    const auto offsetX = positionX - m_lastMousePositionX;
+    const auto offsetY = m_lastMousePositionY - positionY;
 
     m_lastMousePositionX = positionX;
     m_lastMousePositionY = positionY;

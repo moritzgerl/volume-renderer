@@ -1,3 +1,5 @@
+// Copyright https://learnopengl.com/
+
 #include <shader/Shader.h>
 
 #include <glad/glad.h>
@@ -7,18 +9,18 @@
 #include <sstream>
 #include <iostream>
 
-
+// TODO refactor
 Shader::Shader(ShaderId shaderId, const char* vertexPath, const char* fragmentPath, const char* geometryPath)
     : m_shaderId{shaderId}
     , m_programId{0}
 {
     // 1. retrieve the vertex/fragment source code from filePath
-    std::string vertexCode;
-    std::string fragmentCode;
-    std::string geometryCode;
-    std::ifstream vShaderFile;
-    std::ifstream fShaderFile;
-    std::ifstream gShaderFile;
+    auto vertexCode = std::string{};
+    auto fragmentCode = std::string{};
+    auto geometryCode = std::string{};
+    auto vShaderFile = std::ifstream{};
+    auto fShaderFile = std::ifstream{};
+    auto gShaderFile = std::ifstream{};
     // ensure ifstream objects can throw exceptions:
     vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
@@ -28,7 +30,8 @@ Shader::Shader(ShaderId shaderId, const char* vertexPath, const char* fragmentPa
         // open files
         vShaderFile.open(vertexPath);
         fShaderFile.open(fragmentPath);
-        std::stringstream vShaderStream, fShaderStream;
+        auto vShaderStream = std::stringstream{};
+        auto fShaderStream = std::stringstream{};
         // read file's buffer contents into streams
         vShaderStream << vShaderFile.rdbuf();
         fShaderStream << fShaderFile.rdbuf();
@@ -42,13 +45,13 @@ Shader::Shader(ShaderId shaderId, const char* vertexPath, const char* fragmentPa
         if (geometryPath != nullptr)
         {
             gShaderFile.open(geometryPath);
-            std::stringstream gShaderStream;
+            auto gShaderStream = std::stringstream{};
             gShaderStream << gShaderFile.rdbuf();
             gShaderFile.close();
             geometryCode = gShaderStream.str();
         }
     }
-    catch (std::ifstream::failure& e)
+    catch (const std::ifstream::failure& e)
     {
         std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
     }

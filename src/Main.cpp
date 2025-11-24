@@ -16,13 +16,13 @@
 
 int main()
 {
-    Storage storage(Factory::MakeStorage());
-    InputHandler inputHandler = Factory::MakeInputHandler(storage);
-    Gui gui = Factory::MakeGui(storage);
-    SsaoUpdater ssaoUpdater = Factory::MakeSsaoUpdater(storage);
-    TransferFunctionTextureUpdater transferFunctionTextureUpdater = Factory::MakeTransferFunctionTextureUpdater(storage);
-    const RenderPasses renderPasses = Factory::MakeRenderPasses(gui, inputHandler, storage);
-    Context::GlfwWindow& window = storage.GetWindow();
+    auto storage = Factory::MakeStorage();
+    auto inputHandler = Factory::MakeInputHandler(storage);
+    auto gui = Factory::MakeGui(storage);
+    auto ssaoUpdater = Factory::MakeSsaoUpdater(storage);
+    auto transferFunctionTextureUpdater = Factory::MakeTransferFunctionTextureUpdater(storage);
+    const auto renderPasses = Factory::MakeRenderPasses(gui, inputHandler, storage);
+    auto& window = storage.GetWindow();
 
     while (!window.ShouldClose())
     {
@@ -30,7 +30,7 @@ int main()
         ssaoUpdater.Update();
         transferFunctionTextureUpdater.Update();
 
-        for (const RenderPass& renderPass : renderPasses)
+        for (const auto& renderPass : renderPasses)
         {
             renderPass.Render();
         }

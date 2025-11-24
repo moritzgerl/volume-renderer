@@ -54,7 +54,7 @@ namespace
         }
 
         // TODO better
-        for (size_t i = 0; i < transferFunction.GetNumActivePoints(); ++i)
+        for (auto i = size_t{0}; i < transferFunction.GetNumActivePoints(); ++i)
         {
             const auto& point = transferFunction[i];
             if (point.value < 0.0f || point.value > 1.0f ||
@@ -79,7 +79,7 @@ namespace
             return Factory::MakeDefaultApplicationState();
         }
 
-        Persistence::ApplicationState applicationState = std::move(applicationStateResult).value();
+        auto applicationState = std::move(applicationStateResult).value();
 
         if (!IsTransferFunctionValid(applicationState.guiParameters.transferFunction))
         {
@@ -94,19 +94,19 @@ namespace Factory
 {
     Storage MakeStorage()
     {
-        Context::GlfwWindow window;
-        Persistence::ApplicationState applicationState = LoadApplicationState(Config::applicationStateIniFilePath);
-        Camera camera{applicationState.cameraParameters};
-        GuiParameters guiParameters = std::move(applicationState.guiParameters);
-        DisplayProperties displayProperties = MakeDisplayProperties();
-        VolumeData::VolumeData volumeData = LoadVolume(Config::datasetPath);
-        GuiUpdateFlags guiUpdateFlags;
-        ScreenQuad screenQuad;
-        UnitCube unitCube;
-        SsaoKernel ssaoKernel;
-        TextureStorage textureStorage{MakeTextures(volumeData, ssaoKernel)};
-        ShaderStorage shaderStorage{MakeShaders(guiParameters, ssaoKernel, textureStorage)};
-        FrameBufferStorage frameBufferStorage{MakeFrameBuffers(textureStorage)};
+        auto window = Context::GlfwWindow{};
+        auto applicationState = LoadApplicationState(Config::applicationStateIniFilePath);
+        auto camera = Camera{applicationState.cameraParameters};
+        auto guiParameters = std::move(applicationState.guiParameters);
+        auto displayProperties = MakeDisplayProperties();
+        auto volumeData = LoadVolume(Config::datasetPath);
+        auto guiUpdateFlags = GuiUpdateFlags{};
+        auto screenQuad = ScreenQuad{};
+        auto unitCube = UnitCube{};
+        auto ssaoKernel = SsaoKernel{};
+        auto textureStorage = TextureStorage{MakeTextures(volumeData, ssaoKernel)};
+        auto shaderStorage = ShaderStorage{MakeShaders(guiParameters, ssaoKernel, textureStorage)};
+        auto frameBufferStorage = FrameBufferStorage{MakeFrameBuffers(textureStorage)};
 
         return Storage(
             std::move(camera),

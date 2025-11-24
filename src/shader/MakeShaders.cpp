@@ -34,7 +34,7 @@ namespace Factory
         const TextureStorage& textureStorage
     )
     {
-        std::vector<Shader> shaders;
+        auto shaders = std::vector<Shader>{};
         shaders.reserve(7);
 
         // TODO use initializer list
@@ -46,16 +46,16 @@ namespace Factory
         shaders.emplace_back(ShaderId::DebugQuad, FileSystem::getPath("src/shaders/DebugQuad.vert").c_str(), FileSystem::getPath("src/shaders/DebugQuadColor.frag").c_str());
         shaders.emplace_back(ShaderId::LightSource, FileSystem::getPath("src/shaders/LightSource.vert").c_str(), FileSystem::getPath("src/shaders/LightSource.frag").c_str());
 
-        const Texture& volumeTexture = textureStorage.GetElement(TextureId::VolumeData);
-        const Texture& transferFunctionTexture = textureStorage.GetElement(TextureId::TransferFunction);
-        const Texture& ssaoPositionTexture = textureStorage.GetElement(TextureId::SsaoPosition);
-        const Texture& ssaoNormalTexture = textureStorage.GetElement(TextureId::SsaoNormal);
-        const Texture& ssaoAlbedoTexture = textureStorage.GetElement(TextureId::SsaoAlbedo);
-        const Texture& ssaoTexture = textureStorage.GetElement(TextureId::Ssao);
-        const Texture& ssaoNoiseTexture = textureStorage.GetElement(TextureId::SsaoNoise);
-        const Texture& ssaoPointLightsContributionTexture = textureStorage.GetElement(TextureId::SsaoPointLightsContribution);
+        const auto& volumeTexture = textureStorage.GetElement(TextureId::VolumeData);
+        const auto& transferFunctionTexture = textureStorage.GetElement(TextureId::TransferFunction);
+        const auto& ssaoPositionTexture = textureStorage.GetElement(TextureId::SsaoPosition);
+        const auto& ssaoNormalTexture = textureStorage.GetElement(TextureId::SsaoNormal);
+        const auto& ssaoAlbedoTexture = textureStorage.GetElement(TextureId::SsaoAlbedo);
+        const auto& ssaoTexture = textureStorage.GetElement(TextureId::Ssao);
+        const auto& ssaoNoiseTexture = textureStorage.GetElement(TextureId::SsaoNoise);
+        const auto& ssaoPointLightsContributionTexture = textureStorage.GetElement(TextureId::SsaoPointLightsContribution);
 
-        const Shader& volumeShader = GetShader(shaders, ShaderId::Volume);
+        const auto& volumeShader = GetShader(shaders, ShaderId::Volume);
         volumeShader.Use();
         volumeShader.SetInt("volumeTexture", volumeTexture.GetTextureUnit());
         volumeShader.SetInt("transferFunctionTexture", transferFunctionTexture.GetTextureUnit());

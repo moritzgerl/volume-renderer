@@ -272,6 +272,114 @@ The main loop in [Main.cpp](src/Main.cpp) is remarkably simple due to the refact
   float Calculate(glm::vec3& position) const;  // Should be const& if not modifying
   ```
 
+### AAA (Almost Always Auto)
+- **Use `auto` for variable declarations whenever the type is clear from context** - The AAA idiom reduces verbosity, improves refactorability, and aligns with modern C++ best practices
+- **When to use auto**:
+  - Factory function returns
+    ```cpp
+    // Preferred
+    auto storage = Factory::MakeStorage();
+    auto inputHandler = Factory::MakeInputHandler(storage);
+
+    // Avoid
+    Storage storage = Factory::MakeStorage();
+    InputHandler inputHandler = Factory::MakeInputHandler(storage);
+    ```
+  - Range-based for loops (recommended by C++ Core Guidelines ES.23)
+    ```cpp
+    // Preferred
+    for (const auto& renderPass : renderPasses)
+
+    // Avoid
+    for (const RenderPass& renderPass : renderPasses)
+    ```
+  - Storage getters and references
+    ```cpp
+    // Preferred
+    const auto& camera = storage.GetCamera();
+    auto& window = storage.GetWindow();
+
+    // Avoid
+    const Camera& camera = storage.GetCamera();
+    Context::GlfwWindow& window = storage.GetWindow();
+    ```
+  - Mathematical computations (GLM types)
+    ```cpp
+    // Preferred
+    const auto toCamera = m_position - m_lookAt;
+    const auto radius = glm::length(toCamera);
+
+    // Avoid
+    const glm::vec3 toCamera = m_position - m_lookAt;
+    const float radius = glm::length(toCamera);
+    ```
+  - Type conversions with explicit casts
+    ```cpp
+    // Preferred
+    const auto positionX = static_cast<float>(x);
+
+    // Avoid
+    float positionX = static_cast<float>(x);
+    ```
+  - Container initialization
+    ```cpp
+    // Preferred
+    auto shaders = std::vector<Shader>{};
+    auto textures = std::vector<std::reference_wrapper<const Texture>>{};
+
+    // Avoid
+    std::vector<Shader> shaders{};
+    std::vector<std::reference_wrapper<const Texture>> textures{};
+    ```
+  - Loop indices
+    ```cpp
+    // Preferred
+    for (auto i = 0u; i < Config::numPointLights; ++i)           // unsigned int
+    for (auto i = size_t{0}; i < container.size(); ++i)         // size_t
+
+    // Avoid
+    for (unsigned int i = 0; i < Config::numPointLights; ++i)
+    for (size_t i = 0; i < container.size(); ++i)
+    ```
+  - Algorithm results
+    ```cpp
+    // Preferred
+    const auto index = std::distance(begin, it);
+
+    // Avoid
+    const size_t index = std::distance(begin, it);
+    ```
+
+- **When NOT to use auto** (keep explicit types):
+  - OpenGL type identifiers (for API clarity)
+    ```cpp
+    // Keep explicit
+    unsigned int vertex, fragment;  // OpenGL shader IDs
+    vertex = glCreateShader(GL_VERTEX_SHADER);
+    ```
+  - C API output parameters (pattern recognition)
+    ```cpp
+    // Keep explicit
+    int windowWidth{};
+    int windowHeight{};
+    glfwGetWindowSize(m_window.get(), &windowWidth, &windowHeight);
+    ```
+  - Member variable declarations (language requirement - auto not allowed)
+    ```cpp
+    // Must keep explicit
+    class Camera
+    {
+    private:
+        float m_zoom;
+        glm::vec3 m_position;
+    };
+    ```
+  - Function signatures (documentation value)
+    ```cpp
+    // Keep explicit
+    glm::vec3 GetPosition() const;  // Clear return type in API
+    ```
+
 ### Include Directives
 - **Always use angle bracket includes** (`<>`) for all project headers, never quoted includes (`""`)
   - Correct: `#include <context/GlfwWindow.h>`

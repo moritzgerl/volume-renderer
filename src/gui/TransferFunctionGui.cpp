@@ -87,7 +87,7 @@ void TransferFunctionGui::HandleClick()
 {
     if (ImGui::IsItemActive() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
     {
-        const std::optional<size_t> clickedPointIndex = GetNearestPointIndex();
+        const auto clickedPointIndex = GetNearestPointIndex();
 
         if (ImGui::GetIO().KeyShift && clickedPointIndex)
         {
@@ -98,8 +98,8 @@ void TransferFunctionGui::HandleClick()
 
         else if (!clickedPointIndex && m_numActivePoints < TransferFunctionConstants::maxNumControlPoints)
         {
-            const float newValue = std::clamp((m_mousePos.x - m_plotPos.x) / m_plotSize.x, 0.0f, 1.0f);
-            const float newOpacity = std::clamp(1.0f - ((m_mousePos.y - m_plotPos.y) / m_interactiveAreaHeight), 0.0f, 1.0f);
+            const auto newValue = std::clamp((m_mousePos.x - m_plotPos.x) / m_plotSize.x, 0.0f, 1.0f);
+            const auto newOpacity = std::clamp(1.0f - ((m_mousePos.y - m_plotPos.y) / m_interactiveAreaHeight), 0.0f, 1.0f);
 
             m_transferFunction.AddPoint(newValue, newOpacity);
             m_guiUpdateFlags.transferFunctionChanged = true;
@@ -120,15 +120,15 @@ void TransferFunctionGui::HandleDrag()
 
         if (m_draggedPointIndex)
         {
-            const size_t draggedIndex = m_draggedPointIndex.value();
+            const auto draggedIndex = m_draggedPointIndex.value();
             auto& point = m_transferFunction[draggedIndex];
 
             // Update value (x-axis) - clamp to prevent crossing adjacent points
-            const float newValue = (m_mousePos.x - m_plotPos.x) / m_plotSize.x;
+            const auto newValue = (m_mousePos.x - m_plotPos.x) / m_plotSize.x;
 
             // Get boundaries from adjacent control points
-            float minValue = 0.0f;
-            float maxValue = 1.0f;
+            auto minValue = 0.0f;
+            auto maxValue = 1.0f;
 
             if (draggedIndex > 0)
             {
@@ -142,7 +142,7 @@ void TransferFunctionGui::HandleDrag()
 
             point.value = std::clamp(newValue, minValue, maxValue);
 
-            float newOpacity = 1.0f - ((m_mousePos.y - m_plotPos.y) / m_interactiveAreaHeight);
+            const auto newOpacity = 1.0f - ((m_mousePos.y - m_plotPos.y) / m_interactiveAreaHeight);
             point.opacity = std::clamp(newOpacity, 0.0f, 1.0f);
 
             m_guiUpdateFlags.transferFunctionChanged = true;
@@ -158,12 +158,14 @@ void TransferFunctionGui::HandleDrag()
 
 std::optional<size_t> TransferFunctionGui::GetNearestPointIndex() const
 {
-    auto calculateDistance = [&](size_t index)
+    auto calculateDistance = [&](auto index)
     {
         const auto& point = m_transferFunction[index];
-        const float x = m_plotPos.x + point.value * m_plotSize.x;
-        const float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
-        return std::sqrt((m_mousePos.x - x) * (m_mousePos.x - x) + (m_mousePos.y - y) * (m_mousePos.y - y));
+        const auto x = m_plotPos.x + point.value * m_plotSize.x;
+        const auto y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
+        const auto dx = m_mousePos.x - x;
+        const auto dy = m_mousePos.y - y;
+        return std::sqrt(dx * dx + dy * dy);
     };
 
     auto pointIndices = std::views::iota(size_t{ 0 }, m_numActivePoints);
@@ -179,7 +181,7 @@ std::optional<size_t> TransferFunctionGui::GetNearestPointIndex() const
 
 void TransferFunctionGui::Draw()
 {
-    ImDrawList& drawList = *ImGui::GetWindowDrawList();
+    auto& drawList = *ImGui::GetWindowDrawList();
     DrawBackground(drawList);
     DrawGrid(drawList);
     DrawColorGradient(drawList);
@@ -196,36 +198,36 @@ void TransferFunctionGui::DrawBackground(ImDrawList& drawList)
 
 void TransferFunctionGui::DrawGrid(ImDrawList& drawList)
 {
-    for (int i = 0; i <= 10; ++i)
+    for (auto i = 0; i <= 10; ++i)
     {
-        const float y = m_plotPos.y + (m_plotSize.y / 10.0f) * i;
+        const auto y = m_plotPos.y + (m_plotSize.y / 10.0f) * i;
         drawList.AddLine(ImVec2(m_plotPos.x, y), ImVec2(m_plotPos.x + m_plotSize.x, y), IM_COL32(80, 80, 80, 100));
 
-        const float x = m_plotPos.x + (m_plotSize.x / 10.0f) * i;
+        const auto x = m_plotPos.x + (m_plotSize.x / 10.0f) * i;
         drawList.AddLine(ImVec2(x, m_plotPos.y), ImVec2(x, m_plotPos.y + m_plotSize.y), IM_COL32(80, 80, 80, 100));
     }
 }
 
 void TransferFunctionGui::DrawColorGradient(ImDrawList& drawList)
 {
-    const int gradientSteps = 256;
+    const auto gradientSteps = 256;
     const auto activePoints = std::span{m_transferFunction.GetControlPoints().data(), m_numActivePoints};
     auto gradientIndices = std::views::iota(0, gradientSteps - 1);
 
-    std::ranges::for_each(gradientIndices, [&](int i)
+    std::ranges::for_each(gradientIndices, [&](auto i)
     {
-        const float t = static_cast<float>(i) / (gradientSteps - 1);
-        const float nextT = static_cast<float>(i + 1) / (gradientSteps - 1);
+        const auto t = static_cast<float>(i) / (gradientSteps - 1);
+        const auto nextT = static_cast<float>(i + 1) / (gradientSteps - 1);
 
-        const glm::vec4 rgba = InterpolateTransferFunction(t, activePoints);
-        const glm::vec3 color = glm::vec3{rgba.r, rgba.g, rgba.b};
+        const auto rgba = InterpolateTransferFunction(t, activePoints);
+        const auto color = glm::vec3{rgba.r, rgba.g, rgba.b};
 
-        const float x1 = m_plotPos.x + t * m_plotSize.x;
-        const float x2 = m_plotPos.x + nextT * m_plotSize.x;
-        const float y1 = m_plotPos.y + m_plotSize.y - m_gradientHeight;
-        const float y2 = m_plotPos.y + m_plotSize.y;
+        const auto x1 = m_plotPos.x + t * m_plotSize.x;
+        const auto x2 = m_plotPos.x + nextT * m_plotSize.x;
+        const auto y1 = m_plotPos.y + m_plotSize.y - m_gradientHeight;
+        const auto y2 = m_plotPos.y + m_plotSize.y;
 
-        const ImU32 col = IM_COL32(static_cast<int>(color.r * 255), static_cast<int>(color.g * 255), static_cast<int>(color.b * 255), 255);
+        const auto col = IM_COL32(static_cast<int>(color.r * 255), static_cast<int>(color.g * 255), static_cast<int>(color.b * 255), 255);
         drawList.AddRectFilled(ImVec2(x1, y1), ImVec2(x2, y2), col);
     });
 }
@@ -237,21 +239,21 @@ void TransferFunctionGui::DrawOpacityCurve(ImDrawList& drawList)
         return;
     }
 
-    const int totalSegments = 100;
+    const auto totalSegments = 100;
     const auto activePoints = std::span{m_transferFunction.GetControlPoints().data(), m_numActivePoints};
 
-    for (int seg = 0; seg < totalSegments; ++seg)
+    for (auto seg = 0; seg < totalSegments; ++seg)
     {
-        const float value0 = static_cast<float>(seg) / totalSegments;
-        const float value1 = static_cast<float>(seg + 1) / totalSegments;
+        const auto value0 = static_cast<float>(seg) / totalSegments;
+        const auto value1 = static_cast<float>(seg + 1) / totalSegments;
 
-        const glm::vec4 rgba0 = InterpolateTransferFunction(value0, activePoints);
-        const glm::vec4 rgba1 = InterpolateTransferFunction(value1, activePoints);
+        const auto rgba0 = InterpolateTransferFunction(value0, activePoints);
+        const auto rgba1 = InterpolateTransferFunction(value1, activePoints);
 
-        const float x0 = m_plotPos.x + value0 * m_plotSize.x;
-        const float y0 = m_plotPos.y + m_plotSize.y - m_gradientHeight - (rgba0.a * (m_plotSize.y - m_gradientHeight));
-        const float x1 = m_plotPos.x + value1 * m_plotSize.x;
-        const float y1 = m_plotPos.y + m_plotSize.y - m_gradientHeight - (rgba1.a * (m_plotSize.y - m_gradientHeight));
+        const auto x0 = m_plotPos.x + value0 * m_plotSize.x;
+        const auto y0 = m_plotPos.y + m_plotSize.y - m_gradientHeight - (rgba0.a * (m_plotSize.y - m_gradientHeight));
+        const auto x1 = m_plotPos.x + value1 * m_plotSize.x;
+        const auto y1 = m_plotPos.y + m_plotSize.y - m_gradientHeight - (rgba1.a * (m_plotSize.y - m_gradientHeight));
 
         drawList.AddLine(ImVec2(x0, y0), ImVec2(x1, y1), IM_COL32(255, 255, 255, 200), 1.8f);
     }
@@ -259,17 +261,17 @@ void TransferFunctionGui::DrawOpacityCurve(ImDrawList& drawList)
 
 void TransferFunctionGui::DrawControlPoints(ImDrawList& drawList)
 {
-    for (size_t i = 0; i < m_numActivePoints; ++i)
+    for (auto i = size_t{0}; i < m_numActivePoints; ++i)
     {
         const auto& point = m_transferFunction[i];
-        const float x = m_plotPos.x + point.value * m_plotSize.x;
-        const float y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
+        const auto x = m_plotPos.x + point.value * m_plotSize.x;
+        const auto y = m_plotPos.y + m_plotSize.y - m_gradientHeight - (point.opacity * m_interactiveAreaHeight);
 
-        const bool isDragged = (m_draggedPointIndex == i);
-        const bool isHoveredForDelete = (m_hoveredPointIndex == i && ImGui::GetIO().KeyShift);
+        const auto isDragged = (m_draggedPointIndex == i);
+        const auto isHoveredForDelete = (m_hoveredPointIndex == i && ImGui::GetIO().KeyShift);
 
-        const float radius = isDragged ? 9.0f : 8.0f;
-        ImU32 fillColor;
+        const auto radius = isDragged ? 9.0f : 8.0f;
+        auto fillColor = ImU32{};
 
         if (isHoveredForDelete)
         {
