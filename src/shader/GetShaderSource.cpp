@@ -36,6 +36,14 @@ namespace
         return stream.str();
     }
 
+    std::filesystem::path GetShaderFilePath(ShaderId shaderId, ShaderType shaderType)
+    {
+        const auto shaderDir = GetShaderDirectory();
+        const auto fileName = ShaderSource::GetShaderFileName(shaderId, shaderType);
+        const auto filePath = shaderDir / fileName;
+        return filePath;
+    }
+
     auto vertexShaderCache = std::array<std::string, 7>{};
     auto fragmentShaderCache = std::array<std::string, 7>{};
 }
@@ -49,10 +57,7 @@ namespace ShaderSource
 
         if (cache[shaderIndex].empty())
         {
-            const auto shaderDir = GetShaderDirectory();
-            const auto fileName = ShaderSource::GetShaderFileName(shaderId, shaderType);
-            const auto filePath = shaderDir / fileName;
-
+            const auto filePath = GetShaderFilePath(shaderId, shaderType);
             cache[shaderIndex] = LoadShaderFile(filePath);
         }
 
