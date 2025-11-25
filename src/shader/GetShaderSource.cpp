@@ -36,24 +36,15 @@ namespace
         return stream.str();
     }
 
-    std::array<std::string, 7>& GetVertexShaderCache()
-    {
-        static auto cache = std::array<std::string, 7>{};
-        return cache;
-    }
-
-    std::array<std::string, 7>& GetFragmentShaderCache()
-    {
-        static auto cache = std::array<std::string, 7>{};
-        return cache;
-    }
+    auto vertexShaderCache = std::array<std::string, 7>{};
+    auto fragmentShaderCache = std::array<std::string, 7>{};
 }
 
 namespace ShaderSource
 {
     std::string_view GetShaderSource(ShaderId shaderId, ShaderType shaderType)
     {
-        auto& cache = (shaderType == ShaderType::Vertex) ? GetVertexShaderCache() : GetFragmentShaderCache();
+        auto& cache = (shaderType == ShaderType::Vertex) ? vertexShaderCache : fragmentShaderCache;
         const auto shaderIndex = static_cast<size_t>(shaderId);
 
         if (cache[shaderIndex].empty())
