@@ -13,19 +13,19 @@
 #include <shader/ShaderId.h>
 #include <shader/ShaderType.h>
 
-#include <string_view>
+#include <string>
 
 namespace ShaderSource
 {
     /**
-    * Returns a string_view to the cached shader source code for the given shader type.
-    * Shader sources are loaded from disk once on first access and cached in static storage.
+    * Loads and returns the shader source code for the given shader type.
+    * Shader sources are loaded from disk each time this function is called.
     *
     * @param shaderId The shader identifier (e.g., ShaderId::Volume)
     * @param shaderType The type of shader (ShaderType::Vertex or ShaderType::Fragment)
-    * @return A string_view to the cached shader source code
+    * @return The shader source code as a string
     */
-    std::string_view GetShaderSource(ShaderId shaderId, ShaderType shaderType);
+    std::string GetShaderSource(ShaderId shaderId, ShaderType shaderType);
 }
 
 #endif

@@ -1,7 +1,6 @@
 #include <shader/GetShaderSource.h>
 #include <shader/GetShaderFileName.h>
 
-#include <array>
 #include <filesystem>
 #include <fstream>
 #include <source_location>
@@ -43,24 +42,13 @@ namespace
         const auto filePath = shaderDir / fileName;
         return filePath;
     }
-
-    auto vertexShaderCache = std::array<std::string, 7>{};
-    auto fragmentShaderCache = std::array<std::string, 7>{};
 }
 
 namespace ShaderSource
 {
-    std::string_view GetShaderSource(ShaderId shaderId, ShaderType shaderType)
+    std::string GetShaderSource(ShaderId shaderId, ShaderType shaderType)
     {
-        auto& cache = (shaderType == ShaderType::Vertex) ? vertexShaderCache : fragmentShaderCache;
-        const auto shaderIndex = static_cast<size_t>(shaderId);
-
-        if (cache[shaderIndex].empty())
-        {
-            const auto filePath = GetShaderFilePath(shaderId, shaderType);
-            cache[shaderIndex] = LoadShaderFile(filePath);
-        }
-
-        return cache[shaderIndex];
+        const auto filePath = GetShaderFilePath(shaderId, shaderType);
+        return LoadShaderFile(filePath);
     }
 }
