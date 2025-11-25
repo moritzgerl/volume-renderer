@@ -11,6 +11,7 @@
 #define GET_SHADER_SOURCE_H
 
 #include <shader/ShaderId.h>
+#include <shader/ShaderType.h>
 
 #include <string_view>
 
@@ -21,10 +22,10 @@ namespace ShaderSource
     * Shader sources are loaded from disk once on first access and cached in static storage.
     *
     * @param shaderId The shader identifier (e.g., ShaderId::Volume)
-    * @param isVertex True for vertex shader, false for fragment shader
+    * @param shaderType The type of shader (ShaderType::Vertex or ShaderType::Fragment)
     * @return A string_view to the cached shader source code
     */
-    std::string_view GetShaderSource(ShaderId shaderId, bool isVertex);
+    std::string_view GetShaderSource(ShaderId shaderId, ShaderType shaderType);
 }
 
 #endif

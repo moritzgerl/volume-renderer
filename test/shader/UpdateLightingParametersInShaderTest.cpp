@@ -6,6 +6,7 @@
 #include <gui/MakeDefaultGuiParameters.h>
 #include <shader/GetShaderSource.h>
 #include <shader/Shader.h>
+#include <shader/ShaderType.h>
 #include <shader/UpdateLightingParametersInShader.h>
 
 #include <memory>
@@ -19,7 +20,7 @@ protected:
         Context::InitGl();
 
         guiParameters = Factory::MakeDefaultGuiParameters();
-        shader = std::make_unique<Shader>(ShaderId::Volume, ShaderSource::GetShaderSource(ShaderId::Volume, true), ShaderSource::GetShaderSource(ShaderId::Volume, false));
+        shader = std::make_unique<Shader>(ShaderId::Volume, ShaderSource::GetShaderSource(ShaderId::Volume, ShaderType::Vertex), ShaderSource::GetShaderSource(ShaderId::Volume, ShaderType::Fragment));
     }
 
     std::unique_ptr<Context::GlfwWindow> window;

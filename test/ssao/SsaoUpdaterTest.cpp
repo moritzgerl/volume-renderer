@@ -7,6 +7,7 @@
 #include <gui/MakeDefaultGuiParameters.h>
 #include <shader/GetShaderSource.h>
 #include <shader/Shader.h>
+#include <shader/ShaderType.h>
 #include <ssao/SsaoKernel.h>
 #include <ssao/SsaoUpdater.h>
 #include <textures/Texture.h>
@@ -39,8 +40,8 @@ protected:
             GL_REPEAT
         );
 
-        ssaoShader = std::make_unique<Shader>(ShaderId::Ssao, ShaderSource::GetShaderSource(ShaderId::Ssao, true), ShaderSource::GetShaderSource(ShaderId::Ssao, false));
-        ssaoFinalShader = std::make_unique<Shader>(ShaderId::SsaoFinal, ShaderSource::GetShaderSource(ShaderId::SsaoFinal, true), ShaderSource::GetShaderSource(ShaderId::SsaoFinal, false));
+        ssaoShader = std::make_unique<Shader>(ShaderId::Ssao, ShaderSource::GetShaderSource(ShaderId::Ssao, ShaderType::Vertex), ShaderSource::GetShaderSource(ShaderId::Ssao, ShaderType::Fragment));
+        ssaoFinalShader = std::make_unique<Shader>(ShaderId::SsaoFinal, ShaderSource::GetShaderSource(ShaderId::SsaoFinal, ShaderType::Vertex), ShaderSource::GetShaderSource(ShaderId::SsaoFinal, ShaderType::Fragment));
     }
 
     std::unique_ptr<Context::GlfwWindow> window;

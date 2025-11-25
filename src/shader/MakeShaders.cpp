@@ -4,6 +4,7 @@
 #include <config/Config.h>
 #include <gui/GuiParameters.h>
 #include <shader/GetShaderSource.h>
+#include <shader/ShaderType.h>
 #include <ssao/SsaoKernel.h>
 #include <storage/ElementStorage.h>
 #include <textures/Texture.h>
@@ -38,13 +39,13 @@ namespace Factory
         shaders.reserve(7);
 
         // TODO use initializer list
-        shaders.emplace_back(ShaderId::Volume, ShaderSource::GetShaderSource(ShaderId::Volume, true), ShaderSource::GetShaderSource(ShaderId::Volume, false));
-        shaders.emplace_back(ShaderId::SsaoInput, ShaderSource::GetShaderSource(ShaderId::SsaoInput, true), ShaderSource::GetShaderSource(ShaderId::SsaoInput, false));
-        shaders.emplace_back(ShaderId::Ssao, ShaderSource::GetShaderSource(ShaderId::Ssao, true), ShaderSource::GetShaderSource(ShaderId::Ssao, false));
-        shaders.emplace_back(ShaderId::SsaoBlur, ShaderSource::GetShaderSource(ShaderId::SsaoBlur, true), ShaderSource::GetShaderSource(ShaderId::SsaoBlur, false));
-        shaders.emplace_back(ShaderId::SsaoFinal, ShaderSource::GetShaderSource(ShaderId::SsaoFinal, true), ShaderSource::GetShaderSource(ShaderId::SsaoFinal, false));
-        shaders.emplace_back(ShaderId::DebugQuad, ShaderSource::GetShaderSource(ShaderId::DebugQuad, true), ShaderSource::GetShaderSource(ShaderId::DebugQuad, false));
-        shaders.emplace_back(ShaderId::LightSource, ShaderSource::GetShaderSource(ShaderId::LightSource, true), ShaderSource::GetShaderSource(ShaderId::LightSource, false));
+        shaders.emplace_back(ShaderId::Volume, ShaderSource::GetShaderSource(ShaderId::Volume, ShaderType::Vertex), ShaderSource::GetShaderSource(ShaderId::Volume, ShaderType::Fragment));
+        shaders.emplace_back(ShaderId::SsaoInput, ShaderSource::GetShaderSource(ShaderId::SsaoInput, ShaderType::Vertex), ShaderSource::GetShaderSource(ShaderId::SsaoInput, ShaderType::Fragment));
+        shaders.emplace_back(ShaderId::Ssao, ShaderSource::GetShaderSource(ShaderId::Ssao, ShaderType::Vertex), ShaderSource::GetShaderSource(ShaderId::Ssao, ShaderType::Fragment));
+        shaders.emplace_back(ShaderId::SsaoBlur, ShaderSource::GetShaderSource(ShaderId::SsaoBlur, ShaderType::Vertex), ShaderSource::GetShaderSource(ShaderId::SsaoBlur, ShaderType::Fragment));
+        shaders.emplace_back(ShaderId::SsaoFinal, ShaderSource::GetShaderSource(ShaderId::SsaoFinal, ShaderType::Vertex), ShaderSource::GetShaderSource(ShaderId::SsaoFinal, ShaderType::Fragment));
+        shaders.emplace_back(ShaderId::DebugQuad, ShaderSource::GetShaderSource(ShaderId::DebugQuad, ShaderType::Vertex), ShaderSource::GetShaderSource(ShaderId::DebugQuad, ShaderType::Fragment));
+        shaders.emplace_back(ShaderId::LightSource, ShaderSource::GetShaderSource(ShaderId::LightSource, ShaderType::Vertex), ShaderSource::GetShaderSource(ShaderId::LightSource, ShaderType::Fragment));
 
         const auto& volumeTexture = textureStorage.GetElement(TextureId::VolumeData);
         const auto& transferFunctionTexture = textureStorage.GetElement(TextureId::TransferFunction);

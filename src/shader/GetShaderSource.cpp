@@ -38,11 +38,11 @@ namespace
     struct ShaderKey
     {
         ShaderId shaderId;
-        bool isVertex;
+        ShaderType shaderType;
 
         bool operator==(const ShaderKey& other) const
         {
-            return shaderId == other.shaderId && isVertex == other.isVertex;
+            return shaderId == other.shaderId && shaderType == other.shaderType;
         }
     };
 
@@ -50,7 +50,7 @@ namespace
     {
         std::size_t operator()(const ShaderKey& key) const
         {
-            return std::hash<int>{}(static_cast<int>(key.shaderId)) ^ (std::hash<bool>{}(key.isVertex) << 1);
+            return std::hash<int>{}(static_cast<int>(key.shaderId)) ^ (std::hash<int>{}(static_cast<int>(key.shaderType)) << 1);
         }
     };
 
@@ -60,8 +60,9 @@ namespace
         return cache;
     }
 
-    const char* GetShaderFileName(ShaderId shaderId, bool isVertex)
+    const char* GetShaderFileName(ShaderId shaderId, ShaderType shaderType)
     {
+        const auto isVertex = (shaderType == ShaderType::Vertex);
         switch (shaderId)
         {
             case ShaderId::Volume:
@@ -86,16 +87,16 @@ namespace
 
 namespace ShaderSource
 {
-    std::string_view GetShaderSource(ShaderId shaderId, bool isVertex)
+    std::string_view GetShaderSource(ShaderId shaderId, ShaderType shaderType)
     {
         auto& cache = GetShaderCache();
-        const auto key = ShaderKey{shaderId, isVertex};
+        const auto key = ShaderKey{shaderId, shaderType};
 
         auto it = cache.find(key);
         if (it == cache.end())
         {
             const auto shaderDir = GetShaderDirectory();
-            const auto fileName = GetShaderFileName(shaderId, isVertex);
+            const auto fileName = GetShaderFileName(shaderId, shaderType);
             const auto filePath = shaderDir / fileName;
 
             auto source = LoadShaderFile(filePath);
