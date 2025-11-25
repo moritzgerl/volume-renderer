@@ -10,7 +10,7 @@
 
 namespace
 {
-    std::filesystem::path GetShaderDirectory()
+    std::filesystem::path GetShadersDirectory()
     {
         const auto location = std::source_location::current();
         auto sourceFile = std::filesystem::path{location.file_name()};
@@ -20,6 +20,14 @@ namespace
         auto shaderDir = sourceFile.parent_path().parent_path() / "shaders";
 
         return shaderDir;
+    }
+
+    std::filesystem::path GetShaderFilePath(ShaderId shaderId, ShaderType shaderType)
+    {
+        const auto shadersDirectory = GetShadersDirectory();
+        const auto shaderFileName = ShaderSource::GetShaderFileName(shaderId, shaderType);
+        const auto shaderFilePath = shadersDirectory / shaderFileName;
+        return shaderFilePath;
     }
 
     std::string LoadShaderFile(const std::filesystem::path& path)
@@ -34,21 +42,13 @@ namespace
         stream << file.rdbuf();
         return stream.str();
     }
-
-    std::filesystem::path GetShaderFilePath(ShaderId shaderId, ShaderType shaderType)
-    {
-        const auto shaderDir = GetShaderDirectory();
-        const auto fileName = ShaderSource::GetShaderFileName(shaderId, shaderType);
-        const auto filePath = shaderDir / fileName;
-        return filePath;
-    }
 }
 
 namespace ShaderSource
 {
     std::string GetShaderSource(ShaderId shaderId, ShaderType shaderType)
     {
-        const auto filePath = GetShaderFilePath(shaderId, shaderType);
-        return LoadShaderFile(filePath);
+        const auto shaderFilePath = GetShaderFilePath(shaderId, shaderType);
+        return LoadShaderFile(shaderFilePath);
     }
 }
