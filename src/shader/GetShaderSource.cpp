@@ -1,12 +1,13 @@
 #include <shader/GetShaderSource.h>
 
+#include <algorithm>
+#include <array>
 #include <filesystem>
 #include <fstream>
 #include <source_location>
 #include <sstream>
 #include <stdexcept>
 #include <string>
-#include <unordered_map>
 
 namespace
 {
@@ -35,53 +36,62 @@ namespace
         return stream.str();
     }
 
-    struct ShaderKey
+    struct ShaderFileMapping
     {
         ShaderId shaderId;
-        ShaderType shaderType;
-
-        bool operator==(const ShaderKey& other) const
-        {
-            return shaderId == other.shaderId && shaderType == other.shaderType;
-        }
+        std::string_view fileName;
     };
 
-    struct ShaderKeyHash
-    {
-        std::size_t operator()(const ShaderKey& key) const
-        {
-            return std::hash<int>{}(static_cast<int>(key.shaderId)) ^ (std::hash<int>{}(static_cast<int>(key.shaderType)) << 1);
-        }
-    };
+    constexpr std::array<ShaderFileMapping, 7> vertexShaderFileNames =
+    {{
+        {ShaderId::Volume, "Volume.vert"},
+        {ShaderId::SsaoInput, "SsaoInput.vert"},
+        {ShaderId::Ssao, "Ssao.vert"},
+        {ShaderId::SsaoBlur, "Ssao.vert"},
+        {ShaderId::SsaoFinal, "SsaoFinal.vert"},
+        {ShaderId::DebugQuad, "DebugQuad.vert"},
+        {ShaderId::LightSource, "LightSource.vert"}
+    }};
 
-    std::unordered_map<ShaderKey, std::string, ShaderKeyHash>& GetShaderCache()
+    constexpr std::array<ShaderFileMapping, 7> fragmentShaderFileNames =
+    {{
+        {ShaderId::Volume, "Volume.frag"},
+        {ShaderId::SsaoInput, "SsaoInput.frag"},
+        {ShaderId::Ssao, "Ssao.frag"},
+        {ShaderId::SsaoBlur, "SsaoBlur.frag"},
+        {ShaderId::SsaoFinal, "SsaoFinal.frag"},
+        {ShaderId::DebugQuad, "DebugQuadColor.frag"},
+        {ShaderId::LightSource, "LightSource.frag"}
+    }};
+
+    std::string_view GetShaderFileName(ShaderId shaderId, ShaderType shaderType)
     {
-        static auto cache = std::unordered_map<ShaderKey, std::string, ShaderKeyHash>{};
+        const auto& shaderFileNames = (shaderType == ShaderType::Vertex) ? vertexShaderFileNames : fragmentShaderFileNames;
+
+        const auto it = std::find_if(shaderFileNames.begin(), shaderFileNames.end(),
+            [shaderId](const ShaderFileMapping& mapping)
+            {
+                return mapping.shaderId == shaderId;
+            });
+
+        if (it == shaderFileNames.end())
+        {
+            throw std::runtime_error{"Unknown shader ID"};
+        }
+
+        return it->fileName;
+    }
+
+    std::array<std::string, 7>& GetVertexShaderCache()
+    {
+        static auto cache = std::array<std::string, 7>{};
         return cache;
     }
 
-    const char* GetShaderFileName(ShaderId shaderId, ShaderType shaderType)
+    std::array<std::string, 7>& GetFragmentShaderCache()
     {
-        const auto isVertex = (shaderType == ShaderType::Vertex);
-        switch (shaderId)
-        {
-            case ShaderId::Volume:
-                return isVertex ? "Volume.vert" : "Volume.frag";
-            case ShaderId::SsaoInput:
-                return isVertex ? "SsaoInput.vert" : "SsaoInput.frag";
-            case ShaderId::Ssao:
-                return isVertex ? "Ssao.vert" : "Ssao.frag";
-            case ShaderId::SsaoBlur:
-                return isVertex ? "Ssao.vert" : "SsaoBlur.frag";
-            case ShaderId::SsaoFinal:
-                return isVertex ? "SsaoFinal.vert" : "SsaoFinal.frag";
-            case ShaderId::DebugQuad:
-                return isVertex ? "DebugQuad.vert" : "DebugQuadColor.frag";
-            case ShaderId::LightSource:
-                return isVertex ? "LightSource.vert" : "LightSource.frag";
-            default:
-                throw std::runtime_error{"Unknown shader ID"};
-        }
+        static auto cache = std::array<std::string, 7>{};
+        return cache;
     }
 }
 
@@ -89,20 +99,18 @@ namespace ShaderSource
 {
     std::string_view GetShaderSource(ShaderId shaderId, ShaderType shaderType)
     {
-        auto& cache = GetShaderCache();
-        const auto key = ShaderKey{shaderId, shaderType};
+        auto& cache = (shaderType == ShaderType::Vertex) ? GetVertexShaderCache() : GetFragmentShaderCache();
+        const auto shaderIndex = static_cast<size_t>(shaderId);
 
-        auto it = cache.find(key);
-        if (it == cache.end())
+        if (cache[shaderIndex].empty())
         {
             const auto shaderDir = GetShaderDirectory();
             const auto fileName = GetShaderFileName(shaderId, shaderType);
             const auto filePath = shaderDir / fileName;
 
-            auto source = LoadShaderFile(filePath);
-            it = cache.emplace(key, std::move(source)).first;
+            cache[shaderIndex] = LoadShaderFile(filePath);
         }
 
-        return it->second;
+        return cache[shaderIndex];
     }
 }
