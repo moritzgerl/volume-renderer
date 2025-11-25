@@ -1,4 +1,4 @@
-#include <shader/GetShaderFileName.h>
+#include <shader/GetShaderBaseFileName.h>
 
 #include <algorithm>
 #include <array>
@@ -6,13 +6,13 @@
 
 namespace
 {
-    struct ShaderFileNameMapping
+    struct ShaderBaseFileNameMapping
     {
         ShaderId shaderId;
-        std::string_view shaderFileName;
+        std::string_view shaderBaseFileName;
     };
 
-    constexpr std::array<ShaderFileNameMapping, 7> shaderFileNames =
+    constexpr std::array<ShaderBaseFileNameMapping, 7> shaderBaseFileNames =
     {{
         {ShaderId::Volume, "Volume"},
         {ShaderId::Ssao, "Ssao"},
@@ -26,20 +26,19 @@ namespace
 
 namespace ShaderSource
 {
-    std::string_view GetShaderFileName(ShaderId shaderId)
+    std::string_view GetShaderBaseFileName(ShaderId shaderId)
     {
-
-        const auto it = std::find_if(shaderFileNames.begin(), shaderFileNames.end(),
-            [shaderId](const ShaderFileNameMapping& mapping)
+        const auto it = std::find_if(shaderBaseFileNames.begin(), shaderBaseFileNames.end(),
+            [shaderId](const ShaderBaseFileNameMapping& mapping)
             {
                 return mapping.shaderId == shaderId;
             });
 
-        if (it == shaderFileNames.end())
+        if (it == shaderBaseFileNames.end())
         {
             throw std::runtime_error{"Unknown shader ID"};
         }
 
-        return it->shaderFileName;
+        return it->shaderBaseFileName;
     }
 }

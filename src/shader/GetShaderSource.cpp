@@ -1,6 +1,6 @@
 #include <shader/GetShaderSource.h>
+#include <shader/GetShaderBaseFileName.h>
 #include <shader/GetShaderFileExtension.h>
-#include <shader/GetShaderFileName.h>
 
 #include <filesystem>
 #include <format>
@@ -27,9 +27,9 @@ namespace
     std::filesystem::path GetShaderFilePath(ShaderId shaderId, ShaderType shaderType)
     {
         const auto shadersDirectory = GetShadersDirectory();
-        const auto shaderFileNameBase = ShaderSource::GetShaderFileName(shaderId);
+        const auto shaderBaseFileName = ShaderSource::GetShaderBaseFileName(shaderId);
         const auto shaderFileExtension = ShaderSource::GetShaderFileExtension(shaderType);
-        const auto shaderFileName = std::format("{}{}", shaderFileNameBase, shaderFileExtension);
+        const auto shaderFileName = std::format("{}{}", shaderBaseFileName, shaderFileExtension);
         return shadersDirectory / shaderFileName;
     }
 
