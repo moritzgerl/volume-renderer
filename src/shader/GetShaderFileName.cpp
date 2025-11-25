@@ -9,37 +9,25 @@ namespace
     struct ShaderFileNameMapping
     {
         ShaderId shaderId;
-        std::string_view fileName;
+        std::string_view shaderFileName;
     };
 
-    constexpr std::array<ShaderFileNameMapping, 7> vertexShaderFileNames =
+    constexpr std::array<ShaderFileNameMapping, 7> shaderFileNames =
     {{
-        {ShaderId::Volume, "Volume.vert"},
-        {ShaderId::SsaoInput, "SsaoInput.vert"},
-        {ShaderId::Ssao, "Ssao.vert"},
-        {ShaderId::SsaoBlur, "Ssao.vert"},
-        {ShaderId::SsaoFinal, "SsaoFinal.vert"},
-        {ShaderId::DebugQuad, "DebugQuad.vert"},
-        {ShaderId::LightSource, "LightSource.vert"}
-    }};
-
-    constexpr std::array<ShaderFileNameMapping, 7> fragmentShaderFileNames =
-    {{
-        {ShaderId::Volume, "Volume.frag"},
-        {ShaderId::SsaoInput, "SsaoInput.frag"},
-        {ShaderId::Ssao, "Ssao.frag"},
-        {ShaderId::SsaoBlur, "SsaoBlur.frag"},
-        {ShaderId::SsaoFinal, "SsaoFinal.frag"},
-        {ShaderId::DebugQuad, "DebugQuadColor.frag"},
-        {ShaderId::LightSource, "LightSource.frag"}
+        {ShaderId::Volume, "Volume"},
+        {ShaderId::Ssao, "Ssao"},
+        {ShaderId::SsaoBlur, "Ssao"},
+        {ShaderId::SsaoFinal, "SsaoFinal"},
+        {ShaderId::SsaoInput, "SsaoInput"},
+        {ShaderId::DebugQuad, "DebugQuad"},
+        {ShaderId::LightSource, "LightSource"}
     }};
 }
 
 namespace ShaderSource
 {
-    std::string_view GetShaderFileName(ShaderId shaderId, ShaderType shaderType)
+    std::string_view GetShaderFileName(ShaderId shaderId)
     {
-        const auto& shaderFileNames = (shaderType == ShaderType::Vertex) ? vertexShaderFileNames : fragmentShaderFileNames;
 
         const auto it = std::find_if(shaderFileNames.begin(), shaderFileNames.end(),
             [shaderId](const ShaderFileNameMapping& mapping)
@@ -52,6 +40,6 @@ namespace ShaderSource
             throw std::runtime_error{"Unknown shader ID"};
         }
 
-        return it->fileName;
+        return it->shaderFileName;
     }
 }

@@ -15,14 +15,13 @@
 namespace ShaderSource
 {
     /**
-    * Returns the file name for a given shader ID and type.
+    * Returns the base file name (without extension) for a given shader ID and type.
     *
     * @param shaderId The shader identifier (e.g., ShaderId::Volume)
-    * @param shaderType The type of shader (ShaderType::Vertex or ShaderType::Fragment)
-    * @return The file name of the shader (e.g., "Volume.vert" or "Volume.frag")
+    * @return The base file name without extension (e.g., "Volume", "DebugQuadColor")
     * @throws std::runtime_error if the shader ID is unknown
     */
-    std::string_view GetShaderFileName(ShaderId shaderId, ShaderType shaderType);
+    std::string_view GetShaderFileName(ShaderId shaderId);
 }
 
 #endif
