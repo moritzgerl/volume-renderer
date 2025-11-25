@@ -24,12 +24,17 @@ namespace
         return shadersDirectory;
     }
 
+    std::string GetShaderFileName(ShaderId shaderId, ShaderType shaderType)
+    {
+        const auto shaderBaseFileName = ShaderSource::GetShaderBaseFileName(shaderId);
+        const auto shaderFileExtension = ShaderSource::GetShaderFileExtension(shaderType);
+        return std::format("{}{}", shaderBaseFileName, shaderFileExtension);
+    }
+
     std::filesystem::path GetShaderFilePath(ShaderId shaderId, ShaderType shaderType)
     {
         const auto shadersDirectory = GetShadersDirectory();
-        const auto shaderBaseFileName = ShaderSource::GetShaderBaseFileName(shaderId);
-        const auto shaderFileExtension = ShaderSource::GetShaderFileExtension(shaderType);
-        const auto shaderFileName = std::format("{}{}", shaderBaseFileName, shaderFileExtension);
+        const auto shaderFileName = GetShaderFileName(shaderId, shaderType);
         return shadersDirectory / shaderFileName;
     }
 
