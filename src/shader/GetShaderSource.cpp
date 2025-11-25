@@ -36,13 +36,13 @@ namespace
         return stream.str();
     }
 
-    struct ShaderFileMapping
+    struct ShaderFileNameMapping
     {
         ShaderId shaderId;
         std::string_view fileName;
     };
 
-    constexpr std::array<ShaderFileMapping, 7> vertexShaderFileNames =
+    constexpr std::array<ShaderFileNameMapping, 7> vertexShaderFileNames =
     {{
         {ShaderId::Volume, "Volume.vert"},
         {ShaderId::SsaoInput, "SsaoInput.vert"},
@@ -53,7 +53,7 @@ namespace
         {ShaderId::LightSource, "LightSource.vert"}
     }};
 
-    constexpr std::array<ShaderFileMapping, 7> fragmentShaderFileNames =
+    constexpr std::array<ShaderFileNameMapping, 7> fragmentShaderFileNames =
     {{
         {ShaderId::Volume, "Volume.frag"},
         {ShaderId::SsaoInput, "SsaoInput.frag"},
@@ -69,7 +69,7 @@ namespace
         const auto& shaderFileNames = (shaderType == ShaderType::Vertex) ? vertexShaderFileNames : fragmentShaderFileNames;
 
         const auto it = std::find_if(shaderFileNames.begin(), shaderFileNames.end(),
-            [shaderId](const ShaderFileMapping& mapping)
+            [shaderId](const ShaderFileNameMapping& mapping)
             {
                 return mapping.shaderId == shaderId;
             });
