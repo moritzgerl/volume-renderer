@@ -64,18 +64,17 @@ namespace Factory
         const TextureStorage& textureStorage
     )
     {
-        auto shaders = std::vector<Shader>{};
-        shaders.reserve(7);
-
-        // TODO use initializer list
-        shaders.emplace_back(ShaderId::Volume, LoadShaderOrExit(ShaderId::Volume, ShaderType::Vertex), LoadShaderOrExit(ShaderId::Volume, ShaderType::Fragment));
-        shaders.emplace_back(ShaderId::SsaoInput, LoadShaderOrExit(ShaderId::SsaoInput, ShaderType::Vertex), LoadShaderOrExit(ShaderId::SsaoInput, ShaderType::Fragment));
-        shaders.emplace_back(ShaderId::Ssao, LoadShaderOrExit(ShaderId::Ssao, ShaderType::Vertex), LoadShaderOrExit(ShaderId::Ssao, ShaderType::Fragment));
-        shaders.emplace_back(ShaderId::SsaoBlur, LoadShaderOrExit(ShaderId::SsaoBlur, ShaderType::Vertex), LoadShaderOrExit(ShaderId::SsaoBlur, ShaderType::Fragment));
-        shaders.emplace_back(ShaderId::SsaoFinal, LoadShaderOrExit(ShaderId::SsaoFinal, ShaderType::Vertex), LoadShaderOrExit(ShaderId::SsaoFinal, ShaderType::Fragment));
-        shaders.emplace_back(ShaderId::DebugQuad, LoadShaderOrExit(ShaderId::DebugQuad, ShaderType::Vertex), LoadShaderOrExit(ShaderId::DebugQuad, ShaderType::Fragment));
-        shaders.emplace_back(ShaderId::LightSource, LoadShaderOrExit(ShaderId::LightSource, ShaderType::Vertex), LoadShaderOrExit(ShaderId::LightSource, ShaderType::Fragment));
-
+        auto shaders = std::vector<Shader>
+        {
+            { ShaderId::Volume, LoadShaderOrExit(ShaderId::Volume, ShaderType::Vertex), LoadShaderOrExit(ShaderId::Volume, ShaderType::Fragment) },
+            { ShaderId::SsaoInput, LoadShaderOrExit(ShaderId::SsaoInput, ShaderType::Vertex), LoadShaderOrExit(ShaderId::SsaoInput, ShaderType::Fragment) },
+            { ShaderId::Ssao, LoadShaderOrExit(ShaderId::Ssao, ShaderType::Vertex), LoadShaderOrExit(ShaderId::Ssao, ShaderType::Fragment) },
+            { ShaderId::SsaoBlur, LoadShaderOrExit(ShaderId::SsaoBlur, ShaderType::Vertex), LoadShaderOrExit(ShaderId::SsaoBlur, ShaderType::Fragment) },
+            { ShaderId::SsaoFinal, LoadShaderOrExit(ShaderId::SsaoFinal, ShaderType::Vertex), LoadShaderOrExit(ShaderId::SsaoFinal, ShaderType::Fragment) },
+            { ShaderId::DebugQuad, LoadShaderOrExit(ShaderId::DebugQuad, ShaderType::Vertex), LoadShaderOrExit(ShaderId::DebugQuad, ShaderType::Fragment) },
+            { ShaderId::LightSource, LoadShaderOrExit(ShaderId::LightSource, ShaderType::Vertex), LoadShaderOrExit(ShaderId::LightSource, ShaderType::Fragment) }
+        };
+        
         const auto& volumeTexture = textureStorage.GetElement(TextureId::VolumeData);
         const auto& transferFunctionTexture = textureStorage.GetElement(TextureId::TransferFunction);
         const auto& ssaoPositionTexture = textureStorage.GetElement(TextureId::SsaoPosition);
