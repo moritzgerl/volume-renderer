@@ -44,7 +44,7 @@ namespace
         return result.value();
     }
 
-    const Shader&& CreateShader(ShaderId shaderId)
+    Shader CreateShader(ShaderId shaderId)
     {
         return { shaderId, LoadShaderOrExit(shaderId, ShaderType::Vertex), LoadShaderOrExit(shaderId, ShaderType::Fragment) };
     }
