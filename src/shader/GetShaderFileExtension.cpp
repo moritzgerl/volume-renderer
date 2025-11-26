@@ -8,7 +8,7 @@ namespace
     struct ShaderFileExtensionMapping
     {
         ShaderType shaderType;
-        std::string_view extension;
+        std::string_view shaderFileExtension;
     };
 
     constexpr std::array<ShaderFileExtensionMapping, 2> shaderFileExtensions =
@@ -26,7 +26,7 @@ namespace ShaderSource
         {
             if (mapping.shaderType == shaderType)
             {
-                return mapping.extension;
+                return mapping.shaderFileExtension;
             }
         }
 
