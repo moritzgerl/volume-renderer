@@ -2,7 +2,7 @@
 
 #include <context/GlfwWindow.h>
 #include <context/InitGl.h>
-#include <shader/GetShaderSource.h>
+#include <shader/LoadShader.h>
 #include <shader/Shader.h>
 #include <shader/ShaderType.h>
 #include <shader/UpdateLightSourceModelMatrixInShader.h>
@@ -13,9 +13,9 @@
 
 namespace
 {
-    std::string GetShaderSourceOrThrow(ShaderId shaderId, ShaderType shaderType)
+    std::string LoadShaderOrThrow(ShaderId shaderId, ShaderType shaderType)
     {
-        const auto result = ShaderSource::GetShaderSource(shaderId, shaderType);
+        const auto result = ShaderSource::LoadShader(shaderId, shaderType);
         if (!result.has_value())
         {
             throw std::runtime_error{"Failed to load shader"};
@@ -32,7 +32,7 @@ protected:
         window = std::make_unique<Context::GlfwWindow>();
         Context::InitGl();
 
-        shader = std::make_unique<Shader>(ShaderId::LightSource, GetShaderSourceOrThrow(ShaderId::LightSource, ShaderType::Vertex), GetShaderSourceOrThrow(ShaderId::LightSource, ShaderType::Fragment));
+        shader = std::make_unique<Shader>(ShaderId::LightSource, LoadShaderOrThrow(ShaderId::LightSource, ShaderType::Vertex), LoadShaderOrThrow(ShaderId::LightSource, ShaderType::Fragment));
     }
 
     std::unique_ptr<Context::GlfwWindow> window;

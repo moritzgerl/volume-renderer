@@ -1,4 +1,4 @@
-#include <shader/GetShaderSource.h>
+#include <shader/LoadShader.h>
 #include <shader/GetShaderBaseFileName.h>
 #include <shader/GetShaderFileExtension.h>
 #include <shader/ShaderLoadingError.h>
@@ -18,7 +18,7 @@ namespace
         const auto currentSourceFileLocation = std::source_location::current();
         auto currentSourceFilePath = std::filesystem::path{ currentSourceFileLocation.file_name()};
 
-        // GetShaderSource.cpp is in src/shader/
+        // LoadShader.cpp is in src/shader/
         // We want to go to src/shaders/
         auto shadersDirectory = currentSourceFilePath.parent_path().parent_path() / "shaders";
 
@@ -70,7 +70,7 @@ namespace
 
 namespace ShaderSource
 {
-    std::expected<std::string, ShaderLoadingError> GetShaderSource(ShaderId shaderId, ShaderType shaderType)
+    std::expected<std::string, ShaderLoadingError> LoadShader(ShaderId shaderId, ShaderType shaderType)
     {
         const auto shaderFilePath = GetShaderFilePath(shaderId, shaderType);
         if (!shaderFilePath.has_value())
