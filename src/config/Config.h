@@ -43,6 +43,7 @@ namespace Config
     //constexpr unsigned int windowHeight = 2160;
     const std::filesystem::path applicationStateIniFilePath = "./volume-renderer.ini";
     const std::filesystem::path datasetPath = "./datasets/knee.raw";
+    const std::filesystem::path shadersPath = "./shaders";
     constexpr bool showLightSourceByDefault = false;
     constexpr float defaultGuiWidthRatio = 0.3f;
     constexpr float defaultTransferFunctionGuiHeightRatio = 0.3f;

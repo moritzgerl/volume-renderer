@@ -127,15 +127,26 @@ target_link_libraries(${TEST_EXECUTABLE_NAME}
     GTest::gmock
     VolumeRendererLib)
 
-# Post-build: Copy shaders directory next to the test executable
+# Post-build: Copy shaders directory to test runtime directory
+# For multi-config generators (MSVC), this copies to the parent of Debug/Release folders
+# For single-config generators, this copies next to the executable
 add_custom_command(TARGET ${TEST_EXECUTABLE_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_SOURCE_DIR}/src/shaders
-    $<TARGET_FILE_DIR:${TEST_EXECUTABLE_NAME}>/shaders
-    COMMENT "Copying shaders directory to test output"
+    ${CMAKE_CURRENT_BINARY_DIR}/shaders
+    COMMENT "Copying shaders directory to test runtime directory"
 )
 
-add_test(NAME BuffersTest COMMAND ${TEST_EXECUTABLE_NAME})
+# Post-build: Copy runtime DLLs to test runtime directory for CTest
+add_custom_command(TARGET ${TEST_EXECUTABLE_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    $<TARGET_RUNTIME_DLLS:${TEST_EXECUTABLE_NAME}>
+    ${CMAKE_CURRENT_BINARY_DIR}
+    COMMAND_EXPAND_LISTS
+    COMMENT "Copying runtime DLLs to test runtime directory"
+)
+
+add_test(NAME BuffersTest COMMAND ${TEST_EXECUTABLE_NAME} WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
 
 install(TARGETS ${TEST_EXECUTABLE_NAME}
     DESTINATION bin/test

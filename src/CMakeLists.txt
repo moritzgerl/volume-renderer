@@ -266,12 +266,14 @@ target_link_libraries(VolumeRenderer PRIVATE
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT VolumeRenderer)
 
-# Post-build: Copy shaders directory next to the executable
+# Post-build: Copy shaders directory to runtime directory
+# For multi-config generators (MSVC), this copies to the parent of Debug/Release folders
+# For single-config generators, this copies next to the executable
 add_custom_command(TARGET VolumeRenderer POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_CURRENT_SOURCE_DIR}/shaders
-    $<TARGET_FILE_DIR:VolumeRenderer>/shaders
-    COMMENT "Copying shaders directory to build output"
+    ${CMAKE_CURRENT_BINARY_DIR}/shaders
+    COMMENT "Copying shaders directory to runtime directory"
 )
 
 install(TARGETS VolumeRenderer PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_WRITE GROUP_EXECUTE WORLD_READ WORLD_WRITE WORLD_EXECUTE)

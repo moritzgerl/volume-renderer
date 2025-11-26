@@ -2,6 +2,7 @@
 #include <shader/GetShaderBaseFileName.h>
 #include <shader/GetShaderFileExtension.h>
 #include <shader/ShaderLoadingError.h>
+#include <config/Config.h>
 
 #include <filesystem>
 #include <format>
@@ -10,32 +11,8 @@
 #include <stdexcept>
 #include <string>
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
 namespace
 {
-    std::filesystem::path GetShadersDirectory()
-    {
-        // Get the directory containing the executable
-        auto exePath = std::filesystem::path{};
-
-#ifdef _WIN32
-        char buffer[MAX_PATH];
-        GetModuleFileNameA(nullptr, buffer, MAX_PATH);
-        exePath = std::filesystem::path{buffer};
-#else
-        // For Unix-like systems
-        exePath = std::filesystem::canonical("/proc/self/exe");
-#endif
-
-        // Shaders directory is next to the executable
-        auto shadersDirectory = exePath.parent_path() / "shaders";
-
-        return shadersDirectory;
-    }
-
     std::expected<std::string, ShaderLoadingError> GetShaderFileName(ShaderId shaderId, ShaderType shaderType)
     {
         const auto shaderBaseFileName = ShaderSource::GetShaderBaseFileName(shaderId);
@@ -54,15 +31,14 @@ namespace
     }
 
     std::expected<std::filesystem::path, ShaderLoadingError> GetShaderFilePath(ShaderId shaderId, ShaderType shaderType)
-    {
-        const auto shadersDirectory = GetShadersDirectory();
+    {   
         const auto shaderFileName = GetShaderFileName(shaderId, shaderType);
         if (!shaderFileName.has_value())
         {
             return std::unexpected{shaderFileName.error()};
         }
 
-        return shadersDirectory / shaderFileName.value();
+        return Config::shadersPath / shaderFileName.value();
     }
 
     std::expected<std::string, ShaderLoadingError> LoadShaderFile(const std::filesystem::path& path)
