@@ -14,7 +14,7 @@ namespace Factory
     {
         return 
         {
-            { MakeVolumeDataTexture(TextureId::VolumeData, GL_TEXTURE1, volumeData) },
+            MakeVolumeDataTexture(TextureId::VolumeData, GL_TEXTURE1, volumeData),
             { TextureId::TransferFunction, GL_TEXTURE2, static_cast<unsigned int>(TransferFunctionConstants::textureSize), GL_RGBA, GL_RGBA, GL_UNSIGNED_BYTE, GL_LINEAR, GL_CLAMP_TO_EDGE, nullptr },
             { TextureId::SsaoPosition, GL_TEXTURE3, Config::windowWidth, Config::windowHeight, GL_RGBA16F, GL_RGBA, GL_FLOAT, GL_NEAREST, GL_CLAMP_TO_EDGE },
             { TextureId::SsaoNormal, GL_TEXTURE4, Config::windowWidth, Config::windowHeight, GL_RGBA16F, GL_RGBA, GL_FLOAT, GL_NEAREST, GL_REPEAT },
