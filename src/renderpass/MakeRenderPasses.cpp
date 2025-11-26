@@ -24,28 +24,16 @@
 
 #include <glad/glad.h>
 
-RenderPasses Factory::MakeRenderPasses(const Gui& gui, const InputHandler& inputHandler, const Storage& storage)
+namespace
 {
-    const auto& camera = storage.GetCamera();
-    const auto& displayProperties = storage.GetDisplayProperties();
-    const auto& guiParameters = storage.GetGuiParameters();
-    const auto& ssaoKernel = storage.GetSsaoKernel();
-    const auto& screenQuad = storage.GetScreenQuad();
-    const auto& unitCube = storage.GetUnitCube();
-    const auto& textureStorage = storage.GetTextureStorage();
-    const auto& shaderStorage = storage.GetShaderStorage();
-    const auto& frameBufferStorage = storage.GetFrameBufferStorage();
-
-    auto renderPasses = RenderPasses{};
-    renderPasses.reserve(2);
-
-    // Setup
-    // TODO - remove? do setup in raycasting pass directly ?
+    RenderPass MakeSetupRenderPass(
+        const Gui& gui,
+        const InputHandler& inputHandler,
+        const ShaderStorage& shaderStorage,
+        const FrameBufferStorage& frameBufferStorage)
     {
         auto textures = std::vector<std::reference_wrapper<const Texture>>{};
-
         const auto& shader = shaderStorage.GetElement(ShaderId::SsaoInput);     // Dummy shader
-
         auto prepareFunction = [&gui, &inputHandler]()
         {
             const auto viewportX = static_cast<int>(gui.GetGuiWidth());
@@ -53,22 +41,30 @@ RenderPasses Factory::MakeRenderPasses(const Gui& gui, const InputHandler& input
             glViewport(viewportX, 0, viewportWidth, inputHandler.GetWindowHeight());
             glDisable(GL_BLEND);
         };
-
         auto renderFunction = []()
         {
         };
-
-        renderPasses.emplace_back(
+        return 
+        {
             RenderPassId::Setup,
             shader,
             frameBufferStorage.GetElement(FrameBufferId::Default),
             std::move(textures),
             std::move(prepareFunction),
             std::move(renderFunction)
-        );
+        };
     }
 
-    // Raycasting
+    RenderPass MakeRaycastingRenderPass(
+        const Camera& camera,
+        const Gui& gui,
+        const GuiParameters& guiParameters,
+        const InputHandler& inputHandler,
+        const TextureStorage& textureStorage,
+        const ShaderStorage& shaderStorage,
+        const FrameBufferStorage& frameBufferStorage,
+        const UnitCube& unitCube
+        )
     {
         auto textures = std::vector<std::reference_wrapper<const Texture>>{};
         textures.push_back(std::cref(textureStorage.GetElement(TextureId::VolumeData)));
@@ -84,24 +80,46 @@ RenderPasses Factory::MakeRenderPasses(const Gui& gui, const InputHandler& input
             const auto viewportHeight = static_cast<float>(inputHandler.GetWindowHeight());
             ShaderUtils::UpdateCameraMatricesInShader(camera, shader, viewportWidth, viewportHeight);
             shader.SetVec3("cameraPos", camera.GetPosition());
-            shader.SetMat4("model", glm::mat4{1.0f});
+            shader.SetMat4("model", glm::mat4{ 1.0f });
             shader.SetFloat("densityMultiplier", guiParameters.raycastingDensityMultiplier);
         };
 
         auto renderFunction = [&unitCube]()
-        {   
+        {
             unitCube.Render();
         };
 
-        renderPasses.emplace_back(
+        return 
+        {
             RenderPassId::Volume,
             shader,
             frameBufferStorage.GetElement(FrameBufferId::Default),
             std::move(textures),
             std::move(prepareFunction),
             std::move(renderFunction)
-        );
+        };
     }
+}
+
+
+RenderPasses Factory::MakeRenderPasses(const Gui& gui, const InputHandler& inputHandler, const Storage& storage)
+{
+    const auto& camera = storage.GetCamera();
+    const auto& displayProperties = storage.GetDisplayProperties();
+    const auto& guiParameters = storage.GetGuiParameters();
+    const auto& ssaoKernel = storage.GetSsaoKernel();
+    const auto& screenQuad = storage.GetScreenQuad();
+    const auto& unitCube = storage.GetUnitCube();
+    const auto& textureStorage = storage.GetTextureStorage();
+    const auto& shaderStorage = storage.GetShaderStorage();
+    const auto& frameBufferStorage = storage.GetFrameBufferStorage();
+
+    RenderPasses renderPasses =
+    {
+        MakeSetupRenderPass(gui, inputHandler, shaderStorage, frameBufferStorage),
+        MakeRaycastingRenderPass(camera, gui, guiParameters, inputHandler, textureStorage, shaderStorage, frameBufferStorage, unitCube)
+    };
+
 /*
     // SSAO Input
     // TODO - remove?
