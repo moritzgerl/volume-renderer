@@ -4,26 +4,12 @@
 #include <camera/CameraParameters.h>
 #include <context/GlfwWindow.h>
 #include <context/InitGl.h>
-#include <shader/LoadShader.h>
 #include <shader/Shader.h>
 #include <shader/ShaderType.h>
 #include <shader/UpdateCameraMatricesInShader.h>
+#include <utils/LoadShaderOrThrow.h>
 
 #include <memory>
-#include <string>
-
-namespace
-{
-    std::string LoadShaderOrThrow(ShaderId shaderId, ShaderType shaderType)
-    {
-        const auto result = ShaderSource::LoadShader(shaderId, shaderType);
-        if (!result.has_value())
-        {
-            throw std::runtime_error{"Failed to load shader"};
-        }
-        return result.value();
-    }
-}
 
 class UpdateCameraMatricesInShaderTest : public ::testing::Test
 {
@@ -38,7 +24,7 @@ protected:
         params.zoom = 45.0f;
 
         camera = std::make_unique<Camera>(params);
-        shader = std::make_unique<Shader>(ShaderId::Volume, LoadShaderOrThrow(ShaderId::Volume, ShaderType::Vertex), LoadShaderOrThrow(ShaderId::Volume, ShaderType::Fragment));
+        shader = std::make_unique<Shader>(ShaderId::Volume, TestUtils::LoadShaderOrThrow(ShaderId::Volume, ShaderType::Vertex), TestUtils::LoadShaderOrThrow(ShaderId::Volume, ShaderType::Fragment));
     }
 
     std::unique_ptr<Context::GlfwWindow> window;

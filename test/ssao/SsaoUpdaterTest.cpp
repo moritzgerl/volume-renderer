@@ -5,30 +5,16 @@
 #include <gui/GuiParameters.h>
 #include <gui/GuiUpdateFlags.h>
 #include <gui/MakeDefaultGuiParameters.h>
-#include <shader/LoadShader.h>
 #include <shader/Shader.h>
 #include <shader/ShaderType.h>
 #include <ssao/SsaoKernel.h>
 #include <ssao/SsaoUpdater.h>
 #include <textures/Texture.h>
 #include <textures/TextureId.h>
+#include <utils/LoadShaderOrThrow.h>
 
 #include <glad/glad.h>
 #include <memory>
-#include <string>
-
-namespace
-{
-    std::string LoadShaderOrThrow(ShaderId shaderId, ShaderType shaderType)
-    {
-        const auto result = ShaderSource::LoadShader(shaderId, shaderType);
-        if (!result.has_value())
-        {
-            throw std::runtime_error{"Failed to load shader"};
-        }
-        return result.value();
-    }
-}
 
 class SsaoUpdaterTest : public ::testing::Test
 {
@@ -54,8 +40,8 @@ protected:
             GL_REPEAT
         );
 
-        ssaoShader = std::make_unique<Shader>(ShaderId::Ssao, LoadShaderOrThrow(ShaderId::Ssao, ShaderType::Vertex), LoadShaderOrThrow(ShaderId::Ssao, ShaderType::Fragment));
-        ssaoFinalShader = std::make_unique<Shader>(ShaderId::SsaoFinal, LoadShaderOrThrow(ShaderId::SsaoFinal, ShaderType::Vertex), LoadShaderOrThrow(ShaderId::SsaoFinal, ShaderType::Fragment));
+        ssaoShader = std::make_unique<Shader>(ShaderId::Ssao, TestUtils::LoadShaderOrThrow(ShaderId::Ssao, ShaderType::Vertex), TestUtils::LoadShaderOrThrow(ShaderId::Ssao, ShaderType::Fragment));
+        ssaoFinalShader = std::make_unique<Shader>(ShaderId::SsaoFinal, TestUtils::LoadShaderOrThrow(ShaderId::SsaoFinal, ShaderType::Vertex), TestUtils::LoadShaderOrThrow(ShaderId::SsaoFinal, ShaderType::Fragment));
     }
 
     std::unique_ptr<Context::GlfwWindow> window;

@@ -66,6 +66,14 @@ file(GLOB_RECURSE TEST_SRC_VOLUMEDATA_CPP
     "${TEST_SRC_ROOT}/volumedata/*.cpp"
 )
 
+file(GLOB_RECURSE TEST_SRC_UTILS_H
+    "${TEST_SRC_ROOT}/utils/*.h"
+)
+
+file(GLOB_RECURSE TEST_SRC_UTILS_CPP
+    "${TEST_SRC_ROOT}/utils/*.cpp"
+)
+
 source_group("buffers" FILES ${TEST_SRC_BUFFERS_CPP})
 source_group("camera" FILES ${TEST_SRC_CAMERA_CPP})
 source_group("context" FILES ${TEST_SRC_CONTEXT_CPP})
@@ -81,6 +89,9 @@ source_group("storage" FILES ${TEST_SRC_STORAGE_CPP})
 source_group("textures" FILES ${TEST_SRC_TEXTURES_CPP})
 source_group("transferfunction" FILES ${TEST_SRC_TRANSFERFUNCTION_CPP})
 source_group("volumedata" FILES ${TEST_SRC_VOLUMEDATA_CPP})
+
+source_group("utils\\Header Files" FILES ${TEST_SRC_UTILS_H})
+source_group("utils\\Source Files" FILES ${TEST_SRC_UTILS_CPP})
 
 source_group("" FILES ${SRC_MAIN_CPP})
 
@@ -100,6 +111,8 @@ add_executable(${TEST_EXECUTABLE_NAME}
     ${TEST_SRC_TEXTURES_CPP}
     ${TEST_SRC_TRANSFERFUNCTION_CPP}
     ${TEST_SRC_VOLUMEDATA_CPP}
+    ${TEST_SRC_UTILS_H}
+    ${TEST_SRC_UTILS_CPP}
     ${SRC_MAIN_CPP}
 )
 

@@ -2,27 +2,13 @@
 
 #include <context/GlfwWindow.h>
 #include <context/InitGl.h>
-#include <shader/LoadShader.h>
 #include <shader/Shader.h>
 #include <shader/ShaderType.h>
 #include <shader/UpdateLightSourceModelMatrixInShader.h>
+#include <utils/LoadShaderOrThrow.h>
 
 #include <glm/glm.hpp>
 #include <memory>
-#include <string>
-
-namespace
-{
-    std::string LoadShaderOrThrow(ShaderId shaderId, ShaderType shaderType)
-    {
-        const auto result = ShaderSource::LoadShader(shaderId, shaderType);
-        if (!result.has_value())
-        {
-            throw std::runtime_error{"Failed to load shader"};
-        }
-        return result.value();
-    }
-}
 
 class UpdateLightSourceModelMatrixInShaderTest : public ::testing::Test
 {
@@ -32,7 +18,7 @@ protected:
         window = std::make_unique<Context::GlfwWindow>();
         Context::InitGl();
 
-        shader = std::make_unique<Shader>(ShaderId::LightSource, LoadShaderOrThrow(ShaderId::LightSource, ShaderType::Vertex), LoadShaderOrThrow(ShaderId::LightSource, ShaderType::Fragment));
+        shader = std::make_unique<Shader>(ShaderId::LightSource, TestUtils::LoadShaderOrThrow(ShaderId::LightSource, ShaderType::Vertex), TestUtils::LoadShaderOrThrow(ShaderId::LightSource, ShaderType::Fragment));
     }
 
     std::unique_ptr<Context::GlfwWindow> window;
