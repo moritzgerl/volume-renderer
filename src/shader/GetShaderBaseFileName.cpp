@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <array>
-#include <stdexcept>
 
 namespace
 {
@@ -26,7 +25,7 @@ namespace
 
 namespace ShaderSource
 {
-    std::string_view GetShaderBaseFileName(ShaderId shaderId)
+    std::expected<std::string_view, ShaderLoadingError> GetShaderBaseFileName(ShaderId shaderId)
     {
         const auto it = std::find_if(shaderBaseFileNames.begin(), shaderBaseFileNames.end(),
             [shaderId](const ShaderBaseFileNameMapping& mapping)
@@ -36,7 +35,7 @@ namespace ShaderSource
 
         if (it == shaderBaseFileNames.end())
         {
-            throw std::runtime_error{"Unknown shader ID"};
+            return std::unexpected{ShaderLoadingError::UnknownShaderId};
         }
 
         return it->shaderBaseFileName;

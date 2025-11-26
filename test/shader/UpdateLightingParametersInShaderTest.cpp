@@ -10,6 +10,20 @@
 #include <shader/UpdateLightingParametersInShader.h>
 
 #include <memory>
+#include <string>
+
+namespace
+{
+    std::string GetShaderSourceOrThrow(ShaderId shaderId, ShaderType shaderType)
+    {
+        const auto result = ShaderSource::GetShaderSource(shaderId, shaderType);
+        if (!result.has_value())
+        {
+            throw std::runtime_error{"Failed to load shader"};
+        }
+        return result.value();
+    }
+}
 
 class UpdateLightingParametersInShaderTest : public ::testing::Test
 {
@@ -20,7 +34,7 @@ protected:
         Context::InitGl();
 
         guiParameters = Factory::MakeDefaultGuiParameters();
-        shader = std::make_unique<Shader>(ShaderId::Volume, ShaderSource::GetShaderSource(ShaderId::Volume, ShaderType::Vertex), ShaderSource::GetShaderSource(ShaderId::Volume, ShaderType::Fragment));
+        shader = std::make_unique<Shader>(ShaderId::Volume, GetShaderSourceOrThrow(ShaderId::Volume, ShaderType::Vertex), GetShaderSourceOrThrow(ShaderId::Volume, ShaderType::Fragment));
     }
 
     std::unique_ptr<Context::GlfwWindow> window;

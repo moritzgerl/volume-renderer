@@ -1,6 +1,7 @@
 #include <shader/GetShaderSource.h>
 #include <shader/GetShaderBaseFileName.h>
 #include <shader/GetShaderFileExtension.h>
+#include <shader/ShaderLoadingError.h>
 
 #include <filesystem>
 #include <format>
@@ -24,26 +25,41 @@ namespace
         return shadersDirectory;
     }
 
-    std::string GetShaderFileName(ShaderId shaderId, ShaderType shaderType)
+    std::expected<std::string, ShaderLoadingError> GetShaderFileName(ShaderId shaderId, ShaderType shaderType)
     {
         const auto shaderBaseFileName = ShaderSource::GetShaderBaseFileName(shaderId);
+        if (!shaderBaseFileName.has_value())
+        {
+            return std::unexpected{shaderBaseFileName.error()};
+        }
+
         const auto shaderFileExtension = ShaderSource::GetShaderFileExtension(shaderType);
-        return std::format("{}{}", shaderBaseFileName, shaderFileExtension);
+        if (!shaderFileExtension.has_value())
+        {
+            return std::unexpected{shaderFileExtension.error()};
+        }
+
+        return std::format("{}{}", shaderBaseFileName.value(), shaderFileExtension.value());
     }
 
-    std::filesystem::path GetShaderFilePath(ShaderId shaderId, ShaderType shaderType)
+    std::expected<std::filesystem::path, ShaderLoadingError> GetShaderFilePath(ShaderId shaderId, ShaderType shaderType)
     {
         const auto shadersDirectory = GetShadersDirectory();
         const auto shaderFileName = GetShaderFileName(shaderId, shaderType);
-        return shadersDirectory / shaderFileName;
+        if (!shaderFileName.has_value())
+        {
+            return std::unexpected{shaderFileName.error()};
+        }
+
+        return shadersDirectory / shaderFileName.value();
     }
 
-    std::string LoadShaderFile(const std::filesystem::path& path)
+    std::expected<std::string, ShaderLoadingError> LoadShaderFile(const std::filesystem::path& path)
     {
         auto file = std::ifstream{path};
         if (!file.is_open())
         {
-            throw std::runtime_error{"Failed to open shader file: " + path.string()};
+            return std::unexpected{ShaderLoadingError::FileOpenFailed};
         }
 
         auto stream = std::stringstream{};
@@ -54,9 +70,14 @@ namespace
 
 namespace ShaderSource
 {
-    std::string GetShaderSource(ShaderId shaderId, ShaderType shaderType)
+    std::expected<std::string, ShaderLoadingError> GetShaderSource(ShaderId shaderId, ShaderType shaderType)
     {
         const auto shaderFilePath = GetShaderFilePath(shaderId, shaderType);
-        return LoadShaderFile(shaderFilePath);
+        if (!shaderFilePath.has_value())
+        {
+            return std::unexpected{shaderFilePath.error()};
+        }
+
+        return LoadShaderFile(shaderFilePath.value());
     }
 }

@@ -15,6 +15,20 @@
 
 #include <glad/glad.h>
 #include <memory>
+#include <string>
+
+namespace
+{
+    std::string GetShaderSourceOrThrow(ShaderId shaderId, ShaderType shaderType)
+    {
+        const auto result = ShaderSource::GetShaderSource(shaderId, shaderType);
+        if (!result.has_value())
+        {
+            throw std::runtime_error{"Failed to load shader"};
+        }
+        return result.value();
+    }
+}
 
 class SsaoUpdaterTest : public ::testing::Test
 {
@@ -40,8 +54,8 @@ protected:
             GL_REPEAT
         );
 
-        ssaoShader = std::make_unique<Shader>(ShaderId::Ssao, ShaderSource::GetShaderSource(ShaderId::Ssao, ShaderType::Vertex), ShaderSource::GetShaderSource(ShaderId::Ssao, ShaderType::Fragment));
-        ssaoFinalShader = std::make_unique<Shader>(ShaderId::SsaoFinal, ShaderSource::GetShaderSource(ShaderId::SsaoFinal, ShaderType::Vertex), ShaderSource::GetShaderSource(ShaderId::SsaoFinal, ShaderType::Fragment));
+        ssaoShader = std::make_unique<Shader>(ShaderId::Ssao, GetShaderSourceOrThrow(ShaderId::Ssao, ShaderType::Vertex), GetShaderSourceOrThrow(ShaderId::Ssao, ShaderType::Fragment));
+        ssaoFinalShader = std::make_unique<Shader>(ShaderId::SsaoFinal, GetShaderSourceOrThrow(ShaderId::SsaoFinal, ShaderType::Vertex), GetShaderSourceOrThrow(ShaderId::SsaoFinal, ShaderType::Fragment));
     }
 
     std::unique_ptr<Context::GlfwWindow> window;

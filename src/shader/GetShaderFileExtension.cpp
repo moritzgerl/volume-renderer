@@ -1,7 +1,6 @@
 #include <shader/GetShaderFileExtension.h>
 
 #include <array>
-#include <stdexcept>
 
 namespace
 {
@@ -20,7 +19,7 @@ namespace
 
 namespace ShaderSource
 {
-    std::string_view GetShaderFileExtension(ShaderType shaderType)
+    std::expected<std::string_view, ShaderLoadingError> GetShaderFileExtension(ShaderType shaderType)
     {
         for (const auto& mapping : shaderFileExtensions)
         {
@@ -30,6 +29,6 @@ namespace ShaderSource
             }
         }
 
-        throw std::runtime_error{"Unknown shader type"};
+        return std::unexpected{ShaderLoadingError::UnknownShaderType};
     }
 }

@@ -10,9 +10,11 @@
 #ifndef GET_SHADER_SOURCE_H
 #define GET_SHADER_SOURCE_H
 
+#include <shader/ShaderLoadingError.h>
 #include <shader/ShaderId.h>
 #include <shader/ShaderType.h>
 
+#include <expected>
 #include <string>
 
 namespace ShaderSource
@@ -23,9 +25,9 @@ namespace ShaderSource
     *
     * @param shaderId The shader identifier (e.g., ShaderId::Volume)
     * @param shaderType The type of shader (ShaderType::Vertex or ShaderType::Fragment)
-    * @return The shader source code as a string
+    * @return The shader source code as a string on success, or a ShaderLoadingError on failure
     */
-    std::string GetShaderSource(ShaderId shaderId, ShaderType shaderType);
+    std::expected<std::string, ShaderLoadingError> GetShaderSource(ShaderId shaderId, ShaderType shaderType);
 }
 
 #endif

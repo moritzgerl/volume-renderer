@@ -9,6 +9,20 @@
 
 #include <glm/glm.hpp>
 #include <memory>
+#include <string>
+
+namespace
+{
+    std::string GetShaderSourceOrThrow(ShaderId shaderId, ShaderType shaderType)
+    {
+        const auto result = ShaderSource::GetShaderSource(shaderId, shaderType);
+        if (!result.has_value())
+        {
+            throw std::runtime_error{"Failed to load shader"};
+        }
+        return result.value();
+    }
+}
 
 class UpdateLightSourceModelMatrixInShaderTest : public ::testing::Test
 {
@@ -18,7 +32,7 @@ protected:
         window = std::make_unique<Context::GlfwWindow>();
         Context::InitGl();
 
-        shader = std::make_unique<Shader>(ShaderId::LightSource, ShaderSource::GetShaderSource(ShaderId::LightSource, ShaderType::Vertex), ShaderSource::GetShaderSource(ShaderId::LightSource, ShaderType::Fragment));
+        shader = std::make_unique<Shader>(ShaderId::LightSource, GetShaderSourceOrThrow(ShaderId::LightSource, ShaderType::Vertex), GetShaderSourceOrThrow(ShaderId::LightSource, ShaderType::Fragment));
     }
 
     std::unique_ptr<Context::GlfwWindow> window;
