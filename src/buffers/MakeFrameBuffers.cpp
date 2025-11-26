@@ -8,17 +8,6 @@
 
 namespace
 {
-    const FrameBuffer& GetFrameBuffer(const std::vector<FrameBuffer>& frameBuffers, FrameBufferId frameBufferId)
-    {
-        auto frameBufferIter = std::find_if(frameBuffers.cbegin(), frameBuffers.cend(),
-            [frameBufferId](const FrameBuffer& frameBuffer)
-        {
-            return frameBuffer.GetId() == frameBufferId;
-        }
-        );
-        return *frameBufferIter;
-    }
-
     FrameBuffer& GetFrameBuffer(std::vector<FrameBuffer>& frameBuffers, FrameBufferId frameBufferId)
     {
         auto frameBufferIter = std::find_if(frameBuffers.begin(), frameBuffers.end(),
@@ -55,13 +44,13 @@ namespace Factory
         ssaoInputFrameBuffer.Check();
         ssaoInputFrameBuffer.Unbind();
 
-        const auto& ssaoFrameBuffer = GetFrameBuffer(frameBuffers, FrameBufferId::Ssao);
+        auto& ssaoFrameBuffer = GetFrameBuffer(frameBuffers, FrameBufferId::Ssao);
         ssaoFrameBuffer.Bind();
         ssaoFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT0, textureStorage.GetElement(TextureId::Ssao));
         ssaoFrameBuffer.Check();
         ssaoFrameBuffer.Unbind();
 
-        const auto& ssaoBlurFrameBuffer = GetFrameBuffer(frameBuffers, FrameBufferId::SsaoBlur);
+        auto& ssaoBlurFrameBuffer = GetFrameBuffer(frameBuffers, FrameBufferId::SsaoBlur);
         ssaoBlurFrameBuffer.Bind();
         ssaoBlurFrameBuffer.AttachTexture(GL_COLOR_ATTACHMENT0, textureStorage.GetElement(TextureId::SsaoBlur));
         ssaoBlurFrameBuffer.Check();

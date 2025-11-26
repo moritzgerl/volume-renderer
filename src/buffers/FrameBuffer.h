@@ -45,7 +45,7 @@ public:
     * @param texture The texture to attach.
     * @return void
     */
-    void AttachTexture(unsigned int attachment, const Texture& texture) const;
+    void AttachTexture(unsigned int attachment, const Texture& texture);
 
     /**
     * Creates and attaches a renderbuffer to the framebuffer.

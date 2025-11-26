@@ -22,7 +22,7 @@ FrameBufferId FrameBuffer::GetId() const
     return m_frameBufferId;
 }
 
-void FrameBuffer::AttachTexture(GLenum attachment, const Texture& texture) const
+void FrameBuffer::AttachTexture(GLenum attachment, const Texture& texture)
 {
     glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, GL_TEXTURE_2D, texture.GetGlId(), 0);
 }
