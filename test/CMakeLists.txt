@@ -127,6 +127,14 @@ target_link_libraries(${TEST_EXECUTABLE_NAME}
     GTest::gmock
     VolumeRendererLib)
 
+# Post-build: Copy shaders directory next to the test executable
+add_custom_command(TARGET ${TEST_EXECUTABLE_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/src/shaders
+    $<TARGET_FILE_DIR:${TEST_EXECUTABLE_NAME}>/shaders
+    COMMENT "Copying shaders directory to test output"
+)
+
 add_test(NAME BuffersTest COMMAND ${TEST_EXECUTABLE_NAME})
 
 install(TARGETS ${TEST_EXECUTABLE_NAME}
@@ -135,3 +143,6 @@ install(TARGETS ${TEST_EXECUTABLE_NAME}
 
 # Install required DLLs to bin/test
 install(FILES $<TARGET_RUNTIME_DLLS:${TEST_EXECUTABLE_NAME}> DESTINATION bin/test)
+
+# Install shaders directory to bin/test
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/src/shaders DESTINATION bin/test)
