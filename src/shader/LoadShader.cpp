@@ -6,21 +6,32 @@
 #include <filesystem>
 #include <format>
 #include <fstream>
-#include <source_location>
 #include <sstream>
 #include <stdexcept>
 #include <string>
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 namespace
 {
     std::filesystem::path GetShadersDirectory()
     {
-        const auto currentSourceFileLocation = std::source_location::current();
-        auto currentSourceFilePath = std::filesystem::path{ currentSourceFileLocation.file_name()};
+        // Get the directory containing the executable
+        auto exePath = std::filesystem::path{};
 
-        // LoadShader.cpp is in src/shader/
-        // We want to go to src/shaders/
-        auto shadersDirectory = currentSourceFilePath.parent_path().parent_path() / "shaders";
+#ifdef _WIN32
+        char buffer[MAX_PATH];
+        GetModuleFileNameA(nullptr, buffer, MAX_PATH);
+        exePath = std::filesystem::path{buffer};
+#else
+        // For Unix-like systems
+        exePath = std::filesystem::canonical("/proc/self/exe");
+#endif
+
+        // Shaders directory is next to the executable
+        auto shadersDirectory = exePath.parent_path() / "shaders";
 
         return shadersDirectory;
     }
