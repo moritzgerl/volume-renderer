@@ -33,7 +33,9 @@ namespace
         const FrameBufferStorage& frameBufferStorage)
     {
         auto textures = std::vector<std::reference_wrapper<const Texture>>{};
+
         const auto& shader = shaderStorage.GetElement(ShaderId::SsaoInput);     // Dummy shader
+
         auto prepareFunction = [&gui, &inputHandler]()
         {
             const auto viewportX = static_cast<int>(gui.GetGuiWidth());
@@ -41,9 +43,11 @@ namespace
             glViewport(viewportX, 0, viewportWidth, inputHandler.GetWindowHeight());
             glDisable(GL_BLEND);
         };
+
         auto renderFunction = []()
         {
         };
+
         return 
         {
             RenderPassId::Setup,
@@ -66,10 +70,12 @@ namespace
         float viewportHeight
         )
     {
-        auto textures = std::vector<std::reference_wrapper<const Texture>>{};
-        textures.push_back(std::cref(textureStorage.GetElement(TextureId::VolumeData)));
-        textures.push_back(std::cref(textureStorage.GetElement(TextureId::TransferFunction)));
-
+        auto textures = std::vector<std::reference_wrapper<const Texture>>
+        {
+            std::cref(textureStorage.GetElement(TextureId::VolumeData)),
+            std::cref(textureStorage.GetElement(TextureId::TransferFunction))
+        };
+        
         const auto& shader = shaderStorage.GetElement(ShaderId::Volume);
 
         auto prepareFunction = [&camera, &guiParameters, &shader, viewportWidth, viewportHeight]()
@@ -106,7 +112,7 @@ namespace
         float viewportWidth,
         float viewportHeight)
     {
-        std::vector<std::reference_wrapper<const Texture>> textures;
+        auto textures = std::vector<std::reference_wrapper<const Texture>>{};
 
         const auto& shader = shaderStorage.GetElement(ShaderId::SsaoInput);
 
@@ -142,11 +148,12 @@ namespace
         float viewportWidth,
         float viewportHeight)
     {
-        std::vector<std::reference_wrapper<const Texture>> textures;
-        // TODO use { }
-        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoPosition)));
-        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoNormal)));
-        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoNoise)));
+        auto textures = std::vector<std::reference_wrapper<const Texture>>
+        {
+            std::cref(textureStorage.GetElement(TextureId::SsaoPosition)),
+            std::cref(textureStorage.GetElement(TextureId::SsaoNormal)),
+            std::cref(textureStorage.GetElement(TextureId::SsaoNoise))
+        };
 
         const auto& shader = shaderStorage.GetElement(ShaderId::Ssao);
 
@@ -178,9 +185,10 @@ namespace
         const FrameBufferStorage& frameBufferStorage,
         const ScreenQuad& screenQuad)
     {
-        std::vector<std::reference_wrapper<const Texture>> textures;
-        // TODO use { }
-        textures.push_back(std::cref(textureStorage.GetElement(TextureId::Ssao)));
+        auto textures = std::vector<std::reference_wrapper<const Texture>>
+        {
+            std::cref(textureStorage.GetElement(TextureId::Ssao))
+        };
 
         auto prepareFunction = []()
         {
@@ -210,13 +218,14 @@ namespace
         const FrameBufferStorage& frameBufferStorage,
         const ScreenQuad& screenQuad)
     {
-        std::vector<std::reference_wrapper<const Texture>> textures;
-        // TODO use { }
-        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoPosition)));
-        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoNormal)));
-        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoAlbedo)));
-        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoPointLightsContribution)));
-        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoBlur)));
+        auto textures = std::vector<std::reference_wrapper<const Texture>>
+        {
+            std::cref(textureStorage.GetElement(TextureId::SsaoPosition)),
+            std::cref(textureStorage.GetElement(TextureId::SsaoNormal)),
+            std::cref(textureStorage.GetElement(TextureId::SsaoAlbedo)),
+            std::cref(textureStorage.GetElement(TextureId::SsaoPointLightsContribution)),
+            std::cref(textureStorage.GetElement(TextureId::SsaoBlur))
+        };
 
         const auto& shader = shaderStorage.GetElement(ShaderId::SsaoFinal);
 
@@ -252,7 +261,7 @@ namespace
         float viewportWidth,
         float viewportHeight)
     {
-        std::vector<std::reference_wrapper<const Texture>> textures;
+        auto textures = std::vector<std::reference_wrapper<const Texture>>{};
 
         const auto& shader = shaderStorage.GetElement(ShaderId::LightSource);
 
@@ -293,9 +302,10 @@ namespace
         const FrameBufferStorage& frameBufferStorage,
         const ScreenQuad& screenQuad)
     {
-        std::vector<std::reference_wrapper<const Texture>> textures;
-        // TODO use { }
-        textures.push_back(std::cref(textureStorage.GetElement(TextureId::SsaoBlur)));
+        auto textures = std::vector<std::reference_wrapper<const Texture>>        
+        {
+            std::cref(textureStorage.GetElement(TextureId::SsaoBlur))
+        };        
 
         const auto& shader = shaderStorage.GetElement(ShaderId::DebugQuad);
 
@@ -347,11 +357,12 @@ RenderPasses Factory::MakeRenderPasses(const Gui& gui, const InputHandler& input
     {
         MakeSetupRenderPass(gui, inputHandler, shaderStorage, frameBufferStorage),
         MakeRaycastingRenderPass(camera, guiParameters, textureStorage, shaderStorage, frameBufferStorage, unitCube, viewportWidth, viewportHeight),
-        //MakeSsaoInputRenderPass(camera, shaderStorage, frameBufferStorage, unitCube, viewportWidth, viewportHeight),
-        //MakeSsaoRenderPass(camera, textureStorage, shaderStorage, frameBufferStorage, screenQuad, viewportWidth, viewportHeight),
-        //MakeSsaoBlurRenderPass(textureStorage, shaderStorage, frameBufferStorage, screenQuad),
-        //MakeSsaoFinalRenderPass(guiParameters, textureStorage, shaderStorage, frameBufferStorage, screenQuad),
-        //MakeLightSourceRenderPass(camera, guiParameters, shaderStorage, frameBufferStorage, viewportWidth, viewportHeight),
-        //MakeDebugRenderPass(displayProperties, textureStorage, shaderStorage, frameBufferStorage, screenQuad)
+        // SSAO, light source, and debug passes are currently disabled
+        // MakeSsaoInputRenderPass(camera, shaderStorage, frameBufferStorage, unitCube, viewportWidth, viewportHeight),
+        // MakeSsaoRenderPass(camera, textureStorage, shaderStorage, frameBufferStorage, screenQuad, viewportWidth, viewportHeight),
+        // MakeSsaoBlurRenderPass(textureStorage, shaderStorage, frameBufferStorage, screenQuad),
+        // MakeSsaoFinalRenderPass(guiParameters, textureStorage, shaderStorage, frameBufferStorage, screenQuad),
+        // MakeLightSourceRenderPass(camera, guiParameters, shaderStorage, frameBufferStorage, viewportWidth, viewportHeight),
+        // MakeDebugRenderPass(displayProperties, textureStorage, shaderStorage, frameBufferStorage, screenQuad)
     };
 }
