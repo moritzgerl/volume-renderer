@@ -17,7 +17,7 @@
 #include <string>
 
 namespace
-{
+{   
     std::string GetErrorMessage(ShaderLoadingError error)
     {
         switch (error)
@@ -44,6 +44,11 @@ namespace
         return result.value();
     }
 
+    const Shader&& CreateShader(ShaderId shaderId)
+    {
+        return { shaderId, LoadShaderOrExit(shaderId, ShaderType::Vertex), LoadShaderOrExit(shaderId, ShaderType::Fragment) };
+    }
+
     const Shader& GetShader(const std::vector<Shader>& shaders, ShaderId shaderId)
     {
         auto shaderIter = std::find_if(shaders.cbegin(), shaders.cend(),
@@ -66,13 +71,13 @@ namespace Factory
     {
         auto shaders = std::vector<Shader>
         {
-            { ShaderId::Volume, LoadShaderOrExit(ShaderId::Volume, ShaderType::Vertex), LoadShaderOrExit(ShaderId::Volume, ShaderType::Fragment) },
-            { ShaderId::SsaoInput, LoadShaderOrExit(ShaderId::SsaoInput, ShaderType::Vertex), LoadShaderOrExit(ShaderId::SsaoInput, ShaderType::Fragment) },
-            { ShaderId::Ssao, LoadShaderOrExit(ShaderId::Ssao, ShaderType::Vertex), LoadShaderOrExit(ShaderId::Ssao, ShaderType::Fragment) },
-            { ShaderId::SsaoBlur, LoadShaderOrExit(ShaderId::SsaoBlur, ShaderType::Vertex), LoadShaderOrExit(ShaderId::SsaoBlur, ShaderType::Fragment) },
-            { ShaderId::SsaoFinal, LoadShaderOrExit(ShaderId::SsaoFinal, ShaderType::Vertex), LoadShaderOrExit(ShaderId::SsaoFinal, ShaderType::Fragment) },
-            { ShaderId::DebugQuad, LoadShaderOrExit(ShaderId::DebugQuad, ShaderType::Vertex), LoadShaderOrExit(ShaderId::DebugQuad, ShaderType::Fragment) },
-            { ShaderId::LightSource, LoadShaderOrExit(ShaderId::LightSource, ShaderType::Vertex), LoadShaderOrExit(ShaderId::LightSource, ShaderType::Fragment) }
+            CreateShader(ShaderId::Volume),
+            CreateShader(ShaderId::SsaoInput),
+            CreateShader(ShaderId::Ssao),
+            CreateShader(ShaderId::SsaoBlur),
+            CreateShader(ShaderId::SsaoFinal),
+            CreateShader(ShaderId::DebugQuad),
+            CreateShader(ShaderId::LightSource)
         };
         
         const auto& volumeTexture = textureStorage.GetElement(TextureId::VolumeData);
