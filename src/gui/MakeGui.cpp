@@ -5,9 +5,10 @@ namespace Factory
 {
     Gui MakeGui(Storage& storage)
     {
-        return Gui(
+        return Gui {
             storage.GetWindow().GetWindow(),
             storage.GetGuiParameters(),
-            storage.GetGuiUpdateFlags());
+            storage.GetGuiUpdateFlags()
+		};
     }
 }

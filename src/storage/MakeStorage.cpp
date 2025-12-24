@@ -108,7 +108,7 @@ namespace Factory
         auto shaderStorage = ShaderStorage{MakeShaders(guiParameters, ssaoKernel, textureStorage)};
         auto frameBufferStorage = FrameBufferStorage{MakeFrameBuffers(textureStorage)};
 
-        return Storage(
+        return Storage {
             std::move(camera),
             std::move(displayProperties),
             std::move(guiParameters),
@@ -121,6 +121,6 @@ namespace Factory
             std::move(unitCube),
             std::move(volumeData),
             std::move(window)
-        );
+        };
     }
 }

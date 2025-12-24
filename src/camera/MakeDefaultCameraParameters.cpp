@@ -3,11 +3,10 @@
 
 CameraParameters Factory::MakeDefaultCameraParameters()
 {
-    // TODO use ctor
-    CameraParameters cameraParameters;
-    cameraParameters.position = Config::defaultCameraPosition;
-    cameraParameters.lookAt = Config::defaultCameraLookAt;
-    cameraParameters.up = Config::defaultCameraUp;
-    cameraParameters.zoom = Config::defaultCameraZoom;
-    return cameraParameters;
+    return CameraParameters	{
+        Config::defaultCameraPosition,
+        Config::defaultCameraLookAt,
+        Config::defaultCameraUp,
+        Config::defaultCameraZoom
+    };
 }

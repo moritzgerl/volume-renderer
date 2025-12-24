@@ -3,7 +3,7 @@
 
 DisplayProperties Factory::MakeDisplayProperties()
 {
-    DisplayProperties displayProperties;
-    displayProperties.showSsaoMap = false;
-    return displayProperties;
+    return DisplayProperties {
+        false
+    };
 }

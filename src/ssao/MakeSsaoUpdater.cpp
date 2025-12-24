@@ -4,11 +4,12 @@
 
 SsaoUpdater Factory::MakeSsaoUpdater(Storage& storage)
 {
-    return SsaoUpdater(
+    return SsaoUpdater {
         storage.GetGuiUpdateFlags(),
         storage.GetGuiParameters(),
         storage.GetSsaoKernel(),
         storage.GetTexture(TextureId::SsaoNoise),
         storage.GetShader(ShaderId::Ssao),
-        storage.GetShader(ShaderId::SsaoFinal));
+        storage.GetShader(ShaderId::SsaoFinal)
+	};
 }

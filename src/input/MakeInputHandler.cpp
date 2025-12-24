@@ -3,9 +3,10 @@
 
 InputHandler Factory::MakeInputHandler(Storage& storage)
 {
-    return InputHandler(
+    return InputHandler {
         storage.GetWindow().GetWindow(),
         storage.GetCamera(),
         storage.GetDisplayProperties(),
-        storage.GetGuiParameters());
+        storage.GetGuiParameters()
+	};
 }

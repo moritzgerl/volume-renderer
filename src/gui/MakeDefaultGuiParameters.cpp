@@ -3,23 +3,18 @@
 
 GuiParameters Factory::MakeDefaultGuiParameters()
 {
-    GuiParameters guiParameters;
-    guiParameters.transferFunction = Config::defaultTransferFunction;
-    guiParameters.showLightSources = Config::showLightSourceByDefault;
-    guiParameters.directionalLight = Config::defaultDirectionalLight;
-    guiParameters.ssaoKernelSize = Config::defaultSsaoKernelSize;
-    guiParameters.ssaoNoiseSize = Config::defaultSsaoNoiseSize;
-    guiParameters.ssaoRadius = Config::defaultSsaoRadius;
-    guiParameters.ssaoBias = Config::defaultSsaoBias;
-    guiParameters.enableSsao = true;
-    guiParameters.trackballInvertYAxis = Config::defaultTrackballInvertYAxis;
-    guiParameters.trackballSensitivity = Config::defaultTrackballSensitivity;
-    guiParameters.raycastingDensityMultiplier = Config::defaultRaycastingDensityMultiplier;
-
-    for (unsigned int i = 0; i < Config::numPointLights; ++i)
-    {
-        guiParameters.pointLights.push_back(Config::defaultPointLights[i]);
-    }
-
-    return guiParameters;
+    return GuiParameters {
+        Config::defaultTransferFunction,
+        Config::showLightSourceByDefault,
+        Config::defaultDirectionalLight,
+        Config::defaultPointLights,
+        Config::defaultSsaoKernelSize,
+        Config::defaultSsaoNoiseSize,
+        Config::defaultSsaoRadius,
+        Config::defaultSsaoBias,
+        true,
+        Config::defaultTrackballInvertYAxis,
+        Config::defaultTrackballSensitivity,
+        Config::defaultRaycastingDensityMultiplier
+    };
 }

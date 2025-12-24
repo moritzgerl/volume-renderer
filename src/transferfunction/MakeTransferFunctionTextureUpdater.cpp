@@ -6,9 +6,9 @@
 
 TransferFunctionTextureUpdater Factory::MakeTransferFunctionTextureUpdater(Storage& storage)
 {
-    return TransferFunctionTextureUpdater(
+    return TransferFunctionTextureUpdater {
         storage.GetGuiUpdateFlags(),
         storage.GetGuiParameters().transferFunction,
         storage.GetTexture(TextureId::TransferFunction)
-    );
+    };
 }

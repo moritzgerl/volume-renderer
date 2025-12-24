@@ -27,7 +27,7 @@ Gui::Gui(const Context::WindowPtr& window, GuiParameters& guiParameters, GuiUpda
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
         
-    ImFontConfig fontConfig;
+    ImFontConfig fontConfig{};
     fontConfig.SizePixels = 16.0f;
     fontConfig.OversampleH = 4;
     fontConfig.OversampleV = 4;
@@ -74,8 +74,8 @@ void Gui::Draw()
     }
 
     // Main GUI window - fixed to left side, full height, resizable horizontally
-    ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(m_guiWidth, static_cast<float>(windowHeight)), ImGuiCond_Always);
+    ImGui::SetNextWindowPos(ImVec2{0, 0}, ImGuiCond_Always);
+    ImGui::SetNextWindowSize(ImVec2{m_guiWidth, static_cast<float>(windowHeight)}, ImGuiCond_Always);
 
     ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar;
 
@@ -182,19 +182,19 @@ void Gui::Draw()
         ImGui::PushStyleColor(ImGuiCol_Button, bgColor);
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, bgColor);
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, bgColor);
-        ImGui::Button("##TransferFunctionTopSpacer", ImVec2(-1, 8.0f));
+        ImGui::Button("##TransferFunctionTopSpacer", ImVec2{-1, 8.0f});
         ImGui::PopStyleColor(3);
 
         // Child window for the transfer function
-        ImGui::BeginChild("TransferFunctionContent", ImVec2(0, m_transferFunctionHeight), true, ImGuiWindowFlags_None);
+        ImGui::BeginChild("TransferFunctionContent", ImVec2{0, m_transferFunctionHeight}, true, ImGuiWindowFlags_None);
         m_transferFunctionGui.Update();
         ImGui::EndChild();
 
         // Resize handle at the bottom
         ImGui::PushStyleColor(ImGuiCol_Button, bgColor);
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.6f, 0.6f, 0.6f, 0.7f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{0.6f, 0.6f, 0.6f, 0.7f});
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, bgColor);
-        ImGui::Button("##TransferFunctionResize", ImVec2(-1, 8.0f));
+        ImGui::Button("##TransferFunctionResize", ImVec2{-1, 8.0f});
         bool isResizing = ImGui::IsItemActive();
         ImGui::PopStyleColor(3);
 
@@ -211,8 +211,8 @@ void Gui::Draw()
             // Draw 1px blue line when actively resizing (matching ImGui window resize visual)
             ImVec2 buttonMin = ImGui::GetItemRectMin();
             ImVec2 buttonMax = ImGui::GetItemRectMax();
-            ImVec2 lineStart = ImVec2(buttonMin.x, buttonMin.y + 4.0f);
-            ImVec2 lineEnd = ImVec2(buttonMax.x, buttonMin.y + 4.0f);
+            ImVec2 lineStart = ImVec2{buttonMin.x, buttonMin.y + 4.0f};
+            ImVec2 lineEnd = ImVec2{buttonMax.x, buttonMin.y + 4.0f};
             ImVec4 resizeGripColor = ImGui::GetStyleColorVec4(ImGuiCol_ResizeGripActive);
             ImGui::GetWindowDrawList()->AddLine(lineStart, lineEnd, ImGui::ColorConvertFloat4ToU32(resizeGripColor), 1.0f);
         }

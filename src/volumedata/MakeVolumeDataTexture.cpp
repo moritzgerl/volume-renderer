@@ -65,7 +65,7 @@ namespace Factory
                 break;
         }
 
-        return Texture(
+        return Texture {
             textureId,
             textureUnit,
             metadata.GetWidth(),
@@ -77,6 +77,6 @@ namespace Factory
             GL_LINEAR,
             GL_CLAMP_TO_EDGE,
             volumeData.GetDataPtr()
-        );
+        };
     }
 }
