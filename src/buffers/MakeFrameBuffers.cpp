@@ -24,13 +24,12 @@ namespace Factory
 {
     std::vector<FrameBuffer> MakeFrameBuffers(const TextureStorage& textureStorage)
     {
-        std::vector<FrameBuffer> frameBuffers =
-        {
-            { FrameBufferId::Default },
-            { FrameBufferId::SsaoInput },
-            { FrameBufferId::Ssao },
-            { FrameBufferId::SsaoBlur }
-        };
+        std::vector<FrameBuffer> frameBuffers;
+        frameBuffers.reserve(4);
+        frameBuffers.emplace_back(FrameBufferId::Default);
+        frameBuffers.emplace_back(FrameBufferId::SsaoInput);
+        frameBuffers.emplace_back(FrameBufferId::Ssao);
+        frameBuffers.emplace_back(FrameBufferId::SsaoBlur);
 
         auto& ssaoInputFrameBuffer = GetFrameBuffer(frameBuffers, FrameBufferId::SsaoInput);
         ssaoInputFrameBuffer.Bind();

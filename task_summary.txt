@@ -1,0 +1,5 @@
+Task Completed.
+1. RAII Violations: Fixed in Shader, Texture, FrameBuffer, and GlfwWindow.
+2. Uniform Initialization: Applied across factory functions and default parameter generation.
+3. Build Errors: Resolved copy constructor issues by refactoring MakeTextures, MakeShaders, and MakeFrameBuffers to use move semantics.
+4. Verification: User confirmed the build succeeds.

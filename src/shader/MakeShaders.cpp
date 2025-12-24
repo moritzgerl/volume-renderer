@@ -69,16 +69,15 @@ namespace Factory
         const TextureStorage& textureStorage
     )
     {
-        auto shaders = std::vector<Shader>
-        {
-            CreateShader(ShaderId::Volume),
-            CreateShader(ShaderId::SsaoInput),
-            CreateShader(ShaderId::Ssao),
-            CreateShader(ShaderId::SsaoBlur),
-            CreateShader(ShaderId::SsaoFinal),
-            CreateShader(ShaderId::DebugQuad),
-            CreateShader(ShaderId::LightSource)
-        };
+        auto shaders = std::vector<Shader>{};
+        shaders.reserve(7);
+        shaders.push_back(CreateShader(ShaderId::Volume));
+        shaders.push_back(CreateShader(ShaderId::SsaoInput));
+        shaders.push_back(CreateShader(ShaderId::Ssao));
+        shaders.push_back(CreateShader(ShaderId::SsaoBlur));
+        shaders.push_back(CreateShader(ShaderId::SsaoFinal));
+        shaders.push_back(CreateShader(ShaderId::DebugQuad));
+        shaders.push_back(CreateShader(ShaderId::LightSource));
         
         const auto& volumeTexture = textureStorage.GetElement(TextureId::VolumeData);
         const auto& transferFunctionTexture = textureStorage.GetElement(TextureId::TransferFunction);
