@@ -37,6 +37,13 @@ public:
     * @param frameBufferId The ID identifying this framebuffer.
     */
     FrameBuffer(FrameBufferId frameBufferId);
+
+    ~FrameBuffer();
+    FrameBuffer(const FrameBuffer&) = delete;
+    FrameBuffer& operator=(const FrameBuffer&) = delete;
+    FrameBuffer(FrameBuffer&&) noexcept;
+    FrameBuffer& operator=(FrameBuffer&&) noexcept;
+
     FrameBufferId GetId() const;
 
     /**

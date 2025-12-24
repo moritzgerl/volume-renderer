@@ -60,6 +60,36 @@ Shader::Shader(ShaderId shaderId, std::string_view vertexSource, std::string_vie
     }
 }
 
+Shader::~Shader()
+{
+    if (m_programId != 0)
+    {
+        glDeleteProgram(m_programId);
+    }
+}
+
+Shader::Shader(Shader&& other) noexcept
+    : m_shaderId{other.m_shaderId}
+    , m_programId{other.m_programId}
+{
+    other.m_programId = 0;
+}
+
+Shader& Shader::operator=(Shader&& other) noexcept
+{
+    if (this != &other)
+    {
+        if (m_programId != 0)
+        {
+            glDeleteProgram(m_programId);
+        }
+        m_shaderId = other.m_shaderId;
+        m_programId = other.m_programId;
+        other.m_programId = 0;
+    }
+    return *this;
+}
+
 ShaderId Shader::GetId() const
 {
     return m_shaderId;

@@ -49,6 +49,12 @@ public:
     */
     Shader(ShaderId shaderId, std::string_view vertexSource, std::string_view fragmentSource, std::string_view geometrySource = "");
 
+    ~Shader();
+    Shader(const Shader&) = delete;
+    Shader& operator=(const Shader&) = delete;
+    Shader(Shader&&) noexcept;
+    Shader& operator=(Shader&&) noexcept;
+
     ShaderId GetId() const;
 
     /**

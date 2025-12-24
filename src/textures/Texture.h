@@ -62,6 +62,12 @@ public:
     */
     Texture(TextureId textureId, unsigned int textureUnit, unsigned int width, unsigned int height, unsigned int depth, unsigned int internalFormat, unsigned int format, unsigned int type, unsigned int filterParameter, unsigned int wrapParameter, const void* data);
 
+    ~Texture();
+    Texture(const Texture&) = delete;
+    Texture& operator=(const Texture&) = delete;
+    Texture(Texture&&) noexcept;
+    Texture& operator=(Texture&&) noexcept;
+
     /**
     * Adds a border to the texture for border color sampling.
     * @return void

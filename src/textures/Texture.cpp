@@ -50,6 +50,42 @@ Texture::Texture(TextureId textureId, GLenum textureUnit, unsigned int width, un
     Create3D(width, height, depth, internalFormat, format, type, filterParameter, wrapParameter, data);
 }
 
+Texture::~Texture()
+{
+    if (m_glTextureId != 0)
+    {
+        glDeleteTextures(1, &m_glTextureId);
+    }
+}
+
+Texture::Texture(Texture&& other) noexcept
+    : m_textureId{other.m_textureId}
+    , m_textureType{other.m_textureType}
+    , m_glTextureId{other.m_glTextureId}
+    , m_textureUnitEnum{other.m_textureUnitEnum}
+    , m_textureUnitInt{other.m_textureUnitInt}
+{
+    other.m_glTextureId = 0;
+}
+
+Texture& Texture::operator=(Texture&& other) noexcept
+{
+    if (this != &other)
+    {
+        if (m_glTextureId != 0)
+        {
+            glDeleteTextures(1, &m_glTextureId);
+        }
+        m_textureId = other.m_textureId;
+        m_textureType = other.m_textureType;
+        m_glTextureId = other.m_glTextureId;
+        m_textureUnitEnum = other.m_textureUnitEnum;
+        m_textureUnitInt = other.m_textureUnitInt;
+        other.m_glTextureId = 0;
+    }
+    return *this;
+}
+
 void Texture::Create1D(unsigned int width, GLenum internalFormat, GLenum format, GLenum type, GLenum filterParameter, GLenum wrapParameter, const void* data)
 {
     glGenTextures(1, &m_glTextureId);

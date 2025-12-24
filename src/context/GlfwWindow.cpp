@@ -32,6 +32,7 @@ namespace Context
 
     void GlfwWindow::Shutdown()
     {
+        m_window.reset();
         glfwTerminate();
     }
 }

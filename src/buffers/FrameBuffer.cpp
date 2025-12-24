@@ -5,6 +5,7 @@
 #include <glad/glad.h>
 
 #include <iostream>
+#include <utility>
 
 FrameBuffer::FrameBuffer(FrameBufferId frameBufferId)
     : m_frameBufferId{frameBufferId}
@@ -15,6 +16,48 @@ FrameBuffer::FrameBuffer(FrameBufferId frameBufferId)
     {
         glGenFramebuffers(1, &m_frameBufferObject);
     }
+}
+
+FrameBuffer::~FrameBuffer()
+{
+    if (m_frameBufferObject != 0)
+    {
+        glDeleteFramebuffers(1, &m_frameBufferObject);
+    }
+    if (!m_renderBufferObjects.empty())
+    {
+        glDeleteRenderbuffers(static_cast<GLsizei>(m_renderBufferObjects.size()), m_renderBufferObjects.data());
+    }
+}
+
+FrameBuffer::FrameBuffer(FrameBuffer&& other) noexcept
+    : m_frameBufferId{other.m_frameBufferId}
+    , m_frameBufferObject{other.m_frameBufferObject}
+    , m_renderBufferObjects{std::move(other.m_renderBufferObjects)}
+{
+    other.m_frameBufferObject = 0;
+}
+
+FrameBuffer& FrameBuffer::operator=(FrameBuffer&& other) noexcept
+{
+    if (this != &other)
+    {
+        if (m_frameBufferObject != 0)
+        {
+            glDeleteFramebuffers(1, &m_frameBufferObject);
+        }
+        if (!m_renderBufferObjects.empty())
+        {
+            glDeleteRenderbuffers(static_cast<GLsizei>(m_renderBufferObjects.size()), m_renderBufferObjects.data());
+        }
+
+        m_frameBufferId = other.m_frameBufferId;
+        m_frameBufferObject = other.m_frameBufferObject;
+        m_renderBufferObjects = std::move(other.m_renderBufferObjects);
+
+        other.m_frameBufferObject = 0;
+    }
+    return *this;
 }
 
 FrameBufferId FrameBuffer::GetId() const
