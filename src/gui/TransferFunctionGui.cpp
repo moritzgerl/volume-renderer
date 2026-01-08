@@ -4,6 +4,8 @@
 #include <transferfunction/InterpolateTransferFunction.h>
 #include <transferfunction/TransferFunction.h>
 
+#include <glm/gtc/type_ptr.hpp>
+
 #include <imgui.h>
 #include <algorithm>
 #include <cmath>
@@ -18,7 +20,11 @@ namespace
 
 namespace Constants
 {
+    constexpr unsigned int gridResolution = 10;
+    constexpr unsigned int gradientSteps = 256;
+    constexpr unsigned int numOpacityCurveSegments = 100;
     constexpr float interactionRadius = 15.0f;
+    constexpr float minPointDistance = 0.001f;
 }
 
 TransferFunctionGui::TransferFunctionGui(TransferFunction& transferFunction, GuiUpdateFlags& guiUpdateFlags)
@@ -132,12 +138,12 @@ void TransferFunctionGui::HandleDrag()
 
             if (draggedIndex > 0)
             {
-                minValue = m_transferFunction[draggedIndex - 1].value + 0.001f;
+                minValue = m_transferFunction[draggedIndex - 1].value + Constants::minPointDistance;
             }
 
             if (draggedIndex < m_numActivePoints - 1)
             {
-                maxValue = m_transferFunction[draggedIndex + 1].value - 0.001f;
+                maxValue = m_transferFunction[draggedIndex + 1].value - Constants::minPointDistance;
             }
 
             point.value = std::clamp(newValue, minValue, maxValue);
@@ -198,26 +204,25 @@ void TransferFunctionGui::DrawBackground(ImDrawList& drawList)
 
 void TransferFunctionGui::DrawGrid(ImDrawList& drawList)
 {
-    for (auto i = 0; i <= 10; ++i)
+    for (auto i = 0; i <= Constants::gridResolution; ++i)
     {
-        const auto y = m_plotPos.y + (m_plotSize.y / 10.0f) * i;
+        const auto y = m_plotPos.y + (m_plotSize.y / static_cast<float>(Constants::gridResolution)) * i;
         drawList.AddLine(ImVec2(m_plotPos.x, y), ImVec2(m_plotPos.x + m_plotSize.x, y), IM_COL32(80, 80, 80, 100));
 
-        const auto x = m_plotPos.x + (m_plotSize.x / 10.0f) * i;
+        const auto x = m_plotPos.x + (m_plotSize.x / static_cast<float>(Constants::gridResolution)) * i;
         drawList.AddLine(ImVec2(x, m_plotPos.y), ImVec2(x, m_plotPos.y + m_plotSize.y), IM_COL32(80, 80, 80, 100));
     }
 }
 
 void TransferFunctionGui::DrawColorGradient(ImDrawList& drawList)
 {
-    const auto gradientSteps = 256;
     const auto activePoints = std::span{m_transferFunction.GetControlPoints().data(), m_numActivePoints};
-    auto gradientIndices = std::views::iota(0, gradientSteps - 1);
+    auto gradientIndices = std::views::iota(static_cast<unsigned int>(0), Constants::gradientSteps - 1);
 
     std::ranges::for_each(gradientIndices, [&](auto i)
     {
-        const auto t = static_cast<float>(i) / (gradientSteps - 1);
-        const auto nextT = static_cast<float>(i + 1) / (gradientSteps - 1);
+        const auto t = static_cast<float>(i) / (Constants::gradientSteps - 1);
+        const auto nextT = static_cast<float>(i + 1) / (Constants::gradientSteps - 1);
 
         const auto rgba = InterpolateTransferFunction(t, activePoints);
         const auto color = glm::vec3{rgba.r, rgba.g, rgba.b};
@@ -239,13 +244,12 @@ void TransferFunctionGui::DrawOpacityCurve(ImDrawList& drawList)
         return;
     }
 
-    const auto totalSegments = 100;
     const auto activePoints = std::span{m_transferFunction.GetControlPoints().data(), m_numActivePoints};
 
-    for (auto seg = 0; seg < totalSegments; ++seg)
+    for (auto seg = 0; seg < Constants::numOpacityCurveSegments; ++seg)
     {
-        const auto value0 = static_cast<float>(seg) / totalSegments;
-        const auto value1 = static_cast<float>(seg + 1) / totalSegments;
+        const auto value0 = static_cast<float>(seg) / Constants::numOpacityCurveSegments;
+        const auto value1 = static_cast<float>(seg + 1) / Constants::numOpacityCurveSegments;
 
         const auto rgba0 = InterpolateTransferFunction(value0, activePoints);
         const auto rgba1 = InterpolateTransferFunction(value1, activePoints);
@@ -310,7 +314,7 @@ void TransferFunctionGui::DrawColorPicker()
             size_t index = m_colorPickerPointIndex.value();
             auto& point = m_transferFunction[index];
             ImGui::Text("Control Point %zu Color", index);
-            if (ImGui::ColorPicker3("##picker", (float*)&point.color, colorPickerFlags))
+            if (ImGui::ColorPicker3("##picker", glm::value_ptr(point.color), colorPickerFlags))
             {
                 m_guiUpdateFlags.transferFunctionChanged = true;
             }
